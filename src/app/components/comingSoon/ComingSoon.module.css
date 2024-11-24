@@ -1,0 +1,49 @@
+.fullPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #FFF1DB;
+  font-family: Arial, sans-serif;
+  color: #536493;
+  margin: 0;
+}
+
+.content {
+  text-align: center;
+  border-radius: 10px;
+  padding: 40px;
+  width: 90%;
+  max-width: 800px;
+  background-color: #fef6e6;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 4rem; /* Large title */
+  font-weight: bold;
+  color: #EF5A6F;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #536493;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #536493;
+  margin-bottom: 30px;
+}
+
+.footer {
+  font-size: 1.2rem;
+  color: #EF5A6F;
+}
+
+.rocket {
+  font-size: 1.5rem;
+}
