@@ -1,8 +1,6 @@
 
 ## Budget Wise
 
-### Coming Soon
-
 We're working hard to bring you BudgetWise — your smart personal budget management app.
 
 BudgetWise helps you track your expenses, manage your income, and reach your financial goals with ease.
