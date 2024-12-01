@@ -43,14 +43,23 @@
     margin: 10px;
     padding: 10px 20px;
     border: none;
-    background: #0070f3;
-    color: #fff;
+    /* background: #0070f3; */
+    /* color: #fff; */
     border-radius: 5px;
     cursor: pointer;
 }
 
-.statBoxWithImage {
-    background-image: url('../7.jpg');
+.statBoxWithImage7 {
+    background-image: url('/7.jpg');
     background-size: cover;
-    /* background-position: center; */
+}
+
+.statBoxWithImage8 {
+    background-image: url('/8.jpg');
+    background-size: cover;
+}
+
+.statBoxWithImage9 {
+    background-image: url('/9.jpg');
+    background-size: cover;
 }
