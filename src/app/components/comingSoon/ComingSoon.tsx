@@ -14,6 +14,9 @@ export default function ComingSoon() {
         <p className={styles.footer}>
           Stay tuned for updates! <span className={styles.rocket}>&#xf18b;</span>
         </p>
+        <a href="https://www.canva.com/design/DAGXYdPTSVA/saXojUikEOEzLCwhoIERug/view?mode=prototype" target="_blank" rel="noopener noreferrer">
+  לחץ כאן לעיצוב
+</a>
       </div>
     </div>
   );
