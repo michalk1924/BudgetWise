@@ -104,6 +104,30 @@ export async function deleteDocument(client: any, collection: string, documentId
     }
 }
 
+export async function getUserByEmail(client: any, email: string) {
+    try {
+        const db = client.db(process.env.DB_NAME);
+        const user = await db.collection('users').findOne({ email: email });
+        return user;
+    }
+    catch (error) {
+        console.error('Error getting user by email:', error);
+        return null;
+    }
+}
+
+export async function getPassword(client: any, user_id: string) {
+    try {
+        const db = client.db(process.env.DB_NAME);
+        const user = await db.collection('passwords').findOne({ user_id: user_id });
+        return user;
+    }
+    catch (error) {
+        console.error('Error getting user by email:', error);
+        return null;
+    }
+}
+
 export async function closeDatabase() {
     if (client) {
         await client.close();
