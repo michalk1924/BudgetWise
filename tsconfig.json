@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/test/test.js"  ],
+, "src/test/test.js", "src/consts/colors.ts"  ],
   "exclude": [
     "node_modules"
   ]

@@ -17,15 +17,27 @@ export async function connectDatabase() {
     return clientPromise;
 }
 
-export async function getDocuments(client: MongoClient
-    , collection: string, filter: object = {}) {
+export async function getDocuments(client: MongoClient, collection: string, filter: object = {}) {
     try {
         const db = client.db(process.env.DB_NAME);
         const documents = await db.collection(collection).find(filter).toArray();
+        console.log(documents);
         return documents;
     }
     catch (error) {
         console.error(`Error getting documents: ${error}`);
+        throw error;
+    }
+}
+
+export async function getDocumentById(client: MongoClient, collection: string, id: string) {
+    try {
+        const db = client.db(process.env.DB_NAME);
+        const document = await db.collection(collection).findOne({ _id: new ObjectId(id) });
+        return document;
+    }
+    catch (error) {
+        console.error(`Error getting document by ID: ${error}`);
         throw error;
     }
 }
