@@ -6,8 +6,6 @@
  */
 export interface Category {
     _id: string; 
-    userId: string; // User identifier
-    type: 'general' | 'personal'; // The type of category
     name: string; // The name of the category (e.g., "Food", "Salary")
     description: string; // The description of the category
   }
@@ -101,7 +99,7 @@ export interface UserCategory {
     currency: string; // The default currency of the user (e.g., "$", "₪")
     createdAt: Date; // Date when the user was created
     updatedAt: Date; // Date when the user was last updated
-    categories: Category[]; // Array of categories associated with the user
+    categories: UserCategory[]; // Array of categories associated with the user
     savings: Saving[]; // Array of savings goals associated with the user
     transactions: Transaction[]; // Array of transactions associated with the user
     alerts: Alert[]; // Array of alerts associated with the user
