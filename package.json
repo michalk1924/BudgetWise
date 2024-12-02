@@ -14,6 +14,8 @@
     "@hookform/resolvers": "^3.9.1",
     "axios": "^1.7.8",
     "bcrypt": "^5.1.1",
+    "firebase": "^11.0.2",
+    "firebase-config": "^1.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.11.0",
     "next": "^14.2.17",

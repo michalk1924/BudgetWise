@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import styles from "../styles/auth.module.css";
 import authService from "@/services/auth";
+import { googleSignup } from "../../services/signWithGoogle";
 
 const schema = z.object({
     email: z.string().email(),
@@ -36,6 +37,11 @@ export default function Home() {
         finally {
             reset();
         }
+    };
+
+    const loginWithGoogle = async () => {
+        const res = await googleSignup();
+        console.log(res);
     };
 
     return (
@@ -70,7 +76,7 @@ export default function Home() {
                     </button>
                 </form>
                 <div className={styles.googleButtonContainer}>
-                    <button className={styles.googleButton}>Login with Google</button>
+                    <button className={styles.googleButton} onClick={loginWithGoogle}> Login with Google</button>
                 </div>
             </div>
         </div>

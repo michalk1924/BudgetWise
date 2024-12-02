@@ -18,20 +18,20 @@ export async function POST(request: NextRequest, { params }: { params: any }) {
             return NextResponse.json({ error: 'User already exists' }, { status: 400 });
         }
 
-        const result = await insertDocument(client, 'users', { name:name, email: email });
+        const result = await insertDocument(client, 'users', { name: name, email: email });
         if (!result.acknowledged) {
             return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
         }
-        
-        const userId = result.insertedId.toString();        
+
+        const userId = result.insertedId.toString();
 
         const { hashedPassword, token } = await signup(password, userId);
-        
+
         const passwordResult = await insertDocument(client, 'passwords', { user_id: userId, password: hashedPassword });
         if (!passwordResult.acknowledged) {
             return NextResponse.json({ error: 'Failed to create password' }, { status: 500 });
         }
-        
+
         return NextResponse.json({ token });
     }
     catch (error) {
