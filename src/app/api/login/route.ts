@@ -18,10 +18,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ message: 'User not found' }, { status: 404 });
         }
 
-        console.log("User: " + user);
-        
-
-        const userId = user._id.toString();        
+        const userId = user._id.toString();
 
         const passwordObj = await getPassword(client, userId);
         if (!passwordObj) {
@@ -29,13 +26,12 @@ export async function POST(request: NextRequest) {
         }
 
         const storedHashedPassword = passwordObj.password;
-        
+
         const token = await login(password, storedHashedPassword, userId);
 
-        // Return the token on successful login
         return NextResponse.json({ token: token });
 
-    } catch (error : any) {
+    } catch (error: any) {
         console.error('Error during POST request:', error);  // Log the error for debugging
         return NextResponse.json({ message: 'Error processing login', error: error.message || error }, { status: 500 });
     }

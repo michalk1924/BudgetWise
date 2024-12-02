@@ -4,9 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import styles from "../styles/auth.module.css";
-import { register } from "module";
 import authService from "@/services/auth";
-import { googleSignup } from "../../services/signWithGoogle";
+import { googleSignup } from "../../services/signInWithGoogle";
+import { useRouter } from "next/navigation";
+import { showSuccessAlert, showErrorAlert } from "../../services/alerts";
 
 type FormFields = z.infer<typeof schema>;
 
@@ -14,13 +15,16 @@ const schema = z.object({
     name: z.string().min(2),
     email: z.string().email(),
     password: z.string().min(8),
-    // confirmPassword: z.string().min(8)
-    // .refine(({ password, confirmPassword }) => password === confirmPassword, {
-    //     message: "Passwords must match", // הודעת שגיאה מותאמת
-    // }),
 });
 
 export default function Home() {
+
+    const router = useRouter();
+
+    const goToLogin = () => {
+        router.push("/login");
+    };
+
     const {
         register,
         handleSubmit,
@@ -33,12 +37,12 @@ export default function Home() {
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
-            const token = await authService.signup(data);
-            console.log(token);
-            
+            await authService.signup(data);
+            await showSuccessAlert("You Signed up successfully");
+            router.push("/home");
         } catch (error: any) {
             console.error("Error creating user:", error);
-            throw error;
+            showErrorAlert("Error creating user");
         }
         finally {
             reset();
@@ -46,8 +50,14 @@ export default function Home() {
     };
 
     const loginWithGoogle = async () => {
-        const res = await googleSignup();
-        console.log(res);
+        try {
+            await googleSignup();
+            await showSuccessAlert("You have logged in successfully!");
+            router.push("/home");
+        }
+        catch (error: any) {
+            console.error("Error signing up with Google:", error);
+        }
     };
 
     return (
@@ -82,15 +92,6 @@ export default function Home() {
                     {errors.password && (
                         <div className={styles.error}>{errors.password.message}</div>
                     )}
-                    {/* <input
-                        {...register("confirmPassword")}
-                        type="password"
-                        placeholder="Confirm Password"
-                        className={styles.input}
-                    />
-                    {errors.password && (
-                        <div className={styles.error}>{errors.password.message}</div>
-                    )} */}
                     <button
                         disabled={isSubmitting}
                         type="submit"
@@ -100,7 +101,10 @@ export default function Home() {
                     </button>
                 </form>
                 <div className={styles.googleButtonContainer}>
-                    <button className={styles.googleButton} onClick={loginWithGoogle}>Login with Google</button>
+                    <button className={styles.googleButton} onClick={loginWithGoogle}>Signup with Google </button>
+                </div>
+                <div className={styles.movePage}>
+                    <p>Already have an account? <span onClick={goToLogin}>Login</span></p>
                 </div>
             </div>
         </div>

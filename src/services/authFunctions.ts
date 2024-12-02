@@ -21,7 +21,6 @@ export async function signup(
         throw new Error(`Signup failed: ${error?.message}`);
     }
 }
-
 export async function login(
     plainTextPassword: string,
     storedHashedPassword: string,
