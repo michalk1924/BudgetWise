@@ -1,6 +1,5 @@
 /* General Page Layout */
 .page {
-    font-family: Arial, sans-serif;
     color: #2f5f98;
     padding: 20px;
     display: flex;
@@ -11,7 +10,7 @@
     display: grid; /* Enable Grid layout */
     place-items: center; /* Centers content both horizontally and vertically */
     text-align: center; /* Align multiline text */
-    background-image: url('../images/splash.png'); /* Replace with your watercolor splash */
+    background-image: url('/splash.png'); /* Replace with your watercolor splash */
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -40,39 +39,7 @@
     margin: 20px 0;
     flex:4;
   }
-  /* Table Section */
-  .tableSection {
-    margin: 20px 0;
-    flex:3;
-  }
-  
-  .tableHeader, .tableRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    border-radius: 10px;
-  }
-  
-  .tableHeader {
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #2f5f98;
-  }
-  
-  .tableRow {
-    background-color: #e3f8f9; /* Light blue */
-    margin-bottom: 10px;
-    border-radius: 8px;
-  }
-  
-  .tableRow:nth-child(even) {
-    background-color: #f8e3e7; /* Light pink for alternating rows */
-  }
-  
-  .category, .budget, .amountUsed {
-    flex: 1;
-  }
+ 
   
   .editButton {
     background: none;
@@ -95,28 +62,43 @@
     font-size: 0.9rem;
   }
   
-  /* Add New Budget Section */
   .addBudgetSection {
-    margin-top: 30px;
-    text-align: center;
+    padding: 20px;
+    align-items: center;
   }
   
-  .addBudgetSection h3 {
-    font-weight: bold;
+  .addBudgetContainer {
+    display: flex; /* Enable Flexbox */
+    align-items: center; /* Align text and form vertically */
+    gap: 20px; /* Space between the text and the form */
+  }
+  
+  .addBudgetTitle {
+    font-size: 1.2rem;
+    color: #2f5f98;
+    white-space: nowrap; /* Prevent wrapping to the next line */
   }
   
   .form {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+    display: flex; /* Display inputs in a row */
+    gap: 10px; /* Space between inputs */
+    color: #2f5f98;
   }
   
   .input {
     padding: 10px;
-    border: 2px solid #ccc;
+    border:1px solid #2f5f98;
+    color: #2f5f98;
+
+    /* border: 2px solid #ccc; */
     border-radius: 8px;
-    flex: 1;
-    max-width: 150px;
-    text-align: center;
+    flex: 1; /* Inputs take up equal space */
+    max-width: 150px; /* Optional: Limit the width */
   }
   
+  .input::placeholder {
+    color: #2f5e98af; /* Custom color for the placeholder */
+    font-style: italic; /* Optional */
+    font-size: 0.8rem;
+
+  }
