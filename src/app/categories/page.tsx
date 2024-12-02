@@ -20,14 +20,16 @@ const Categories = () => {
 
       {/* Add New Budget Section */}
       <section className={styles.addBudgetSection}>
-        <h3>Add New Budget:</h3>
-        <div className={styles.form}>
-          <input type="text" placeholder="Category" className={styles.input} />
-          <input type="number" placeholder="Budget" className={styles.input} />
-          <input type="number" placeholder="Already Used" className={styles.input} />
-        </div>
-      </section>
-      </section>
+  <div className={styles.addBudgetContainer}>
+    <h3 className={styles.addBudgetTitle}>Add New Budget:</h3>
+    <div className={styles.form}>
+      <input type="text" placeholder="Category" className={styles.input} />
+      <input type="number" placeholder="Budget" className={styles.input} />
+      <input type="number" placeholder="Already Used" className={styles.input} />
+    </div>
+  </div>
+</section>
+</section>
     </div>
   );
 };

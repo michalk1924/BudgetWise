@@ -16,8 +16,11 @@ const BudgetGrid = () => {
           <div className={styles.gridItem} key={index}>
             <div className={styles.categoryName}>{category.name}</div>
             <div className={styles.details}>
-              <span>${category.spent} spent</span> {"        "}
-              <span>${category.budget-category.spent} left</span>
+            <div className={styles.details}>
+  <span className={styles.spent}>${category.spent} spent</span>
+  <span className={styles.left}>${category.budget - category.spent} left</span>
+</div>
+
             </div>
             <div className={styles.progressBar}>
               <div
