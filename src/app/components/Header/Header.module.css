@@ -1,27 +1,3 @@
-@font-face {
-  font-family: 'Super Dream';
-  src: url('../../fonts/Super Dream.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Surfing Capital';
-  src: url('../../fonts/Surfing Capital.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'DynaPuff';
-  src: url('../../fonts/DynaPuff.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Gagalin';
-  src: url('../../fonts/Gagalin.otf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
 
 
 .header {
@@ -33,7 +9,6 @@
   font-family: 'Super Dream', Arial, Helvetica, sans-serif;
   z-index: 100;
   background-color: inherit;
-  position: fixed;
   width: 100%; /* Ensure the header spans the full width */
 }
 
