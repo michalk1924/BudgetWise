@@ -3,7 +3,6 @@
     color: #2f5f98;
     padding: 20px;
     display: flex;
-    background: #fff1db7f;
   }
   
   /* Title Section */
@@ -76,7 +75,6 @@
   
   .addBudgetTitle {
     font-size: 1.2rem;
-    font-weight: bold;
     color: #2f5f98;
     white-space: nowrap; /* Prevent wrapping to the next line */
   }
@@ -84,13 +82,23 @@
   .form {
     display: flex; /* Display inputs in a row */
     gap: 10px; /* Space between inputs */
+    color: #2f5f98;
   }
   
   .input {
     padding: 10px;
-    border: 2px solid #ccc;
+    border:1px solid #2f5f98;
+    color: #2f5f98;
+
+    /* border: 2px solid #ccc; */
     border-radius: 8px;
     flex: 1; /* Inputs take up equal space */
     max-width: 150px; /* Optional: Limit the width */
   }
   
+  .input::placeholder {
+    color: #2f5e98af; /* Custom color for the placeholder */
+    font-style: italic; /* Optional */
+    font-size: 0.8rem;
+
+  }
