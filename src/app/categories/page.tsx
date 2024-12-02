@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './categories.module.css';
-import BudgetGrid from '../components/budgetGrid/budgetGrid';
+import BudgetGrid from '../components/BudgetGrid/BudgetGrid';
 
 const Categories = () => {
   return (

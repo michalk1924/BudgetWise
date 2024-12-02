@@ -13,7 +13,7 @@ const Header = () => {
         <div className={styles.brand}></div>
         <ul className={styles.menu}>
           <li>
-            <Link href="/">Home</Link>
+            <Link href="/home">Home</Link>
             <Image src={brush_stain} alt="brush_stain" width={20} height={20} />
           </li>
           <li>
