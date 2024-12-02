@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./BudgetGrid.module.css";
+import styles from "./budgetGrid.module.css";
 
 const categories = [
   { name: "Groceries", spent: 50, budget: 100 },
