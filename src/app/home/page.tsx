@@ -1,20 +1,10 @@
 import styles from './home.module.css';
-
+import Header from '../components/Header/Header';
 
 export default function Home() {
     return (
         <div className={styles.container}>
-            <header className={styles.header}>
-                {/* שימוש ב-<Image> של Next.js */}
-                {/* <Image src={BudgetWise} alt="BudgetWise Logo" width={150} height={50} /> */}
-                <nav className={styles.nav}>
-                    <a href="#">Home</a>
-                    <a href="#">Categories</a>
-                    <a href="#">Savings</a>
-                    <a href="#">Reports</a>
-                    <a href="#">About Us</a>
-                </nav>
-            </header>
+            {/* <Header/> */}
             <main className={styles.main}>
                 <section className={styles.stats}>
                     <div className={`${styles.statBox} ${styles.statBoxWithImage7}`}>
