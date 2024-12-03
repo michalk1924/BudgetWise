@@ -1,0 +1,15 @@
+/* YearMonthSelector.module.css */
+.filterContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .dropdown {
+    padding: 5px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  

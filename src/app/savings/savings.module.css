@@ -1,0 +1,31 @@
+/* General Page Layout */
+.page {
+    color: #2f5f98;
+    padding: 20px;
+    display: flex;
+  }
+  
+  /* Title Section */
+  .title {
+    display: grid; /* Enable Grid layout */
+    place-items: center; /* Centers content both horizontally and vertically */
+    text-align: center; /* Align multiline text */
+    background-image: url('/splash_title.png'); /* Replace with your watercolor splash */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    font-family: 'Painting_With_Chocolate', Arial, sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #2f5f98;
+    padding: 5%;
+  }
+
+  
+  .mainSection {
+    display:flex;
+    flex-direction: column;
+  }
+
+ 
+  

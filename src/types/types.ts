@@ -22,6 +22,7 @@ export interface UserCategory {
     description: string; // The description of the category
     budget: number; // The budget limit for this category (optional)
     spent: number; // The amount spent
+    month: Date;
   }
   
   /**
