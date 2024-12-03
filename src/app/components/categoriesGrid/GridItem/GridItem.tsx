@@ -21,14 +21,12 @@ const GridItem: React.FC<GridItemProps> = ({ category })=> {
         <span className={styles.spent}>${category.spent} spent</span>
         <span className={styles.left}>${category.budget - category.spent} left</span>
       </div>
-
       {/* Progress Bar */}
       <ProgressBar percentage={percentage} />
 
       {/* Budget Info */}
       <div className={styles.details}>
         <span>Budget: ${category.budget}</span>
-  
 
       {/* Edit Button */}
         <FontAwesomeIcon icon={faEdit} className={styles.editButton} />
