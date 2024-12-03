@@ -1,0 +1,104 @@
+/* General Page Layout */
+.page {
+    color: #2f5f98;
+    padding: 20px;
+    display: flex;
+  }
+  
+  /* Title Section */
+  .title {
+    display: grid; /* Enable Grid layout */
+    place-items: center; /* Centers content both horizontally and vertically */
+    text-align: center; /* Align multiline text */
+    background-image: url('/splash.png'); /* Replace with your watercolor splash */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    font-family: 'Gagalin', Arial, sans-serif;
+    font-size: 3rem;
+    color: #2f5f98;
+    flex :1;
+    padding: 5%;
+  }
+  
+  .title-text h1 {
+    margin: 0; /* Remove default margin */
+    line-height: 1; /* Adjust line spacing if needed */
+  }
+  
+  
+  .header h1 {
+    margin: 0;
+    font-size: 3rem;
+    font-weight: bold;
+  }
+  
+  .mainSection {
+    display:flex;
+    flex-direction: column;
+    margin: 20px 0;
+    flex:4;
+  }
+ 
+  
+  .editButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .editButton img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* See More Link */
+  .seeMore {
+    display: block;
+    margin-top: 10px;
+    text-align: right;
+    color: #2f5f98;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  .addBudgetSection {
+    padding: 20px;
+    align-items: center;
+  }
+  
+  .addBudgetContainer {
+    display: flex; /* Enable Flexbox */
+    align-items: center; /* Align text and form vertically */
+    gap: 20px; /* Space between the text and the form */
+  }
+  
+  .addBudgetTitle {
+    font-size: 1.2rem;
+    color: #2f5f98;
+    white-space: nowrap; /* Prevent wrapping to the next line */
+  }
+  
+  .form {
+    display: flex; /* Display inputs in a row */
+    gap: 10px; /* Space between inputs */
+    color: #2f5f98;
+  }
+  
+  .input {
+    padding: 10px;
+    border:1px solid #2f5f98;
+    color: #2f5f98;
+
+    /* border: 2px solid #ccc; */
+    border-radius: 8px;
+    flex: 1; /* Inputs take up equal space */
+    max-width: 150px; /* Optional: Limit the width */
+  }
+  
+  .input::placeholder {
+    color: #2f5e98af; /* Custom color for the placeholder */
+    font-style: italic; /* Optional */
+    font-size: 0.8rem;
+
+  }

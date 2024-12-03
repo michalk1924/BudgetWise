@@ -4,7 +4,8 @@
 
 /* Theme Variables */
 :root {
-  --background: #ffffff;
+  --background:  #fff1db83;
+  ;
   --foreground: #171717;
 }
 
@@ -39,4 +40,41 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@font-face {
+  font-family: 'Super Dream';
+  src: url('fonts/Super Dream.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Surfing Capital';
+  src: url('fonts/Surfing Capital.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'DynaPuff';
+  src: url('fonts/DynaPuff.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Gagalin';
+  src: url('fonts/Gagalin.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Malvie Trial';
+  src: url('fonts/Malvie Trial.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Painting_With_Chocolate';
+  src: url('fonts/Painting_With_Chocolate.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }

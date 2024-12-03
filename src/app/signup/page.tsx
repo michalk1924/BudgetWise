@@ -9,16 +9,21 @@ import { googleSignup } from "../../services/signInWithGoogle";
 import { useRouter } from "next/navigation";
 import { showSuccessAlert, showErrorAlert } from "../../services/alerts";
 
+type FormFields = z.infer<typeof schema>;
+
 const schema = z.object({
+    name: z.string().min(2),
     email: z.string().email(),
     password: z.string().min(8),
 });
 
-type FormFields = z.infer<typeof schema>;
-
 export default function Home() {
 
     const router = useRouter();
+
+    const goToLogin = () => {
+        router.push("/login");
+    };
 
     const {
         register,
@@ -32,12 +37,12 @@ export default function Home() {
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
-            await authService.login(data);
-            await showSuccessAlert("You have logged in successfully!");
+            await authService.signup(data);
+            await showSuccessAlert("You Signed up successfully");
             router.push("/home");
         } catch (error: any) {
             console.error("Error creating user:", error);
-            showErrorAlert("Could not login");
+            showErrorAlert("Error creating user");
         }
         finally {
             reset();
@@ -55,15 +60,20 @@ export default function Home() {
         }
     };
 
-    const goToSignup = () => {
-        router.push("/signup");
-    };
-
     return (
         <div className={styles.body}>
             <div className={styles.container}>
-                <h1 className={styles.title}>Login In</h1>
+                <h1 className={styles.title}>Create Your Account</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+                    <input
+                        {...register("name")}
+                        type="text"
+                        placeholder="Name"
+                        className={styles.input}
+                    />
+                    {errors.name && (
+                        <div className={styles.error}>{errors.name.message}</div>
+                    )}
                     <input
                         {...register("email")}
                         type="email"
@@ -91,10 +101,10 @@ export default function Home() {
                     </button>
                 </form>
                 <div className={styles.googleButtonContainer}>
-                    <button className={styles.googleButton} onClick={loginWithGoogle}> Login with Google</button>
+                    <button className={styles.googleButton} onClick={loginWithGoogle}>Signup with Google </button>
                 </div>
                 <div className={styles.movePage}>
-                    <p>Don't have an account? Sign up <span className={styles.link} onClick={goToSignup}>here</span>.</p>
+                    <p>Already have an account? <span onClick={goToLogin}>Login</span></p>
                 </div>
             </div>
         </div>
