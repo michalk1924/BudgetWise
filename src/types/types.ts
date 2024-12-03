@@ -47,7 +47,7 @@ export interface UserCategory {
   export interface Transaction {
     _id: string; // Transaction identifier
     userId: string; // User identifier
-    categoryId: string; // Category identifier associated with this transaction
+    category: string; // Category identifier associated with this transaction
     type: 'income' | 'expense'; // Type of transaction (either "income" or "expense")
     amount: number; // The amount of money for this transaction
     description: string; // A description of the transaction (e.g., "Supermarket shopping")
