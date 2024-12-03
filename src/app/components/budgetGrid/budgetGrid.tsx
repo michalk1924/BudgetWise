@@ -16,10 +16,10 @@ const BudgetGrid = () => {
           <div className={styles.gridItem} key={index}>
             <div className={styles.categoryName}>{category.name}</div>
             <div className={styles.details}>
-            <div className={styles.details}>
-  <span className={styles.spent}>${category.spent} spent</span>
-  <span className={styles.left}>${category.budget - category.spent} left</span>
-</div>
+              <div className={styles.details}>
+                <span className={styles.spent}>${category.spent} spent</span>
+                <span className={styles.left}>${category.budget - category.spent} left</span>
+              </div>
 
             </div>
             <div className={styles.progressBar}>
@@ -29,9 +29,8 @@ const BudgetGrid = () => {
               ></div>
             </div>
             <div className={styles.budget}>
-              <span>budget: {category.budget} </span> 
+              <span>budget: {category.budget} </span>
             </div>
-           
           </div>
         );
       })}
