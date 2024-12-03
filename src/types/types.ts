@@ -95,8 +95,8 @@ export interface UserCategory {
     username: string; // The username of the user
     email: string; // The user's email address
     passwordHash: string; // The hashed password (not used on the client side for security reasons)
-    createdAt: Date; // Date when the user was created
-    updatedAt: Date; // Date when the user was last updated
+   totalBudget: number; // Total
+   totalSpending: number; 
     categories: UserCategory[]; // Array of categories associated with the user
     savings: Saving[]; // Array of savings goals associated with the user
     transactions: Transaction[]; // Array of transactions associated with the user
