@@ -20,6 +20,7 @@
     justify-content: space-between;
     width: 100%;
     color: #2f5f98;
+    font-weight: lighter;
   }
   
   .editButton {
@@ -34,7 +35,13 @@
     width:20px;
   }
  
+  .spent{
+    color: #EF5A6F;
+  }
   
+  .left{
+color:#A1D6B2;
+  }
   
   .editButton:hover {
     color: #1d3c6a;
