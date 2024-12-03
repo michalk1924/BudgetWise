@@ -1,5 +1,5 @@
-import styles from './home.module.css';
-import Header from '../components/Header/Header';
+"use client"
+
 import styles from './home.module.css';
 import { getToken } from '../../services/cookies';
 import { useEffect } from 'react';
