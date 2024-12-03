@@ -19,6 +19,25 @@
   color: #2f5f98;
   text-decoration: underline;
 }
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* עד 4 עמודות */
+  gap: 20px; /* מרווח בין הפריטים */
+  padding: 20px; /* ריווח פנימי מסביב ל-Grid */
+}
+
+/* עבור מסכים קטנים יותר */
+@media (max-width: 768px) {
+  .gridContainer {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* יותר קומפקטי במסכים קטנים */
+  }
+}
+
+@media (max-width: 480px) {
+  .gridContainer {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* עוד יותר קומפקטי במסכים קטנים מאוד */
+  }
+}
 
 
 

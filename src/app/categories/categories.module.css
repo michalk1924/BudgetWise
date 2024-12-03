@@ -3,6 +3,7 @@
     color: #2f5f98;
     padding: 20px;
     display: flex;
+    flex-direction: row;
   }
   
   /* Title Section */
@@ -18,9 +19,26 @@
     font-size: 3rem;
     font-weight: bold;
     color: #2f5f98;
-    flex :1;
+    flex: 1;
     padding: 5%;
+    height: 400px; /* Set a fixed height */
   }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .title {
+      height: 200px; /* Smaller height for smaller screens */
+      font-size: 2.5rem; /* Adjust font size */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      height: 150px; /* Smaller height for very small screens */
+      font-size: 2rem; /* Adjust font size */
+    }
+  }
+  
   
   .title-text h1 {
     margin: 0; /* Remove default margin */
@@ -42,6 +60,18 @@
   .addBudgetSection {
     margin-top: 150px; /* Adjust this value as needed */
   }
+ /* Totals Section */
+.totalsSection {
+    display: flex;
+    justify-content: space-between; /* Align items horizontally */
+    margin: 20px 0; /* Space above and below */
+    padding: 10px;
+  
+  }
+  
+  
+  
+  
   
  
   
