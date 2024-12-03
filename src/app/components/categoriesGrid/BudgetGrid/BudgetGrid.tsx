@@ -35,11 +35,15 @@ const categories: UserCategory[] = [
 
 const BudgetGrid: React.FC = () => {
   return (
+    <div className={styles.wrapper}>
     <div className={styles.gridContainer}>
       {categories.map((category, index) => (
         <GridItem key={index} category={category} />
       ))}
     </div>
+    <span className={styles.seeMore}>See More...</span>
+  </div>
+  
   );
 };
 
