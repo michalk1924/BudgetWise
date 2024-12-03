@@ -3,6 +3,7 @@
     color: #2f5f98;
     padding: 20px;
     display: flex;
+    flex-direction: row;
   }
   
   /* Title Section */
@@ -14,12 +15,30 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    font-family: 'Gagalin', Arial, sans-serif;
+    font-family: 'Painting_With_Chocolate', Arial, sans-serif;
     font-size: 3rem;
+    font-weight: bold;
     color: #2f5f98;
-    flex :1;
+    flex: 1;
     padding: 5%;
+    height: 400px; /* Set a fixed height */
   }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .title {
+      height: 200px; /* Smaller height for smaller screens */
+      font-size: 2.5rem; /* Adjust font size */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      height: 150px; /* Smaller height for very small screens */
+      font-size: 2rem; /* Adjust font size */
+    }
+  }
+  
   
   .title-text h1 {
     margin: 0; /* Remove default margin */
@@ -36,58 +55,23 @@
   .mainSection {
     display:flex;
     flex-direction: column;
-    margin: 20px 0;
     flex:4;
   }
-  
-  /* See More Link */
-  .seeMore {
-    display: block;
-    margin-top: 10px;
-    text-align: right;
-    color: #2f5f98;
-    cursor: pointer;
-    font-size: 0.9rem;
-  }
-  
   .addBudgetSection {
-    padding: 20px;
-    align-items: center;
+    margin-top: 150px; /* Adjust this value as needed */
   }
-  
-  .addBudgetContainer {
-    display: flex; /* Enable Flexbox */
-    align-items: center; /* Align text and form vertically */
-    gap: 20px; /* Space between the text and the form */
-  }
-  
-  .addBudgetTitle {
-    font-size: 1.2rem;
-    color: #2f5f98;
-    white-space: nowrap; /* Prevent wrapping to the next line */
-  }
-  
-  .form {
-    display: flex; /* Display inputs in a row */
-    gap: 10px; /* Space between inputs */
-    color: #2f5f98;
-  }
-  
-  .input {
+ /* Totals Section */
+.totalsSection {
+    display: flex;
+    justify-content: space-between; /* Align items horizontally */
+    margin: 20px 0; /* Space above and below */
     padding: 10px;
-    color: #2f5f98;
-    background-color: #fbf6f3;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-
-    /* border: 2px solid #ccc; */
-    border-radius: 8px;
-    flex: 1; /* Inputs take up equal space */
-    max-width: 150px; /* Optional: Limit the width */
+  
   }
   
-  .input::placeholder {
-    color: #2f5e98af; /* Custom color for the placeholder */
-    font-style: italic; /* Optional */
-    font-size: 0.8rem;
-
-  }
+  
+  
+  
+  
+ 
+  

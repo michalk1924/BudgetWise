@@ -1,0 +1,25 @@
+
+.filterContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between labels and dropdowns */
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Space between the label and the dropdown */
+  margin-right: 20px; /* Larger space between "Year" and "Month" sections */
+}
+
+  
+  .dropdown {
+    padding: 5px;
+    font-size: 1rem;
+    border-radius: 4px;
+    background-color: inherit;
+  }
+  
+  .dropdown:focus {
+    background-color: #fbf6f3;
+  }
