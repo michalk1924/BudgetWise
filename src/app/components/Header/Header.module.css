@@ -1,6 +1,6 @@
 .header {
   color: #2f5f98;
-  padding: 10px 20px;
+  padding: 5px 20px;
   display: flex;
   justify-content: flex-end;
   /* Align content to the right */
@@ -9,6 +9,7 @@
   /* Apply Surfing Capital font */
   z-index: 100;
   width: 100%;
+ 
 }
 
 
@@ -53,6 +54,24 @@
   color: #3d7bc6;
 }
 
+.active a {
+  color: #1d3c6a;
+  font-weight: bold; /* Highlight active link */
+}
+
+.userAccount {
+  margin-left: auto; /* Push the user icon to the right */
+  cursor: pointer;
+}
+
+.userAccount a {
+  display: flex;
+  align-items: center; /* Center the icon vertically */
+  justify-content: center;
+  color: #2f5f98;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 @media (max-width: 768px) {
   .menu {
     flex-direction: column;
