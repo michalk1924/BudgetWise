@@ -3,8 +3,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import usersService from '../../../services/user';
 
 function Users() {
-    const queryClient = useQueryClient(); 
-    // const [newUser, setNewUser] = useState({ name: '', email: '' });
+    const queryClient = useQueryClient();
+    const [newUser, setNewUser] = useState({ name: '', email: '' });
 
     // Fetch all users
     const { data: users, isLoading, isError, error } = useQuery({
@@ -23,14 +23,14 @@ function Users() {
         }
     });
 
-    // const handleAddUser = () => {
-    //     if (!newUser.name || !newUser.email) {
-    //         alert("Please fill out both the name and email fields.");
-    //         return;
-    //     }
-    //     mutation.mutate(newUser); // מוסיף משתמש חדש
-    //     setNewUser({ name: '', email: '' }); // מנקה את הטופס
-    // };
+    const handleAddUser = () => {
+        if (!newUser.name || !newUser.email) {
+            alert("Please fill out both the name and email fields.");
+            return;
+        }
+        mutation.mutate(newUser); // מוסיף משתמש חדש
+        setNewUser({ name: '', email: '' }); // מנקה את הטופס
+    };
 
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error: {error.message}</div>;
@@ -45,7 +45,7 @@ function Users() {
                     </li>
                 ))}
             </ul>
-            {/* <h2>Add a New User</h2>
+            <h2>Add a New User</h2>
             <input
                 type="text"
                 placeholder="Name"
@@ -57,10 +57,15 @@ function Users() {
                 placeholder="Email"
                 value={newUser.email}
                 onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-            /> */}
-            {/* <button onClick={handleAddUser} disabled={mutation.isLoading}>
-                {mutation.isLoading ? 'Adding...' : 'Add User'}
-            </button> */}
+            />
+
+            <button
+                onClick={handleAddUser}
+                disabled={mutation.isPending}
+            >
+                {mutation.isPending ? 'Adding...' : 'Add User'}
+            </button>
+
         </div>
     );
 }

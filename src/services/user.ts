@@ -42,7 +42,7 @@ const userService = {
             throw error;
         }
     },
-    async updateUser(id:string, body:string) {
+    async updateUser(id: string, body: Partial<User>) {
         try {
             console.log(`Updating user with ID: ${id}`);
             const response = await http.patch(`/users/${id}`, body);
@@ -51,6 +51,7 @@ const userService = {
             throw error;
         }
     }
+    
 };
 
 export default userService;

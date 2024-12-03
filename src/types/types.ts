@@ -92,17 +92,17 @@ export interface UserCategory {
    * A user has information like username, email, password (hashed), currency, and associated categories, savings, transactions, and alerts.
    */
   export interface User {
-    _id: string; // User identifier
-    username: string; // The username of the user
-    email: string; // The user's email address
-    passwordHash: string; // The hashed password (not used on the client side for security reasons)
-    currency: string; // The default currency of the user (e.g., "$", "₪")
-    createdAt: Date; // Date when the user was created
-    updatedAt: Date; // Date when the user was last updated
-    categories: UserCategory[]; // Array of categories associated with the user
-    savings: Saving[]; // Array of savings goals associated with the user
-    transactions: Transaction[]; // Array of transactions associated with the user
-    alerts: Alert[]; // Array of alerts associated with the user
-    recommendations:Recommendation[];
+    _id?: string; // User identifier
+    username?: string; // The username of the user
+    email?: string; // The user's email address
+    passwordHash?: string; // The hashed password (not used on the client side for security reasons)
+    currency?: string; // The default currency of the user (e.g., "$", "₪")
+    createdAt?: Date; // Date when the user was created
+    updatedAt?: Date; // Date when the user was last updated
+    categories?: UserCategory[]; // Array of categories associated with the user
+    savings?: Saving[]; // Array of savings goals associated with the user
+    transactions?: Transaction[]; // Array of transactions associated with the user
+    alerts?: Alert[]; // Array of alerts associated with the user
+    recommendations?:Recommendation[];
   }
   
