@@ -39,18 +39,6 @@
     margin: 20px 0;
     flex:4;
   }
- 
-  
-  .editButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .editButton img {
-    width: 20px;
-    height: 20px;
-  }
   
   /* See More Link */
   .seeMore {
@@ -87,8 +75,9 @@
   
   .input {
     padding: 10px;
-    border:1px solid #2f5f98;
     color: #2f5f98;
+    background-color: #fbf6f3;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 
     /* border: 2px solid #ccc; */
     border-radius: 8px;

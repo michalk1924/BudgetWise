@@ -22,8 +22,6 @@ export interface UserCategory {
     description: string; // The description of the category
     budget: number; // The budget limit for this category (optional)
     spent: number; // The amount spent
-    createdAt: Date; // Date when the category was created
-    updatedAt: Date; // Date when the category was last updated
   }
   
   /**
@@ -96,7 +94,6 @@ export interface UserCategory {
     username: string; // The username of the user
     email: string; // The user's email address
     passwordHash: string; // The hashed password (not used on the client side for security reasons)
-    currency: string; // The default currency of the user (e.g., "$", "₪")
     createdAt: Date; // Date when the user was created
     updatedAt: Date; // Date when the user was last updated
     categories: UserCategory[]; // Array of categories associated with the user
