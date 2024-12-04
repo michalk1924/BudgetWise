@@ -1,15 +1,9 @@
-.gridContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .gridItem {
-    background-color: #f9f9f9;
+
+.gridItem {
     border-radius: 8px;
     padding: 15px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fbf6f3;
+    box-shadow: 0px 4px 6px #a1d6b2ea;
     text-align: center;
   }
   
@@ -28,7 +22,7 @@
   .progressBar {
     width: 100%;
     height: 10px;
-    background-color: #e0e0e0;
+    background-color: #a1d6b2ea;
     border-radius: 5px;
     overflow: hidden;
     margin-top: 10px;

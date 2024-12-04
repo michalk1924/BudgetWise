@@ -2,7 +2,7 @@
 
 import React from "react";
 import styles from "./GridItem.module.css";
-import ProgressBar from "../ProgressBar/ProgressBar";
+import ProgressBar from "./ProgressBar/ProgressBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { UserCategory } from "../../../../types/types";
