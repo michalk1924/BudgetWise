@@ -78,3 +78,9 @@ body {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'PlayfairDisplay-BoldItalic';
+  src: url('fonts/PlayfairDisplay-BoldItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

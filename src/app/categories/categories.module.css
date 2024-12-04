@@ -4,6 +4,7 @@
     padding: 20px;
     display: flex;
     flex-direction: row;
+    gap:35px;
   }
   
   /* Title Section */
@@ -38,35 +39,29 @@
       font-size: 2rem; /* Adjust font size */
     }
   }
+ 
   
-  
-  .title-text h1 {
-    margin: 0; /* Remove default margin */
-    line-height: 1; /* Adjust line spacing if needed */
-  }
-  
-  
-  .header h1 {
-    margin: 0;
-    font-size: 3rem;
-    font-weight: bold;
-  }
-  
-  .mainSection {
-    display:flex;
-    flex-direction: column;
-    flex:4;
-  }
-  .addBudgetSection {
-    margin-top: 150px; /* Adjust this value as needed */
-  }
  /* Totals Section */
 .totalsSection {
     display: flex;
     justify-content: space-between; /* Align items horizontally */
-    margin: 20px 0; /* Space above and below */
     padding: 10px;
   
+  }
+  .mainSection {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Grow to fill available space */
+    position: relative; /* Enable positioning within */
+  }
+  
+  .tableSection {
+    flex: 1; /* Allow the table section to grow */
+  }
+  
+  .addBudgetSection {
+    margin-top: auto; /* Push this section to the bottom */
+    padding: 20px;
   }
   
   
