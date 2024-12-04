@@ -1,8 +1,8 @@
 /* General Page Layout */
 .page {
     color: #2f5f98;
-    padding: 20px;
     display: flex;
+    flex-direction: column;
   }
   
   /* Title Section */
@@ -15,10 +15,10 @@
     background-repeat: no-repeat;
     background-size: contain;
     font-family: 'Painting_With_Chocolate', Arial, sans-serif;
-    font-size: 3rem;
+    font-size: 2.7rem;
     font-weight: bold;
     color: #2f5f98;
-    padding: 5%;
+    padding: 4%;
   }
 
   
