@@ -73,7 +73,7 @@ export async function putDocument(
     }
 }
 
-export async function updateDocument(
+export async function patchDocument(
     client: MongoClient,
     collection: string,
     documentId: string,
