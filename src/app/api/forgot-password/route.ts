@@ -3,6 +3,8 @@
 // const nodemailer = require('nodemailer');
 // const fs = require('fs');
 
+import { NextResponse, NextRequest } from "next/server";
+
 // export async function POST(request: NextRequest) {
 //     try {
 //         const client = await connectDatabase();
@@ -49,3 +51,7 @@
 //         throw error;
 //     }
 // }
+
+export async function POST(request: NextRequest){
+    return new NextResponse("not work now!");
+}

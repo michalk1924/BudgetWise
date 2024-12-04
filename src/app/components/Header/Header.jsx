@@ -17,11 +17,11 @@ const Header = () => {
             <Image src='/brush_stain.png' alt="brush_stain" width={20} height={20} />
           </li>
           <li>
-            <Link href="/categories">Categories</Link>
+            <Link href="/transactions">Transactions</Link>
             <Image src='/brush_stain.png' alt="brush_stain" width={20} height={20} />
           </li>
           <li>
-            <Link href="/transactions">Transactions</Link>
+            <Link href="/categories">Categories</Link>
             <Image src='/brush_stain.png' alt="brush_stain" width={20} height={20} />
           </li>
           <li>

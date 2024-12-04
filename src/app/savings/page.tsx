@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./savings.module.css";
-import SavingsGrid from "../components/savingsGrid/SavingsGrid";
+import { SavingsGrid } from "../components/index";
 const Savings = () => {
   return (
     <div className={styles.page}>
@@ -11,7 +11,7 @@ const Savings = () => {
 
       <section className={styles.mainSection}>
         <section className={styles.tableSection}>
-            <SavingsGrid/>
+          <SavingsGrid />
         </section>
 
         <section className={styles.addBudgetSection}>
