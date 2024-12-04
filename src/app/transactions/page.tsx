@@ -142,7 +142,7 @@ function Transactions() {
             placeholder="Sum"
             {...register("amount", { valueAsNumber: true })}
           />
-          {errors.amount && <p className={styles.error}>{errors.sum.message}</p>}
+          {errors.amount && <p className={styles.error}>{errors.amount.message}</p>}
         </div>
 
         <div className={styles.formGroup}>

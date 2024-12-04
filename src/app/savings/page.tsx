@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./savings.module.css";
-import SavingsGrid from "../components/savingsGrid/SavingsGrid";
+import SavingsGrid from "../components/SavingsGrid/SavingsGrid";
 const Savings = () => {
   return (
     <div className={styles.page}>
