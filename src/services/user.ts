@@ -2,15 +2,7 @@ import { http } from './http';
 import { User } from '../types/types'
 
 const userService = {
-    // async getAllUsers() {
-    //     try {
-    //         console.log("Fetching all users...");
-    //         const response = await http.get('/users');
-    //         return response.data;
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // },
+
     async getAllUsers() {
         try {
             console.log("Fetching all users...");
@@ -25,8 +17,8 @@ const userService = {
             throw error;
         }
     },
-    
-    async getUserById(id:string) {
+
+    async getUserById(id: string) {
         try {
             const response = await http.get(`/users/${id}`);
             return response.data;
@@ -34,7 +26,7 @@ const userService = {
             throw error;
         }
     },
-    async createUser(user:User) {
+    async createUser(user: User) {
         try {
             const response = await http.post('/users', user);
             return response.data;
@@ -51,7 +43,7 @@ const userService = {
             throw error;
         }
     }
-    
+
 };
 
 export default userService;
