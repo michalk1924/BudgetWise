@@ -19,12 +19,7 @@
   color: #2f5f98;
   text-decoration: underline;
 }
-.gridContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* עד 4 עמודות */
-  gap: 20px; /* מרווח בין הפריטים */
-  padding: 20px; /* ריווח פנימי מסביב ל-Grid */
-}
+
 
 /* עבור מסכים קטנים יותר */
 @media (max-width: 768px) {
