@@ -1,0 +1,54 @@
+.gridItem {
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #fbf6f3;
+    position: relative;
+  }
+  
+  .categoryName {
+    font-size: 1.2rem;
+    color: #2f5f98;
+    margin-bottom: 10px;
+  }
+  
+  .details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: #2f5f98;
+    font-weight: lighter;
+  }
+  
+  .editButton {
+    background: none; /* Remove background styling */
+    border: none; /* Remove borders */
+    cursor: pointer; /* Add pointer cursor */
+    display: flex; /* Ensure the icon is displayed properly */
+    justify-content: center; /* Center the icon */
+    align-items: center; /* Center the icon vertically */
+    color: #2f5f98; /* Set the color for the icon */
+    padding: 0; /* Remove unnecessary padding */
+    width:20px;
+  }
+ 
+  .spent{
+    color: #EF5A6F;
+  }
+  
+  .left{
+color:#A1D6B2;
+  }
+  
+  .editButton:hover {
+    color: #1d3c6a;
+  }
+  
+  .budget {
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+  

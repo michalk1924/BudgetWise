@@ -22,8 +22,7 @@ export interface UserCategory {
     description: string; // The description of the category
     budget: number; // The budget limit for this category (optional)
     spent: number; // The amount spent
-    createdAt: Date; // Date when the category was created
-    updatedAt: Date; // Date when the category was last updated
+    month: Date;
   }
   
   /**
@@ -48,7 +47,7 @@ export interface UserCategory {
   export interface Transaction {
     _id: string; // Transaction identifier
     userId: string; // User identifier
-    categoryId: string; // Category identifier associated with this transaction
+    category: string; // Category identifier associated with this transaction
     type: 'income' | 'expense'; // Type of transaction (either "income" or "expense")
     amount: number; // The amount of money for this transaction
     description: string; // A description of the transaction (e.g., "Supermarket shopping")
@@ -96,9 +95,8 @@ export interface UserCategory {
     username: string; // The username of the user
     email: string; // The user's email address
     passwordHash: string; // The hashed password (not used on the client side for security reasons)
-    currency: string; // The default currency of the user (e.g., "$", "₪")
-    createdAt: Date; // Date when the user was created
-    updatedAt: Date; // Date when the user was last updated
+   totalBudget: number; // Total
+   totalSpending: number; 
     categories: UserCategory[]; // Array of categories associated with the user
     savings: Saving[]; // Array of savings goals associated with the user
     transactions: Transaction[]; // Array of transactions associated with the user

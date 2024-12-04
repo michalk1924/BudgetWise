@@ -6,45 +6,38 @@
   }
   
   .gridItem {
-    background: #FFF1DB;
-    border-radius: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
     padding: 15px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    text-align: center;
   }
   
-  .categoryName {
+  .gridItem h2 {
+    margin: 0 0 10px;
     font-size: 1.2rem;
-    font-weight: bold;
     color: #2f5f98;
-    margin-bottom: 10px;
+  }
+  
+  .gridItem p {
+    font-size: 0.9rem;
+    margin: 10px 0;
+    color: #555;
   }
   
   .progressBar {
     width: 100%;
     height: 10px;
-    background-color:  #a1d6b25b;
+    background-color: #e0e0e0;
     border-radius: 5px;
     overflow: hidden;
-    margin-bottom: 10px;
+    margin-top: 10px;
   }
   
   .progress {
     height: 100%;
-    background-color: #A1D6B2;
+    background-color: #4caf50;
     border-radius: 5px;
     transition: width 0.3s ease;
-  }
-  
-  .details {
-    font-size: 0.9rem;
-    color:#2f5f98;
-    display:flex;
-  }
-  
-  .details span {
-    font-weight: bold;
   }
   

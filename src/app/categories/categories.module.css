@@ -1,9 +1,9 @@
 /* General Page Layout */
 .page {
-    font-family: Arial, sans-serif;
     color: #2f5f98;
     padding: 20px;
     display: flex;
+    flex-direction: row;
   }
   
   /* Title Section */
@@ -11,16 +11,34 @@
     display: grid; /* Enable Grid layout */
     place-items: center; /* Centers content both horizontally and vertically */
     text-align: center; /* Align multiline text */
-    background-image: url('../images/splash.png'); /* Replace with your watercolor splash */
+    background-image: url('/splash.png'); /* Replace with your watercolor splash */
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    font-family: 'Gagalin', Arial, sans-serif;
+    font-family: 'Painting_With_Chocolate', Arial, sans-serif;
     font-size: 3rem;
+    font-weight: bold;
     color: #2f5f98;
-    flex :1;
+    flex: 1;
     padding: 5%;
+    height: 400px; /* Set a fixed height */
   }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .title {
+      height: 200px; /* Smaller height for smaller screens */
+      font-size: 2.5rem; /* Adjust font size */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      height: 150px; /* Smaller height for very small screens */
+      font-size: 2rem; /* Adjust font size */
+    }
+  }
+  
   
   .title-text h1 {
     margin: 0; /* Remove default margin */
@@ -37,86 +55,23 @@
   .mainSection {
     display:flex;
     flex-direction: column;
-    margin: 20px 0;
     flex:4;
   }
-  /* Table Section */
-  .tableSection {
-    margin: 20px 0;
-    flex:3;
-  }
-  
-  .tableHeader, .tableRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    border-radius: 10px;
-  }
-  
-  .tableHeader {
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #2f5f98;
-  }
-  
-  .tableRow {
-    background-color: #e3f8f9; /* Light blue */
-    margin-bottom: 10px;
-    border-radius: 8px;
-  }
-  
-  .tableRow:nth-child(even) {
-    background-color: #f8e3e7; /* Light pink for alternating rows */
-  }
-  
-  .category, .budget, .amountUsed {
-    flex: 1;
-  }
-  
-  .editButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .editButton img {
-    width: 20px;
-    height: 20px;
-  }
-  
-  /* See More Link */
-  .seeMore {
-    display: block;
-    margin-top: 10px;
-    text-align: right;
-    color: #2f5f98;
-    cursor: pointer;
-    font-size: 0.9rem;
-  }
-  
-  /* Add New Budget Section */
   .addBudgetSection {
-    margin-top: 30px;
-    text-align: center;
+    margin-top: 150px; /* Adjust this value as needed */
   }
-  
-  .addBudgetSection h3 {
-    font-weight: bold;
-  }
-  
-  .form {
+ /* Totals Section */
+.totalsSection {
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    justify-content: space-between; /* Align items horizontally */
+    margin: 20px 0; /* Space above and below */
+    padding: 10px;
+  
   }
   
-  .input {
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    flex: 1;
-    max-width: 150px;
-    text-align: center;
-  }
+  
+  
+  
+  
+ 
   

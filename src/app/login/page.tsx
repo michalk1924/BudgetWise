@@ -5,7 +5,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import styles from "../styles/auth.module.css";
 import authService from "@/services/auth";
-import { googleSignup } from "../../services/signWithGoogle";
+import { googleSignup } from "../../services/signInWithGoogle";
+import { useRouter } from "next/navigation";
+import { showSuccessAlert, showErrorAlert } from "../../services/alerts";
 
 const schema = z.object({
     email: z.string().email(),
@@ -15,6 +17,9 @@ const schema = z.object({
 type FormFields = z.infer<typeof schema>;
 
 export default function Home() {
+
+    const router = useRouter();
+
     const {
         register,
         handleSubmit,
@@ -27,12 +32,12 @@ export default function Home() {
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
-            const token = await authService.login(data);
-            console.log(token);
-            
+            await authService.login(data);
+            await showSuccessAlert("You have logged in successfully!");
+            router.push("/home");
         } catch (error: any) {
             console.error("Error creating user:", error);
-            throw error;
+            showErrorAlert("Could not login");
         }
         finally {
             reset();
@@ -40,14 +45,24 @@ export default function Home() {
     };
 
     const loginWithGoogle = async () => {
-        const res = await googleSignup();
-        console.log(res);
+        try {
+            await googleSignup();
+            await showSuccessAlert("You have logged in successfully!");
+            router.push("/home");
+        }
+        catch (error: any) {
+            console.error("Error signing up with Google:", error);
+        }
+    };
+
+    const goToSignup = () => {
+        router.push("/signup");
     };
 
     return (
         <div className={styles.body}>
             <div className={styles.container}>
-                <h1 className={styles.title}>Create Your Account</h1>
+                <h1 className={styles.title}>Login In</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <input
                         {...register("email")}
@@ -77,6 +92,9 @@ export default function Home() {
                 </form>
                 <div className={styles.googleButtonContainer}>
                     <button className={styles.googleButton} onClick={loginWithGoogle}> Login with Google</button>
+                </div>
+                <div className={styles.movePage}>
+                    <p>Don't have an account? Sign up <span className={styles.link} onClick={goToSignup}>here</span>.</p>
                 </div>
             </div>
         </div>
