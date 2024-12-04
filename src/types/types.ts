@@ -39,6 +39,13 @@ export interface UserCategory {
     createdAt: Date; // Date when the saving goal was created
     updatedAt: Date; // Date when the saving goal was last updated
   }
+  export interface UserSaving {
+    _id: string; // Saving identifier
+    goalName: string; // The name of the savings goal (e.g., "Trip to Japan")
+    targetAmount: number; // The target amount the user wants to save
+    currentAmount: number; // The current amount the user has saved so far
+    deadline: Date; // Deadline for reaching the savings goal
+  }
   
   /**
    * Interface representing a Transaction object.
@@ -98,7 +105,7 @@ export interface UserCategory {
    totalBudget: number; // Total
    totalSpending: number; 
     categories: UserCategory[]; // Array of categories associated with the user
-    savings: Saving[]; // Array of savings goals associated with the user
+    savings: UserSaving[]; // Array of savings goals associated with the user
     transactions: Transaction[]; // Array of transactions associated with the user
     alerts: Alert[]; // Array of alerts associated with the user
     recommendations:Recommendation[];

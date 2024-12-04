@@ -6,7 +6,7 @@ const Savings = () => {
     <div className={styles.page}>
       {/* Title Section */}
       <header className={styles.title}>
-        <span>saving for a big goal</span>
+        <span>Saving For Big Goals</span>
       </header>
 
       <section className={styles.mainSection}>
@@ -14,8 +14,7 @@ const Savings = () => {
           <SavingsGrid />
         </section>
 
-        <section className={styles.addBudgetSection}>
-        </section>
+        
       </section>
     </div>
   );
