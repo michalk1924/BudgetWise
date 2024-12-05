@@ -15,8 +15,8 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ percentage }) => {
           backgroundColor: '#4caf50',
         }}
       >
-        {percentage > 100 && <span className={styles.tooltip}>well done</span>}
-        {percentage > 90 && percentage <= 100 && <span className={styles.tooltip}>you almost there</span>}
+        {percentage >= 100 && <span className={styles.tooltip}>well done</span>}
+        {percentage > 90 && percentage < 100 && <span className={styles.tooltip}>you almost there</span>}
 
       </div>
     </div>

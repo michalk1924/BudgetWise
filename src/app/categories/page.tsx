@@ -105,6 +105,7 @@ const Categories = () => {
           <GridItem key={1} category={total} isTotal={true} />
         </section>
       </section>
+      
       <section className={styles.mainSection}>
         <section className={styles.tableSection}>
           {/* Pass categories as a prop to BudgetGrid */}

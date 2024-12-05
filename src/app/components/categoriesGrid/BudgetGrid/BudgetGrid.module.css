@@ -3,6 +3,7 @@
   flex-direction: column; /* Stack grid and "See More..." vertically */
   align-items: flex-start; /* Align content to the left by default */
   gap: 10px; /* Add spacing between grid and "See More..." */
+  margin-top: 3%;
 }
 
 .gridContainer {

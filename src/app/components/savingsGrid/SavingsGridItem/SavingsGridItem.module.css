@@ -1,62 +1,95 @@
-
+ 
 .gridItem {
-    border-radius: 8px;
-    padding: 15px;
+    border-radius: 10px;
+    padding: 30px;
     background-color: #fbf6f3;
-    box-shadow: 0px 4px 6px #D4BDAC;
+    box-shadow: 0px 4px 10px #D4BDAC;
     text-align: center;
     flex-direction: column;
-    align-items: flex-start;
-    position: relative;
+    justify-items: center;
+    color: #2f5f98;
+  }
+
+  .goalName {
+
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow:0px 4px 10px #2f5f98;
   }
   
-  .gridItem h2 {
-    font-size: 1.2rem;
+  .deadline {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #2f5f98;
+
+  }
+ /* 
+  .details {
+    font-size: 1.9rem;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .deadline {
+    margin-top: 15px;
+    font-weight: bold;
     color: #2f5f98;
   }
   
-  .gridItem p {
-    font-size: 0.9rem;
-    margin: 10px 0;
-    color: #555;
+  
+  .gridItem h2 {
+    font-size: 1.2rem;
   }
  
 .details{
     display: flex;
-    justify-content: space-between;
     width: 100%;
+    justify-content: center;
+    justify-content: space-evenly;
+    margin: 10px;
 }
-  .target{
-    color: #d6bba8;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
+
   .current {
     background-image: url('/green_empty_circle.png');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain; /* Ensure the entire image fits */
-  width: 100px; /* Adjust based on the circle's size */
-  height: 100px; /* Adjust based on the circle's size */
-  display: flex; /* Enable flexbox */
-  align-items: center; /* Vertically center the text */
-  justify-content: center; /* Horizontally center the text */
-  text-align: center; /* Center multiline text */
-  font-size: 1rem; /* Adjust as needed */
-  color: #2f5f98;
+  background-size: contain;  
+  width: 9rem; 
+  height: 9rem; 
+  display: flex; 
+  align-items: center;  
+  justify-content: center; 
+  text-align: center; 
+  font-size: 1.5rem; 
+  padding: 10px;
   }
   .target {
     background-image: url('/pink_empty_circle.png');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain; /* Ensure the entire image fits */
-  width: 100px; /* Adjust based on the circle's size */
-  height: 100px; /* Adjust based on the circle's size */
-  display: flex; /* Enable flexbox */
-  align-items: center; /* Vertically center the text */
-  justify-content: center; /* Horizontally center the text */
-  text-align: center; /* Center multiline text */
-  font-size: 1rem; /* Adjust as needed */
-  color: #2f5f98;
+  background-size: contain; 
+  width: 9rem; 
+  height: 9rem; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+  font-size: 1.5rem; 
+  padding: 20px; 
+ 
+  }
+   */
+
+ 
+  
+
+  
+  .deadline {
+    display: block;
+    margin-top: 10px; /* Add spacing between circle and deadline */
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #2f5f98;
   }
   
