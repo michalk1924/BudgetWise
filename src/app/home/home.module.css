@@ -1,15 +1,7 @@
 .container {
-    font-family: Arial, sans-serif;
-    background: #f9f9f9;
     color: #333;
     padding: 20px;
 }
-
-/* .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-} */
 
 .nav a {
     margin: 0 10px;
@@ -36,7 +28,11 @@
 }
 
 .greeting {
+    font-size:xx-large;
+    color: #2f5f98;
     margin: 40px 0;
+    font-family: 'Malvie Trial', Arial, sans-serif;
+
 }
 
 .actions button {
@@ -50,16 +46,16 @@
 }
 
 .statBoxWithImage7 {
-    background-image: url('/7.jpg');
+    background-image: url('/7-removebg-preview.png');
     background-size: cover;
 }
 
 .statBoxWithImage8 {
-    background-image: url('/8.jpg');
+    background-image: url('/8-removebg-preview.png');
     background-size: cover;
 }
 
 .statBoxWithImage9 {
-    background-image: url('/9.jpg');
+    background-image: url('/9-removebg-preview.png');
     background-size: cover;
 }
