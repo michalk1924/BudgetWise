@@ -1,17 +1,12 @@
-
-.addBudgetSection {
-    padding: 20px;
-    align-items: center;
-    margin:10px;
-  }
   
-  .addBudgetContainer {
+  .addSavingContainer{
     display: flex; /* Enable Flexbox */
     align-items: center; /* Align text and form vertically */
     gap: 20px; /* Space between the text and the form */
+   
   }
   
-  .addBudgetTitle {
+  .addSavingTitle {
     font-size: 1rem;
     color: #2f5f98;
     white-space: nowrap; /* Prevent wrapping to the next line */
@@ -28,7 +23,6 @@
     color: #2f5f98;
     background-color: #fbf6f3;
     box-shadow: 0px 4px 6px #D4BDAC;
- 
     /* border: 2px solid #ccc; */
     border-radius: 8px;
     flex: 1; /* Inputs take up equal space */
