@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 
         const token = await login(password, storedHashedPassword, userId);
 
-        return NextResponse.json({ token: token });
+        return NextResponse.json({ user: user, token: token });
 
     } catch (error: any) {
         console.error('Error during POST request:', error);  // Log the error for debugging
