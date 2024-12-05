@@ -1,7 +1,7 @@
 .gridItem {
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 6px #D4BDAC;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -14,7 +14,7 @@
   .gridTotalItem {
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 0px 4px 6px #a1d6b2ea;
+    box-shadow: 0px 4px 6px #D4BDAC;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -71,8 +71,6 @@ color:#A1D6B2;
   .editButton:hover {
     color: #1d3c6a;
   }
-  
-  
   
   .spent,
   .left,
