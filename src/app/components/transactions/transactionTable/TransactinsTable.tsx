@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import styles from './TransactinsTable.module.css';
+import styles from './TransactionTable.module.css';
 import { Transaction } from '../../../../types/types';
 import { FaPencilAlt } from 'react-icons/fa';
 

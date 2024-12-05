@@ -7,7 +7,7 @@ const userService = {
         try {
             console.log("Fetching all users...");
             const response = await http.get('/users');
-            console.log("Response data:", response.data); // הדפס את התוצאה
+            console.log("Response data:", response.data);
             if (Array.isArray(response.data)) {
                 return response.data;
             } else {

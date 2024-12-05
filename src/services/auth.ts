@@ -9,6 +9,7 @@ const authService = {
             if (response.data && response.data.token) {
                 const token = response.data.token;
                 saveToken(token);
+                return response.data.user;
             }
         } catch (error) {
             console.error('Login error:', error);
@@ -23,6 +24,7 @@ const authService = {
             if (response.data && response.data.token) {
                 const token = response.data.token;
                 saveToken(token);
+                return response.data.user;
             }
         } catch (error) {
             console.error('Signup error:', error);
@@ -30,7 +32,7 @@ const authService = {
         }
     },
 
-    async forgotPassword(email: string){
+    async forgotPassword(email: string) {
         try {
             await http.post('/forgot-password', { email });
         } catch (error) {

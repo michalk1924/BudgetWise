@@ -8,6 +8,7 @@ import authService from "@/services/auth";
 import { googleSignup } from "../../services/signInWithGoogle";
 import { useRouter } from "next/navigation";
 import { showSuccessAlert, showErrorAlert } from "../../services/alerts";
+import useUserStore from "../../store/userStore";
 
 type FormFields = z.infer<typeof schema>;
 
@@ -20,6 +21,7 @@ const schema = z.object({
 export default function Home() {
 
     const router = useRouter();
+    const { setUser } = useUserStore();
 
     const goToLogin = () => {
         router.push("/login");
@@ -37,7 +39,8 @@ export default function Home() {
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
-            await authService.signup(data);
+            const user = await authService.signup(data);
+            setUser(user);
             await showSuccessAlert("You Signed up successfully");
             router.push("/home");
         } catch (error: any) {
