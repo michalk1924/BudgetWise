@@ -42,9 +42,6 @@ export default function RootLayout({
         {!hideHeader && <Header />}
         {children}
         <Footer />
-        <QueryClientProvider client={queryClient}>
-          {!hideHeader && <Header />}
-          {children}
         </QueryClientProvider>
       </body>
     </html>

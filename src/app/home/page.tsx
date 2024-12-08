@@ -3,6 +3,7 @@
 import styles from './home.module.css';
 import { getToken } from '../../services/cookies';
 import useUserStore from '@/store/userStore';
+import Alerts from '../components/Alerts/Alerts'
 
 export default function Home() {
 
@@ -38,6 +39,16 @@ export default function Home() {
         )
         .reduce((sum, transaction) => sum + transaction.amount, 0) || 0;
 
+
+    const alert = {
+        _id: '1',
+        type: 'Warning',
+        triggerCondition: 'High CPU Usage',
+        isActive: true,
+        createdAt: '2024-12-08T10:00:00Z',
+        updatedAt: '2024-12-08T10:05:00Z',
+    };
+
     return (
         <div className={styles.container}>
             <main className={styles.main}>
@@ -59,6 +70,7 @@ export default function Home() {
                     <h1>Hello {user?.username || "Name"}! Great to have you here!</h1>
                     <p>What would you like to do today?</p>
                 </section>
+                <Alerts alert={alert} />
             </main>
         </div>
     );
