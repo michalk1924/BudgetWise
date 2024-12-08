@@ -11,10 +11,7 @@ const Header = () => {
   
     const handleLogout = () => {
       clearUser();
-  
-      localStorage.removeItem('authToken');
-  
-      window.location.href = '/login';
+      window.location.href = '/about';
     };
   
   return (
@@ -44,7 +41,7 @@ const Header = () => {
             <Image src='/brush_stain.png' alt="brush_stain" width={20} height={20} />
           </li>
           <li>
-            <Link href="/about-us">About Us</Link>
+            <Link href="/about">About Us</Link>
             <Image src='/brush_stain.png' alt="brush_stain" width={20} height={20} />
           </li>
           <li className={styles.userAccount}>
