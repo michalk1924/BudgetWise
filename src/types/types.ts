@@ -186,7 +186,7 @@ export interface User {
   totalBudget: number; // Total
   totalSpending: number;
   categories: UserCategory[]; // Array of categories associated with the user
-  savings: Saving[]; // Array of savings goals associated with the user
+  savings: UserSaving[]; // Array of savings goals associated with the user
   transactions: Transaction[]; // Array of transactions associated with the user
   alerts: Alert[]; // Array of alerts associated with the user
   recommendations: Recommendation[];
