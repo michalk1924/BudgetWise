@@ -1,8 +1,12 @@
 "use client"
 import { useState } from "react";
 import styles from './profile.module.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import useUserStore from "@/store/userStore";
 
 const Profile: React.FC = () => {
+    const clearUser = useUserStore((state) => state.clearUser); 
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState("MICHAL KASTNER");
     const [email, setEmail] = useState("MICHALK1924@GMAIL.COM");
@@ -10,6 +14,14 @@ const Profile: React.FC = () => {
     const handleSave = () => {
         setIsEditing(false); 
         console.log("Saved data:", { name, email }); // אופציונלי - שמירת המידע
+    };
+  
+    const handleLogout = () => {
+      clearUser();
+  
+      localStorage.removeItem('authToken');
+  
+      window.location.href = '/login';
     };
 
     return (
@@ -20,6 +32,7 @@ const Profile: React.FC = () => {
             <div className={styles.info}>
                 <div className={styles.row}>
                     <img src="/name-removebg-preview.png" alt="User Icon" className={styles.icon} />
+
                     <div>
                         {isEditing ? (
                             <input
@@ -59,8 +72,8 @@ const Profile: React.FC = () => {
                         Edit
                     </button>
                 )}
-                <button className={`${styles.button} ${styles.logout}`}>Logout</button>
-            </div>
+                    <FontAwesomeIcon icon={faSignOutAlt} onClick={handleLogout} /> 
+                    </div>
         </div>
     );
 };

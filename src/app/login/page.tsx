@@ -97,7 +97,7 @@ export default function Home() {
                     <button className={styles.googleButton} onClick={loginWithGoogle}> Login with Google</button>
                 </div>
                 <div className={styles.movePage}>
-                    <p>Don't have an account? Sign up <span className={styles.link} onClick={goToSignup}>here</span>.</p>
+                    <p onClick={goToSignup}>Don't have an account? Sign up <span className={styles.link} >here</span>.</p>
                 </div>
             </div>
         </div>

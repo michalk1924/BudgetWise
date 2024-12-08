@@ -1,11 +1,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import useUserStore from "@/store/userStore";
 
 import styles from './Header.module.css';
 
 const Header = () => {
+    const clearUser = useUserStore((state) => state.clearUser); 
+  
+    const handleLogout = () => {
+      clearUser();
+  
+      localStorage.removeItem('authToken');
+  
+      window.location.href = '/login';
+    };
+  
   return (
     <header className={styles.header}>
       <Image src='/logo.png' alt="Logo" width={190} height={55} />
@@ -41,6 +52,9 @@ const Header = () => {
               <FontAwesomeIcon icon={faUser} />
             </Link>
           </li>
+          <li className={styles.logoutButton}>
+        <FontAwesomeIcon icon={faSignOutAlt} onClick={handleLogout} /> 
+    </li>
         </ul>
       </nav>
     </header>
