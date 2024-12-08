@@ -14,6 +14,7 @@
   background-color: #ecf0f1;
   padding: 10px;
   text-align: center;
+  align-items: center;
 }
 
 .transactionItem {
@@ -25,7 +26,7 @@
   transition: background-color 0.3s ease;
   text-align: center;
   margin: 0;
-  line-height: 1.2;
+  line-height: 1.2vh;
 }
 
 .transactionItem:hover {
@@ -37,7 +38,7 @@
 }
 
 .expense {
-  background-color: rgb(239, 90, 111, 0.5); 
+  background-color: rgb(239, 90, 111, 0.5);
 }
 
 .icon {
@@ -55,7 +56,7 @@
 /* Pagination Styles */
 .pagination {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
   margin-top: 0.5rem;
@@ -80,4 +81,69 @@
 .pageNumber {
   font-size: 16px;
   color: #2c3e50;
+}
+
+.filterInput {
+  margin-left: 0.2rem;
+  padding: 0.1rem;
+  font-size: 0.7rem;
+}
+
+.dropdownContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.filterSelect {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.arrow {
+  margin-left: 1rem;
+}
+
+.categoryText {
+  font-weight: bold;
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.option {
+  font-weight: normal;
+  cursor: pointer;
+  padding: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.option:hover {
+  background-color: #f0f0f0;
+}
+
+.filterSelect.open .arrow {
+  transform: rotate(180deg);
+}
+
+.selectedOption {
+  font-weight: bold;
+  color: #33448e;
 }
