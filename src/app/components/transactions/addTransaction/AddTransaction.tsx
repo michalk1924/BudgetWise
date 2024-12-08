@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { SubmitHandler } from "react-hook-form";
@@ -10,8 +10,9 @@ import { Transaction } from "../../../../types/types";
 
 const transactionSchema = z.object({
     category: z.string().min(1, "Category is required"),
-    date: z.string().min(1, "Date is required"), amount: z
-        .number({ invalid_type_error: "amount must be a number" }),
+    date: z.string().min(1, "Date is required")
+        .refine((dateString) => new Date(dateString) < new Date(), { message: "Date must be before today", }),
+    amount: z.number({ invalid_type_error: "amount must be a number" }),
     description: z.string().optional(),
 });
 
@@ -60,7 +61,7 @@ export default function AddTransaction({ transactions, addTransaction }: AddTran
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.addTransaction}>
-            
+
             {/* Category Selector */}
             <div className={styles.formGroup}>
                 <select
