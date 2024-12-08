@@ -44,15 +44,15 @@ export default function Home() {
                 <section className={styles.stats}>
                     <div className={`${styles.statBox} ${styles.statBoxWithImage7}`}>
                         <h2>CHA-CHING! MY MONTHLY INCOMES</h2>
-                        <p>{monthlyIncome}</p>
+                        <p className={styles.aaa}>{monthlyIncome}</p>
                     </div>
                     <div className={`${styles.statBox} ${styles.statBoxWithImage8}`}>
                         <h2>MY MONTHLY EXPENSES</h2>
-                        <p>{monthlyExpenses}</p>
+                        <p className={styles.aaa}>{monthlyExpenses}</p>
                     </div>
                     <div className={`${styles.statBox} ${styles.statBoxWithImage9}`}>
                         <h2>YOU SAVED THIS MONTH</h2>
-                        <p>{monthlySavings}</p>
+                        <p className={styles.aaa}>{monthlySavings}</p>
                     </div>
                 </section>
                 <section className={styles.greeting}>

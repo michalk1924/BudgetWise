@@ -8,26 +8,26 @@ import { useRouter } from 'next/router';
 
 const Profile: React.FC = () => {
 
-    const clearUser = useUserStore((state) => state.clearUser); 
+    const clearUser = useUserStore((state) => state.clearUser);
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState("MICHAL KASTNER");
     const [email, setEmail] = useState("MICHALK1924@GMAIL.COM");
     const router = useRouter();
 
     const handleSave = () => {
-        setIsEditing(false); 
+        setIsEditing(false);
         console.log("Saved data:", { name, email }); // אופציונלי - שמירת המידע
     };
-  
+
     const handleLogout = () => {
-      clearUser();
-      router.push('/about');
+        clearUser();
+        router.push('/about');
     };
 
     return (
         <div className={styles.container}>
             <div className={styles.bgtitle}>
-            <h1 className={styles.title}>USER PROFILE</h1>
+                <h1 className={styles.title}>USER PROFILE</h1>
             </div>
             <div className={styles.info}>
                 <div className={styles.row}>
@@ -72,8 +72,8 @@ const Profile: React.FC = () => {
                         Edit
                     </button>
                 )}
-                    <FontAwesomeIcon icon={faSignOutAlt} onClick={handleLogout} /> 
-                    </div>
+                <FontAwesomeIcon icon={faSignOutAlt} onClick={handleLogout} />
+            </div>
         </div>
     );
 };
