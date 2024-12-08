@@ -11,10 +11,7 @@ const Header = () => {
   
     const handleLogout = () => {
       clearUser();
-  
-      localStorage.removeItem('authToken');
-  
-      window.location.href = '/login';
+      window.location.href = '/about';
     };
   
   return (

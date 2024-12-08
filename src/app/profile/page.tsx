@@ -4,12 +4,15 @@ import styles from './profile.module.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import useUserStore from "@/store/userStore";
+import { useRouter } from 'next/router';
 
 const Profile: React.FC = () => {
+
     const clearUser = useUserStore((state) => state.clearUser); 
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState("MICHAL KASTNER");
     const [email, setEmail] = useState("MICHALK1924@GMAIL.COM");
+    const router = useRouter();
 
     const handleSave = () => {
         setIsEditing(false); 
@@ -18,10 +21,7 @@ const Profile: React.FC = () => {
   
     const handleLogout = () => {
       clearUser();
-  
-      localStorage.removeItem('authToken');
-  
-      window.location.href = '/login';
+      router.push('/about');
     };
 
     return (

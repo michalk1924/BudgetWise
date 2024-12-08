@@ -3,6 +3,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { User, UserCategory, Saving, Transaction, Alert, Recommendation } from "../types/types";
+import { saveToken } from "@/services/cookies";
 
 interface UserStore {
   user: User | null;
@@ -27,12 +28,15 @@ const useUserStore = create<UserStore>()(
       setUser: (user: User) => {
         const userWithExpiration = {
           ...user,
-          expirationTimestamp: Date.now() + 24 * 60 * 60 * 1000, // expires in 24 hours
+          expirationTimestamp: Date.now() + 60 * 60 * 1000,
         };
         set({ user: userWithExpiration });
       },
 
-      clearUser: () => set({ user: null }),
+      clearUser: () => {
+        set({ user: null });
+        saveToken("");
+      },
 
       addCategory: (category) =>
         set((state) => ({

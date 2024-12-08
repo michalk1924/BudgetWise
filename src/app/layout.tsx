@@ -18,19 +18,21 @@ export default function RootLayout({
 }>) {
 
   const router = useRouter();
-
-  useEffect(() => {
-    const token = getToken();
-
-    if (token) {
-      router.push('/home');
-    } else {
-      router.push('/about');
-    }
-  }, []);
-
   const pathname = usePathname();
   const hideHeader = pathname === '/login' || pathname === '/signup';
+
+  useEffect(() => {
+    if (pathname === '/') {
+      const token = getToken();
+
+      if (token) {
+        router.push('/home');
+      }
+      else {
+        router.push('/about');
+      }
+    }
+  }, [pathname, router]);
 
   return (
     <html lang="en">
