@@ -3,6 +3,7 @@
   flex-direction: column; /* Stack grid and "See More..." vertically */
   align-items: flex-start; /* Align content to the left by default */
   gap: 10px; /* Add spacing between grid and "See More..." */
+  margin-top: 3%;
 }
 
 .gridContainer {
@@ -19,12 +20,7 @@
   color: #2f5f98;
   text-decoration: underline;
 }
-.gridContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* עד 4 עמודות */
-  gap: 20px; /* מרווח בין הפריטים */
-  padding: 20px; /* ריווח פנימי מסביב ל-Grid */
-}
+
 
 /* עבור מסכים קטנים יותר */
 @media (max-width: 768px) {

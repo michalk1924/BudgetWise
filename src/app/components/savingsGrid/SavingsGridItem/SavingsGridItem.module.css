@@ -1,0 +1,95 @@
+ 
+.gridItem {
+    border-radius: 10px;
+    padding: 30px;
+    background-color: #fbf6f3;
+    box-shadow: 0px 4px 10px #D4BDAC;
+    text-align: center;
+    flex-direction: column;
+    justify-items: center;
+    color: #2f5f98;
+  }
+
+  .goalName {
+
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow:0px 4px 10px #2f5f98;
+  }
+  
+  .deadline {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #2f5f98;
+
+  }
+ /* 
+  .details {
+    font-size: 1.9rem;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .deadline {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #2f5f98;
+  }
+  
+  
+  .gridItem h2 {
+    font-size: 1.2rem;
+  }
+ 
+.details{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    justify-content: space-evenly;
+    margin: 10px;
+}
+
+  .current {
+    background-image: url('/green_empty_circle.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;  
+  width: 9rem; 
+  height: 9rem; 
+  display: flex; 
+  align-items: center;  
+  justify-content: center; 
+  text-align: center; 
+  font-size: 1.5rem; 
+  padding: 10px;
+  }
+  .target {
+    background-image: url('/pink_empty_circle.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain; 
+  width: 9rem; 
+  height: 9rem; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+  font-size: 1.5rem; 
+  padding: 20px; 
+ 
+  }
+   */
+
+ 
+  
+
+  
+  .deadline {
+    display: block;
+    margin-top: 10px; /* Add spacing between circle and deadline */
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #2f5f98;
+  }
+  

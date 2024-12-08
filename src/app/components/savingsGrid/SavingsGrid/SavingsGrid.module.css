@@ -1,0 +1,8 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* כרטיסיות בגודל מינימלי */
+  gap: 60px; /* רווח בין כרטיסיות */
+  padding: 20px;
+  justify-content: center; /* מרכז את הכרטיסיות בתוך הקונטיינר */
+  width: 100%;
+}

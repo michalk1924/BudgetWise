@@ -1,163 +1,73 @@
 "use client"
 
 import React, { useState } from 'react';
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./transactions.module.css";
-import { TransactionTable } from '../components/index';
+import { AddTransaction, TransactionTable } from '../components/index';
 import { Transaction } from '../../types/types';
-
-const transactionSchema = z.object({
-  category: z.string().min(1, "Category is required"),
-  date: z.string().min(1, "Date is required"), amount: z
-    .number({ invalid_type_error: "amount must be a number" })
-    .positive("amount must be positive"),
-  description: z.string().optional(),
-});
-
-export type TransactionInput = z.infer<typeof transactionSchema>;
+import useUserStore from "../../store/userStore";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import userService from '@/services/user';
 
 function Transactions() {
 
-  const [transactions, setTransactions] = useState<Array<Transaction>>([
-    {
-      _id: "1",
-      userId: "user123",
-      category: "Food",
-      type: "expense", // סוג ההוצאה
-      amount: 100,
-      description: "Burger",
-      date: new Date("2022-01-01"),
-      createdAt: new Date("2022-01-01"),
-      updatedAt: new Date("2022-01-01"),
-    },
-    {
-      _id: "2",
-      userId: "user123",
-      category: "Transportation",
-      type: "expense", // סוג ההוצאה
-      amount: 50,
-      description: "Car rental",
-      date: new Date("2022-01-02"),
-      createdAt: new Date("2022-01-02"),
-      updatedAt: new Date("2022-01-02"),
-    },
-    {
-      _id: "3",
-      userId: "user123",
-      category: "Entertainment",
-      type: "expense", // סוג ההוצאה
-      amount: 20,
-      description: "Movie",
-      date: new Date("2022-01-03"),
-      createdAt: new Date("2022-01-03"),
-      updatedAt: new Date("2022-01-03"),
-    },
-  ]);
+  const { user, addTransaction } = useUserStore();
 
+  const [loading, setLoading] = useState(false);
 
-  const [categories, setCategories] = useState<string[]>([
-    "Food",
-    "Transport",
-    "Entertainment",
-    "Utilities",
-    "Others",
-  ]);
+  const queryClient = useQueryClient();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<TransactionInput>({
-    resolver: zodResolver(transactionSchema),
+  const updateUserMutation = useMutation({
+    mutationFn: async ({ id, transaction }: { id: string; transaction: Transaction }) => {
+      if (user) {
+        const response = await userService.updateUser(id, { transactions: [...user?.transactions, transaction] });
+        addTransaction(transaction);
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error updating user:', error.message);
+    },
   });
 
-  const onSubmit: SubmitHandler<TransactionInput> = async (data: TransactionInput) => {
-    const transaction: Transaction =
-    {
-      _id: "",
-      category: data.category,
-      date: new Date(data.date),
-      amount: Number(data.amount),
-      description: data.description || "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      userId: "123",
-      type: data.amount > 0 ? 'income' : 'expense',
-    }
-    setTransactions(prev => [...prev, transaction]);
-    reset();
-  };
+  const handleAddTransaction = (transaction: Transaction) => {
+    transaction._id = Math.random().toString(36).substr(2, 8);
+    updateUserMutation.mutate({ id: user?._id ?? '', transaction });
+  }
 
   return (
     <div className={styles.container}>
 
       <h2 className={styles.title}>Manage My Transactions</h2>
 
-      <TransactionTable transactions={transactions} />
+      {user && <TransactionTable transactions={user?.transactions} />}
 
-      <div className={styles.total}>
-        Total: +$
-        {transactions.reduce((amount, t) => amount + Number(t.amount || 0), 0).toFixed(2)}
-      </div>
+      {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction} />}
 
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.addTransaction}>
-        {/* Category Selector */}
-        <div className={styles.formGroup}>
-          <select
-            className={styles.select}
-            {...register("category")}
-            defaultValue=""
-          >
-            <option value="" disabled>
-              Select a category
-            </option>
-            {categories.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-          {errors.category && (
-            <p className={styles.error}>{String(errors.category.message)}</p>
-          )}
-        </div>
+      {user && <div className={styles.total}>
+        Total:
+        {user?.transactions.reduce((amount, t) => {
+          if (t.type === 'expense') {
+            return amount - Number(t.amount || 0);
+          }
+          return amount + Number(t.amount || 0);
+        }, 0).toFixed(2)}
+        $
+      </div>}
 
-        <div className={styles.formGroup}>
-          <input
-            className={styles.input}
-            type="date"
-            {...register("date")}
-          />
-          {errors.date && <p className={styles.error}>{errors.date.message}</p>}
-        </div>
+      {!loading && user && user?.transactions?.length === 0 && <div>
+        Please log in to manage your transactions.
+      </div>}
 
-        <div className={styles.formGroup}>
-          <input
-            className={styles.input}
-            type="number"
-            placeholder="Sum"
-            {...register("amount", { valueAsNumber: true })}
-          />
-          {errors.amount && <p className={styles.error}>{errors.amount.message}</p>}
-        </div>
+      {!loading && !user && <div>
+        Please log in to access this feature.
+      </div>}
 
-        <div className={styles.formGroup}>
-          <input
-            className={styles.input}
-            type="text"
-            placeholder="Description (Optional)"
-            {...register("description")}
-          />
-        </div>
+      {loading && <div>Loading...</div>}
 
-        <button className={styles.addButton} type="submit">
-          Add Transaction
-        </button>
-      </form>
     </div>
   )
 }

@@ -37,7 +37,7 @@ const Header = () => {
             <Image src='/brush_stain.png' alt="brush_stain" width={20} height={20} />
           </li>
           <li className={styles.userAccount}>
-            <Link href="/account" title="Your Account">
+            <Link href="/profile" title="Your Account">
               <FontAwesomeIcon icon={faUser} />
             </Link>
           </li>

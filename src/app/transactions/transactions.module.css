@@ -3,10 +3,10 @@
 /* Title */
 .title {
   position: absolute;
-  width: 30vw;
-  height: 30vh;
+  width: 30%;
+  height: 45vh;
   top: 45%;
-  left: 80%;
+  left: 83%;
   transform: translate(-50%, -50%);
   text-align: center;
   display: grid;
@@ -14,7 +14,7 @@
   background-image: url('../../../public/Screenshot_2024-12-03_111853-removebg-preview.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   font-family: 'Gagalin', Arial, sans-serif;
   font-size: 3vw;
   color: #2f5f98;
@@ -44,56 +44,11 @@
   text-align: center;
 }
 
-.addTransaction {
-  width: 70vw;
-  max-width: 800px;
-  margin: 0 auto;
-  margin-right: auto;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  align-items: center;
-}
-
-.formGroup {
-  flex: 1;
-  min-width: 150px;
-  display: flex;
-  flex-direction: column;
-}
-
-.select,
-.input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  font-size: 16px;
-}
-
-.input[type="date"] {}
-
-.error {
-  color: red;
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-.addButton {
-  background-color: #3f51b5;
-  color: #fff;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  align-self: flex-end;
-}
-
-.addButton:hover {
-  background-color: #333d99;
+.total {
+  position: absolute;
+  top: 80%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: #2f5f98;
 }

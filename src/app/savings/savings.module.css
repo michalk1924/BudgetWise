@@ -1,8 +1,10 @@
 /* General Page Layout */
 .page {
     color: #2f5f98;
-    padding: 20px;
     display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the page takes up the full viewport height */
+    overflow: hidden; /* Prevent unnecessary scrolling */
   }
   
   /* Title Section */
@@ -10,22 +12,29 @@
     display: grid; /* Enable Grid layout */
     place-items: center; /* Centers content both horizontally and vertically */
     text-align: center; /* Align multiline text */
-    background-image: url('/splash_title.png'); /* Replace with your watercolor splash */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
     font-family: 'Painting_With_Chocolate', Arial, sans-serif;
-    font-size: 3rem;
+    font-size: 2.7rem;
     font-weight: bold;
     color: #2f5f98;
-    padding: 5%;
-  }
+    margin: 2%;
+    text-shadow: 10px 7px 10px #D4BDAC;
+    /* -webkit-text-stroke: 1px #D4BDAC; 
+    -webkit-text-fill-color: #2f5f98;  */
 
+  }
   
+  /* Main Section */
   .mainSection {
-    display:flex;
+    display: flex;
     flex-direction: column;
+    flex-grow: 0.5; /* Allow the main section to take up remaining space */
+    justify-content: space-between; /* Distribute content evenly */
   }
-
- 
+  
+  /* Add Saving Section */
+  .addSavingSection {
+    align-self: center; /* Horizontally center the section */
+    padding: 20px;
+    text-align: center; /* Center content inside */
+  }
   

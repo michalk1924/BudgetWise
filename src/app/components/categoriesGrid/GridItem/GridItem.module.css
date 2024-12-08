@@ -1,17 +1,42 @@
 .gridItem {
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 6px #D4BDAC;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     background-color: #fbf6f3;
     position: relative;
+    color: #2f5f98;
+
   }
-  
+
+  .gridTotalItem {
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 6px #D4BDAC;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    width:90%;
+    font-size: 1.2rem;
+    font-family: 'Malvie Trial', Arial, sans-serif;
+  }
+
+  .gridTotalItem .details .numeric{
+    font-family: 'DynaPuff'; /* Use a clean, readable font for numbers */
+    font-size: 1rem; 
+    font-weight: bold; 
+}
+    
+  .categoryTotalName {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+
   .categoryName {
     font-size: 1.2rem;
-    color: #2f5f98;
     margin-bottom: 10px;
   }
   
@@ -47,8 +72,12 @@ color:#A1D6B2;
     color: #1d3c6a;
   }
   
+  .spent,
+  .left,
   .budget {
-    font-size: 1rem;
-    margin-top: 10px;
+    display: flex; /* Flex layout for inner content */
+    align-items: center; /* Vertically align items */
+    gap: 5px; /* Add spacing between the number and text */
   }
+  
   

@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { connectDatabase, insertDocument, getUserByEmail } from "@/services/mongo";
+import { connectDatabase, insertDocument, getUserByEmail, getDocumentById } from "@/services/mongo";
 import { signup } from '@/services/authFunctions'
 
 
@@ -18,12 +18,22 @@ export async function POST(request: NextRequest, { params }: { params: any }) {
             return NextResponse.json({ error: 'User already exists' }, { status: 400 });
         }
 
-        const result = await insertDocument(client, 'users', { name: name, email: email });
+        const result = await insertDocument(client, 'users', {
+            name: name,
+            email: email,
+            categories: [],
+            savings: [],
+            transactions: [],
+            alerts: [],
+            recommendations: []
+        });
         if (!result.acknowledged) {
             return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
         }
 
         const userId = result.insertedId.toString();
+
+        const userDetails = await getDocumentById(client, "users", userId);
 
         const { hashedPassword, token } = await signup(password, userId);
 
@@ -32,7 +42,7 @@ export async function POST(request: NextRequest, { params }: { params: any }) {
             return NextResponse.json({ error: 'Failed to create password' }, { status: 500 });
         }
 
-        return NextResponse.json({ token });
+        return NextResponse.json({ user: userDetails, token: token });
     }
     catch (error) {
         return NextResponse.json({ message: 'Error SignUp', error }, { status: 500 });

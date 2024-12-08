@@ -11,7 +11,7 @@ const total:UserCategory={
     _id: "total",
     userId: "123",
     type: "general",
-    name: "Total",
+    name: "Monthly  Total  Budget",
     description: "Total budget for the month",
     budget: 300,
     spent: 150,
@@ -93,15 +93,6 @@ const categories: UserCategory[] = [
 ];
 
 const Categories = () => {
-  const totalBudget = categories.reduce(
-    (sum, category) => sum + category.budget,
-    0
-  );
-  const totalSpent = categories.reduce(
-    (sum, category) => sum + category.spent,
-    0
-  );
-
   return (
     <div className={styles.page}>
       <section className={styles.leftSection}>
@@ -114,6 +105,7 @@ const Categories = () => {
           <GridItem key={1} category={total} isTotal={true} />
         </section>
       </section>
+      
       <section className={styles.mainSection}>
         <section className={styles.tableSection}>
           {/* Pass categories as a prop to BudgetGrid */}

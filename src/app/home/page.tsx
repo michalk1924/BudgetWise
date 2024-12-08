@@ -29,22 +29,8 @@ export default function Home() {
                     </div>
                 </section>
                 <section className={styles.greeting}>
-                    <h2>Hello Name! Great to have you here!</h2>
+                    <h1>Hello Name! Great to have you here!</h1>
                     <p>What would you like to do today?</p>
-                </section>
-                <section className={styles.actions}>
-                    <button>My Reports
-                        <img src='/10.jpg'></img>
-                    </button>
-                    <button>My Savings State
-                        <img src='/11.jpg'></img>
-                    </button>
-                    <button>Recommendations
-                        <img src='/12.jpg'></img>
-                    </button>
-                    <button>My Transactions
-                        <img src='/13.jpg'></img>
-                    </button>
                 </section>
             </main>
         </div>

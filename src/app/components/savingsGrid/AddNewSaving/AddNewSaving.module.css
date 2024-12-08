@@ -1,0 +1,37 @@
+  
+  .addSavingContainer{
+    display: flex; /* Enable Flexbox */
+    align-items: center; /* Align text and form vertically */
+    gap: 20px; /* Space between the text and the form */
+   
+  }
+  
+  .addSavingTitle {
+    font-size: 1rem;
+    color: #2f5f98;
+    white-space: nowrap; /* Prevent wrapping to the next line */
+  }
+  
+  .form {
+    display: flex; /* Display inputs in a row */
+    gap: 10px; /* Space between inputs */
+    color: #2f5f98;
+  }
+  
+  .input {
+    padding: 10px;
+    color: #2f5f98;
+    background-color: #fbf6f3;
+    box-shadow: 0px 4px 6px #D4BDAC;
+    /* border: 2px solid #ccc; */
+    border-radius: 8px;
+    flex: 1; /* Inputs take up equal space */
+    max-width: 150px; /* Optional: Limit the width */
+  }
+  
+  .input::placeholder {
+    color: #2f5e98af; /* Custom color for the placeholder */
+    font-style: italic; /* Optional */
+    font-size: 0.8rem;
+
+  }
