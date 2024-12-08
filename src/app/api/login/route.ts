@@ -9,6 +9,8 @@ export async function POST(request: NextRequest) {
 
         const { email, password } = await request.json();
 
+        console.log("1" , email, password);
+
         if (!email) {
             return NextResponse.json({ message: 'Email not provided' }, { status: 400 });
         }
@@ -18,7 +20,12 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ message: 'User not found' }, { status: 404 });
         }
 
+        console.log("2", user);
+
         const userId = user._id.toString();
+
+        console.log("3", userId);
+        
 
         const passwordObj = await getPassword(client, userId);
         if (!passwordObj) {
