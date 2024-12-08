@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "./components/index";
 import { usePathname } from 'next/navigation';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Footer from "./components/Footer/Footer";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <QueryClientProvider client={queryClient}>
         {!hideHeader && <Header />}
         {children}
+        <Footer />
         </QueryClientProvider>
       </body>
     </html>
