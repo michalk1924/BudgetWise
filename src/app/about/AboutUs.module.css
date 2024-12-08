@@ -1,0 +1,90 @@
+/* about-us.module.css */
+
+.container {
+  background-color: #F5F5F5;
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+}
+
+.header {
+  background-color: #1A73E8;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+.main {
+  padding: 20px;
+}
+
+.introduction,
+.team,
+.mission {
+  margin-bottom: 30px;
+}
+
+.introduction h2,
+.team h3,
+.mission h3 {
+  color: #1A73E8;
+}
+
+.introduction p,
+.team p,
+.mission p {
+  font-size: 1.1em;
+  line-height: 1.6em;
+}
+
+/* ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  font-size: 1.1em;
+} */
+
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+/* AboutUs.module.css */
+.container {
+  /* existing styles */
+}
+
+.authButtons {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
