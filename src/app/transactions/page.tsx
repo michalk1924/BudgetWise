@@ -43,13 +43,13 @@ function Transactions() {
 
       <h2 className={styles.title}>Manage My Transactions</h2>
 
-      {user && <TransactionTable transactions={user?.transactions} />}
+      {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions} />}
 
       {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction} />}
 
       {user && <div className={styles.total}>
         Total:
-        {user?.transactions.reduce((amount, t) => {
+        {user?.transactions?.reduce((amount, t) => {
           if (t.type === 'expense') {
             return amount - Number(t.amount || 0);
           }
@@ -59,8 +59,8 @@ function Transactions() {
       </div>}
 
       {!loading && user && user?.transactions?.length === 0 && <div>
-        Please log in to manage your transactions.
-      </div>}
+        No transactions found. Add some today!
+        </div>}
 
       {!loading && !user && <div>
         Please log in to access this feature.
