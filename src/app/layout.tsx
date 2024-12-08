@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "./components/index";
 import { usePathname } from 'next/navigation';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Footer from "./components/Footer/Footer";
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getToken } from '../services/cookies';
@@ -37,6 +38,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+      <QueryClientProvider client={queryClient}>
+        {!hideHeader && <Header />}
+        {children}
+        <Footer />
         <QueryClientProvider client={queryClient}>
           {!hideHeader && <Header />}
           {children}
