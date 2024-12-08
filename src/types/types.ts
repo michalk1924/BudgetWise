@@ -137,7 +137,7 @@ export interface Transaction {
   _id: string; // Transaction identifier
   userId: string; // User identifier
   category: string; // Category identifier associated with this transaction
-  type: 'income' | 'expense'; // Type of transaction (either "income" or "expense")
+  type: 'income' | 'expense' | 'saved'; // Type of transaction (either "income" or "expense")
   amount: number; // The amount of money for this transaction
   description: string; // A description of the transaction (e.g., "Supermarket shopping")
   date: Date; // Date when the transaction occurred
