@@ -33,7 +33,7 @@ const Header = () => {
             <Image src='/brush_stain.png' alt="brush_stain" width={20} height={20} />
           </li>
           <li>
-            <Link href="/about-us">About Us</Link>
+            <Link href="/about">About Us</Link>
             <Image src='/brush_stain.png' alt="brush_stain" width={20} height={20} />
           </li>
           <li className={styles.userAccount}>
