@@ -1,0 +1,84 @@
+/* כללי */
+.footer {
+    background-color: #536493; /* צבע רקע כהה */
+    color: #fff; /* צבע טקסט */
+    padding: 20px;
+  }
+  
+  .footer a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  
+  .footerTop {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .footerTop form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .footerTop input {
+    padding: 10px;
+    margin: 0;
+    border: none;
+    border-radius: 5px;
+    width: 300px;
+  }
+  
+  .footerTop button {
+    padding: 10px 20px;
+    background-color:#D4BDAC ;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .footerTop button:hover {
+    background-color: #e67e22;
+  }
+  
+  /* חלק אמצעי */
+  .footerSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .links {
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+  }
+  
+  .socialMedia a img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+  
+  /* חלק תחתון */
+  .footerBottom {
+    text-align: center;
+    font-size: 0.9rem;
+    border-top: 1px solid #444;
+    padding-top: 10px;
+  }
+  
+  .footerBottom a {
+    margin: 0 10px;
+  }
+  
