@@ -40,13 +40,22 @@ export default function Home() {
         .reduce((sum, transaction) => sum + transaction.amount, 0) || 0;
 
 
-    const alert = {
+    const alert1 = {
         _id: '1',
         type: 'Warning',
-        triggerCondition: 'High CPU Usage',
+        triggerCondition: 'You have new notifications',
         isActive: true,
-        createdAt: '2024-12-08T10:00:00Z',
-        updatedAt: '2024-12-08T10:05:00Z',
+        createdAt: '2024-12-08',
+        updatedAt: '2024-12-08',
+    };
+
+    const alert2 = {
+        _id: '2',
+        type: 'Warning',
+        triggerCondition: 'You have new notifications',
+        isActive: false,
+        createdAt: '2024-12-08',
+        updatedAt: '2024-12-08',
     };
 
     return (
@@ -70,7 +79,8 @@ export default function Home() {
                     <h1>Hello {user?.username || "Name"}! Great to have you here!</h1>
                     <p>What would you like to do today?</p>
                 </section>
-                <Alerts alert={alert} />
+                <Alerts alert={alert1} />
+                <Alerts alert={alert2} />
             </main>
         </div>
     );
