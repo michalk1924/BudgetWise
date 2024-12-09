@@ -1,33 +1,28 @@
 "use client"
 import { useState } from "react";
 import styles from './profile.module.css';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import useUserStore from "@/store/userStore";
-import { useRouter } from 'next/router';
 
 const Profile: React.FC = () => {
 
-    const clearUser = useUserStore((state) => state.clearUser); 
+    const clearUser = useUserStore((state) => state.clearUser);
     const [isEditing, setIsEditing] = useState(false);
-    const [name, setName] = useState("MICHAL KASTNER");
-    const [email, setEmail] = useState("MICHALK1924@GMAIL.COM");
-    const router = useRouter();
+    const { user } = useUserStore();
 
     const handleSave = () => {
-        setIsEditing(false); 
-        console.log("Saved data:", { name, email }); // אופציונלי - שמירת המידע
+        setIsEditing(false);
+        // console.log("Saved data:", { user, email }); // אופציונלי - שמירת המידע
     };
-  
+
     const handleLogout = () => {
-      clearUser();
-      router.push('/about');
+        clearUser();
+        window.location.href = '/about'; 
     };
 
     return (
         <div className={styles.container}>
             <div className={styles.bgtitle}>
-            <h1 className={styles.title}>USER PROFILE</h1>
+                <h1 className={styles.title}>USER PROFILE</h1>
             </div>
             <div className={styles.info}>
                 <div className={styles.row}>
@@ -37,12 +32,12 @@ const Profile: React.FC = () => {
                         {isEditing ? (
                             <input
                                 type="text"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                value={user?.username}
+                                // onChange={(e) => setName(e.target.value)}
                                 className={styles.input}
                             />
                         ) : (
-                            <span className={styles.value}>{name}</span>
+                            <span className={styles.value}>{user?.username}</span>
                         )}
                     </div>
                 </div>
@@ -52,28 +47,30 @@ const Profile: React.FC = () => {
                         {isEditing ? (
                             <input
                                 type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                value={user?.email}
+                                // onChange={(e) => setEmail(e.target.value)}
                                 className={styles.input}
                             />
                         ) : (
-                            <span className={styles.value}>{email}</span>
+                            <span className={styles.value}>{user?.email}</span>
                         )}
                     </div>
                 </div>
             </div>
             <div className={styles.buttons}>
-                {isEditing ? (
+                {/* {isEditing ? (
                     <button onClick={handleSave} className={`${styles.button} ${styles.save}`}>
                         <img src="/save-icon.png" alt="Save Icon" className={styles.saveIcon} />
                     </button>
-                ) : (
+                ) : 
+                (
                     <button onClick={() => setIsEditing(true)} className={`${styles.button} ${styles.edit}`}>
                         Edit
                     </button>
-                )}
-                    <FontAwesomeIcon icon={faSignOutAlt} onClick={handleLogout} /> 
-                    </div>
+                )
+                } */}
+                <button className={`${styles.button} ${styles.logout}`} onClick={handleLogout}>Logout</button>
+            </div>
         </div>
     );
 };
