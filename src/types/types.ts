@@ -1,18 +1,11 @@
 
-/**
- * Interface representing a Category object.
- * A category can be either an income or expense, and it includes information about the user's budget for that category.
- */
+
 export interface Category {
   _id: string;
   name: string; // The name of the category (e.g., "Food", "Salary")
   description: string; // The description of the category
 }
 
-/**
-* Interface representing a Category object.
-* A category can be either an income or expense, and it includes information about the user's budget for that category.
-*/
 export interface UserCategory {
   _id: string;
   userId: string; // User identifier
@@ -24,10 +17,6 @@ export interface UserCategory {
   month: Date;
 }
 
-/**
- * Interface representing a Saving object.
- * A saving is a financial goal where a user saves money towards a specific target.
- */
 export interface Saving {
   _id: string; // Saving identifier
   userId: string; // User identifier
@@ -39,10 +28,7 @@ export interface Saving {
   updatedAt: Date; // Date when the saving goal was last updated
 }
 
-/**
- * Interface representing a UserSaving object.
- * A UserSaving is a Saving object that belongs to a specific user.
- */
+
 export interface UserSaving {
   _id: string; // Saving identifier
   goalName: string; // The name of the savings goal (e.g., "Trip to Japan")
@@ -51,26 +37,8 @@ export interface UserSaving {
   deadline: Date; // Deadline for reaching the savings goal
 }
 
-/**
- * Interface representing a Transaction object.
- * A transaction can be either an income or an expense, and includes details about the amount, description, and category.
- */
-export interface Transaction {
-  _id: string; // Transaction identifier
-  userId: string; // User identifier
-  category: string; // Category identifier associated with this transaction
-  type: 'income' | 'expense'; // Type of transaction (either "income" or "expense")
-  amount: number; // The amount of money for this transaction
-  description: string; // A description of the transaction (e.g., "Supermarket shopping")
-  date: Date; // Date when the transaction occurred
-  createdAt: Date; // Date when the transaction was created
-  updatedAt: Date; // Date when the transaction was last updated
-}
 
-/**
- * Interface representing an Alert object.
- * An alert informs the user about specific conditions, such as exceeding the budget or reaching a savings goal.
- */
+
 export interface Alert {
   _id: string; // Alert identifier
   userId: string; // User identifier
@@ -81,10 +49,7 @@ export interface Alert {
   updatedAt: Date; // Date when the alert was last updated
 }
 
-/**
-* Interface representing an Recommendation object.
-* An alert informs the user about specific conditions, such as exceeding the budget or reaching a savings goal.
-*/
+
 export interface Recommendation {
   _id: string; // מזהה ההמלצה
   userId: string; // מזהה המשתמש שאליו מתייחסת ההמלצה
@@ -96,10 +61,7 @@ export interface Recommendation {
   status: 'pending' | 'viewed' | 'resolved'; // מצב ההמלצה - אם המשתמש ראה או פתר את ההמלצה
 }
 
-/**
- * Interface representing a User object.
- * A user has information like username, email, password (hashed), currency, and associated categories, savings, transactions, and alerts.
- */
+
 export interface User {
   _id: string; // User identifier
   username: string; // The username of the user
@@ -114,10 +76,7 @@ export interface User {
   recommendations: Recommendation[];
 }
 
-/**
- * Interface representing a Saving object.
- * A saving is a financial goal where a user saves money towards a specific target.
- */
+
 export interface Saving {
   _id: string; // Saving identifier
   userId: string; // User identifier
@@ -129,26 +88,20 @@ export interface Saving {
   updatedAt: Date; // Date when the saving goal was last updated
 }
 
-/**
- * Interface representing a Transaction object.
- * A transaction can be either an income or an expense, and includes details about the amount, description, and category.
- */
+
 export interface Transaction {
-  _id: string; // Transaction identifier
-  userId: string; // User identifier
-  category: string; // Category identifier associated with this transaction
-  type: 'income' | 'expense' | 'saved'; // Type of transaction (either "income" or "expense")
-  amount: number; // The amount of money for this transaction
-  description: string; // A description of the transaction (e.g., "Supermarket shopping")
-  date: Date; // Date when the transaction occurred
-  createdAt: Date; // Date when the transaction was created
-  updatedAt: Date; // Date when the transaction was last updated
+  _id: string; 
+  userId: string; 
+  category: string; 
+  type: 'income' | 'expense' | 'saved'; 
+  amount: number; 
+  description: string; 
+  date: Date; 
+  createdAt: Date; 
+  updatedAt: Date; 
 }
 
-/**
- * Interface representing an Alert object.
- * An alert informs the user about specific conditions, such as exceeding the budget or reaching a savings goal.
- */
+
 export interface Alert {
   _id: string; // Alert identifier
   userId: string; // User identifier
@@ -174,10 +127,7 @@ export interface Recommendation {
   status: 'pending' | 'viewed' | 'resolved'; // מצב ההמלצה - אם המשתמש ראה או פתר את ההמלצה
 }
 
-/**
- * Interface representing a User object.
- * A user has information like username, email, password (hashed), currency, and associated categories, savings, transactions, and alerts.
- */
+
 export interface User {
   _id: string; // User identifier
   username: string; // The username of the user
