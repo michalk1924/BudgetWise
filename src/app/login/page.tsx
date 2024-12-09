@@ -26,6 +26,7 @@ export default function Home() {
         register,
         handleSubmit,
         reset,
+        getValues,
         formState: { errors, isSubmitting },
     } = useForm<FormFields>({
         resolver: zodResolver(schema),
@@ -62,10 +63,32 @@ export default function Home() {
         router.push("/signup");
     };
 
+    const handleForgotPassword = async () => {
+        if (errors.email) {
+            showErrorAlert("Please provide a valid email.");
+            return;
+        }
+
+        try {
+            const email = getValues("email");
+            const result = await authService.forgotPassword(email);
+            if (result){
+                router.push("/forgotpassword");
+            }
+        }
+        catch (error: any) {
+            console.error("Error sending password reset code:", error);
+        }
+    };
+
+
     return (
         <div className={styles.body}>
+
             <div className={styles.container}>
+
                 <h1 className={styles.title}>Login In</h1>
+
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <input
                         {...register("email")}
@@ -93,13 +116,21 @@ export default function Home() {
                         {isSubmitting ? "Loading..." : "Submit"}
                     </button>
                 </form>
+
+                <div className={styles.forgotPassword}>
+                    <p onClick={handleForgotPassword}>Forgot Password?</p>
+                </div>
+
                 <div className={styles.googleButtonContainer}>
                     <button className={styles.googleButton} onClick={loginWithGoogle}> Login with Google</button>
                 </div>
+
                 <div className={styles.movePage}>
                     <p onClick={goToSignup}>Don't have an account? Sign up <span className={styles.link} >here</span>.</p>
                 </div>
+
             </div>
+
         </div>
     );
 }
