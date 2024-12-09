@@ -1,8 +1,14 @@
 .addTransaction {
-    position: absolute;
+    /* position: absolute;
     width: 60%;
     left: 3%;
-    top: 87%;
+    top: 87%; */
+    position: relative;
+    width: 60%;
+    margin: 0;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    border-radius: 15px;
     padding: 0.6rem;
     border-radius: 15px;
     display: flex;

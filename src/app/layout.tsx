@@ -20,7 +20,7 @@ export default function RootLayout({
 
   const router = useRouter();
   const pathname = usePathname();
-  const hideHeader = pathname === '/login' || pathname === '/signup';
+  const hideHeaderFooter = pathname === '/login' || pathname === '/signup' || pathname === '/forgotpassword';
 
   useEffect(() => {
     if (pathname === '/') {
@@ -39,9 +39,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <QueryClientProvider client={queryClient}>
-          {!hideHeader && <Header />}
+          {!hideHeaderFooter && <Header />}
           {children}
-          <Footer />
+          {!hideHeaderFooter && <Footer />}
         </QueryClientProvider>
       </body>
     </html>

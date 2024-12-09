@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 const saltRounds = process.env.SALT_ROUNDS || 10;
 const secretKey = process.env.JWT_SECRET || "";
 
-export async function signup(
+export async function hash(
     plainTextPassword: string,
     userId: string
 ): Promise<{ hashedPassword: string; token: string }> {
@@ -18,7 +18,7 @@ export async function signup(
 
         return { hashedPassword, token };
     } catch (error: any) {
-        throw new Error(`Signup failed: ${error?.message}`);
+        throw new Error(`Hash failed: ${error?.message}`);
     }
 }
 export async function login(

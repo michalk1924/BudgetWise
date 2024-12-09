@@ -1,5 +1,6 @@
 import { http } from './http';
 import { saveToken } from './cookies';
+import CreateNewPassword from '@/app/forgotpassword/page';
 
 const authService = {
     async login(data: { email: string, password: string }) {
@@ -35,8 +36,23 @@ const authService = {
     async forgotPassword(email: string) {
         try {
             await http.post('/forgot-password', { email });
+            return true;
         } catch (error) {
             console.error('Forgot password error:', error);
+            throw error;
+        }
+    },
+
+    async CreateNewPassword(email: string, password: string) {
+        try {
+            const response = await http.post(`/new-password`, { email:email, newPassword:password });
+            if (response.data && response.data.token) {
+                const token = response.data.token;
+                saveToken(token);
+                return response.data.user;
+            }
+        } catch (error) {
+            console.error('Create new password error:', error);
             throw error;
         }
     }

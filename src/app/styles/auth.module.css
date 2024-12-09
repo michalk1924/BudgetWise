@@ -111,6 +111,6 @@
 }
 
 /* Move page button styling */
-.movePage {
+.movePage, .forgotPassword {
     cursor: pointer;
 }
