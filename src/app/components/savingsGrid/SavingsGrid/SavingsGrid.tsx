@@ -9,6 +9,7 @@ interface SavingsGridProps{
 }
 
 const SavingsGrid:React.FC<SavingsGridProps> = ({ savings }) => {
+
   return (
     <div className={styles.gridContainer}>
       {savings.map((saving,index) => (

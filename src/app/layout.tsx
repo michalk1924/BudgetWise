@@ -38,13 +38,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <QueryClientProvider client={queryClient}>
-        {!hideHeader && <Header />}
-        {children}
-        <Footer />
-        
-      </QueryClientProvider>
+
+        <QueryClientProvider client={queryClient}>
+          {!hideHeader && <Header />}
+          {children}
+          <Footer />
+        </QueryClientProvider>
       </body>
     </html>
-  );
+  )
 }

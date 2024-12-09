@@ -3,7 +3,6 @@
     display: flex; /* Enable Flexbox */
     align-items: center; /* Align text and form vertically */
     gap: 20px; /* Space between the text and the form */
-   
   }
   
   .addSavingTitle {
@@ -27,6 +26,7 @@
     border-radius: 8px;
     flex: 1; /* Inputs take up equal space */
     max-width: 150px; /* Optional: Limit the width */
+    margin: 0.5rem;
   }
   
   .input::placeholder {
