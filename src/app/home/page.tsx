@@ -43,23 +43,35 @@ export default function Home() {
     const alert1: Alert = {
         _id: '1',
         userId: 'user1', 
-        type: 'Warning',
+        type: 'budget',
         triggerCondition: 'You have new notifications',
         isActive: true,
         createdAt: new Date('2024-12-08'), 
         updatedAt: new Date('2024-12-08'), 
+        severityLevel:'Pay attention',
     };
 
     const alert2: Alert = {
         _id: '2',
         userId: 'user2', 
-        type: 'Warning',
+        type: 'budget',
         triggerCondition: 'You have new notifications',
         isActive: false,
         createdAt: new Date('2024-12-08'), 
         updatedAt: new Date('2024-12-08'), 
+        severityLevel:'warning',
     };
 
+    const alert3: Alert = {
+        _id: '3',
+        userId: 'user2', 
+        type: 'budget',
+        triggerCondition: 'You have new notifications',
+        isActive: false,
+        createdAt: new Date('2024-12-08'), 
+        updatedAt: new Date('2024-12-08'), 
+        severityLevel:'critical',
+    };
 
     const handleMarkAsDone = (alert: Alert) => {
         console.log('Marking as done:', alert);
@@ -89,6 +101,8 @@ export default function Home() {
                 </section>
                 <Alerts key={alert1._id} alert={alert1} onMarkAsDone={handleMarkAsDone} />
                 <Alerts key={alert2._id} alert={alert2} onMarkAsDone={handleMarkAsDone} />
+                <Alerts key={alert3._id} alert={alert3} onMarkAsDone={handleMarkAsDone} />
+
 
             </main>
         </div>
