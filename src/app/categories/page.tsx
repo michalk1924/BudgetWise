@@ -6,6 +6,12 @@ import BudgetGrid from "../components/categoriesGrid/BudgetGrid/BudgetGrid";
 import AddNewBudget from "../components/categoriesGrid/AddNewBudget/AddNewBudget";
 import GridItem from "../components/categoriesGrid/GridItem/GridItem";
 import { UserCategory } from "../../types/types";
+import useUserStore from "@/store/userStore";
+import { useState } from "react";
+import { useQueryClient, useMutation } from "react-query";
+import userService from "@/services/user";
+
+
 
 const total:UserCategory={
     _id: "total",
@@ -93,6 +99,33 @@ const categories: UserCategory[] = [
 ];
 
 const Categories = () => {
+  
+  const { user, addCategory } = useUserStore();
+
+  const queryClient = useQueryClient();
+
+  const updateUserMutation = useMutation({
+    mutationFn: async ({ id, category }: { id: string; category: UserCategory }) => {
+      if (user) {
+        const response = await userService.updateUser(id, { categories: [...user?.categories, category] });
+        addCategory(category);
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error updating user:', error.message);
+    },
+  });
+
+  
+  const handleAddCategory = (category: UserCategory) => {
+    category._id = Math.random().toString(36).substr(2, 8);
+    updateUserMutation.mutate({ id: user?._id ?? '', category });
+  }
   return (
     <div className={styles.page}>
       <section className={styles.leftSection}>
@@ -100,7 +133,6 @@ const Categories = () => {
           <span>BUDGET SETTING</span>
         </header>
 
-        {/* Totals Section */}
         <section className={styles.totalsSection}>
           <GridItem key={1} category={total} isTotal={true} />
         </section>
@@ -108,12 +140,13 @@ const Categories = () => {
       
       <section className={styles.mainSection}>
         <section className={styles.tableSection}>
-          {/* Pass categories as a prop to BudgetGrid */}
-          <BudgetGrid categories={categories} />
+          {user && user?.categories?.length > 0 &&<BudgetGrid categories={user?.categories || []} />
+        }
         </section>
 
         <section className={styles.addBudgetSection}>
-          <AddNewBudget />
+{/*         {user && <AddNewBudget categories={user?.categories} addCategory={handleAddCategory} />}
+ */}
         </section>
       </section>
     </div>
