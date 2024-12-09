@@ -1,33 +1,29 @@
 import React from 'react';
 import styles from './Alerts.module.css'; // ייבוא הקובץ CSS
-import { FaCheckCircle } from 'react-icons/fa'; // ייבוא אייקון מבוסס react-icons
+import {Alert} from '../../../types/types'
 
-// טיפוס ההתרעה
-interface Alert {
-    _id: string;
-    type: string;
-    triggerCondition: string;
-    isActive: boolean;
-    createdAt: string;
-    updatedAt: string;
-}
+
+
 
 // טיפוס עבור ה-props של הקומפוננטה
 interface AlertProps {
     alert: Alert;
+    onMarkAsDone: (alert: Alert) => void; // פונקציה שנשלחת כפרופס
 }
 
-const Alert: React.FC<AlertProps> = ({ alert }) => {
-    // פונקציה לטיפול בלחיצה על האייקון
+const Alerts: React.FC<AlertProps> = ({ alert, onMarkAsDone }) => {
+    // פונקציה לטיפול בלחיצה על התמונה, שהיא גם קוראת לפונקציה שנשלחה כפרופס
     const handleMarkAsDone = () => {
-        console.log(`Task completed:`, alert);
+        onMarkAsDone(alert); // קריאה לפונקציה שנשלחה כפרופס
     };
 
     return (
         <div className={`${styles.alertItem} ${alert.isActive ? styles.active : styles.inactive}`}>
             <div className={styles.alertHeader}>
                 <span className={styles.alertType}>{alert.type}</span>
-                <span className={styles.alertDate}>{new Date(alert.createdAt).toLocaleDateString()}</span>
+                <span className={styles.alertDate}>
+                    {new Date(alert.createdAt).toLocaleDateString()}
+                </span>
                 <button
                     className={styles.completeButton}
                     onClick={handleMarkAsDone}
@@ -47,4 +43,4 @@ const Alert: React.FC<AlertProps> = ({ alert }) => {
     );
 };
 
-export default Alert;
+export default Alerts;

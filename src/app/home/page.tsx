@@ -1,9 +1,9 @@
 "use client";
 
 import styles from './home.module.css';
-import { getToken } from '../../services/cookies';
 import useUserStore from '@/store/userStore';
-import Alerts from '../components/Alerts/Alerts'
+import Alerts from '../components/Alerts/Alerts';
+import { Alert } from '../../types/types'
 
 export default function Home() {
 
@@ -40,22 +40,30 @@ export default function Home() {
         .reduce((sum, transaction) => sum + transaction.amount, 0) || 0;
 
 
-    const alert1 = {
+    const alert1: Alert = {
         _id: '1',
+        userId: 'user1', 
         type: 'Warning',
         triggerCondition: 'You have new notifications',
         isActive: true,
-        createdAt: '2024-12-08',
-        updatedAt: '2024-12-08',
+        createdAt: new Date('2024-12-08'), 
+        updatedAt: new Date('2024-12-08'), 
     };
 
-    const alert2 = {
+    const alert2: Alert = {
         _id: '2',
+        userId: 'user2', 
         type: 'Warning',
         triggerCondition: 'You have new notifications',
         isActive: false,
-        createdAt: '2024-12-08',
-        updatedAt: '2024-12-08',
+        createdAt: new Date('2024-12-08'), 
+        updatedAt: new Date('2024-12-08'), 
+    };
+
+
+    const handleMarkAsDone = (alert: Alert) => {
+        console.log('Marking as done:', alert);
+        // כאן תוכל לעדכן את הסטטוס של ההתרעה (למשל, לשנות isActive ל-false)
     };
 
     return (
@@ -79,8 +87,9 @@ export default function Home() {
                     <h1>Hello {user?.username || "Name"}! Great to have you here!</h1>
                     <p>What would you like to do today?</p>
                 </section>
-                <Alerts alert={alert1} />
-                <Alerts alert={alert2} />
+                <Alerts key={alert1._id} alert={alert1} onMarkAsDone={handleMarkAsDone} />
+                <Alerts key={alert2._id} alert={alert2} onMarkAsDone={handleMarkAsDone} />
+
             </main>
         </div>
     );
