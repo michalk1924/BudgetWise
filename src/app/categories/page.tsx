@@ -8,7 +8,7 @@ import GridItem from "../components/categoriesGrid/GridItem/GridItem";
 import { UserCategory } from "../../types/types";
 import useUserStore from "@/store/userStore";
 import { useState } from "react";
-import { useQueryClient, useMutation } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
 
 
