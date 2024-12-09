@@ -12,13 +12,13 @@ interface BudgetGridProps {
 
 const BudgetGrid: React.FC<BudgetGridProps> = ({ categories }) => {
   const [selectedYear, setSelectedYear] = useState<number>(2024);
-  const [selectedMonth, setSelectedMonth] = useState<number>(0); // Default to January
+  const [selectedMonth, setSelectedMonth] = useState<number>(0); 
 
   // Filter categories by selected month and year
   const filteredCategories = categories.filter(
     (category) =>
-      category.month.getFullYear() === selectedYear &&
-      category.month.getMonth() === selectedMonth
+      category.month?.getFullYear() === selectedYear &&
+      category.month?.getMonth() === selectedMonth
   );
 
   return (
@@ -31,7 +31,6 @@ const BudgetGrid: React.FC<BudgetGridProps> = ({ categories }) => {
         onMonthChange={setSelectedMonth}
       />
 
-      {/* Grid */}
       <div className={styles.gridContainer}>
         {filteredCategories.map((category, index) => (
           <GridItem key={index} category={category} />
