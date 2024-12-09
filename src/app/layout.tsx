@@ -38,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+
         <QueryClientProvider client={queryClient}>
           {!hideHeader && <Header />}
           {children}
