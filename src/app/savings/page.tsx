@@ -1,33 +1,41 @@
+"use client"
+
 import React from "react";
 import styles from "./savings.module.css";
 import { SavingsGrid } from "../components/index";
 import AddNewSaving from "../components/savingsGrid/AddNewSaving/AddNewSaving";
 import { UserSaving } from "@/types/types";
+import useUserStore from "@/store/userStore";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import userService from '@/services/user';
 
-const fakeSavings :  UserSaving[]=[
-    {
-      _id: "saving1",
-      goalName: "Trip to Japan",
-      targetAmount: 5000,
-      currentAmount: 5000,
-      deadline: new Date("2024-12-31"),
-    },
-    {
-      _id: "savinnnng2",
-      goalName: "Buyyy a Car",
-      targetAmount: 10000,
-      currentAmount: 4000,
-      deadline: new Date("2025-06-30"),
-    },
-    {
-      _id: "saving3",
-      goalName: "Emergency Fund",
-      targetAmount: 3000,
-      currentAmount: 1500,
-      deadline: new Date("2024-06-30"),
-    },
-  ];
 const Savings = () => {
+
+  const { user, addSaving } = useUserStore();
+
+  const queryClient = useQueryClient();
+
+  const updateUserMutation = useMutation({
+    mutationFn: async ({ id, saving }: { id: string; saving: UserSaving }) => {
+      if (user) {
+        const response = await userService.updateUser(id, { savings: [...user?.savings, saving] });
+        addSaving(saving);
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error updating user:', error.message);
+    },
+  });
+
+  const handleAddSaving = async (saving : UserSaving) => {
+    updateUserMutation.mutate({ id: user?._id ?? '', saving });
+  };
+
   return (
     <div className={styles.page}>
       {/* Title Section */}
@@ -37,15 +45,16 @@ const Savings = () => {
 
       <section className={styles.mainSection}>
         <section className={styles.tableSection}>
-          <SavingsGrid savings={fakeSavings}/>
+          <SavingsGrid savings={user?.savings ? user.savings : []} />
         </section>
 
         <section className={styles.addSavingSection}>
-          <AddNewSaving />
-        </section> 
+          <AddNewSaving addSaving={handleAddSaving} />
+        </section>
       </section>
     </div>
-  );
-};
+  )
+}
+
 
 export default Savings;
