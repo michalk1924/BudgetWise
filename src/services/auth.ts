@@ -35,7 +35,7 @@ const authService = {
 
     async forgotPassword(email: string) {
         try {
-            await http.post('/forgot-password', { email });
+            await http.post('/forgot-password', { email : email });
             return true;
         } catch (error) {
             console.error('Forgot password error:', error);
@@ -43,9 +43,20 @@ const authService = {
         }
     },
 
+    async checkCodeFromEmail(email: string, code: string) : Promise<boolean> {
+        try {
+            const result = await http.post(`/check-code`, { email: email, code: code });
+            const compareCode = result.data.compareCode;
+            return compareCode;;
+        } catch (error) {
+            console.error('Check code error:', error);
+            throw error;
+        }
+    },
+
     async CreateNewPassword(email: string, password: string) {
         try {
-            const response = await http.post(`/new-password`, { email:email, newPassword:password });
+            const response = await http.post(`/new-password`, { email: email, newPassword: password });
             if (response.data && response.data.token) {
                 const token = response.data.token;
                 saveToken(token);
