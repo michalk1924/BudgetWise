@@ -40,38 +40,28 @@ export default function Home() {
         .reduce((sum, transaction) => sum + transaction.amount, 0) || 0;
 
 
-    const alert1: Alert = {
-        _id: '1',
-        userId: 'user1',
-        type: 'budget',
-        triggerCondition: 'You have new notifications',
-        isActive: true,
-        createdAt: new Date('2024-12-08'),
-        updatedAt: new Date('2024-12-08'),
-        severityLevel: 'Pay attention',
-    };
+    // const alert1: Alert = {
+    //     _id: '1',
+    //     userId: 'user1',
+    //     type: 'budget',
+    //     triggerCondition: 'You have new notifications',
+    //     isActive: true,
+    //     createdAt: new Date('2024-12-08'),
+    //     updatedAt: new Date('2024-12-08'),
+    //     severityLevel: 'Pay attention',
+    // };
 
-    const alert2: Alert = {
-        _id: '2',
-        userId: 'user2',
-        type: 'budget',
-        triggerCondition: 'You have new notifications',
-        isActive: false,
-        createdAt: new Date('2024-12-08'),
-        updatedAt: new Date('2024-12-08'),
-        severityLevel: 'warning',
-    };
+    // const alert2: Alert = {
+    //     _id: '2',
+    //     userId: 'user2',
+    //     type: 'budget',
+    //     triggerCondition: 'You have new notifications',
+    //     isActive: false,
+    //     createdAt: new Date('2024-12-08'),
+    //     updatedAt: new Date('2024-12-08'),
+    //     severityLevel: 'warning',
+    // };
 
-    const alert3: Alert = {
-        _id: '3',
-        userId: 'user2',
-        type: 'budget',
-        triggerCondition: 'You have new notifications',
-        isActive: false,
-        createdAt: new Date('2024-12-08'),
-        updatedAt: new Date('2024-12-08'),
-        severityLevel: 'critical',
-    };
 
     const handleMarkAsDone = (alert: Alert) => {
         console.log('Marking as done:', alert);
@@ -80,8 +70,8 @@ export default function Home() {
 
     const handleDeactivateAlert = (alert: Alert) => {
         console.log(`Alert ${alert._id} deactivated`);
-        // const updateAlertStatus = useUserStore((state) => state.updateAlertStatus);
-        // updateAlertStatus(alert._id, false); 
+        const updateAlertStatus = useUserStore((state) => state.updateAlertStatus);
+        updateAlertStatus(alert._id, false); 
     };
 
     return (
@@ -105,11 +95,11 @@ export default function Home() {
                     <h1>Hello {user?.username || "Name"}! Great to have you here!</h1>
                     <p>What would you like to do today?</p>
                 </section>
-                <Alerts key={alert1._id} alert={alert1} onMarkAsDone={handleMarkAsDone} onDeactivateAlert={handleDeactivateAlert} />
-                <Alerts key={alert2._id} alert={alert2} onMarkAsDone={handleMarkAsDone} onDeactivateAlert={handleDeactivateAlert} />
-                <Alerts key={alert3._id} alert={alert3} onMarkAsDone={handleMarkAsDone} onDeactivateAlert={handleDeactivateAlert} />
-
-
+                {
+                    user?.alerts.map(alert =>
+                        <Alerts key={alert._id} alert={alert} onMarkAsDone={handleMarkAsDone} onDeactivateAlert={handleDeactivateAlert} />
+                    )
+                }
             </main>
         </div>
     );
