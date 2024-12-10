@@ -38,7 +38,6 @@ export async function POST(request: NextRequest) {
             if(!result){
                 return NextResponse.json({ error: 'Failed to update password' }, { status: 500 });
             }
-            console.log("result" + result);
         }
         if (token){
             return NextResponse.json({ user: user, token: token });

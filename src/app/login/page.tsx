@@ -65,19 +65,23 @@ export default function Home() {
 
     const handleForgotPassword = async () => {
         if (errors.email) {
-            showErrorAlert("Please provide a valid email.");
+            await showErrorAlert("Please provide a valid email.");
             return;
         }
-
         try {
             const email = getValues("email");
+            localStorage.setItem("emailToSendCode", email);
             const result = await authService.forgotPassword(email);
             if (result){
                 router.push("/forgotpassword");
             }
+            else{
+                showErrorAlert("Could not send password reset code.");
+            }
         }
         catch (error: any) {
             console.error("Error sending password reset code:", error);
+            showErrorAlert("Could not send password reset code.");
         }
     };
 
