@@ -1,13 +1,12 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from '../styles/auth.module.css';
 import { FormEvent } from "react";
 import authService from "@/services/auth";
 import { useRouter } from "next/navigation";
 import { showSuccessAlert, showErrorAlert } from "../../services/alerts";
 import useUserStore from "../../store/userStore";
-import { HiH3 } from "react-icons/hi2";
 
 const CreateNewPassword = () => {
 
@@ -15,8 +14,11 @@ const CreateNewPassword = () => {
     const [newPassword, setNewPassword] = useState<string>("");
     const [checkOrcreate, setCheckOrcreate] = useState<boolean>(true);
     const [error, setError] = useState<boolean>(false);
-
-    const email = localStorage.getItem("emailToSendCode") || "";
+    const [email, setEmail] = useState<string>("");
+    
+    useEffect(() => {
+        setEmail(localStorage.getItem("emailToSendCode") || "");
+    }, []);
 
     const router = useRouter();
     const { setUser } = useUserStore();

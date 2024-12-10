@@ -9,9 +9,7 @@ export async function POST(request: NextRequest) {
 
         const client = await connectDatabase();
 
-        const { email } = await request.json();
-        console.log("Email sent" , email);
-        
+        const { email } = await request.json();        
 
         if (!email) {
             return NextResponse.json({ message: 'Email is required' }, { status: 400 });
