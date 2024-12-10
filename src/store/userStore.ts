@@ -16,6 +16,7 @@ interface UserStore {
   addSaving: (saving: UserSaving) => void;
   setAlerts: (alerts: Alert[]) => void;
   setRecommendations: (recommendations: Recommendation[]) => void;
+  updateAlertStatus: (alertId: string, isActive: boolean) => void; // פונקציה חדשה
   expirationTimestamp?: number;
 }
 
@@ -87,6 +88,17 @@ const useUserStore = create<UserStore>()(
             alerts,
           },
         })),
+
+        updateAlertStatus: (alertId: string, isActive: boolean) =>
+          set((state) => ({
+            user: {
+              ...state.user!,
+              alerts: state.user!.alerts.map((alert) =>
+                alert._id === alertId ? { ...alert, isActive } : alert
+              ),
+            },
+          })),
+        
 
       setRecommendations: (recommendations) =>
         set((state) => ({
