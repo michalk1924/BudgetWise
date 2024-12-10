@@ -1,20 +1,18 @@
 "use client";
 
-import styles from './home.module.css';
-import useUserStore from '@/store/userStore';
-import Alerts from '../components/Alerts/Alerts';
-import { Alert } from '../../types/types'
+import React from "react";
+import styles from "./home.module.css";
+import useUserStore from "@/store/userStore";
+import Alerts from "../components/Alerts/Alerts";
+import { Alert } from "../../types/types";
 
 export default function Home() {
+    const { user, updateAlertStatus } = useUserStore();
 
-    const { user } = useUserStore();
-
-    // Get the current month and year
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
 
-    // Calculate sums
     const monthlyIncome = user?.transactions
         ?.filter(transaction =>
             transaction.type === "income" &&
@@ -39,39 +37,15 @@ export default function Home() {
         )
         .reduce((sum, transaction) => sum + transaction.amount, 0) || 0;
 
-
-    // const alert1: Alert = {
-    //     _id: '1',
-    //     userId: 'user1',
-    //     type: 'budget',
-    //     triggerCondition: 'You have new notifications',
-    //     isActive: true,
-    //     createdAt: new Date('2024-12-08'),
-    //     updatedAt: new Date('2024-12-08'),
-    //     severityLevel: 'Pay attention',
-    // };
-
-    // const alert2: Alert = {
-    //     _id: '2',
-    //     userId: 'user2',
-    //     type: 'budget',
-    //     triggerCondition: 'You have new notifications',
-    //     isActive: false,
-    //     createdAt: new Date('2024-12-08'),
-    //     updatedAt: new Date('2024-12-08'),
-    //     severityLevel: 'warning',
-    // };
-
-
-    const handleMarkAsDone = (alert: Alert) => {
-        console.log('Marking as done:', alert);
-        //כאן צריך למחוק את ההתרעה 
+    const handleDeactivateAlert = (alert: Alert) => {
+        console.log("Alert", alert, "deactivated");
+        updateAlertStatus(alert.alertId, false);
+        console.log("Updated alerts:", user?.alerts);
     };
 
-    const handleDeactivateAlert = (alert: Alert) => {
-        console.log(`Alert ${alert._id} deactivated`);
-        const updateAlertStatus = useUserStore((state) => state.updateAlertStatus);
-        updateAlertStatus(alert._id, false); 
+    const handleMarkAsDone = (alert: Alert) => {
+        console.log("Marking as done:", alert);
+        // כאן ניתן להוסיף לוגיקה למחיקת ההתראה או טיפול אחר
     };
 
     return (
@@ -91,15 +65,22 @@ export default function Home() {
                         <p className={styles.aaa}>{monthlySavings}</p>
                     </div>
                 </section>
+
                 <section className={styles.greeting}>
                     <h1>Hello {user?.username || "Name"}! Great to have you here!</h1>
                     <p>What would you like to do today?</p>
                 </section>
-                {
-                    user?.alerts.map(alert =>
-                        <Alerts key={alert._id} alert={alert} onMarkAsDone={handleMarkAsDone} onDeactivateAlert={handleDeactivateAlert} />
-                    )
-                }
+
+                <section>
+                    {user?.alerts.map(alert => (
+                        <Alerts
+                            key={alert.alertId} 
+                            alert={alert}
+                            onMarkAsDone={handleMarkAsDone}
+                            onDeactivateAlert={handleDeactivateAlert}
+                        />
+                    ))}
+                </section>
             </main>
         </div>
     );

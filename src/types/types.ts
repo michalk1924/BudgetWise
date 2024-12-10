@@ -73,7 +73,7 @@ export interface Saving {
 }
 
 export interface Alert {
-  _id: string;
+  alertId: string;
   userId: string;
   type:string;
   triggerCondition: string; 

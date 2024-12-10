@@ -94,7 +94,7 @@ const useUserStore = create<UserStore>()(
             user: {
               ...state.user!,
               alerts: state.user!.alerts.map((alert) =>
-                alert._id === alertId ? { ...alert, isActive } : alert
+                alert.alertId === alertId ? { ...alert, isActive } : alert
               ),
             },
           })),
