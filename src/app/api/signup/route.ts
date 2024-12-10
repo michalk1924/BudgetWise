@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { connectDatabase, insertDocument, getUserByEmail, getDocumentById } from "@/services/mongo";
-import { signup } from '@/services/authFunctions'
+import { hash } from '@/services/authFunctions'
 
 
 export async function POST(request: NextRequest, { params }: { params: any }) {
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest, { params }: { params: any }) {
 
         const userDetails = await getDocumentById(client, "users", userId);
 
-        const { hashedPassword, token } = await signup(password, userId);
+        const { hashedPassword, token } = await hash(password, userId);
 
         const passwordResult = await insertDocument(client, 'passwords', { user_id: userId, password: hashedPassword });
         if (!passwordResult.acknowledged) {

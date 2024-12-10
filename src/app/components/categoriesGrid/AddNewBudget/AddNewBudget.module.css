@@ -41,3 +41,9 @@
     font-size: 0.8rem;
 
   }
+  .submitButton{
+    color:white;
+    background-color: #2f5f98;
+    border-radius: 8px;
+    padding:5px;
+  }

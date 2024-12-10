@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { User, UserCategory, Saving, Transaction, Alert, Recommendation } from "../types/types";
+import { User, UserCategory, UserSaving, Transaction, Alert, Recommendation } from "../types/types";
 import { saveToken } from "@/services/cookies";
 
 interface UserStore {
@@ -13,7 +13,7 @@ interface UserStore {
   updateCategory: (categoryId: string, updatedCategory: Partial<UserCategory>) => void;
   removeCategory: (categoryId: string) => void;
   addTransaction: (transaction: Transaction) => void;
-  addSaving: (saving: Saving) => void;
+  addSaving: (saving: UserSaving) => void;
   setAlerts: (alerts: Alert[]) => void;
   setRecommendations: (recommendations: Recommendation[]) => void;
   expirationTimestamp?: number;
