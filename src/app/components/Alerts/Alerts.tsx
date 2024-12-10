@@ -1,26 +1,34 @@
 import React from 'react';
-import styles from './Alerts.module.css'; // ייבוא הקובץ CSS
-import {Alert} from '../../../types/types'
+import styles from './Alerts.module.css'; 
+import { Alert } from '../../../types/types';
 
-
-
-
-// טיפוס עבור ה-props של הקומפוננטה
 interface AlertProps {
     alert: Alert;
-    onMarkAsDone: (alert: Alert) => void; // פונקציה שנשלחת כפרופס
+    onMarkAsDone: (alert: Alert) => void;
 }
 
 const Alerts: React.FC<AlertProps> = ({ alert, onMarkAsDone }) => {
-    // פונקציה לטיפול בלחיצה על התמונה, שהיא גם קוראת לפונקציה שנשלחה כפרופס
     const handleMarkAsDone = () => {
-        onMarkAsDone(alert); // קריאה לפונקציה שנשלחה כפרופס
+        onMarkAsDone(alert);
     };
 
-    return (
-        <div className={`${styles.alertItem} ${alert.isActive ? styles.active : styles.inactive}`}>
+    // קביעת המחלקה בהתאם לרמת החומרה
+    // const severityClass = 
+    //     alert.severityLevel === 'critical' ? styles.critical :
+    //     alert.severityLevel === 'warning' ? styles.warning :
+    //     styles.payAttention;
+
+        const severityClass = 
+        alert.severityLevel === 'critical' 
+            ? (alert.isActive ? styles.criticalActive : styles.criticalInactive) :
+        alert.severityLevel === 'warning' 
+            ? (alert.isActive ? styles.warningActive : styles.warningInactive) :
+        (alert.isActive ? styles.payAttentionActive : styles.payAttentionInactive);
+return (
+        <div className={`${styles.alertItem} ${severityClass}`}>
             <div className={styles.alertHeader}>
-                <span className={styles.alertType}>{alert.type}</span>
+                <span className={styles.alertSeverity}>{alert.severityLevel}</span>
+                <span>{alert.type}</span>
                 <span className={styles.alertDate}>
                     {new Date(alert.createdAt).toLocaleDateString()}
                 </span>

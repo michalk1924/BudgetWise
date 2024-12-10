@@ -34,25 +34,28 @@
     background-color: #e8f5e9;
 }
 
-.alertHeader {
+.alertHeader {  
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 10px;
 }
 
-.alertType {
+.alertSeverity {
     font-size: 1.1rem;
-    color: #00796b;
+    color: #666;
     font-weight: bold;
     flex: 1;
     text-align: left;
+    margin-right: 50px; /* ריווח מצד התמונה */
 }
+
+
 
 .alertDate {
     font-family: 'Super Dream', Arial, Helvetica, sans-serif;
     font-size: 0.9rem;
-    color: #00796b;
+    color: #444;
     margin-left: 8px;
     text-align: right;
     flex-shrink: 0;
@@ -107,14 +110,52 @@
     right: 15px;
 }
 
-.alertType {
-    margin-right: 50px; /* ריווח מצד התמונה */
-}
+
 
 .alertDate {
-    position: absolute;
+    /* position: absolute; */
     top: 15px;
-    right: 60px;
+    right: 70px;
     font-size: 0.85rem;
     color: #666;
+}
+
+
+/* Critical */
+.criticalActive {
+    border: 5px solid #EF5A6F; /* אדום כהה שקוף */
+    background-color: rgba(239, 90, 111, 0.2); /* אדום ורדרד שקוף */
+    animation: pulse 2s infinite;
+
+}
+
+.criticalInactive {
+    border-left: 5px solid #EF5A6F; /* גבול שמאלי אדום כהה שקוף */
+    background-color: rgba(239, 90, 111, 0.2);
+}
+
+/* Warning */
+.warningActive {
+    border: 5px solid rgba(57, 72, 110, 0.6); /* גבול כהה שקוף */
+    background-color: rgba(83, 100, 147, 0.2); /* רקע כחול פסטלי שקוף */ 
+    animation: pulse 2s infinite;
+
+}
+
+.warningInactive {
+    border-left: 5px solid rgba(57, 72, 110, 0.3); /* גבול שמאלי כהה עם שקיפות */
+    background-color: rgba(83, 100, 147, 0.2); /* רקע כחול פסטלי שקוף */
+}
+
+
+/* Pay Attention */
+.payAttentionActive {
+    border: 5px solid rgba(109, 167, 133, 0.6); /* ירוק כהה שקוף */
+    background-color: rgba(161, 214, 178, 0.2); /* ירוק מנטה שקוף */
+    animation: pulse 2s infinite;
+}
+
+.payAttentionInactive {
+    border-left: 5px solid rgba(109, 167, 133, 0.6); /* גבול שמאלי ירוק כהה שקוף */
+    background-color: rgba(161, 214, 178, 0.2);
 }
