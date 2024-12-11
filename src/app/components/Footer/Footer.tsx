@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Footer.module.css";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -18,12 +19,22 @@ const Footer = () => {
       <div className={styles.footerMiddle}>
 
         <div className={styles.footerSection}>
-          <div className={styles.links}>
-            <a href="#">Coaching Program</a>
-            <a href="#">Login to App</a>
-            <a href="#">Blog</a>
-            <a href="#">About Us</a>
-            <a href="#">Contact Us</a>
+        <div className={styles.links}>
+            <Link href="/morepages/coaching-program" className={styles.link}>
+              Coaching Program
+            </Link>
+            <Link href="/login" className={styles.link}>
+              Login to App
+            </Link>
+            <Link href="/blog" className={styles.link}>
+              Blog
+            </Link>
+            <Link href="/about" className={styles.link}>
+              About Us
+            </Link>
+            <Link href="/contact" className={styles.link}>
+              Contact Us
+            </Link>
           </div>
         </div>
         <div className={styles.footerSection}>

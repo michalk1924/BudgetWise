@@ -24,7 +24,7 @@ async function sendEmail(to: string, subject: string, text: string) {
 
 
     let mailOptions = {
-        from: 'michal21924@gmail.com',
+        from: process.env.EMAIL_ADDRESS,
         to: to,
         subject: subject,
         text: text
