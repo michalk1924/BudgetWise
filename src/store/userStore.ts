@@ -5,6 +5,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import { User, UserCategory, UserSaving, Transaction, Alert, Recommendation } from "../types/types";
 import { saveToken } from "@/services/cookies";
 
+
 interface UserStore {
   user: User | null;
   setUser: (user: User) => void;
@@ -16,6 +17,7 @@ interface UserStore {
   addSaving: (saving: UserSaving) => void;
   setAlerts: (alerts: Alert[]) => void;
   setRecommendations: (recommendations: Recommendation[]) => void;
+  updateAlertStatus: (alertId: string, isActive: boolean) => void; // פונקציה חדשה
   expirationTimestamp?: number;
 }
 
@@ -87,6 +89,17 @@ const useUserStore = create<UserStore>()(
             alerts,
           },
         })),
+
+        updateAlertStatus: (alertId: string, isActive: boolean) =>
+          set((state) => ({
+            user: {
+              ...state.user!,
+              alerts: state.user!.alerts.map((alert) =>
+                alert.alertId === alertId ? { ...alert, isActive } : alert
+              ),
+            },
+          })),
+        
 
       setRecommendations: (recommendations) =>
         set((state) => ({

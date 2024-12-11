@@ -1,6 +1,5 @@
 import { http } from './http';
 import { saveToken } from './cookies';
-import CreateNewPassword from '@/app/forgotpassword/page';
 
 const authService = {
     async login(data: { email: string, password: string }) {
@@ -35,28 +34,31 @@ const authService = {
 
     async forgotPassword(email: string) {
         try {
-            await http.post('/forgot-password', { email : email });
-            return true;
+            const result = await http.post('/forgot-password', { email: email });
+            if (result) return true;
+            return false;
         } catch (error) {
             console.error('Forgot password error:', error);
-            throw error;
+            return false;
         }
     },
 
-    async checkCodeFromEmail(email: string, code: string) : Promise<boolean> {
+    async checkCodeFromEmail(email: string, code: string): Promise<{ userId: string, compareCode: boolean }> {
         try {
             const result = await http.post(`/check-code`, { email: email, code: code });
             const compareCode = result.data.compareCode;
-            return compareCode;;
+            const userId = result.data.userId;
+            return { userId, compareCode };
         } catch (error) {
             console.error('Check code error:', error);
             throw error;
         }
     },
 
-    async CreateNewPassword(email: string, password: string) {
+    async CreateNewPassword(password: string) {
         try {
-            const response = await http.post(`/new-password`, { email: email, newPassword: password });
+            const userId = localStorage.getItem('userId');
+            const response = await http.post(`/new-password`, { userId: userId, newPassword: password });
             if (response.data && response.data.token) {
                 const token = response.data.token;
                 saveToken(token);

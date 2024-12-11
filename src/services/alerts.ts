@@ -21,3 +21,14 @@ export const showErrorAlert = (message: string) => {
         showConfirmButton: false,
     });
 };
+
+export const showInfoAlert = (message: string) => {
+    return Swal.fire({
+        icon: 'info',
+        title: 'Info',
+        text: message,
+        confirmButtonColor: "#536493",
+        timer: 2000,
+        showConfirmButton: false,
+    });
+}

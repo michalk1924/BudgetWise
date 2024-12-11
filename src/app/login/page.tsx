@@ -7,8 +7,10 @@ import styles from "../styles/auth.module.css";
 import authService from "@/services/auth";
 import { googleSignup } from "../../services/signInWithGoogle";
 import { useRouter } from "next/navigation";
-import { showSuccessAlert, showErrorAlert } from "../../services/alerts";
+import { showSuccessAlert, showErrorAlert, showInfoAlert } from "../../services/alerts";
 import useUserStore from "../../store/userStore";
+import { useState } from "react";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const schema = z.object({
     email: z.string().email(),
@@ -21,6 +23,9 @@ export default function Home() {
 
     const router = useRouter();
     const { setUser } = useUserStore();
+
+    const [showPassword, setShowPassword] = useState(false);
+    const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
     const {
         register,
@@ -50,12 +55,18 @@ export default function Home() {
 
     const loginWithGoogle = async () => {
         try {
-            await googleSignup();
-            await showSuccessAlert("You have logged in successfully!");
-            router.push("/home");
+            const user = await googleSignup();
+            if (user) {
+                setUser(user);
+                await showSuccessAlert("You have logged in successfully!");
+                router.push("/home");
+            } else {
+                await showErrorAlert("Failed to login with Google.");
+            }
         }
         catch (error: any) {
             console.error("Error signing up with Google:", error);
+            await showErrorAlert("Failed to login with Google.");
         }
     };
 
@@ -71,12 +82,13 @@ export default function Home() {
         try {
             const email = getValues("email");
             localStorage.setItem("emailToSendCode", email);
+            await showInfoAlert("we sent a password reset email to your account");
             const result = await authService.forgotPassword(email);
-            if (result){
+            if (result) {
                 router.push("/forgotpassword");
             }
-            else{
-                showErrorAlert("Could not send password reset code.");
+            else {
+                await showErrorAlert("Could not send password reset code.");
             }
         }
         catch (error: any) {
@@ -103,12 +115,17 @@ export default function Home() {
                     {errors.email && (
                         <div className={styles.error}>{errors.email.message}</div>
                     )}
-                    <input
-                        {...register("password")}
-                        type="password"
-                        placeholder="Password"
-                        className={styles.input}
-                    />
+                    <div className={styles.passwordContainer}>
+                        <input
+                            {...register("password")}
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Password"
+                            className={styles.input}
+                        />
+                        <button className="show-password-btn" onClick={togglePasswordVisibility}>
+                            <i className={`fa-solid ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
+                        </button>
+                    </div>
                     {errors.password && (
                         <div className={styles.error}>{errors.password.message}</div>
                     )}
