@@ -34,20 +34,21 @@ const authService = {
 
     async forgotPassword(email: string) {
         try {
-            await http.post('/forgot-password', { email: email });
-            return true;
+            const result = await http.post('/forgot-password', { email: email });
+            if (result) return true;
+            return false;
         } catch (error) {
             console.error('Forgot password error:', error);
-            throw error;
+            return false;
         }
     },
 
-    async checkCodeFromEmail(email: string, code: string): Promise<{userId: string, compareCode: boolean}> {
+    async checkCodeFromEmail(email: string, code: string): Promise<{ userId: string, compareCode: boolean }> {
         try {
             const result = await http.post(`/check-code`, { email: email, code: code });
             const compareCode = result.data.compareCode;
             const userId = result.data.userId;
-            return {userId, compareCode} ;
+            return { userId, compareCode };
         } catch (error) {
             console.error('Check code error:', error);
             throw error;

@@ -55,12 +55,18 @@ export default function Home() {
 
     const loginWithGoogle = async () => {
         try {
-            await googleSignup();
-            await showSuccessAlert("You have logged in successfully!");
-            router.push("/home");
+            const user = await googleSignup();
+            if (user) {
+                setUser(user);
+                await showSuccessAlert("You have logged in successfully!");
+                router.push("/home");
+            } else {
+                await showErrorAlert("Failed to login with Google.");
+            }
         }
         catch (error: any) {
             console.error("Error signing up with Google:", error);
+            await showErrorAlert("Failed to login with Google.");
         }
     };
 
@@ -76,13 +82,13 @@ export default function Home() {
         try {
             const email = getValues("email");
             localStorage.setItem("emailToSendCode", email);
-            showInfoAlert("we sent a password reset email to your account");
+            await showInfoAlert("we sent a password reset email to your account");
             const result = await authService.forgotPassword(email);
             if (result) {
                 router.push("/forgotpassword");
             }
             else {
-                showErrorAlert("Could not send password reset code.");
+                await showErrorAlert("Could not send password reset code.");
             }
         }
         catch (error: any) {
