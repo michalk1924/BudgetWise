@@ -1,59 +1,42 @@
 /* about-us.module.css */
 
 .container {
-  padding: 20px;
+  color: #2f5f98;
+
 }
 
 .header {
   background-image: url('/splash_title.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  height: 50vh;
-  padding: 20px;
-  color: white;
-text-shadow: 10px 7px 10px #D4BDAC;
-align-items: center;
-text-align: center;
-justify-items: center;
+  height: 30vh;
+  text-shadow: 10px 7px 10px #D4BDAC;
+  display: flex; /* הופך את הקונטיינר ל-Flexbox */
+  align-items: center; /* ממרכז את התוכן במאונך */
+  justify-content: center; /* ממרכז את התוכן במאוזן */
+  text-align: center; /* ממרכז טקסט אם יש יותר משורה */
 }
+
 
 .header h1 {
   margin: 0;
   font-size: 2.5em;
 }
-
 .main {
-  padding: 20px;
+  display: flex; /* מאפשר שימוש בפלקסבוקס */
+  flex-direction: column; /* מבטיח שהתוכן יוצג כעמודה */
+  justify-content: center; /* ממרכז את התוכן במאונך */
+  align-items: center; /* ממרכז את התוכן במאוזן */
+  text-align: center; /* ממרכז טקסט בשורות מרובות */
+  padding: 20px; /* מוסיף רווח פנימי */
 }
 
-.introduction,
-.team,
-.mission {
-  margin-bottom: 30px;
+.introduction {
+  max-width: 600px; /* מגביל את רוחב התוכן כדי להיראות כמו שיר */
+  line-height: 1.6; /* מוסיף מרווח בין שורות */
+  font-size: 1.2rem; /* משנה את גודל הגופן */
 }
-
-.introduction h2,
-.team h3,
-.mission h3 {
-  color: #2f5f98;
-}
-
-.introduction p,
-.team p,
-.mission p {
-  font-size: 1.1em;
-  line-height: 1.6em;
-}
-
-/* ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-ul li {
-  font-size: 1.1em;
-} */
 
 .footer {
   background-color: #333;
@@ -68,10 +51,7 @@ ul li {
   margin: 0 10px;
 }
 
-/* AboutUs.module.css */
-.container {
-  /* existing styles */
-}
+
 
 .authButtons {
   margin-top: 20px;
@@ -89,6 +69,6 @@ ul li {
 }
 
 .button:hover {
-  background-color: #0056b3;
+  background-color:#D4BDAC;
 }
 
