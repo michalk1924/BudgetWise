@@ -128,6 +128,18 @@ export async function getPassword(client: any, user_id: string) {
     }
 }
 
+export async function getCodeByUserID(client: any, user_id: string){
+    try {
+        const db = client.db(process.env.DB_NAME);
+        const codeObj = await db.collection('codes').findOne({ user_id: user_id });
+        return codeObj;
+    }
+    catch (error) {
+        console.error('Error getting user by email:', error);
+        return null;
+    }
+}
+
 export async function closeDatabase() {
     if (client) {
         await client.close();

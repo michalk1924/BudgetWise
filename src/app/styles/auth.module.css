@@ -111,6 +111,12 @@
 }
 
 /* Move page button styling */
-.movePage, .forgotPassword {
+.movePage,
+.forgotPassword {
     cursor: pointer;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
 }
