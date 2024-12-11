@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import styles from "../../styles/auth.module.css";
+import styles from "./LoginComp.module.css";
 import authService from "@/services/auth";
 import { googleSignup } from "../../../services/signInWithGoogle";
 import { useRouter } from "next/navigation";
