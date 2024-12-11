@@ -1,7 +1,7 @@
 
 import { NextResponse, NextRequest } from "next/server";
 import sendEmail from "@/services/sendEmail";
-import { connectDatabase, putDocument, getUserByEmail, getPassword } from "@/services/mongo";
+import { connectDatabase, putDocument, getDocumentById, getPassword } from "@/services/mongo";
 import { hash } from "@/services/authFunctions";
 
 export async function POST(request: NextRequest) {
@@ -9,26 +9,18 @@ export async function POST(request: NextRequest) {
 
         const client = await connectDatabase();
 
-        const { email, newPassword } = await request.json();
+        const { userId, newPassword } = await request.json();
 
-        const user = await getUserByEmail(client, email);
+        const user = await getDocumentById(client, "users", userId);
         if (!user) {
             return NextResponse.json({ error: 'User not found' }, { status: 404 });
         }
-        const userId = user._id.toString();
-
-        console.log("userId" + userId);
 
         const passwordobj = await getPassword(client, userId);
-        console.log(passwordobj);
         
         const password_id = passwordobj._id.toString();
 
-        console.log("password_id" + password_id);
-
         const { hashedPassword, token } = await hash(newPassword, userId);
-
-        console.log("hashedPassword" + hashedPassword);
 
         if (hashedPassword) {
             const result = await putDocument(client, "passwords", password_id, {

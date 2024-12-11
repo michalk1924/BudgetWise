@@ -1,15 +1,14 @@
 
 import { NextResponse, NextRequest } from "next/server";
 import sendEmail from "@/services/sendEmail";
-import { connectDatabase, getUserByEmail } from "@/services/mongo";
-import { promises as fs } from 'fs';
+import { connectDatabase, getCodeByUserID, getUserByEmail, insertDocument, putDocument } from "@/services/mongo";
 
 export async function POST(request: NextRequest) {
     try {
 
         const client = await connectDatabase();
 
-        const { email } = await request.json();        
+        const { email } = await request.json();
 
         if (!email) {
             return NextResponse.json({ message: 'Email is required' }, { status: 400 });
@@ -22,30 +21,23 @@ export async function POST(request: NextRequest) {
 
         const code = Math.floor(100000 + Math.random() * 900000).toString();
 
-        const file = await fs.readFile(process.cwd() + '/src/files/codes.txt', 'utf8');
-        
-        if (file) {
-            let lines = file.split('\n');
-            let found = false;
-            for (let i = 0; i < lines.length; i++) {
-                let line = lines[i];
-                let [existingEmail, existingCode] = line.split(':');
-                if (existingEmail === email) {
-                    lines[i] = `${email}:${code}`;
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                lines.push(`${email}:${code}`);
-            }
-            await fs.writeFile(process.cwd() + '/src/files/codes.txt', lines.join('\n'));
+        const userId = user._id.toString();
+
+        const userCodeObj = await getCodeByUserID(client, userId);
+        let result;
+        if (userCodeObj) {
+            result = await putDocument(client, "codes", userCodeObj._id.toString(), { user_id: userId, code: code });
+        } else {
+            result = await insertDocument(client, "codes", { user_id: userId, code: code });
+        }
+
+        if (result) {
+            await sendEmail(email, 'Reset Password', `the code to reset your password is ${code}`);
+            return NextResponse.json({ message: 'Reset password link sent' });
         }
         else {
-            await fs.writeFile(process.cwd() + '/src/files/codes.txt', `${email}:${code}`);
+            return NextResponse.json({ message: 'Failed to send email' }, { status: 500 });
         }
-        await sendEmail(email, 'Reset Password', `the password to reset your password is ${code}`);
-        return NextResponse.json({ message: 'Reset password link sent' });
 
 
     } catch (error: any) {
