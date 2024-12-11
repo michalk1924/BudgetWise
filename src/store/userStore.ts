@@ -17,7 +17,8 @@ interface UserStore {
   addSaving: (saving: UserSaving) => void;
   setAlerts: (alerts: Alert[]) => void;
   setRecommendations: (recommendations: Recommendation[]) => void;
-  updateAlertStatus: (alertId: string, isActive: boolean) => void; // פונקציה חדשה
+  updateAlertStatus: (alertId: string, isActive: boolean) => void;
+  removeAlert: (alertId: string) => void;
   expirationTimestamp?: number;
 }
 
@@ -26,7 +27,6 @@ const useUserStore = create<UserStore>()(
 
     (set) => ({
       user: null,
-
       setUser: (user: User) => {
         const userWithExpiration = {
           ...user,
@@ -90,16 +90,24 @@ const useUserStore = create<UserStore>()(
           },
         })),
 
-        updateAlertStatus: (alertId: string, isActive: boolean) =>
-          set((state) => ({
-            user: {
-              ...state.user!,
-              alerts: state.user!.alerts.map((alert) =>
-                alert.alertId === alertId ? { ...alert, isActive } : alert
-              ),
-            },
-          })),
-        
+      updateAlertStatus: (alertId: string, isActive: boolean) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            alerts: state.user!.alerts.map((alert) =>
+              alert.alertId === alertId ? { ...alert, isActive:isActive } : alert
+            ),
+          },
+        })),
+
+      removeAlert: (alertId) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            alerts: state.user!.alerts.filter((alert) => alert.alertId !== alertId),
+          },
+        })),
+
 
       setRecommendations: (recommendations) =>
         set((state) => ({
