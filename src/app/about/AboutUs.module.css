@@ -1,16 +1,21 @@
 /* about-us.module.css */
 
 .container {
-  background-color: #F5F5F5;
-  font-family: 'Arial', sans-serif;
   padding: 20px;
 }
 
 .header {
-  background-color: #1A73E8;
+  background-image: url('/splash_title.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 50vh;
   padding: 20px;
   color: white;
-  text-align: center;
+text-shadow: 10px 7px 10px #D4BDAC;
+align-items: center;
+text-align: center;
+justify-items: center;
 }
 
 .header h1 {
@@ -31,7 +36,7 @@
 .introduction h2,
 .team h3,
 .mission h3 {
-  color: #1A73E8;
+  color: #2f5f98;
 }
 
 .introduction p,
@@ -76,8 +81,7 @@ ul li {
 
 .button {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+  color: #2f5f98;
   border: none;
   border-radius: 5px;
   cursor: pointer;
