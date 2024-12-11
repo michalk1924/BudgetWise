@@ -1,0 +1,49 @@
+.page {
+    max-width: 800px;
+    margin: 50px auto; /* Center the content horizontally and add vertical spacing */
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px #D4BDAC; /* Subtle shadow */
+    color: #2f5f98;
+
+  }
+  
+  .page h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #2f5f98; /* Match the app's theme color */
+    text-align: center;
+  }
+  
+  .page p {
+    margin-bottom: 10px;
+  }
+  
+  .page ul {
+    list-style: none; /* Remove default bullet points */
+    padding: 0;
+  }
+  
+  .page ul li {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ddd; /* Add a border for separation */
+    border-radius: 4px;
+  }
+  
+  .page ul li strong {
+    display: block; /* Make the question bold and stand out */
+    font-size: 1.1rem;
+  }
+  
+  .page a {
+    text-decoration: underline;
+  }
+  
+  .page a:hover {
+    text-decoration: none;
+  }
+  

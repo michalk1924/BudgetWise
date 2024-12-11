@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from "../footerPages.module.css";
 
 const QandAPage = () => {
   const faqs = [
@@ -13,7 +14,7 @@ const QandAPage = () => {
   ];
 
   return (
-    <div className="page">
+    <div className={styles.page}>
       <h1>Questions and Answers</h1>
       <ul>
         {faqs.map((faq, index) => (
