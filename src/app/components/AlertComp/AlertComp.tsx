@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Alerts.module.css'; 
+import styles from './AlertComp.module.css'; 
 import { Alert } from '../../../types/types';
 
 interface AlertProps {
@@ -9,7 +9,7 @@ interface AlertProps {
 
 }
 
-const Alerts: React.FC<AlertProps> = ({ alert, onMarkAsDone, onDeactivateAlert  }) => {
+const AlertComp: React.FC<AlertProps> = ({ alert, onMarkAsDone, onDeactivateAlert  }) => {
     const handleMarkAsDone = () => {
         onMarkAsDone(alert);
     };
@@ -53,4 +53,4 @@ return (
     );
 };
 
-export default Alerts;
+export default AlertComp;

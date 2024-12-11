@@ -5,6 +5,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import { User, UserCategory, UserSaving, Transaction, Alert, Recommendation } from "../types/types";
 import { saveToken } from "@/services/cookies";
 
+
 interface UserStore {
   user: User | null;
   setUser: (user: User) => void;

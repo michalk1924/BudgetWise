@@ -3,11 +3,11 @@
 import React from "react";
 import styles from "./home.module.css";
 import useUserStore from "@/store/userStore";
-import Alerts from "../components/Alerts/Alerts";
-import { Alert } from "../../types/types";
+import AlertsList from "../components/AlertsList/AlertsList";
 
 export default function Home() {
     const { user, updateAlertStatus } = useUserStore();
+
 
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
@@ -37,17 +37,6 @@ export default function Home() {
         )
         .reduce((sum, transaction) => sum + transaction.amount, 0) || 0;
 
-    const handleDeactivateAlert = (alert: Alert) => {
-        console.log("Alert", alert, "deactivated");
-        updateAlertStatus(alert.alertId, false);
-        console.log("Updated alerts:", user?.alerts);
-    };
-
-    const handleMarkAsDone = (alert: Alert) => {
-        console.log("Marking as done:", alert);
-        // כאן ניתן להוסיף לוגיקה למחיקת ההתראה או טיפול אחר
-    };
-
     return (
         <div className={styles.container}>
             <main className={styles.main}>
@@ -70,17 +59,8 @@ export default function Home() {
                     <h1>Hello {user?.username || "Name"}! Great to have you here!</h1>
                     <p>What would you like to do today?</p>
                 </section>
+                <AlertsList />
 
-                <section>
-                    {user?.alerts.map(alert => (
-                        <Alerts
-                            key={alert.alertId} 
-                            alert={alert}
-                            onMarkAsDone={handleMarkAsDone}
-                            onDeactivateAlert={handleDeactivateAlert}
-                        />
-                    ))}
-                </section>
             </main>
         </div>
     );
