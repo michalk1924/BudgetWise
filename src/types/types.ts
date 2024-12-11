@@ -7,20 +7,14 @@ export interface User {
   passwordHash: string; 
   totalBudget: number; 
   totalSpending: number;
-  categories: UserCategory[]; 
-  savings: UserSaving[];
+  categories: Category[]; 
+  savings: Saving[];
   transactions: Transaction[]; 
   alerts: Alert[]; 
   recommendations: Recommendation[];
 }
 
 export interface Category {
-  _id: string;
-  name: string; 
-  description: string; 
-}
-
-export interface UserCategory {
   _id: string;
   userId: string; 
   type: 'general' | 'personal'; 
@@ -33,7 +27,6 @@ export interface UserCategory {
 
 export interface Saving {
   _id: string; 
-  userId: string;
   goalName: string; 
   targetAmount: number; 
   currentAmount: number; 
@@ -42,20 +35,8 @@ export interface Saving {
   updatedAt: Date; 
 }
 
-
-
-export interface UserSaving {
-  _id: string; 
-  goalName: string; 
-  targetAmount: number; 
-  currentAmount: number; 
-  deadline: Date; 
-}
-
-
 export interface Transaction {
   _id: string; 
-  userId: string; 
   category: string; 
   type: 'income' | 'expense' | 'saved';
   amount: number;
@@ -64,7 +45,6 @@ export interface Transaction {
   createdAt: Date; 
   updatedAt: Date; 
 }
-
 
 export interface Recommendation {
   _id: string;   
@@ -89,5 +69,14 @@ export interface Alert {
 }
 
 
+export interface CategoriesCollection {
+  _id: string;
+  name: string; 
+  description: string; 
+}
 
+export interface SavingsCollection {
+  _id: string; 
+  goalName: string; 
+}
 

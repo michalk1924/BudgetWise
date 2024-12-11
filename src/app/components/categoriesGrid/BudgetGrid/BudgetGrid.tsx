@@ -4,18 +4,19 @@ import React, { useState } from "react";
 import styles from "./BudgetGrid.module.css";
 import GridItem from "../GridItem/GridItem";
 import YearMonthSelector from "../YearMonthSelector/YearMonthSelector";
-import { UserCategory } from "../../../../types/types";
+import { Category } from "../../../../types/types";
 
 interface BudgetGridProps {
-  categories: UserCategory[];
+  categories: Category[];
 }
 
 const BudgetGrid: React.FC<BudgetGridProps> = ({ categories }) => {
   const [selectedYear, setSelectedYear] = useState<number>(2024);
   const [selectedMonth, setSelectedMonth] = useState<number>(0); 
+  
 
   // Filter categories by selected month and year
-  const filteredCategories = categories.filter(
+  const filteredCategories =categories.filter(
     (category) =>
       category.month?.getFullYear() === selectedYear &&
       category.month?.getMonth() === selectedMonth
