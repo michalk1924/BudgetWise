@@ -3,12 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from './TransactionTable.module.css';
 import { Transaction } from '../../../../types/types';
-import { FaPencilAlt } from 'react-icons/fa';
 import { DateFilter } from '@/consts/enums';
+import { TransactionComp } from "../../index";
 
 const ITEMS_PER_PAGE = 8;
 
-function TransactionsList({ transactions }: { transactions: Transaction[] }) {
+function TransactionsList({ transactions, updateTransaction }: { transactions: Transaction[], updateTransaction: (transaction: Transaction) => void }) {
 
     const [currentTransactions, setCurrentTransactions] = useState<Transaction[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -92,8 +92,6 @@ function TransactionsList({ transactions }: { transactions: Transaction[] }) {
         );
         setCurrentTransactions(currentTransactions);
     }, [transactions, categoryFilter, dateFilter, currentPage]);
-
-    const isPositive = (type: string) => type === 'expense';
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -179,23 +177,9 @@ function TransactionsList({ transactions }: { transactions: Transaction[] }) {
                 <div>Description</div>
             </div>
 
-            {currentTransactions.map((transaction, index) => {
-                return (
-                    <div
-                        key={index}
-                        className={`${styles.transactionItem} ${isPositive(transaction.type) ? styles.expense : styles.income
-                            }`}
-                    >
-                        <div>{new Date(transaction.date).toLocaleDateString()}</div>
-                        <div>{transaction?.amount}</div>
-                        <div>{transaction?.category}</div>
-                        <div>{transaction.description || 'N/A'}</div>
-                        <div className={styles.icon}>
-                            <FaPencilAlt />
-                        </div>
-                    </div>
-                );
-            })}
+            {currentTransactions.map((transaction) => (
+                <TransactionComp key={transaction._id} transaction={transaction} updateTransaction={updateTransaction} />
+            ))}
 
             <div className={styles.pagination}>
                 <button

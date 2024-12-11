@@ -8,12 +8,16 @@ import { saveToken } from "@/services/cookies";
 
 interface UserStore {
   user: User | null;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
   setUser: (user: User) => void;
   clearUser: () => void;
   addCategory: (category: UserCategory) => void;
   updateCategory: (categoryId: string, updatedCategory: Partial<UserCategory>) => void;
   removeCategory: (categoryId: string) => void;
   addTransaction: (transaction: Transaction) => void;
+  updateTransaction: (transaction: Transaction) => void;
+  removeTransaction: (transactionId: string) => void;
   addSaving: (saving: UserSaving) => void;
   setAlerts: (alerts: Alert[]) => void;
   setRecommendations: (recommendations: Recommendation[]) => void;
@@ -27,12 +31,17 @@ const useUserStore = create<UserStore>()(
 
     (set) => ({
       user: null,
-      setUser: (user: User) => {
+      loading: false,
+      setLoading: (loading) => set({ loading }),
+
+
+      setUser: async (user: User) => {
+        set({ loading: true });
         const userWithExpiration = {
           ...user,
           expirationTimestamp: Date.now() + 60 * 60 * 1000,
         };
-        set({ user: userWithExpiration });
+        set({ user: userWithExpiration, loading: false });
       },
 
       clearUser: () => {
@@ -74,6 +83,24 @@ const useUserStore = create<UserStore>()(
           },
         })),
 
+      updateTransaction: (transaction) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            transactions: state.user!.transactions.map((t) =>
+              t._id === transaction._id ? { ...t, ...transaction } : t
+            ),
+          },
+        })),
+
+      removeTransaction: (transactionId) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            transactions: state.user!.transactions.filter((t) => t._id !== transactionId),
+          },
+        })),
+
       addSaving: (saving) =>
         set((state) => ({
           user: {
@@ -95,7 +122,7 @@ const useUserStore = create<UserStore>()(
           user: {
             ...state.user!,
             alerts: state.user!.alerts.map((alert) =>
-              alert.alertId === alertId ? { ...alert, isActive:isActive } : alert
+              alert.alertId === alertId ? { ...alert, isActive: isActive } : alert
             ),
           },
         })),

@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
 
         const client = await connectDatabase();
 
-        const { userId, newPassword } = await request.json();
+        const { userId, newPassword } = await request.json();        
 
         const user = await getDocumentById(client, "users", userId);
         if (!user) {
@@ -17,6 +17,10 @@ export async function POST(request: NextRequest) {
         }
 
         const passwordobj = await getPassword(client, userId);
+
+        if(!passwordobj){
+            return NextResponse.json({ error: 'Password not found' }, { status: 404 });
+        }
         
         const password_id = passwordobj._id.toString();
 
