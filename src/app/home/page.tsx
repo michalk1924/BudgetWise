@@ -59,8 +59,9 @@ export default function Home() {
                     <h1>Hello {user?.username || "Name"}! Great to have you here!</h1>
                     <p>What would you like to do today?</p>
                 </section>
-                <AlertsList />
-
+                <AlertsList
+                    alerts={user?.alerts ?? []} 
+                />
             </main>
         </div>
     );

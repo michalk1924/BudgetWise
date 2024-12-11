@@ -5,7 +5,11 @@ import { Alert } from "../../../types/types";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import userService from '@/services/user';
 
-const AlertsList: React.FC = () => {
+interface AlertsListProps {
+    alerts: Alert[]; 
+}
+
+const AlertsList: React.FC<AlertsListProps> = ({ alerts }) => {
     const { user, updateAlertStatus, removeAlert } = useUserStore();
     const queryClient = useQueryClient();
 
@@ -51,11 +55,11 @@ const AlertsList: React.FC = () => {
     return (
         <div>
             <section>
-                {user?.alerts.map(alert => (
+                {alerts.map(alert => (
                     <Alerts
                         key={alert.alertId}
                         alert={alert}
-                        onMarkAsDone={handleDeactivateAlert}
+                        onMarkAsDone={() => handleDeactivateAlert(alert)}
                         onDeleteAlert={() => handleDeleteAlert(alert.alertId)}
                     />
                 ))}
