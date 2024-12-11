@@ -6,13 +6,17 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import userService from '@/services/user';
 
 const AlertsList: React.FC = () => {
-    const { user, updateAlertStatus } = useUserStore();
+    const { user, updateAlertStatus, removeAlert } = useUserStore();
     const queryClient = useQueryClient();
     const updateUserMutation = useMutation({
         mutationFn: async ({ id, alert }: { id: string; alert: Alert }) => {
             if (user) {
-                const response = await userService.updateUser(id, { alerts: [...user?.alerts, alert] });
-                updateAlertStatus(alert.alertId,false);
+                const response = await userService.updateUser(id, {
+                    alerts: user!.alerts.map((a) =>
+                        a.alertId === alert.alertId ? { ...alert, isActive: false } : a
+                    ),
+                });
+                updateAlertStatus(alert.alertId, false);
                 return response;
             }
             return null;
@@ -27,7 +31,7 @@ const AlertsList: React.FC = () => {
 
     const handleDeactivateAlert = (alert: Alert) => {
         console.log("Alert", alert, "deactivated");
-        updateUserMutation.mutate({id:user?._id??'',alert});
+        updateUserMutation.mutate({ id: user?._id ?? '', alert });
         console.log("Updated alerts:", user?.alerts);
     };
 
