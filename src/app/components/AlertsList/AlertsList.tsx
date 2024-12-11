@@ -8,6 +8,7 @@ import userService from '@/services/user';
 const AlertsList: React.FC = () => {
     const { user, updateAlertStatus, removeAlert } = useUserStore();
     const queryClient = useQueryClient();
+
     const updateUserMutation = useMutation({
         mutationFn: async ({ id, alert }: { id: string; alert: Alert }) => {
             if (user) {
@@ -30,26 +31,32 @@ const AlertsList: React.FC = () => {
     });
 
     const handleDeactivateAlert = (alert: Alert) => {
-        console.log("Alert", alert, "deactivated");
         updateUserMutation.mutate({ id: user?._id ?? '', alert });
-        console.log("Updated alerts:", user?.alerts);
     };
 
-    const handleMarkAsDone = (alert: Alert) => {
-        console.log("Marking as done:", alert);
-        // כאן ניתן להוסיף לוגיקה למחיקת ההתראה או טיפול אחר
+    const handleDeleteAlert = async (alertId: string) => {
+        if (user) {
+            try {
+                await userService.updateUser(user._id, {
+                    alerts: user.alerts.filter((alert) => alert.alertId !== alertId),
+                });
+                removeAlert(alertId);
+                queryClient.invalidateQueries({ queryKey: ['users'] });
+            } catch (error) {
+                console.error('Error deleting alert:', (error as Error).message);
+            }
+        }
     };
 
     return (
         <div>
-
             <section>
                 {user?.alerts.map(alert => (
                     <Alerts
                         key={alert.alertId}
                         alert={alert}
-                        onMarkAsDone={handleMarkAsDone}
-                        onDeactivateAlert={handleDeactivateAlert}
+                        onMarkAsDone={handleDeactivateAlert}
+                        onDeleteAlert={() => handleDeleteAlert(alert.alertId)}
                     />
                 ))}
             </section>
