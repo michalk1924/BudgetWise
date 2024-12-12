@@ -52,7 +52,6 @@ export default function AddTransaction({ transactions, addTransaction }: AddTran
             description: data.description || "",
             createdAt: new Date(),
             updatedAt: new Date(),
-            userId: "123",
             type: data.amount > 0 ? 'income' : 'expense',
         }
         addTransaction(transaction);
