@@ -22,7 +22,7 @@ const Profile: React.FC = () => {
 
     const handleLogout = () => {
         clearUser();
-        window.location.href = '/about'; 
+        router.push('/about');
     };
 
     return (
