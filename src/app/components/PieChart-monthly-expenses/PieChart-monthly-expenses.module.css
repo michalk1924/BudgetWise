@@ -1,0 +1,29 @@
+/* PieChart.module.css */
+
+.chartContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: auto;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4a4a4a;
+    margin-bottom: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.chartCanvas {
+    max-width: 100%;
+    height: auto;
+}
