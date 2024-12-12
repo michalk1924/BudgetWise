@@ -7,7 +7,9 @@ export interface User {
   passwordHash: string;
   totalBudget: number;
   totalSpending: number;
-  categories: Category[];
+  balance: number;
+  financialStartDay:number
+  categories: Category[]; 
   savings: Saving[];
   transactions: Transaction[];
   alerts: Alert[];
@@ -59,13 +61,21 @@ export interface Recommendation {
 
 export interface Alert {
   alertId: string;
-  type: string;
-  triggerCondition: string;
+  type:string;
+  triggerCondition: string; 
   isActive: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  severityLevel: 'critical' | 'warning' | 'Pay attention';
-  solutions: Solution[];
+  createdAt: Date; 
+  updatedAt: Date; 
+  severityLevel:'critical' | 'warning' | 'Pay attention';
+  solutions :Solution[];
+}
+
+interface Solution {
+  id: string; // מזהה ייחודי לכל פתרון
+  description: string; // תיאור קצר של הפעולה או הפתרון
+  actionLink?: string; // קישור לפעולה רלוונטית (אופציונלי)
+  isRecommended?: boolean; // האם זה הפתרון המומלץ ביותר
+ 
 }
 
 export interface Solution {
