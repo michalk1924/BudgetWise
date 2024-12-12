@@ -70,14 +70,6 @@ export interface Alert {
   solutions :Solution[];
 }
 
-interface Solution {
-  id: string; // מזהה ייחודי לכל פתרון
-  description: string; // תיאור קצר של הפעולה או הפתרון
-  actionLink?: string; // קישור לפעולה רלוונטית (אופציונלי)
-  isRecommended?: boolean; // האם זה הפתרון המומלץ ביותר
- 
-}
-
 export interface Solution {
   id: string;
   description: string;

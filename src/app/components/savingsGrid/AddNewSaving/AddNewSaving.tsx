@@ -6,7 +6,7 @@ import { z } from "zod";
 import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./AddNewSaving.module.css";
-import { UserSaving } from "../../../../types/types";
+import { Saving } from "../../../../types/types";
 
 const savingSchema = z.object({
   goalName: z.string().min(1, "Goal Name is required"),
@@ -27,7 +27,7 @@ const savingSchema = z.object({
 export type SavingInput = z.infer<typeof savingSchema>;
 
 interface AddSavingProps {
-  addSaving: (saving: UserSaving) => void;
+  addSaving: (saving: Saving) => void;
 }
 
 export default function AddSaving({ addSaving }: AddSavingProps) {
@@ -41,12 +41,14 @@ export default function AddSaving({ addSaving }: AddSavingProps) {
   });
 
   const onSubmit: SubmitHandler<SavingInput> = (data) => {
-    const saving: UserSaving = {
+    const saving: Saving = {
       _id: `saving-${Date.now()}`,
       goalName: data.goalName,
       targetAmount: data.targetAmount,
       currentAmount: data.currentAmount || 0,
       deadline: new Date(data.deadline),
+      createdAt: new Date(Date.now()),
+      updatedAt: new Date(Date.now()),
     };
 
     addSaving(saving);

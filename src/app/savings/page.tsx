@@ -2,9 +2,8 @@
 
 import React from "react";
 import styles from "./savings.module.css";
-import { SavingsGrid } from "../components/index";
-import AddNewSaving from "../components/savingsGrid/AddNewSaving/AddNewSaving";
-import { UserSaving } from "@/types/types";
+import { SavingsGrid, AddNewSaving } from "../components/index";
+import { Saving } from "@/types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from '@/services/user';
@@ -16,7 +15,7 @@ const Savings = () => {
   const queryClient = useQueryClient();
 
   const updateUserMutation = useMutation({
-    mutationFn: async ({ id, saving }: { id: string; saving: UserSaving }) => {
+    mutationFn: async ({ id, saving }: { id: string; saving: Saving }) => {
       if (user) {
         const response = await userService.updateUser(id, { savings: [...user?.savings, saving] });
         addSaving(saving);
@@ -32,7 +31,7 @@ const Savings = () => {
     },
   });
 
-  const handleAddSaving = async (saving : UserSaving) => {
+  const handleAddSaving = async (saving: Saving) => {
     updateUserMutation.mutate({ id: user?._id ?? '', saving });
   };
 

@@ -5,3 +5,5 @@ export { default as TransactionTable } from './transactions/transactionTable/Tra
 export { default as SavingsGrid } from './savingsGrid/SavingsGrid/SavingsGrid';
 export { default as AddTransaction } from './transactions/addTransaction/AddTransaction';
 export { default as TransactionComp } from './transactions/transaction/Transaction';
+export { default as AddTransactionComp } from './transactions/addTransaction/AddTransaction';
+export { default as AddNewSaving} from './savingsGrid/AddNewSaving/AddNewSaving';

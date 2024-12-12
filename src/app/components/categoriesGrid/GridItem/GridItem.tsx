@@ -5,10 +5,10 @@ import styles from "./GridItem.module.css";
 import ProgressBar from "./ProgressBar/ProgressBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { UserCategory } from "../../../../types/types";
+import { Category } from "../../../../types/types";
 
 interface GridItemProps {
-  category: UserCategory;
+  category: Category;
   isTotal?: boolean; // Optional, defaults to false
 }
 
