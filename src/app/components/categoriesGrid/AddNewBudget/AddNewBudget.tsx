@@ -6,6 +6,9 @@ interface AddCategoryProps {
   addCategory: (category: UserCategory) => void;
 }
 
+// =====================
+// TODO: Use a form library like Formik or React Hook Form, or at least <form> element
+
 export default function AddNewBudget({ addCategory }: AddCategoryProps) {
   // State to manage the form inputs
   const [formData, setFormData] = useState({
