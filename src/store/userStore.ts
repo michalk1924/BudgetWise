@@ -20,6 +20,7 @@ interface UserStore {
   removeTransaction: (transactionId: string) => void;
   addSaving: (saving: Saving) => void;
   setAlerts: (alerts: Alert[]) => void;
+  addAlert: (alert: Alert) => void;
   setRecommendations: (recommendations: Recommendation[]) => void;
   updateAlertStatus: (alertId: string, isActive: boolean) => void;
   removeAlert: (alertId: string) => void;
@@ -114,6 +115,14 @@ const useUserStore = create<UserStore>()(
           user: {
             ...state.user!,
             alerts,
+          },
+        })),
+
+      addAlert: (alert) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            alerts: [...state.user!.alerts, alert],
           },
         })),
 

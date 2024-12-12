@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import userService from '@/services/user';
 
 interface AlertsListProps {
-    alerts: Alert[]; 
+    alerts: Alert[];
 }
 
 const AlertsList: React.FC<AlertsListProps> = ({ alerts }) => {
