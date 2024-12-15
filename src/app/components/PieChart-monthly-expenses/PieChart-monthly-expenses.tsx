@@ -1,19 +1,9 @@
 "use client"
 import { useEffect, useRef } from 'react';
 import { Chart, ArcElement, Tooltip, Legend, DoughnutController } from 'chart.js';
+import  {Transaction}  from '@/types/types';
 
 Chart.register(ArcElement, Tooltip, Legend, DoughnutController);
-
-export interface Transaction {
-    _id: string;
-    category: string;
-    type: 'income' | 'expense' | 'saved';
-    amount: number;
-    description: string;
-    date: Date;
-    createdAt: Date;
-    updatedAt: Date;
-}
 
 interface DoughnutChartProps {
     transactions: Transaction[];
@@ -26,7 +16,6 @@ const DoughnutChart = ({ transactions }: DoughnutChartProps) => {
         if (chartRef.current) {
             const ctx = chartRef.current.getContext('2d');
             if (ctx) {
-                // קבוצת ההוצאות לפי קטגוריה
                 const expenseCategories = transactions
                     .filter(transaction => transaction.type === 'expense')
                     .reduce((acc, transaction) => {
@@ -34,18 +23,17 @@ const DoughnutChart = ({ transactions }: DoughnutChartProps) => {
                         return acc;
                     }, {} as { [key: string]: number });
 
-                // נתונים לגרף
                 const data = Object.keys(expenseCategories).map(category => expenseCategories[category]);
                 const labels = Object.keys(expenseCategories);
 
                 const myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: labels, // קטגוריות כתיוגים
+                        labels: labels,
                         datasets: [{
                             label: 'Expense Breakdown by Category',
-                            data: data,  // נתוני ההוצאות לפי קטגוריה
-                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF5733', '#9C27B0'],  // צבעים
+                            data: data, 
+                            backgroundColor: ['#EF5A6F', '#FFF1DB', '#D4BDAC', '#536493', '#A1D6B2', '#FF7A89', '#B8A394', '#4C829F'],
                             hoverOffset: 10
                         }]
                     },
@@ -53,7 +41,7 @@ const DoughnutChart = ({ transactions }: DoughnutChartProps) => {
                         responsive: true,
                         plugins: {
                             legend: {
-                                position: 'top', // מיקום הלגנד
+                                position: 'top', 
                             },
                             tooltip: {
                                 callbacks: {
@@ -68,16 +56,16 @@ const DoughnutChart = ({ transactions }: DoughnutChartProps) => {
 
                 return () => {
                     if (myChart) {
-                        myChart.destroy(); // הורסים את הגרף כשמפסיקים את השימוש בו
+                        myChart.destroy();
                     }
                 };
             }
         }
-    }, [transactions]); // ריצה מחדש כשיש שינוי בנתוני הפעולות
+    }, [transactions]); 
 
     return (
-        <div>
-            <canvas ref={chartRef} width="400" height="400"></canvas>
+        <div className="doughnut-chart-container">
+            <canvas ref={chartRef} className="doughnut-chart"></canvas>
         </div>
     );
 };
