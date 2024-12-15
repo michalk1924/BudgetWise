@@ -20,5 +20,5 @@ export enum DateFilter {
 
 export enum AlertType {
     BudgetOverrun = "BudgetOverrun",
-     Occasion = "Occasion"
+    Occasion = "Occasion"
 }

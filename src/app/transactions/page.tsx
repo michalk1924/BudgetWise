@@ -82,14 +82,14 @@ function Transactions() {
         $
       </div>}
 
-      {loading && <div>Loading...</div>}
+      {loading && <div className={styles.loader}>Loading...</div>}
 
       {!loading && user && user?.transactions?.length === 0 && <div>
         No transactions found. Add some today!
       </div>}
 
-      {!loading && !user && <div>
-        Please log in to access this feature.
+      {!loading && !user && <div className={styles.loader}>
+        {/* Please log in to access this feature. */}
       </div>}
 
     </div>
