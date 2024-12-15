@@ -7,6 +7,8 @@ import { Transaction } from '../../types/types';
 import useUserStore from "../../store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from '@/services/user';
+import UploadExcel from "../components/UploadExcel/UploadExcel";
+
 
 function Transactions() {
 
@@ -59,6 +61,7 @@ function Transactions() {
 
   return (
     <div className={styles.container}>
+      <UploadExcel/>
 
       <h2 className={styles.title}>Manage My Transactions</h2>
 
