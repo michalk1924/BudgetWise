@@ -33,7 +33,9 @@ export default function RootLayout({
         router.push('/homePage');
       }
     }
+
   }, [pathname, router]);
+
 
   return (
     <html lang="en">
