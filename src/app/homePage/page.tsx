@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import styles from "./HomePage.module.css";
+import styles from "./homePage.module.css";
 
 const HomePage = () => {
   return (

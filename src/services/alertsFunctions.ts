@@ -3,6 +3,8 @@
 import { User, Alert, Solution } from "@/types/types";
 import { AlertType } from "@/consts/enums";
 import userService from "./user";
+import { holidays } from "@/consts/consts";
+import { differenceInDays, parseISO } from "date-fns";
 
 export const createAlertsExceedingBudget = async () => {
   try {
@@ -81,7 +83,7 @@ export const budgetExceededAlert = async () => {
       const alerts: Alert[] = user?.alerts || [];
       if (user?.totalSpending >= user?.totalBudget) {
 
-        const solution1 : Solution = {
+        const solution1: Solution = {
           id: crypto.randomUUID(),
           description: `Consider reducing your expenses or saving money. Your total budget is exceeded. Spent: ${user.totalSpending} / Budget: ${user.totalBudget}.`,
           actionLink: "/transactions",
@@ -115,8 +117,6 @@ export const budgetExceededAlert = async () => {
     console.error("Error creating alert exceeding budget", err);
   }
 }
-
-
 
 export const validateAccountBalance= async (user: User)  => {
   
@@ -223,3 +223,66 @@ const minBalanceMultiplier = 0.2;
 
     await userService.updateUser(user._id, { alerts });
 }
+export const holidayAndVacationAlerts = async () => {
+  try {
+    const users = await userService.getAllUsers();
+    if (!users) {
+      console.error("No users found");
+      return;
+    }
+    const today = new Date();
+
+    for (const holiday of holidays) {
+      const holidayDate = parseISO(holiday.date);
+
+      const daysUntilHoliday = differenceInDays(holidayDate, today);
+
+      if (daysUntilHoliday === 14) {
+
+        const alertId = crypto.randomUUID();
+
+        const alert: Alert = {
+          alertId,
+          type: AlertType.Occasion,
+          triggerCondition: `Reminder: ${holiday.name} is in 14 days. Start planning your activities and budget.`,
+          isActive: true,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          severityLevel: "warning",
+          solutions: [
+            {
+              id: crypto.randomUUID(),
+              description: `Plan ahead for ${holiday.name}. Consider activities like spending time with family, budgeting for meals, or organizing trips.`,
+              actionLink: "/categories",
+              isRecommended: true
+            },
+            {
+              id: crypto.randomUUID(),
+              description: `Start saving for ${holiday.name}. Adjust your budget now to ensure you have enough funds for holiday-related expenses.`,
+              actionLink: "/saving",
+              isRecommended: true
+            },
+            {
+              id: crypto.randomUUID(),
+              description: `Spend less on non-essential items to ensure you stay within your budget and are prepared for ${holiday.name}.`,
+              actionLink: "/expenses",
+              isRecommended: false
+            }
+          ]
+        };
+
+        for (const user of users) {
+          const alerts: Alert[] = user?.alerts || [];
+          alerts.push(alert);
+          await userService.updateUser(user._id, { alerts });
+        }
+        
+      }
+    }
+
+  }
+  catch (err) {
+    console.error("Error creating holiday and vacation alerts", err);
+  }
+}
+
