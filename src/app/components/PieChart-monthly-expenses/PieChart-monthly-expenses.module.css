@@ -31,8 +31,8 @@
 }
 
 .doughnut-chart-container {
-    width: 100px; /* הרוחב הרצוי */
-    height: 100px; /* הגובה הרצוי */
+    width: 100px;
+    height: 100px; 
 }
 
 .doughnut-chart {

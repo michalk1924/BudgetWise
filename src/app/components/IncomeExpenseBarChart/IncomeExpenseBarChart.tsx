@@ -57,8 +57,8 @@ const IncomeExpenseBarChart = ({ transactions }: BarChartProps) => {
                         ],
                     },
                     options: {
-                        responsive: true,
-                        plugins: {
+                        responsive: false,
+                        maintainAspectRatio: false,                        plugins: {
                             legend: {
                                 position: "top",
                             },
