@@ -8,7 +8,6 @@ import AlertsList from "../components/AlertsList/AlertsList";
 export default function Home() {
     const { user, updateAlertStatus } = useUserStore();
 
-
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
@@ -59,8 +58,9 @@ export default function Home() {
                     <h1>Hello {user?.username || "Name"}! Great to have you here!</h1>
                     <p>What would you like to do today?</p>
                 </section>
-                <AlertsList />
-
+                <AlertsList
+                    alerts={user?.alerts ?? []}
+                />
             </main>
         </div>
     );

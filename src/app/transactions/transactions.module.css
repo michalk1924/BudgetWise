@@ -1,6 +1,7 @@
-.container {}
+.container {
+  min-height: 55vh;
+}
 
-/* Title */
 .title {
   position: absolute;
   width: 30%;
@@ -21,8 +22,8 @@
   padding: 0;
   margin: 0;
   z-index: 10;
-  /* Ensures it stays above the background */
 }
+
 
 /* Optional Background Enhancement */
 .titleContainer::before {

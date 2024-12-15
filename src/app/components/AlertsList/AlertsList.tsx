@@ -5,14 +5,23 @@ import { Alert } from "../../../types/types";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import userService from '@/services/user';
 
-const AlertsList: React.FC = () => {
-    const { user, updateAlertStatus } = useUserStore();
+interface AlertsListProps {
+    alerts: Alert[];
+}
+
+const AlertsList: React.FC<AlertsListProps> = ({ alerts }) => {
+    const { user, updateAlertStatus, removeAlert } = useUserStore();
     const queryClient = useQueryClient();
+
     const updateUserMutation = useMutation({
         mutationFn: async ({ id, alert }: { id: string; alert: Alert }) => {
             if (user) {
-                const response = await userService.updateUser(id, { alerts: [...user?.alerts, alert] });
-                updateAlertStatus(alert.alertId,false);
+                const response = await userService.updateUser(id, {
+                    alerts: user!.alerts.map((a) =>
+                        a.alertId === alert.alertId ? { ...alert, isActive: false } : a
+                    ),
+                });
+                updateAlertStatus(alert.alertId, false);
                 return response;
             }
             return null;
@@ -26,26 +35,32 @@ const AlertsList: React.FC = () => {
     });
 
     const handleDeactivateAlert = (alert: Alert) => {
-        console.log("Alert", alert, "deactivated");
-        updateUserMutation.mutate({id:user?._id??'',alert});
-        console.log("Updated alerts:", user?.alerts);
+        updateUserMutation.mutate({ id: user?._id ?? '', alert });
     };
 
-    const handleMarkAsDone = (alert: Alert) => {
-        console.log("Marking as done:", alert);
-        // כאן ניתן להוסיף לוגיקה למחיקת ההתראה או טיפול אחר
+    const handleDeleteAlert = async (alertId: string) => {
+        if (user) {
+            try {
+                await userService.updateUser(user._id, {
+                    alerts: user.alerts.filter((alert) => alert.alertId !== alertId),
+                });
+                removeAlert(alertId);
+                queryClient.invalidateQueries({ queryKey: ['users'] });
+            } catch (error) {
+                console.error('Error deleting alert:', (error as Error).message);
+            }
+        }
     };
 
     return (
         <div>
-
             <section>
-                {user?.alerts.map(alert => (
+                {alerts.map(alert => (
                     <Alerts
                         key={alert.alertId}
                         alert={alert}
-                        onMarkAsDone={handleMarkAsDone}
-                        onDeactivateAlert={handleDeactivateAlert}
+                        onMarkAsDone={() => handleDeactivateAlert(alert)}
+                        onDeleteAlert={() => handleDeleteAlert(alert.alertId)}
                     />
                 ))}
             </section>

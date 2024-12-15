@@ -16,3 +16,9 @@ export enum DateFilter {
     Last2Years = "Last2Years",
     CustomDateRange = "CustomDateRange"
 }
+
+
+export enum AlertType {
+    BudgetOverrun = "BudgetOverrun",
+     Occasion = "Occasion"
+}

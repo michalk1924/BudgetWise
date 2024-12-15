@@ -4,10 +4,10 @@ import React from "react";
 import styles from "./SavingsGridItem.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { UserSaving } from "../../../../types/types";
+import { Saving } from "../../../../types/types";
 import ProgressCircle from "./ProgressCircle/ProgressCircle";
 interface SavingGridItemProps {
-  saving: UserSaving;
+  saving: Saving;
 }
 
 const SavingsGridItem: React.FC<SavingGridItemProps> = ({ saving }) => {

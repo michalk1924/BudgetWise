@@ -5,7 +5,7 @@ import styles from "./categories.module.css";
 import BudgetGrid from "../components/categoriesGrid/BudgetGrid/BudgetGrid";
 import AddNewBudget from "../components/categoriesGrid/AddNewBudget/AddNewBudget";
 import GridItem from "../components/categoriesGrid/GridItem/GridItem";
-import { UserCategory } from "../../types/types";
+import { Category } from "../../types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
@@ -21,7 +21,7 @@ const Categories = () => {
       category,
     }: {
       id: string;
-      category: UserCategory;
+      category: Category;
     }) => {
       if (user) {
         const response = await userService.updateUser(id, {
@@ -49,7 +49,7 @@ const Categories = () => {
     { budget: 0, spent: 0 }
   );
 
-  const handleAddCategory = (category: UserCategory) => {
+  const handleAddCategory = (category: Category) => {
     category._id = Math.random().toString(36).substr(2, 8);
     updateUserMutation.mutate({ id: user?._id ?? "", category });
   };

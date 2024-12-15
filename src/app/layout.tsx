@@ -30,7 +30,7 @@ export default function RootLayout({
         router.push('/home');
       }
       else {
-        router.push('/about');
+        router.push('/homePage');
       }
     }
   }, [pathname, router]);

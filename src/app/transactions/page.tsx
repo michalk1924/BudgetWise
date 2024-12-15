@@ -10,13 +10,11 @@ import userService from '@/services/user';
 
 function Transactions() {
 
-  const { user, addTransaction } = useUserStore();
-
-  const [loading, setLoading] = useState(false);
+  const { user, addTransaction, updateTransaction, loading } = useUserStore();
 
   const queryClient = useQueryClient();
 
-  const updateUserMutation = useMutation({
+  const updateUserMutationAddTransaction = useMutation({
     mutationFn: async ({ id, transaction }: { id: string; transaction: Transaction }) => {
       if (user) {
         const response = await userService.updateUser(id, { transactions: [...user?.transactions, transaction] });
@@ -33,9 +31,30 @@ function Transactions() {
     },
   });
 
+  const updateUserMutationUpdateTransaction = useMutation({
+    mutationFn: async ({ id, transaction }: { id: string; transaction: Transaction }) => {
+      if (user) {
+        const response = await userService.updateUser(id, { transactions: user?.transactions.map((t) => t._id === transaction._id ? transaction : t) });
+        updateTransaction(transaction);
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error updating user:', error.message);
+    },
+  });
+
   const handleAddTransaction = (transaction: Transaction) => {
     transaction._id = Math.random().toString(36).substr(2, 8);
-    updateUserMutation.mutate({ id: user?._id ?? '', transaction });
+    updateUserMutationAddTransaction.mutate({ id: user?._id ?? '', transaction });
+  }
+
+  const handleUpdateTransaction = (transaction: Transaction) => {
+    updateUserMutationUpdateTransaction.mutate({ id: user?._id ?? '', transaction });
   }
 
   return (
@@ -43,7 +62,9 @@ function Transactions() {
 
       <h2 className={styles.title}>Manage My Transactions</h2>
 
-      {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions} />}
+      {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
+        updateTransaction={handleUpdateTransaction}
+      />}
 
       {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction} />}
 
@@ -58,15 +79,15 @@ function Transactions() {
         $
       </div>}
 
+      {loading && <div>Loading...</div>}
+
       {!loading && user && user?.transactions?.length === 0 && <div>
         No transactions found. Add some today!
-        </div>}
+      </div>}
 
       {!loading && !user && <div>
         Please log in to access this feature.
       </div>}
-
-      {loading && <div>Loading...</div>}
 
     </div>
   )

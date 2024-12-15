@@ -2,22 +2,28 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { User, UserCategory, UserSaving, Transaction, Alert, Recommendation } from "../types/types";
+import { User, Category, Saving, Transaction, Alert, Recommendation } from "../types/types";
 import { saveToken } from "@/services/cookies";
 
 
 interface UserStore {
   user: User | null;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
   setUser: (user: User) => void;
   clearUser: () => void;
-  addCategory: (category: UserCategory) => void;
-  updateCategory: (categoryId: string, updatedCategory: Partial<UserCategory>) => void;
+  addCategory: (category: Category) => void;
+  updateCategory: (categoryId: string, updatedCategory: Partial<Category>) => void;
   removeCategory: (categoryId: string) => void;
   addTransaction: (transaction: Transaction) => void;
-  addSaving: (saving: UserSaving) => void;
+  updateTransaction: (transaction: Transaction) => void;
+  removeTransaction: (transactionId: string) => void;
+  addSaving: (saving: Saving) => void;
   setAlerts: (alerts: Alert[]) => void;
+  addAlert: (alert: Alert) => void;
   setRecommendations: (recommendations: Recommendation[]) => void;
-  updateAlertStatus: (alertId: string, isActive: boolean) => void; // פונקציה חדשה
+  updateAlertStatus: (alertId: string, isActive: boolean) => void;
+  removeAlert: (alertId: string) => void;
   expirationTimestamp?: number;
 }
 
@@ -26,13 +32,17 @@ const useUserStore = create<UserStore>()(
 
     (set) => ({
       user: null,
+      loading: false,
+      setLoading: (loading) => set({ loading }),
 
-      setUser: (user: User) => {
+
+      setUser: async (user: User) => {
+        set({ loading: true });
         const userWithExpiration = {
           ...user,
           expirationTimestamp: Date.now() + 60 * 60 * 1000,
         };
-        set({ user: userWithExpiration });
+        set({ user: userWithExpiration, loading: false });
       },
 
       clearUser: () => {
@@ -74,6 +84,24 @@ const useUserStore = create<UserStore>()(
           },
         })),
 
+      updateTransaction: (transaction) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            transactions: state.user!.transactions.map((t) =>
+              t._id === transaction._id ? { ...t, ...transaction } : t
+            ),
+          },
+        })),
+
+      removeTransaction: (transactionId) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            transactions: state.user!.transactions.filter((t) => t._id !== transactionId),
+          },
+        })),
+
       addSaving: (saving) =>
         set((state) => ({
           user: {
@@ -90,16 +118,32 @@ const useUserStore = create<UserStore>()(
           },
         })),
 
-        updateAlertStatus: (alertId: string, isActive: boolean) =>
-          set((state) => ({
-            user: {
-              ...state.user!,
-              alerts: state.user!.alerts.map((alert) =>
-                alert.alertId === alertId ? { ...alert, isActive } : alert
-              ),
-            },
-          })),
-        
+      addAlert: (alert) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            alerts: [...state.user!.alerts, alert],
+          },
+        })),
+
+      updateAlertStatus: (alertId: string, isActive: boolean) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            alerts: state.user!.alerts.map((alert) =>
+              alert.alertId === alertId ? { ...alert, isActive: isActive } : alert
+            ),
+          },
+        })),
+
+      removeAlert: (alertId) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            alerts: state.user!.alerts.filter((alert) => alert.alertId !== alertId),
+          },
+        })),
+
 
       setRecommendations: (recommendations) =>
         set((state) => ({

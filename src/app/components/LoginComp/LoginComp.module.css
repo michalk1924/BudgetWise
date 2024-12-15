@@ -2,24 +2,25 @@
 .container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 380px;
-    height: 80vh;
+    height: 90vh;
     border-radius: 10px;
-    box-shadow: 0 4px 8px  #D4BDAC;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: auto;
     padding: 0.5rem;
     margin-top: 5vh;
+    background-color: rgba(198, 202, 210, 0.8);
+    align-items: center;
     text-align: center;
-    color: #536493;
-align-items: center;
 }
 
 /* Title styling */
 .title {
     font-size: 2rem;
     margin: 0.5rem;
+    color: #536493;
     font-weight: bold;
-    
 }
 
 /* Form styling */
@@ -30,31 +31,31 @@ align-items: center;
     border: none;
     border-radius: 8px;
     padding: 0.5rem;
-    align-items: start;
+    align-items: center;
     text-align: center;
 }
-.emailContainer
-{
-    width: 100%;
-    margin-bottom: 1rem;
-    margin: 0.5rem 0; /* Vertical margin only */
 
-}
+/* Input field styling */
 .input {
-    width: 80%; 
+    width: 90%;
+    border: 1px solid #ccc;
     border-radius: 15px;
     box-sizing: border-box;
+    margin: 0.5rem;
     padding: 0.5rem;
 }
 
 /* Input focus effect */
 .input:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 /* Error message styling */
 .error {
-    color: #EF5A6F;
+    color: #ff4d4d;
     padding: 0.1rem;
     font-size: 0.9rem;
 }
@@ -62,8 +63,8 @@ align-items: center;
 /* Submit button styling */
 .submitButton {
     width: 40%;
-    background-color:#536493;
-    color: #fff1db83; 
+    background-color: #007BFF;
+    color: white;
     border: none;
     border-radius: 10px;
     padding: 0.4rem;
@@ -80,6 +81,7 @@ align-items: center;
 
 /* Submit button disabled state */
 .submitButton:disabled {
+    background-color: #cccccc;
     cursor: not-allowed;
 }
 
@@ -91,7 +93,8 @@ align-items: center;
 .googleButton {
     width: 80%;
     max-width: 400px;
-    background-color: #EF5A6F;
+    background-color: #DB4437;
+    color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -113,23 +116,7 @@ align-items: center;
     cursor: pointer;
 }
 
-.show-password-btn {
-    position: absolute;
-    top: 50%;
-    right: 10px; /* Aligns the button to the right */
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #536493;
-    font-size: 1.2rem;
-    padding: 0; /* Remove any button padding */
-}
-
 .password-container {
     position: relative;
-    width: 80%; /* Matches the width of the input */
-    margin: 0.5rem 0; /* Matches the vertical margin of the email input */
+    width: 100%;
 }
-
-

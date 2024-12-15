@@ -1,0 +1,164 @@
+/* Main container for the layout */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 20px;
+    color: #2f5f98;
+    background: #d4bdacc8 url('/your-header-image.png') no-repeat center center;
+    background-size: cover;
+  }
+  
+  .headerText h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+  }
+  
+  .headerText h2 {
+    font-size: 1.5rem;
+    margin-top: 10px;
+  }
+  
+  /* Transactions Section */
+  .trans, .save{
+    display: flex;
+    flex-direction: row; /* Ensures left and right sections are side by side */
+    justify-content: space-between;
+    gap: 20px;
+    height: 45vh;
+  }
+  
+  /* Left Section */
+  .left {
+    flex: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  .infoBox {
+    background-image: url('/splash.png'); /* תמונה כרקע */
+    background-repeat: no-repeat; /* מונע חזרה של התמונה */
+    background-position: center center; /* מרכז את התמונה אופקית ואנכית */
+    background-size: cover; /* מכסה את כל האלמנט תוך שמירה על הפרופורציות */
+    display: flex; /* מאפשר מיקום הטקסט בתוך האלמנט */
+    align-items: center; /* ממרכז את הטקסט אנכית */
+    justify-content: center; /* ממרכז את הטקסט אופקית */
+    text-align: center; /* יישור טקסט במרכז */
+    padding: 20px; /* מרווח פנימי */
+    font-size: 1.3rem; /* גודל פונט */
+    color: #2f5f98; /* צבע טקסט */
+    width: 100%; /* רוחב מלא */
+    height: 300px; /* גובה מותאם */
+    border-radius: 10px; /* פינות מעוגלות (לא חובה) */
+}
+
+  /* Right Section */
+  .right {
+    flex: 2; /* Takes up more space than the left section */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Three equal columns */
+    grid-auto-rows: auto; /* Rows will adjust automatically */
+    gap: 10px; /* Space between grid items */
+  }
+  
+  .right .item1 {
+    grid-column: 1 / 5; /* Spans the first and second columns */
+    grid-row: 1; /* Places it in the first row */
+  }
+  
+  .right .item2 {
+    grid-column: 2 / 6; /* Spans the second and third columns */
+    grid-row: 2; /* Places it in the second row */
+  }
+  
+  .right .item3 {
+    grid-column: 1 / 5; /* Spans all three columns */
+    grid-row: 3; /* Places it in the third row */
+  }
+
+  .saveLeft .item1 {
+    grid-column: 1 ; /* Spans the first and second columns */
+    grid-row: 1/3; /* Places it in the first row */
+  }
+  
+  .saveLeft .item2 {
+    grid-column: 2; /* Spans the second and third columns */
+    grid-row: 2/4; /* Places it in the second row */
+  }
+  
+  .saveLeft .item3 {
+    grid-column: 3 ; /* Spans all three columns */
+    grid-row: 1/3; /* Places it in the third row */
+  }
+  
+  .saveLeft {
+    flex: 2; /* Takes up more space than the left section */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+    grid-template-rows: repeat(3, 1fr);
+    grid-auto-rows: auto; /* Rows will adjust automatically */
+    gap: 10px; /* Space between grid items */
+  }
+
+  .saveRight {
+    flex: 1; /* Takes up less space than the right section */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  .right img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  .infoBox {
+    background-image: url('/splash.png') no-repeat center center;
+    background-size: cover;
+    padding: 30px;
+    font-size: 1.2rem;
+    color: #2f5f98;
+  }
+  
+  .features{
+    justify-content: center;
+    
+
+  }
+  .features ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .features li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #2f5f98;
+  }
+  
+  /* Testimonials Section */
+  .testimonials {
+    grid-area: testimonials;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .testimonialBox {
+    width: 45%;
+    padding: 10px;
+    background-color: #fff5e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-style: italic;
+  }
+  

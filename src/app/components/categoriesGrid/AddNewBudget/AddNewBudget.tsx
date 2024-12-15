@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styles from "./AddNewBudget.module.css";
-import { UserCategory } from "@/types/types";
+import { Category } from "@/types/types";
 
 interface AddCategoryProps {
-  addCategory: (category: UserCategory) => void;
+  addCategory: (category: Category) => void;
 }
 
 export default function AddNewBudget({ addCategory }: AddCategoryProps) {
@@ -33,7 +33,7 @@ export default function AddNewBudget({ addCategory }: AddCategoryProps) {
       return;
     }
 
-    const newCategory: UserCategory = {
+    const newCategory: Category = {
       _id: Math.random().toString(36).substr(2, 8),
       userId: "user123", // Replace with dynamic user ID if needed
       type: "general", // Default type

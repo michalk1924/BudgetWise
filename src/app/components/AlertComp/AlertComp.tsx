@@ -1,32 +1,32 @@
 import React from 'react';
-import styles from './AlertComp.module.css'; 
+import styles from './AlertComp.module.css';
 import { Alert } from '../../../types/types';
 
 interface AlertProps {
     alert: Alert;
     onMarkAsDone: (alert: Alert) => void;
-    onDeactivateAlert: (alert: Alert) => void;
-
+    onDeleteAlert: () => void;
 }
 
-const AlertComp: React.FC<AlertProps> = ({ alert, onMarkAsDone, onDeactivateAlert  }) => {
+const AlertComp: React.FC<AlertProps> = ({ alert, onMarkAsDone, onDeleteAlert }) => {
     const handleMarkAsDone = () => {
         onMarkAsDone(alert);
     };
 
     const handleMouseEnter = () => {
         if (alert.isActive) {
-            onDeactivateAlert(alert);
+            onMarkAsDone(alert);
         }
     };
 
-        const severityClass = 
+    const severityClass = 
         alert.severityLevel === 'critical' 
             ? (alert.isActive ? styles.criticalActive : styles.criticalInactive) :
         alert.severityLevel === 'warning' 
             ? (alert.isActive ? styles.warningActive : styles.warningInactive) :
         (alert.isActive ? styles.payAttentionActive : styles.payAttentionInactive);
-return (
+
+    return (
         <div className={`${styles.alertItem} ${severityClass}`} onMouseEnter={handleMouseEnter}>
             <div className={styles.alertHeader}>
                 <span className={styles.alertSeverity}>{alert.severityLevel}</span>
@@ -43,6 +43,8 @@ return (
                         src="/complete.png"
                         alt="Mark as done"
                         className={styles.completeImage}
+                        onClick={onDeleteAlert} // הוספת מחיקת ההתראה בלחיצה
+                        style={{ cursor: 'pointer' }}
                     />
                 </button>
             </div>

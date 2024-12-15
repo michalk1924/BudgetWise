@@ -2,18 +2,18 @@
 import React from "react";
 import styles from "./SavingsGrid.module.css";
 import SavingsGridItem from "../SavingsGridItem/SavingsGridItem";
-import { UserSaving } from "@/types/types";
+import { Saving } from "@/types/types";
 
-interface SavingsGridProps{
-  savings:UserSaving[]
+interface SavingsGridProps {
+  savings: Saving[]
 }
 
-const SavingsGrid:React.FC<SavingsGridProps> = ({ savings }) => {
+const SavingsGrid: React.FC<SavingsGridProps> = ({ savings }) => {
 
   return (
     <div className={styles.gridContainer}>
-      {savings.map((saving,index) => (
-         <SavingsGridItem key={index} saving={saving} />
+      {savings.map((saving, index) => (
+        <SavingsGridItem key={index} saving={saving} />
       ))}
     </div>
   );
