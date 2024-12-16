@@ -2,28 +2,61 @@ import { useState } from "react";
 import useUserStore from "@/store/userStore";
 import { parseExcelFile } from "@/services/excelService";
 import { Transaction } from "@/types/types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import userService from "@/services/user";
+import { showSuccessAlert } from "@/services/alerts";
 
 export default function UploadExcel() {
-    const [data, setData] = useState<Transaction[]>([]);
-    const { addTransactionsFromExcel } = useUserStore();
+    const [isLoading, setIsLoading] = useState(false);
+    const { addTransactionsFromExcel, user } = useUserStore();  
+
+    const queryClient = useQueryClient();
+
+    const updateUserMutationAddTransactions = useMutation({
+        mutationFn: async ({ id, transactions }: { id: string; transactions: Transaction[] }) => {
+            if (user) {
+                const response = await userService.updateUser(id, { transactions: [...user?.transactions, ...transactions] });
+                return response;
+            }
+            return null;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['users'] });
+        },
+        onError: (error: Error) => {
+            console.error("Error updating user transactions:", error.message);
+        },
+    });
 
     const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (!file) return;
 
+        setIsLoading(true);
+
         try {
             const filteredData = await parseExcelFile(file);
-            setData(filteredData);
-            addTransactionsFromExcel(filteredData);
+            if (user) {
+                updateUserMutationAddTransactions.mutate({
+                    id: user._id, 
+                    transactions: filteredData,
+                });
+
+                showSuccessAlert("The file has been loaded successfully!");
+            }
+            addTransactionsFromExcel(filteredData); // עדכון ב-store אם צריך
         } catch (error) {
             console.error("Error parsing file:", error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <div>
             <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
-            <pre>{JSON.stringify(data, null, 2)}</pre>
+            {isLoading && <p>Loading...</p>}
+            {/* אפשר להוסיף פה אלרטים או תצוגה אחרת אם ברצונך */}
         </div>
     );
 }
