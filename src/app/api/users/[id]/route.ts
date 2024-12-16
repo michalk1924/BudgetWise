@@ -29,7 +29,7 @@ export async function PUT(request: NextRequest, { params }: { params: any}){
 }
 
 export async function PATCH(request: NextRequest, { params }: { params: any}){
-    try{
+    try{    
         const { id } = await params;
         const client = await connectDatabase();
         const updatedUser = await request.json();
