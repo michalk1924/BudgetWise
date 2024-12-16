@@ -36,6 +36,16 @@ font-size: 3rem;
     justify-content: space-between;
     gap: 20px;
   }
+
+  .signUpBtn , .loginBtn{
+    border-radius: 10%;
+    background-color: #2f5f98;
+    color:#fff5e6;
+    padding:1%;
+    margin: 1%;
+    font-size: 1rem; /* גודל פונט */
+
+  }
   
   /* Left Section */
   .left, .saveRight {
@@ -120,7 +130,6 @@ font-size: 3rem;
   
   .features li {
     margin-bottom: 10px;
-    font-size: 1rem;
     color: #2f5f98;
     background-image: url('/green_brush2.png'); /* תמונה כרקע */
     background-repeat: no-repeat; /* מונע חזרה של התמונה */
@@ -180,7 +189,7 @@ margin-top: 5%;
     font-style: italic;
   }
   .section{
-    height: 70vh;
+    height: 80vh;
     margin-top: 3%;
     align-items: center;
     align-content: center;

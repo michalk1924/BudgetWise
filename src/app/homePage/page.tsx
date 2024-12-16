@@ -1,22 +1,39 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import styles from "./homePage.module.css";
+import { useRouter } from 'next/navigation';
+
 
 const HomePage = () => {
+  const router = useRouter();
+
+  const handleSignUp = () => {
+    router.push('/signup');
+};
+const handleLogin = () => {
+  router.push('/login');
+};
+
   return (
     <div className={styles.container}>
       {/* Header Section */}
       <div className={styles.section}>
-      <section className={styles.header}>
+        <section className={styles.header}>
 
-        <h1>Take control of your finances with ease!</h1>
+          <h1>Take control of your finances with ease!</h1>
 
-        <div className={styles.headerText}>
-          <h2>Welcome to BudgetWise!</h2>
-          <h3>Smart App for Managing Your Personal Budget</h3>
+          <div className={styles.headerText}>
+            <h2>Welcome to BudgetWise!</h2>
+            <h3>Smart App for Managing Your Personal Budget</h3>
+          </div>
+        </section>
+        <div className={styles.headerBtns}>
+
+          <button className={styles.signUpBtn} onClick={()=>handleSignUp()}>Join Us {'>>'}</button>
+          <button className={styles.loginBtn} onClick={()=>handleLogin()}>Member Login {'>>'}</button>
         </div>
-      </section>
-</div>
+      </div>
 
       {/* Left Section */}
       <div className={styles.section}>
@@ -71,23 +88,23 @@ const HomePage = () => {
           <h2>How much you should spend?</h2>
           <h2>Make your financial decisions simple!</h2>
           <div className={styles.categoriesItems}>
-          <div className={styles.categoryItem}>
-            <Image
-              src="/category1.png"
-              alt="brush_stain"
-              width={400}
-              height={200}
-            />
+            <div className={styles.categoryItem}>
+              <Image
+                src="/category1.png"
+                alt="brush_stain"
+                width={400}
+                height={200}
+              />
+            </div>
+            <div className={styles.categoryItem}>
+              <Image
+                src="/category2.png"
+                alt="brush_stain"
+                width={400}
+                height={200}
+              />
+            </div>
           </div>
-          <div className={styles.categoryItem}>
-            <Image
-              src="/category2.png"
-              alt="brush_stain"
-              width={400}
-              height={200}
-            />
-            </div>
-            </div>
         </section>
 
       </div>
