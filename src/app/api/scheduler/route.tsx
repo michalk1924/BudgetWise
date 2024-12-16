@@ -5,11 +5,16 @@ import { createAlertsExceedingBudget, budgetExceededAlert, validateAccountBalanc
 export async function GET(req: NextRequest) {
     console.log("Running nightly tasks...");
     try {
+
+        if (req.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+            return NextResponse.json({ message: 'Unauthorized', status: 401 });
+        }
+
         const users = await userService.getAllUsers();
 
         if (!users || users.length === 0) {
             console.error("No users found");
-            return NextResponse.json({ message: "No users found" });
+            return NextResponse.json({ message: "No users found", status: 404 });
         }
 
         for (const user of users) {
@@ -34,9 +39,9 @@ export async function GET(req: NextRequest) {
         }
 
         console.log("Nightly tasks completed successfully.");
-        return NextResponse.json({ message: "Nightly tasks completed successfully." });
+        return NextResponse.json({ message: "Nightly tasks completed successfully.", status: 200 });
     } catch (error) {
         console.error("Error during nightly tasks:", error);
-        return NextResponse.json({ error: "Error during nightly tasks" });
+        return NextResponse.json({ error: "Error during nightly tasks", status: 500 });
     }
 }
