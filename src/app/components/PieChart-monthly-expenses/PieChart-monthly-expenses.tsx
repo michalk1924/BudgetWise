@@ -38,7 +38,8 @@ const DoughnutChart = ({ transactions }: DoughnutChartProps) => {
                         }]
                     },
                     options: {
-                        responsive: true,
+                        responsive: false,
+                        maintainAspectRatio: false,
                         plugins: {
                             legend: {
                                 position: 'top', 
