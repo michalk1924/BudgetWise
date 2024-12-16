@@ -3,6 +3,8 @@ import React from "react";
 import Image from "next/image";
 import styles from "./homePage.module.css";
 import { useRouter } from 'next/navigation';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 
 const HomePage = () => {
@@ -30,8 +32,8 @@ const handleLogin = () => {
         </section>
         <div className={styles.headerBtns}>
 
-          <button className={styles.signUpBtn} onClick={()=>handleSignUp()}>Join Us {'>>'}</button>
-          <button className={styles.loginBtn} onClick={()=>handleLogin()}>Member Login {'>>'}</button>
+          <button className={styles.signUpBtn} onClick={()=>handleSignUp()}>Join Us <FontAwesomeIcon icon={faArrowRight} className={styles.iconStyles} /></button>
+          <button className={styles.loginBtn} onClick={()=>handleLogin()}>Member Login <FontAwesomeIcon icon={faArrowRight} className={styles.iconStyles} /></button>
         </div>
       </div>
 

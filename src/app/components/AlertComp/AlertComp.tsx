@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './AlertComp.module.css';
 import { Alert } from '../../../types/types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+
 
 interface AlertProps {
     alert: Alert;
@@ -9,6 +12,12 @@ interface AlertProps {
 }
 
 const AlertComp: React.FC<AlertProps> = ({ alert, onMarkAsDone, onDeleteAlert }) => {
+
+    const [showSolutions, setShowSolutions] = useState(false); // State to toggle solutions visibility
+
+    const handleToggleSolutions = () => {
+        setShowSolutions((prev) => !prev); // Toggle the visibility
+    };
     const handleMarkAsDone = () => {
         onMarkAsDone(alert);
     };
@@ -19,6 +28,7 @@ const AlertComp: React.FC<AlertProps> = ({ alert, onMarkAsDone, onDeleteAlert })
         }
     };
 
+  
     const severityClass = 
         alert.severityLevel === 'critical' 
             ? (alert.isActive ? styles.criticalActive : styles.criticalInactive) :
@@ -26,7 +36,9 @@ const AlertComp: React.FC<AlertProps> = ({ alert, onMarkAsDone, onDeleteAlert })
             ? (alert.isActive ? styles.warningActive : styles.warningInactive) :
         (alert.isActive ? styles.payAttentionActive : styles.payAttentionInactive);
 
-    return (
+        
+
+      return (
         <div className={`${styles.alertItem} ${severityClass}`} onMouseEnter={handleMouseEnter}>
             <div className={styles.alertHeader}>
                 <span className={styles.alertSeverity}>{alert.severityLevel}</span>
@@ -34,6 +46,7 @@ const AlertComp: React.FC<AlertProps> = ({ alert, onMarkAsDone, onDeleteAlert })
                 <span className={styles.alertDate}>
                     {new Date(alert.createdAt).toLocaleDateString()}
                 </span>
+
                 <button
                     className={styles.completeButton}
                     onClick={handleMarkAsDone}
@@ -43,13 +56,34 @@ const AlertComp: React.FC<AlertProps> = ({ alert, onMarkAsDone, onDeleteAlert })
                         src="/complete.png"
                         alt="Mark as done"
                         className={styles.completeImage}
-                        onClick={onDeleteAlert} // הוספת מחיקת ההתראה בלחיצה
+                        onClick={onDeleteAlert} // Delete alert on click
                         style={{ cursor: 'pointer' }}
                     />
                 </button>
             </div>
             <div className={styles.alertBody}>
                 <p><strong>Condition:</strong> {alert.triggerCondition}</p>
+            </div>
+            <div className={styles.solutions}>
+                <p onClick={handleToggleSolutions}>
+                    <strong>
+                        optional solutions {showSolutions ? '<<' : '>>'}
+                    </strong>
+                </p>
+                {showSolutions && (
+                    <div className={styles.solutionsList}>
+                        {alert.solutions?.map((solution, index) => (
+                            <div key={index} className={styles.solution}>
+                                <p>{solution.description} <FontAwesomeIcon icon={faArrowRight} className={styles.iconStyles} /> </p>
+                                {solution.actionLink && (
+                                    <a href={solution.actionLink} target="_blank" rel="noopener noreferrer">
+                                       {'\t'} solve
+                                    </a>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );
