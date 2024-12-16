@@ -6,6 +6,8 @@
     padding: 20px;
     text-align: center;
     color:#2f5f98;
+    font-size: 1.3rem; /* גודל פונט */
+
   }
   
   
@@ -53,10 +55,9 @@ font-size: 3rem;
     align-items: center; /* ממרכז את הטקסט אנכית */
     justify-content: center; /* ממרכז את הטקסט אופקית */
     text-align: center; /* יישור טקסט במרכז */
-    font-size: 1.3rem; /* גודל פונט */
     color: #2f5f98; /* צבע טקסט */
-    height: 50vh;
-    padding: 30%;
+    height: 60vh;
+    padding: 20%;
     border-radius: 10px; /* פינות מעוגלות (לא חובה) */
 }
 
@@ -117,19 +118,6 @@ font-size: 3rem;
   }
   
   
-  
-  .features{
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    display: flex;
-  }
-  .features ul {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-  }
-  
   .features li {
     margin-bottom: 10px;
     font-size: 1rem;
@@ -142,7 +130,41 @@ font-size: 3rem;
     justify-content: center;
     padding:2%;
   }
+
+  .features {
+    display: flex; /* Enable Flexbox */
+    flex-direction: column; /* Ensure items stack vertically */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+    height: 80vh; /* Full viewport height */
+    width: 100%; /* Full viewport width */
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default padding */
+    text-align: center; /* Center text inside list items */
+}
+.features ul {
+    list-style: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margins */
+}
+
+.features ul li {
+    margin: 10px 0; /* Add spacing between items */
+}
+
   
+.categoriesItems{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+}
+  
+.categoryItem{
+  border-radius: 15%;
+  box-shadow: 0 10px 10px #D4BDAC;
+margin-top: 5%;
+}
   /* Testimonials Section */
   .testimonials {
     grid-area: testimonials;
@@ -158,6 +180,8 @@ font-size: 3rem;
     font-style: italic;
   }
   .section{
-    height: 60vh;
+    height: 70vh;
     margin-top: 3%;
+    align-items: center;
+    align-content: center;
   }
