@@ -1,22 +1,26 @@
 import { useState } from "react";
 import * as XLSX from "xlsx";
 import useUserStore from "@/store/userStore";
+import { v4 as uuidv4 } from "uuid";
 
 type ExcelRow = {
-    createdAt: Date;
+    _id: string;
+    category: string;
+    type: 'income' | 'expense' | 'saved';
     amount: number;
-    income: string;
     description: string;
+    date: Date;
+    createdAt: Date;
+    updatedAt: Date;
 };
 
 export default function UploadExcel() {
     const [data, setData] = useState<ExcelRow[]>([]);
-    const { addTransactionsFromExcel } = useUserStore(); 
-
+    const { addTransactionsFromExcel } = useUserStore();
 
     const excelDateToJSDate = (excelDate: number) => {
-        const epoch = new Date(1900, 0, 1); // אקסל מתחיל ב-1 בינואר 1900
-        const daysOffset = excelDate - 2; // התאמה לאי דיוק באקסל
+        const epoch = new Date(1900, 0, 1);
+        const daysOffset = excelDate - 2;
         epoch.setDate(epoch.getDate() + daysOffset);
         return epoch;
     };
@@ -36,20 +40,24 @@ export default function UploadExcel() {
             const worksheet = workbook.Sheets[sheetName];
             const rawData = XLSX.utils.sheet_to_json(worksheet);
 
-            const filteredData = rawData.map((row: any) => {
+            const filteredData: ExcelRow[] = rawData.map((row: any) => {
                 const amount = row["זכות"] ? row["זכות"] : row["חובה"] ? row["חובה"] : 0;
-                const excelDate = row["תאריך ערך"]; 
+                const excelDate = row["תאריך ערך"];
 
                 return {
-                    createdAt: typeof excelDate === "number" ? excelDateToJSDate(excelDate) : new Date(excelDate),
+                    _id: uuidv4(),
+                    category: "General",
+                    type: row["זכות"] ? "income" : row["חובה"] ? "expense" : "saved",
                     amount: amount,
-                    income: row["זכות"] ? "income" : "expense",
-                    description: row["פרטים"]
+                    description: row["פרטים"] || "No description",
+                    date: typeof excelDate === "number" ? excelDateToJSDate(excelDate) : new Date(excelDate),
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
                 };
             });
 
             setData(filteredData);
-            // addTransactionsFromExcel(filteredData); // קריאה לפונקציה שב-store
+            addTransactionsFromExcel(filteredData);
         };
 
         reader.readAsBinaryString(file);
