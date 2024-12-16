@@ -8,7 +8,8 @@ export interface User {
   totalBudget: number;
   totalSpending: number;
   balance: number;
-  financialStartDay:number
+  financialStartDay:number;
+  budgetCycleStartDay:number;
   categories: Category[]; 
   savings: Saving[];
   transactions: Transaction[];

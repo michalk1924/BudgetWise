@@ -142,3 +142,23 @@
 .save:hover {
     transform: scale(1.1);
 }
+
+
+
+
+.radioGroup {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.radioInput {
+    accent-color: #007bff; /* צבע מותאם לכפתורי הרדיו */
+}
