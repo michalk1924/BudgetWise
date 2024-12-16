@@ -1,15 +1,25 @@
 import { useState } from "react";
 import * as XLSX from "xlsx";
+import useUserStore from "@/store/userStore";
 
 type ExcelRow = {
-    createdAt: Date;  
-    amount: number;   
-    income: string;  
-    description: string; 
+    createdAt: Date;
+    amount: number;
+    income: string;
+    description: string;
 };
 
 export default function UploadExcel() {
     const [data, setData] = useState<ExcelRow[]>([]);
+    const { addTransactionsFromExcel } = useUserStore(); 
+
+
+    const excelDateToJSDate = (excelDate: number) => {
+        const epoch = new Date(1900, 0, 1); // אקסל מתחיל ב-1 בינואר 1900
+        const daysOffset = excelDate - 2; // התאמה לאי דיוק באקסל
+        epoch.setDate(epoch.getDate() + daysOffset);
+        return epoch;
+    };
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -26,19 +36,20 @@ export default function UploadExcel() {
             const worksheet = workbook.Sheets[sheetName];
             const rawData = XLSX.utils.sheet_to_json(worksheet);
 
-            // המרת הנתונים לפורמט הרצוי
             const filteredData = rawData.map((row: any) => {
                 const amount = row["זכות"] ? row["זכות"] : row["חובה"] ? row["חובה"] : 0;
+                const excelDate = row["תאריך ערך"]; 
 
                 return {
-                    createdAt: new Date(row["תאריך"]),  
+                    createdAt: typeof excelDate === "number" ? excelDateToJSDate(excelDate) : new Date(excelDate),
                     amount: amount,
-                    income: row["זכות"] ? "זכות" : "חובה",  
+                    income: row["זכות"] ? "income" : "expense",
                     description: row["פרטים"]
                 };
             });
 
-            setData(filteredData);  // כאן הגדרת ה-state עם טיפוס חדש
+            setData(filteredData);
+            // addTransactionsFromExcel(filteredData); // קריאה לפונקציה שב-store
         };
 
         reader.readAsBinaryString(file);
