@@ -1,6 +1,9 @@
 .container {
     color: #333;
     padding: 20px;
+    color: #536493;
+    text-shadow:0 10px 10px #FFF1DB;
+
 }
 
 .nav a {
@@ -22,14 +25,12 @@
 .statBox {
     padding: 20px;
     border-radius: 5px;
-    color: #fff;
     width: 30%;
     text-align: center;
 }
 
 .greeting {
     font-size:xx-large;
-    color: #2f5f98;
     margin: 40px 0;
     font-family: 'Malvie Trial', Arial, sans-serif;
 

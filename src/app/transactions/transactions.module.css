@@ -18,7 +18,7 @@
   background-size: contain;
   font-family: 'Gagalin', Arial, sans-serif;
   font-size: 3vw;
-  color: #2f5f98;
+  color: #536493;
   padding: 0;
   margin: 0;
   z-index: 10;
@@ -51,5 +51,5 @@
   left: 80%;
   transform: translate(-50%, -50%);
   font-size: 2rem;
-  color: #2f5f98;
+  color: #536493;
 }

@@ -5,7 +5,7 @@
     gap: 20px;
     padding: 20px;
     text-align: center;
-    color:#2f5f98;
+    color:#536493;
     font-size: 1.3rem; /* גודל פונט */
 
   }
@@ -39,7 +39,7 @@ font-size: 3rem;
 
   .signUpBtn , .loginBtn{
     border-radius: 10%;
-    background-color: #2f5f98;
+    background-color: #536493;
     color:#fff5e6;
     padding:1%;
     margin: 1%;
@@ -65,7 +65,7 @@ font-size: 3rem;
     align-items: center; /* ממרכז את הטקסט אנכית */
     justify-content: center; /* ממרכז את הטקסט אופקית */
     text-align: center; /* יישור טקסט במרכז */
-    color: #2f5f98; /* צבע טקסט */
+    color: #536493; /* צבע טקסט */
     height: 60vh;
     padding: 20%;
     border-radius: 10px; /* פינות מעוגלות (לא חובה) */
@@ -130,7 +130,7 @@ font-size: 3rem;
   
   .features li {
     margin-bottom: 10px;
-    color: #2f5f98;
+    color: #536493;
     background-image: url('/green_brush2.png'); /* תמונה כרקע */
     background-repeat: no-repeat; /* מונע חזרה של התמונה */
     background-position: center center; /* מרכז את התמונה אופקית ואנכית */
