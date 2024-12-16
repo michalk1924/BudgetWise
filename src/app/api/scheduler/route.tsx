@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import userService from '@/services/user';
-import { validateAccountBalance } from '@/services/alertsFunctions';
+import { createAlertsExceedingBudget, budgetExceededAlert, validateAccountBalance, holidayAndVacationAlerts } from '@/services/alertsFunctions';
 
 export async function GET(req: NextRequest) {
     console.log("Running nightly tasks...");
@@ -13,9 +13,24 @@ export async function GET(req: NextRequest) {
         }
 
         for (const user of users) {
+
             console.log(`Processing user: ${user.id}`);
-            validateAccountBalance(user);
-            /*TO DO: run here all functions*/
+
+            const alerts = await user?.alerts;
+
+            const alerts1 = await createAlertsExceedingBudget(user);
+            if (alerts1) alerts.push(...alerts1);
+
+            const alerts2 = await budgetExceededAlert(user);
+            if (alerts2) alerts.push(...alerts2);
+
+            const alerts3 = await validateAccountBalance(user);
+            if (alerts3) alerts.push(...alerts3);
+
+            const alerts4 = await holidayAndVacationAlerts(user);
+            if (alerts4) alerts.push(...alerts4);
+
+            await userService.updateUser(user.id, { alerts });
         }
 
         console.log("Nightly tasks completed successfully.");
