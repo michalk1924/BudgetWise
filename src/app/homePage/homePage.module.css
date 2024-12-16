@@ -5,44 +5,44 @@
     gap: 20px;
     padding: 20px;
     text-align: center;
+    color:#2f5f98;
   }
   
-  /* Header */
-  .header {
-    text-align: center;
-    padding: 20px;
-    color: #2f5f98;
-    background: #d4bdacc8 url('/your-header-image.png') no-repeat center center;
-    background-size: cover;
-  }
   
-  .headerText h1 {
-    font-size: 2.5rem;
-    text-transform: uppercase;
-  }
+.header  {
+  /* background-image: url('/splash_title.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat; */
+  height: 30vh;
+  text-shadow: 10px 7px 10px #D4BDAC;
+  align-items: center; /* ממרכז את התוכן במאונך */
+  text-align: center; /* ממרכז טקסט אם יש יותר משורה */
+}
   
-  .headerText h2 {
-    font-size: 1.5rem;
-    margin-top: 10px;
+.header h1{
+font-size: 3rem;
+}
+.header h2{
+  font-size: 2rem;
   }
-  
+
   /* Transactions Section */
   .trans, .save{
     display: flex;
     flex-direction: row; /* Ensures left and right sections are side by side */
     justify-content: space-between;
     gap: 20px;
-    height: 45vh;
   }
   
   /* Left Section */
-  .left {
+  .left, .saveRight {
     flex: 1; 
     display: flex;
     justify-content: center;
     align-items: center;
-
   }
+ 
   
   .infoBox {
     background-image: url('/splash.png'); /* תמונה כרקע */
@@ -53,13 +53,13 @@
     align-items: center; /* ממרכז את הטקסט אנכית */
     justify-content: center; /* ממרכז את הטקסט אופקית */
     text-align: center; /* יישור טקסט במרכז */
-    padding: 20px; /* מרווח פנימי */
     font-size: 1.3rem; /* גודל פונט */
     color: #2f5f98; /* צבע טקסט */
-    width: 100%; /* רוחב מלא */
-    height: 300px; /* גובה מותאם */
+    height: 50vh;
+    padding: 30%;
     border-radius: 10px; /* פינות מעוגלות (לא חובה) */
 }
+
 
   /* Right Section */
   .right {
@@ -109,13 +109,6 @@
     gap: 10px; /* Space between grid items */
   }
 
-  .saveRight {
-    flex: 1; /* Takes up less space than the right section */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-  }
   
   .right img {
     max-width: 100%;
@@ -123,28 +116,31 @@
     border-radius: 5px;
   }
   
-  .infoBox {
-    background-image: url('/splash.png') no-repeat center center;
-    background-size: cover;
-    padding: 30px;
-    font-size: 1.2rem;
-    color: #2f5f98;
-  }
+  
   
   .features{
     justify-content: center;
-    
-
+    align-items: center;
+    align-content: center;
+    display: flex;
   }
   .features ul {
     list-style: none;
     padding: 0;
+    text-align: center;
   }
   
   .features li {
     margin-bottom: 10px;
     font-size: 1rem;
     color: #2f5f98;
+    background-image: url('/green_brush2.png'); /* תמונה כרקע */
+    background-repeat: no-repeat; /* מונע חזרה של התמונה */
+    background-position: center center; /* מרכז את התמונה אופקית ואנכית */
+    background-size: cover;
+    justify-items: center;
+    justify-content: center;
+    padding:2%;
   }
   
   /* Testimonials Section */
@@ -161,4 +157,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-style: italic;
   }
-  
+  .section{
+    height: 60vh;
+    margin-top: 3%;
+  }
