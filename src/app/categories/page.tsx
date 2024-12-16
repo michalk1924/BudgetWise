@@ -11,7 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
 
 const Categories = () => {
-  const { user, addCategory } = useUserStore();
+  const { user, addCategory, updateCategory } = useUserStore();
 
   const queryClient = useQueryClient();
 
@@ -49,10 +49,31 @@ const Categories = () => {
     { budget: 0, spent: 0 }
   );
 
+  const updateUserMutationUpdateCategory = useMutation({
+    mutationFn: async ({ id, category }: { id: string; category: Category }) => {
+      if (user) {
+        const response = await userService.updateUser(id, { categories: user?.categories.map((c) => c._id === category._id ? category : c) });
+        updateCategory(category);
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error updating user:', error.message);
+    },
+  });
   const handleAddCategory = (category: Category) => {
     category._id = Math.random().toString(36).substr(2, 8);
     updateUserMutation.mutate({ id: user?._id ?? "", category });
   };
+
+  const handleUpdateCategory = (category: Category) => {
+    updateUserMutationUpdateCategory.mutate({ id: user?._id ?? "", category });
+  };
+
   return (
     <div className={styles.page}>
       <section className={styles.leftSection}>
@@ -83,7 +104,7 @@ const Categories = () => {
       <section className={styles.mainSection}>
         <section className={styles.tableSection}>
           {user && user?.categories?.length > 0 && (
-            <BudgetGrid categories={user?.categories || []} />
+            <BudgetGrid categories={user?.categories || []} onUpdateCategory={handleUpdateCategory}/>
           )}
         </section>
 
