@@ -5,10 +5,11 @@ import { Transaction } from "@/types/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
 import { showSuccessAlert } from "@/services/alerts";
+import styles from './UploadExcel.module.css'
 
 export default function UploadExcel() {
     const [isLoading, setIsLoading] = useState(false);
-    const { addTransactionsFromExcel, user } = useUserStore();  
+    const { addTransactionsFromExcel, user } = useUserStore();
 
     const queryClient = useQueryClient();
 
@@ -38,7 +39,7 @@ export default function UploadExcel() {
             const filteredData = await parseExcelFile(file);
             if (user) {
                 updateUserMutationAddTransactions.mutate({
-                    id: user._id, 
+                    id: user._id,
                     transactions: filteredData,
                 });
 
@@ -53,10 +54,17 @@ export default function UploadExcel() {
     };
 
     return (
-        <div>
-            <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
-            {isLoading && <p>Loading...</p>}
-            {/* אפשר להוסיף פה אלרטים או תצוגה אחרת אם ברצונך */}
+
+        <div className={styles.fileUploadWrapper}>
+            <label htmlFor="file-upload" className={styles.customFileUpload}>
+                Select an Excel file to add transactions            </label>
+            <input
+                id="file-upload"
+                type="file"
+                accept=".xlsx, .xls"
+                onChange={handleFileUpload}
+                className={styles.hiddenInput}
+            />
         </div>
     );
 }
