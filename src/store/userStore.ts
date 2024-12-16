@@ -16,6 +16,7 @@ interface UserStore {
   updateCategory: (updatedCategory:Category) => void;
   removeCategory: (categoryId: string) => void;
   addTransaction: (transaction: Transaction) => void;
+  addTransactionsFromExcel: (transactions: Transaction[]) => void;
   updateTransaction: (transaction: Transaction) => void;
   removeTransaction: (transactionId: string) => void;
   addSaving: (saving: Saving) => void;
@@ -83,6 +84,14 @@ const useUserStore = create<UserStore>()(
             transactions: [...state.user!.transactions, transaction],
           },
         })),
+
+        addTransactionsFromExcel: (transactionsFromExcel: Transaction[]) =>
+          set((state) => ({
+            user: {
+              ...state.user!,
+              transactions: [...state.user!.transactions, ...transactionsFromExcel],
+            },
+          })),
 
       updateTransaction: (transaction) =>
         set((state) => ({
