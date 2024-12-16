@@ -13,7 +13,7 @@ interface UserStore {
   setUser: (user: User) => void;
   clearUser: () => void;
   addCategory: (category: Category) => void;
-  updateCategory: (categoryId: string, updatedCategory: Partial<Category>) => void;
+  updateCategory: (updatedCategory:Category) => void;
   removeCategory: (categoryId: string) => void;
   addTransaction: (transaction: Transaction) => void;
   addTransactionsFromExcel: (transactions: Transaction[]) => void;
@@ -59,12 +59,12 @@ const useUserStore = create<UserStore>()(
           },
         })),
 
-      updateCategory: (categoryId, updatedCategory) =>
+      updateCategory: (updatedCategory) =>
         set((state) => ({
           user: {
             ...state.user!,
             categories: state.user!.categories.map((cat) =>
-              cat._id === categoryId ? { ...cat, ...updatedCategory } : cat
+              cat._id === updatedCategory._id ? { ...cat, ...updatedCategory } : cat
             ),
           },
         })),

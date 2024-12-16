@@ -18,7 +18,7 @@
   background-size: contain;
   font-family: 'Gagalin', Arial, sans-serif;
   font-size: 3vw;
-  color: #2f5f98;
+  color: #536493;
   padding: 0;
   margin: 0;
   z-index: 10;
@@ -51,5 +51,22 @@
   left: 80%;
   transform: translate(-50%, -50%);
   font-size: 2rem;
-  color: #2f5f98;
+  color: #536493;
 }
+
+.loader {
+  width: 15px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+  margin: auto ;
+}
+
+@keyframes l5 {
+  0%  { box-shadow: 20px 0 #EF5A6F, -20px 0 #EF5A6F;background: #EF5A6F}
+  33% { box-shadow: 20px 0 #EF5A6F, -20px 0 #EF5A6F; background: #FFF1DB}
+  66% { box-shadow: 20px 0 #FFF1DB, -20px 0 #D4BDAC;background: #D4BDAC}
+  100% { box-shadow: 20px 0 #D4BDAC, -20px 0 #FFF1DB;background: #536493}
+}
+
+

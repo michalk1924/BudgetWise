@@ -20,7 +20,7 @@ export default function RootLayout({
 
   const router = useRouter();
   const pathname = usePathname();
-  const hideHeaderFooter = pathname === '/login' || pathname === '/signup' || pathname === '/forgotpassword';
+  const hideHeaderFooter = pathname === '/login' || pathname === '/signup' || pathname === '/forgotpassword' || pathname === '/homePage';
 
   useEffect(() => {
     if (pathname === '/') {
@@ -33,7 +33,9 @@ export default function RootLayout({
         router.push('/homePage');
       }
     }
+
   }, [pathname, router]);
+
 
   return (
     <html lang="en">
@@ -41,7 +43,7 @@ export default function RootLayout({
         <QueryClientProvider client={queryClient}>
           {!hideHeaderFooter && <Header />}
           {children}
-          {!hideHeaderFooter && <Footer />}
+          <Footer />
         </QueryClientProvider>
       </body>
     </html>
