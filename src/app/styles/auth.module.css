@@ -10,7 +10,7 @@
     padding: 0.5rem;
     margin-top: 5vh;
     text-align: center;
-    color: #536493;
+    color: #2f5f98;
 align-items: center;
 }
 
@@ -62,8 +62,8 @@ align-items: center;
 /* Submit button styling */
 .submitButton {
     width: 40%;
-    background-color:#536493;
-    color: #fff1db83; 
+    background-color:#2f5f98;
+    color: #fff5e6; 
     border: none;
     border-radius: 10px;
     padding: 0.4rem;
@@ -121,7 +121,6 @@ align-items: center;
     background: none;
     border: none;
     cursor: pointer;
-    color: #536493;
     font-size: 1.2rem;
     padding: 0; /* Remove any button padding */
 }
