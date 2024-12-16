@@ -1,19 +1,24 @@
 import React from "react";
 import Image from "next/image";
-import styles from "./HomePage.module.css";
+import styles from "./homePage.module.css";
 
 const HomePage = () => {
   return (
     <div className={styles.container}>
       {/* Header Section */}
       <section className={styles.header}>
+        
+        <h1>Take control of your finances with ease!</h1>
+        
         <div className={styles.headerText}>
-          <h1>The Smart App for Managing Your Personal Budget!</h1>
-          <h2>Take control of your finances with ease</h2>
+          <h2>Welcome to BudgetWise!</h2>
+          <h3>Smart App for Managing Your Personal Budget</h3>
         </div>
       </section>
 
+
       {/* Left Section */}
+      <div className={styles.section}>
       <section className={styles.trans}>
         <section className={styles.left}>
           <div className={styles.infoBox}>
@@ -28,6 +33,7 @@ const HomePage = () => {
             </p>
           </div>
         </section>
+        
 
         {/* Right Section */}
         <section className={styles.right}>
@@ -57,6 +63,8 @@ const HomePage = () => {
           </div>
         </section>
       </section>
+      </div>
+      <div className={styles.section}>
 
       <section className={styles.save}>
         <section className={styles.saveLeft}>
@@ -95,6 +103,8 @@ const HomePage = () => {
           </div>
         </section>
       </section>
+</div>
+<div className={styles.section}>
 
       <div className={styles.features}>
         <ul>
@@ -120,7 +130,10 @@ const HomePage = () => {
           </li>
         </ul>
       </div>
+      </div>
       {/* Testimonials Section */}
+      <div className={styles.section}>
+
       <section className={styles.testimonials}>
         <div className={styles.testimonialBox}>
           <p>
@@ -135,6 +148,7 @@ const HomePage = () => {
           </p>
         </div>
       </section>
+    </div>
     </div>
   );
 };
