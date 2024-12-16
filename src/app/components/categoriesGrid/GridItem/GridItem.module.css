@@ -7,7 +7,7 @@
     align-items: flex-start;
     background-color: #fbf6f3;
     position: relative;
-    color: #2f5f98;
+    color: #536493;
 
   }
 
@@ -44,7 +44,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    color: #2f5f98;
+    color: #536493;
     font-weight: lighter;
   }
   
@@ -55,7 +55,7 @@
     display: flex; /* Ensure the icon is displayed properly */
     justify-content: center; /* Center the icon */
     align-items: center; /* Center the icon vertically */
-    color: #2f5f98; /* Set the color for the icon */
+    color: #536493; /* Set the color for the icon */
     padding: 0; /* Remove unnecessary padding */
     width:20px;
   }

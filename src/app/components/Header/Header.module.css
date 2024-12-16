@@ -1,5 +1,5 @@
 .header {
-  color: #2f5f98;
+  color: #536493;
   padding: 5px 20px;
   display: flex;
   justify-content: flex-end;
@@ -66,7 +66,7 @@
   display: flex;
   align-items: center; /* Center the icon vertically */
   justify-content: center;
-  color: #2f5f98;
+  color: #536493;
   text-decoration: none;
   transition: color 0.3s ease;
 }
