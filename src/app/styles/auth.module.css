@@ -10,7 +10,7 @@
     padding: 0.5rem;
     margin-top: 5vh;
     text-align: center;
-    color: #2f5f98;
+    color: #536493;
 align-items: center;
 }
 
@@ -62,7 +62,7 @@ align-items: center;
 /* Submit button styling */
 .submitButton {
     width: 40%;
-    background-color:#2f5f98;
+    background-color:#536493;
     color: #fff5e6; 
     border: none;
     border-radius: 10px;

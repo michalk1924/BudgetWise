@@ -41,7 +41,8 @@ export default function Home() {
             <main className={styles.main}>
                 <section className={styles.stats}>
                     <div className={`${styles.statBox} ${styles.statBoxWithImage7}`}>
-                        <h2>CHA-CHING! MY MONTHLY INCOMES</h2>
+                        <h2>CHA-CHING!</h2>
+                        <h2> MY MONTHLY INCOMES</h2>
                         <p className={styles.aaa}>{monthlyIncome}</p>
                     </div>
                     <div className={`${styles.statBox} ${styles.statBoxWithImage8}`}>
@@ -55,8 +56,9 @@ export default function Home() {
                 </section>
 
                 <section className={styles.greeting}>
-                    <h1>Hello {user?.username || "Name"}! Great to have you here!</h1>
-                    <p>What would you like to do today?</p>
+                    <h1>Hello {user?.username || "Name"}!</h1>
+                    <h2> Great to have you here!</h2>
+                    <h2>What would you like to do today?</h2>
                 </section>
                 <AlertsList
                     alerts={user?.alerts ?? []}
