@@ -1,4 +1,4 @@
- 
+
 .gridItem {
     border-radius: 10px;
     padding: 30px;
@@ -24,70 +24,10 @@
     color: #536493;
 
   }
- /* 
-  .details {
-    font-size: 1.9rem;
-    text-align: center;
-    margin-top: 10px;
-  }
-  
-  .deadline {
-    margin-top: 15px;
-    font-weight: bold;
-    color: #536493;
-  }
-  
-  
-  .gridItem h2 {
-    font-size: 1.2rem;
-  }
- 
-.details{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    justify-content: space-evenly;
-    margin: 10px;
-}
-
-  .current {
-    background-image: url('/green_empty_circle.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;  
-  width: 9rem; 
-  height: 9rem; 
-  display: flex; 
-  align-items: center;  
-  justify-content: center; 
-  text-align: center; 
-  font-size: 1.5rem; 
-  padding: 10px;
-  }
-  .target {
-    background-image: url('/pink_empty_circle.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain; 
-  width: 9rem; 
-  height: 9rem; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  text-align: center; 
-  font-size: 1.5rem; 
-  padding: 20px; 
- 
-  }
-   */
-
- 
-  
-
   
   .deadline {
     display: block;
-    margin-top: 10px; /* Add spacing between circle and deadline */
+    margin-top: 10px; 
     font-size: 0.9rem;
     font-weight: bold;
     color: #536493;

@@ -6,20 +6,20 @@
   }
   
   .addBudgetContainer {
-    display: flex; /* Enable Flexbox */
-    align-items: center; /* Align text and form vertically */
-    gap: 20px; /* Space between the text and the form */
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
   }
   
   .addBudgetTitle {
     font-size: 1rem;
     color: #536493;
-    white-space: nowrap; /* Prevent wrapping to the next line */
+    white-space: nowrap; 
   }
   
   .form {
-    display: flex; /* Display inputs in a row */
-    gap: 10px; /* Space between inputs */
+    display: flex; 
+    gap: 10px;
     color: #536493;
   }
   
@@ -28,16 +28,14 @@
     color: #536493;
     background-color: #fbf6f3;
     box-shadow: 0px 4px 6px #D4BDAC;
- 
-    /* border: 2px solid #ccc; */
     border-radius: 8px;
-    flex: 1; /* Inputs take up equal space */
-    max-width: 150px; /* Optional: Limit the width */
+    flex: 1; 
+    max-width: 150px; 
   }
   
   .input::placeholder {
-    color: #2f5e98af; /* Custom color for the placeholder */
-    font-style: italic; /* Optional */
+    color: #2f5e98af; 
+    font-style: italic; 
     font-size: 0.8rem;
 
   }

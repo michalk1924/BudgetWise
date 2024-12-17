@@ -8,8 +8,8 @@
 .filterGroup {
   display: flex;
   align-items: center;
-  gap: 5px; /* Space between the label and the dropdown */
-  margin-right: 20px; /* Larger space between "Year" and "Month" sections */
+  gap: 5px; 
+  margin-right: 20px; 
 }
 
   
