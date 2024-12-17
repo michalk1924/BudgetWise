@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import userService from '@/services/user';
 import { createAlertsExceedingBudget, budgetExceededAlert, validateAccountBalance, holidayAndVacationAlerts } from '@/services/alertsFunctions';
 import { Alert } from '@/types/types';
+import { connectDatabase, getDocuments, patchDocument } from '@/services/mongo';
+import { User } from '@/types/types';
 
 export async function GET(req: NextRequest) {
     console.log("Running nightly tasks...");
@@ -11,19 +12,26 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ message: 'Unauthorized', status: 401 });
         }
 
-        const users = await userService.getAllUsers();
+        const client = await connectDatabase();
+
+        const data = await getDocuments(client, "users");
+        const users = data as unknown as User[];
+
 
         if (!users || users.length === 0) {
             console.error("No users found");
             return NextResponse.json({ message: "No users found", status: 404 });
         }
 
+        console.log("users");
+
         for (const user of users) {
 
-            console.log(`Processing user: ${user.id}`);
+            console.log(`Processing user: ${user._id}`);
 
             const alerts = await user?.alerts;
             const existingConditions = new Set(alerts?.map((alert:Alert) => alert.triggerCondition)); // Track existing triggerConditions
+            const alerts = user?.alerts ?? [];
 
             const alerts1 = await createAlertsExceedingBudget(user);
             if (alerts1) {
@@ -65,7 +73,7 @@ export async function GET(req: NextRequest) {
                 });
             }
 
-            await userService.updateUser(user.id, { alerts });
+            await patchDocument(client, "users",user._id,{alerts})
         }
 
         console.log("Nightly tasks completed successfully.");
