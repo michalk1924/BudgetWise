@@ -1,6 +1,5 @@
 "use client"
-import DoughnutChart from '../components/PieChart-monthly-expenses/PieChart-monthly-expenses';
-import IncomeExpenseBarChart from '../components/IncomeExpenseBarChart/IncomeExpenseBarChart';
+import {DoughnutChart, IncomeExpenseBarChart, SavingsBarChart} from '../components/index';
 import useUserStore from "@/store/userStore";
 
 
@@ -12,6 +11,7 @@ export default function Home() {
         <div style={{ textAlign: 'center', marginTop: '50px' }}>
             <DoughnutChart transactions={user?.transactions ?? []} />
             <IncomeExpenseBarChart transactions={user?.transactions ?? []} />
+            <SavingsBarChart savings={user?.savings ?? []}/>
         </div>
     );
 }
