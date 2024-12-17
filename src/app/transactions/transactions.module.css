@@ -25,7 +25,6 @@
 }
 
 
-/* Optional Background Enhancement */
 .titleContainer::before {
   content: "";
   position: absolute;
@@ -34,12 +33,9 @@
   width: 30vw;
   height: 30vh;
   z-index: 1;
-  /* Below the text */
   border-radius: 8px;
-  /* Optional to smooth edges */
 }
 
-/* Section for transactions */
 .transactionsSection {
   margin-bottom: 5vh;
   text-align: center;

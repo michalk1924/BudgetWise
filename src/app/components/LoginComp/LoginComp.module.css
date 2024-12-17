@@ -1,4 +1,3 @@
-/* Container styling */
 .container {
     display: flex;
     flex-direction: column;
@@ -15,7 +14,6 @@
     text-align: center;
 }
 
-/* Title styling */
 .title {
     font-size: 2rem;
     margin: 0.5rem;
@@ -23,11 +21,9 @@
     font-weight: bold;
 }
 
-/* Form styling */
 .form {
     width: 100%;
     height: 90%;
-    /* max-width: 400px; */
     border: none;
     border-radius: 8px;
     padding: 0.5rem;
@@ -35,7 +31,6 @@
     text-align: center;
 }
 
-/* Input field styling */
 .input {
     width: 90%;
     border: 1px solid #ccc;
@@ -45,7 +40,6 @@
     padding: 0.5rem;
 }
 
-/* Input focus effect */
 .input:focus {
     border-color: #007BFF;
     outline: none;
@@ -53,14 +47,12 @@
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Error message styling */
 .error {
     color: #ff4d4d;
     padding: 0.1rem;
     font-size: 0.9rem;
 }
 
-/* Submit button styling */
 .submitButton {
     width: 40%;
     background-color: #007BFF;
@@ -73,19 +65,16 @@
     transition: background-color 0.3s, transform 0.2s;
 }
 
-/* Submit button hover effect */
 .submitButton:hover {
     background-color: #0056b3;
     transform: scale(1.02);
 }
 
-/* Submit button disabled state */
 .submitButton:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
 }
 
-/* Google button styling */
 .googleButtonContainer {
     width: 100%;
 }
@@ -104,13 +93,11 @@
     margin: 1rem;
 }
 
-/* Google button hover effect */
 .googleButton:hover {
     background-color: #b9362b;
     transform: scale(1.02);
 }
 
-/* Move page button styling */
 .movePage,
 .forgotPassword {
     cursor: pointer;
