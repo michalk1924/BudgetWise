@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAlertsExceedingBudget, budgetExceededAlert, validateAccountBalance, holidayAndVacationAlerts } from '@/services/alertsFunctions';
+import { Alert } from '@/types/types';
 import { connectDatabase, getDocuments, patchDocument } from '@/services/mongo';
 import { User } from '@/types/types';
 
@@ -28,19 +29,49 @@ export async function GET(req: NextRequest) {
 
             console.log(`Processing user: ${user._id}`);
 
+            const alerts = await user?.alerts;
+            const existingConditions = new Set(alerts?.map((alert:Alert) => alert.triggerCondition)); // Track existing triggerConditions
             const alerts = user?.alerts ?? [];
 
             const alerts1 = await createAlertsExceedingBudget(user);
-            if (alerts1) alerts.push(...alerts1);
-
+            if (alerts1) {
+                alerts1.forEach((alert) => {
+                    if (!existingConditions.has(alert.triggerCondition)) {
+                        alerts.push(alert);
+                        existingConditions.add(alert.triggerCondition); // Add the new condition to the set
+                    }
+                });
+            }
+            
             const alerts2 = await budgetExceededAlert(user);
-            if (alerts2) alerts.push(...alerts2);
-
+            if (alerts2) {
+                alerts2.forEach((alert) => {
+                    if (!existingConditions.has(alert.triggerCondition)) {
+                        alerts.push(alert);
+                        existingConditions.add(alert.triggerCondition); // Add the new condition to the set
+                    }
+                });
+            }
+            
             const alerts3 = await validateAccountBalance(user);
-            if (alerts3) alerts.push(...alerts3);
-
+            if (alerts3) {
+                alerts3.forEach((alert) => {
+                    if (!existingConditions.has(alert.triggerCondition)) {
+                        alerts.push(alert);
+                        existingConditions.add(alert.triggerCondition); // Add the new condition to the set
+                    }
+                });
+            }
+            
             const alerts4 = await holidayAndVacationAlerts(user);
-            if (alerts4) alerts.push(...alerts4);
+            if (alerts4) {
+                alerts4.forEach((alert) => {
+                    if (!existingConditions.has(alert.triggerCondition)) {
+                        alerts.push(alert);
+                        existingConditions.add(alert.triggerCondition); // Add the new condition to the set
+                    }
+                });
+            }
 
             await patchDocument(client, "users",user._id,{alerts})
         }
