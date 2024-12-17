@@ -7,7 +7,6 @@ import { Saving,Transaction} from "@/types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from '@/services/user';
-import { Transaction, Transaction } from "mongodb";
 
 const Savings = () => {
 

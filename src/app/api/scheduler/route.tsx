@@ -28,10 +28,9 @@ export async function GET(req: NextRequest) {
         for (const user of users) {
 
             console.log(`Processing user: ${user._id}`);
-
-            const alerts = await user?.alerts;
-            const existingConditions = new Set(alerts?.map((alert:Alert) => alert.triggerCondition)); // Track existing triggerConditions
             const alerts = user?.alerts ?? [];
+
+            const existingConditions = new Set(alerts?.map((alert:Alert) => alert.triggerCondition)); // Track existing triggerConditions
 
             const alerts1 = await createAlertsExceedingBudget(user);
             if (alerts1) {
