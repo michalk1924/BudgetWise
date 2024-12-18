@@ -7,3 +7,4 @@ export { default as AddTransaction } from './transactions/addTransaction/AddTran
 export { default as TransactionComp } from './transactions/transaction/Transaction';
 export { default as AddTransactionComp } from './transactions/addTransaction/AddTransaction';
 export { default as AddNewSaving} from './savingsGrid/AddNewSaving/AddNewSaving';
+export { default as ExpenseComparisonChart} from './ExpenseComparisonChart/ExpenseComparisonChart ';
