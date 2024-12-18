@@ -57,7 +57,7 @@ export default function Home() {
             const user = await googleSignup();
             if (user) {
                 setUser(user);
-                await showSuccessAlert("You have logged in successfully!");
+                await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
                 router.push("/home");
             } else {
                 await showErrorAlert("Failed to login with Google.");
