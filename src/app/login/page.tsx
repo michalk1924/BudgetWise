@@ -45,7 +45,7 @@ export default function Home() {
     try {
       const user = await authService.login(data);
       setUser(user);
-      await showSuccessAlert("You have logged in successfully!");
+      await showSuccessAlert("Welcome!", "You have logged in successfully!", 1000);
       router.push("/home");
     } catch (error: any) {
       console.error("Error creating user:", error);
