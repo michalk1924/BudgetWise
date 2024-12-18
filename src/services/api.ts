@@ -2,8 +2,9 @@
 
 import axios from "axios";
 import { Transaction, User } from "@/types/types";
+import { categories } from "@/consts/enums";
 
-const categories = ["Health", "Food", "Transport", "Entertainment", "Utilities", "Others"];
+// const categories = ["Health", "Food", "Transport", "Entertainment", "Utilities", "Others"];
 
 //fetches market data for a specific category.
 const getMarketDataForCategory = async (category: string) => {
@@ -20,16 +21,11 @@ const getMarketDataForCategory = async (category: string) => {
     }
 };
 
-interface MarketData {
-    category: string;
-    year: number;
-    total_price: number;
-}
-
+//fetches user's expenses for a specific year.
 const fetchMarketDataForAllCategories = async (): Promise<any> => {
-    const marketDataByYear: { [year: number]: MarketData[] } = {};
+    const marketDataByYear: { [year: number]: any[] } = {};
 
-    for (const category of categories) {
+    for (const category of Object.values(categories)) {
         try {
             const data = await getMarketDataForCategory(category);
 
@@ -66,7 +62,7 @@ const compareUserWithMarket = (userExpenses: any, marketTrends: any) => {
         Object.keys(yearExpenses).forEach((category: string) => {
             const userAmount = yearExpenses[category];
 
-            const marketData = marketTrends[parseInt(year)]?.find((data: MarketData) => data.category === category);
+            const marketData = marketTrends[parseInt(year)]?.find((data: any) => data.category === category);
 
             if (marketData) {
 
@@ -87,7 +83,6 @@ const compareUserWithMarket = (userExpenses: any, marketTrends: any) => {
 
     return comparisons;
 };
-
 
 //group by category and year
 const groupExpensesByCategoryAndYear = (userExpenses: any) => {
@@ -117,62 +112,74 @@ const fetchDataAndCompare = async (user: User | null) => {
     try {
 
         if (!user) return;
+
+        let marketTrends = {};
+
+        const CACHE_KEY = "marketDataCache";
+        const CACHE_TIMESTAMP_KEY = "marketDataTimestamp";
+        const ONE_DAY = 24 * 60 * 60 * 1000;
+        const now = new Date().getTime();
+
+        const cachedData = localStorage.getItem(CACHE_KEY);
+        const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+
+        if (cachedData && cachedTimestamp && now - parseInt(cachedTimestamp) < ONE_DAY) {
+            marketTrends = JSON.parse(cachedData);
+        }
+        else {
+            marketTrends = await fetchMarketDataForAllCategories();
+            // marketTrends = {
+            //     2021: [
+            //         {
+            //             category: "Health",
+            //             total_price: 1000
+            //         },
+            //         {
+            //             category: "Food",
+            //             total_price: 1500
+            //         },
+            //         {
+            //             category: "Transport",
+            //             total_price: 2000
+            //         },
+            //         {
+            //             category: "Entertainment",
+            //             total_price: 1200
+            //         }
+            //     ],
+            //     2025: [
+            //         {
+            //             category: "Health",
+            //             market_price: 1200
+            //         },
+            //         {
+            //             category: "Food",
+            //             market_price: 1800
+            //         },
+            //         {
+            //             category: "Transport",
+            //             market_price: 2200
+            //         },
+            //         {
+            //             category: "Entertainment",
+            //             market_price: 1400
+            //         },
+            //         {
+            //             category: "Utilities",
+            //             market_price: 1500
+            //         },
+            //         {
+            //             category: "Others",
+            //             market_price: 1000
+            //         }
+            //     ],
+            // };
+        }
+
         const userExpenses = user?.transactions.filter(t => t.type == "expense");
         const groupedExpenses = groupExpensesByCategoryAndYear(userExpenses);
 
         console.log("user expenses", groupedExpenses);
-
-        const lastYear = new Date(Date.now()).getFullYear() - 1;
-
-        const marketTrends = await fetchMarketDataForAllCategories();
-
-        // const marketTrends = {
-        //         2021: [
-        //             {
-        //                 category: "Health",
-        //                 total_price: 1000
-        //             },
-        //             {
-        //                 category: "Food",
-        //                 total_price: 1500
-        //             },
-        //             {
-        //                 category: "Transport",
-        //                 total_price: 2000
-        //             },
-        //             {
-        //                 category: "Entertainment",
-        //                 total_price: 1200
-        //             }
-        //         ],
-        //         2025: [
-        //             {
-        //                 category: "Health",
-        //                 market_price: 1200
-        //             },
-        //             {
-        //                 category: "Food",
-        //                 market_price: 1800
-        //             },
-        //             {
-        //                 category: "Transport",
-        //                 market_price: 2200
-        //             },
-        //             {
-        //                 category: "Entertainment",
-        //                 market_price: 1400
-        //             },
-        //             {
-        //                 category: "Utilities",
-        //                 market_price: 1500
-        //             },
-        //             {
-        //                 category: "Others",
-        //                 market_price: 1000
-        //             }
-        //         ],
-        //     };
-
         console.log("data", marketTrends);
 
         const comparisonResults = compareUserWithMarket(groupedExpenses, marketTrends);

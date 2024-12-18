@@ -4,6 +4,8 @@ import { Alert } from '@/types/types';
 import { connectDatabase, getDocuments, patchDocument } from '@/services/mongo';
 import { User } from '@/types/types';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
     console.log("Running nightly tasks...");
     try {

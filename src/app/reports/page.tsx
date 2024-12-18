@@ -29,8 +29,8 @@ export default function Home() {
         <div style={{ textAlign: 'center', marginTop: '50px' }}>
             <DoughnutChart transactions={user?.transactions ?? []} />
             <IncomeExpenseBarChart transactions={user?.transactions ?? []} />
-            <ExpenseComparisonChart comparisonResults={comparisonResults} />
             <SavingsBarChart savings={user?.savings ?? []}/>
+            <ExpenseComparisonChart comparisonResults={comparisonResults} />
         </div>
     );
 }
