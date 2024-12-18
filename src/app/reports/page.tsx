@@ -1,6 +1,5 @@
 "use client"
-import DoughnutChart from '../components/PieChart-monthly-expenses/PieChart-monthly-expenses';
-import IncomeExpenseBarChart from '../components/IncomeExpenseBarChart/IncomeExpenseBarChart';
+import {DoughnutChart, IncomeExpenseBarChart, SavingsBarChart} from '../components/index';
 import useUserStore from "@/store/userStore";
 import { ExpenseComparisonChart } from "../components/index";
 import fetchDataAndCompare from '@/services/api';
@@ -31,6 +30,7 @@ export default function Home() {
             <DoughnutChart transactions={user?.transactions ?? []} />
             <IncomeExpenseBarChart transactions={user?.transactions ?? []} />
             <ExpenseComparisonChart comparisonResults={comparisonResults} />
+            <SavingsBarChart savings={user?.savings ?? []}/>
         </div>
     );
 }

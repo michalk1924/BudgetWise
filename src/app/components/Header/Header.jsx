@@ -11,7 +11,7 @@ const Header = () => {
   
     const handleLogout = () => {
       clearUser();
-      window.location.href = '/about';
+      window.location.href = '/homePage';
     };
   
   return (

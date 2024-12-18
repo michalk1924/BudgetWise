@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useRef } from 'react';
 import { Chart, ArcElement, Tooltip, Legend, DoughnutController } from 'chart.js';
-import  {Transaction}  from '@/types/types';
+import { Transaction } from '@/types/types';
 
 Chart.register(ArcElement, Tooltip, Legend, DoughnutController);
 
@@ -32,7 +32,7 @@ const DoughnutChart = ({ transactions }: DoughnutChartProps) => {
                         labels: labels,
                         datasets: [{
                             label: 'Expense Breakdown by Category',
-                            data: data, 
+                            data: data,
                             backgroundColor: ['#EF5A6F', '#FFF1DB', '#D4BDAC', '#536493', '#A1D6B2', '#FF7A89', '#B8A394', '#4C829F'],
                             hoverOffset: 10
                         }]
@@ -42,7 +42,7 @@ const DoughnutChart = ({ transactions }: DoughnutChartProps) => {
                         maintainAspectRatio: false,
                         plugins: {
                             legend: {
-                                position: 'top', 
+                                position: 'top',
                             },
                             tooltip: {
                                 callbacks: {
@@ -50,6 +50,9 @@ const DoughnutChart = ({ transactions }: DoughnutChartProps) => {
                                         return tooltipItem.label + ': ' + tooltipItem.raw + ' units';
                                     }
                                 }
+                            },
+                            datalabels: {
+                                display: false
                             }
                         }
                     }
@@ -62,7 +65,7 @@ const DoughnutChart = ({ transactions }: DoughnutChartProps) => {
                 };
             }
         }
-    }, [transactions]); 
+    }, [transactions]);
 
     return (
         <div className="doughnut-chart-container">

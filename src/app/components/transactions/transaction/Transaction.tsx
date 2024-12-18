@@ -15,6 +15,9 @@ const transactionSchema = z.object({
         .refine((dateString) => new Date(dateString) < new Date(), { message: "Date must be before today" }),
     amount: z.number({ invalid_type_error: "Amount must be a number" }).min(1, "Amount must be greater than zero"),
     description: z.string().optional(),
+    paymentMethod: z.enum(["cash", "credit", "check", "bank_transfer", "bit", "other"], {
+        invalid_type_error: "Payment method is required",
+    }),
 });
 
 export type TransactionInput = z.infer<typeof transactionSchema>;
@@ -33,6 +36,7 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                 : new Date(transaction.date).toISOString().split('T')[0],
             amount: transaction.amount,
             description: transaction.description || "",
+            paymentMethod: transaction.paymentMethod || "cash",
         },
     });
 
@@ -43,6 +47,7 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
             date: new Date(data.date),
             amount: data.amount,
             description: data.description || "",
+            paymentMethod: data.paymentMethod,
             updatedAt: new Date(),
         };
 
@@ -54,22 +59,9 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
         setIsEditing(true);
     };
 
-    const handleDescriptionChange = (e: React.FormEvent<HTMLDivElement>) => {
-        const newDescription = e.currentTarget.textContent || "";
-        reset({
-            ...transaction,
-            description: newDescription,
-            date: transaction.date.toISOString().split('T')[0],
-            amount: transaction.amount,
-        });
-    };
-
-
-
     return (
         <div key={transaction._id}>
             {isEditing ? (
-                // מצב עריכה - הצגת טופס עריכה
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.editForm}>
                     <div>
                         <label>Category</label>
@@ -101,12 +93,20 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
 
                     <div>
                         <label>Description (Optional)</label>
-                        <div
-                            contentEditable="true"
-                            onInput={handleDescriptionChange}
-                            dangerouslySetInnerHTML={{ __html: transaction.description || "" }}
-                            className={styles.descriptionEditable}
-                        />
+                        <input type="text" {...register("description")} />
+                    </div>
+
+                    <div>
+                        <label>Payment Method</label>
+                        <select {...register("paymentMethod")}>
+                            <option value="cash">Cash</option>
+                            <option value="credit">Credit</option>
+                            <option value="check">Check</option>
+                            <option value="bank_transfer">Bank Transfer</option>
+                            <option value="bit">Bit</option>
+                            <option value="other">Other</option>
+                        </select>
+                        {errors.paymentMethod && <p className={styles.error}>{errors.paymentMethod.message}</p>}
                     </div>
 
                     <button type="submit">Save Changes</button>
@@ -115,9 +115,10 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
             ) : (
                 <div className={`${styles.transactionItem} ${isPositive(transaction.type) ? styles.expense : styles.income}`}>
                     <div>{new Date(transaction.date).toLocaleDateString()}</div>
-                    <div>{transaction?.amount}</div>
-                    <div>{transaction?.category}</div>
+                    <div>{transaction.amount}</div>
+                    <div>{transaction.category}</div>
                     <div>{transaction.description || 'N/A'}</div>
+                    <div>{transaction.paymentMethod}</div>
                     <div className={styles.icon} onClick={handleEdit}>
                         <FaPencilAlt />
                     </div>

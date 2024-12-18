@@ -1,4 +1,3 @@
-/* Main container for the layout */
 .container {
     display: flex;
     flex-direction: column;
@@ -6,20 +5,15 @@
     padding: 20px;
     text-align: center;
     color:#536493;
-    font-size: 1.3rem; /* גודל פונט */
-
+    font-size: 1.3rem; 
   }
   
   
 .header  {
-  /* background-image: url('/splash_title.png');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat; */
   height: 30vh;
   text-shadow: 10px 7px 10px #D4BDAC;
-  align-items: center; /* ממרכז את התוכן במאונך */
-  text-align: center; /* ממרכז טקסט אם יש יותר משורה */
+  align-items: center; 
+  text-align: center; 
 }
   
 .header h1{
@@ -29,10 +23,9 @@ font-size: 3rem;
   font-size: 2rem;
   }
 
-  /* Transactions Section */
   .trans, .save{
     display: flex;
-    flex-direction: row; /* Ensures left and right sections are side by side */
+    flex-direction: row; 
     justify-content: space-between;
     gap: 20px;
   }
@@ -43,81 +36,77 @@ font-size: 3rem;
     color:#fff5e6;
     padding:1%;
     margin: 1%;
-    font-size: 1rem; /* גודל פונט */
+    font-size: 1rem; 
 
   }
   
-  /* Left Section */
   .left, .saveRight {
     flex: 1; 
     display: flex;
     justify-content: center;
     align-items: center;
   }
- 
+
   
   .infoBox {
-    background-image: url('/splash.png'); /* תמונה כרקע */
-    background-repeat: no-repeat; /* מונע חזרה של התמונה */
-    background-position: center center; /* מרכז את התמונה אופקית ואנכית */
-    background-size: cover; /* מכסה את כל האלמנט תוך שמירה על הפרופורציות */
-    display: flex; /* מאפשר מיקום הטקסט בתוך האלמנט */
-    align-items: center; /* ממרכז את הטקסט אנכית */
-    justify-content: center; /* ממרכז את הטקסט אופקית */
-    text-align: center; /* יישור טקסט במרכז */
-    color: #536493; /* צבע טקסט */
+    background-image: url('/splash.png'); 
+    background-repeat: no-repeat; 
+    background-position: center center; 
+    background-size: cover; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center; 
+    color: #536493; 
     height: 60vh;
     padding: 20%;
-    border-radius: 10px; /* פינות מעוגלות (לא חובה) */
+    border-radius: 10px; 
 }
 
-
-  /* Right Section */
   .right {
-    flex: 2; /* Takes up more space than the left section */
+    flex: 2; 
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Three equal columns */
-    grid-auto-rows: auto; /* Rows will adjust automatically */
-    gap: 10px; /* Space between grid items */
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: auto;
+    gap: 10px; 
   }
   
   .right .item1 {
-    grid-column: 1 / 5; /* Spans the first and second columns */
-    grid-row: 1; /* Places it in the first row */
+    grid-column: 1 / 5; 
+    grid-row: 1; 
   }
   
   .right .item2 {
-    grid-column: 2 / 6; /* Spans the second and third columns */
-    grid-row: 2; /* Places it in the second row */
+    grid-column: 2 / 6; 
+    grid-row: 2; 
   }
-  
   .right .item3 {
-    grid-column: 1 / 5; /* Spans all three columns */
-    grid-row: 3; /* Places it in the third row */
+    grid-column: 1 / 5; 
+    grid-row: 3; 
   }
 
   .saveLeft .item1 {
-    grid-column: 1 ; /* Spans the first and second columns */
-    grid-row: 1/3; /* Places it in the first row */
+    grid-column: 1 ; 
+    grid-row: 1/3; 
   }
   
   .saveLeft .item2 {
-    grid-column: 2; /* Spans the second and third columns */
-    grid-row: 2/4; /* Places it in the second row */
+    grid-column: 2; 
+    grid-row: 2/4; 
   }
   
   .saveLeft .item3 {
-    grid-column: 3 ; /* Spans all three columns */
-    grid-row: 1/3; /* Places it in the third row */
+    grid-column: 3 ;
+    grid-row: 1/3;
   }
   
   .saveLeft {
-    flex: 2; /* Takes up more space than the left section */
+    flex: 2; 
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+    grid-template-columns: repeat(3, 1fr); 
     grid-template-rows: repeat(3, 1fr);
-    grid-auto-rows: auto; /* Rows will adjust automatically */
-    gap: 10px; /* Space between grid items */
+    grid-auto-rows: auto; 
+    gap: 10px; 
   }
 
   
@@ -141,24 +130,24 @@ font-size: 3rem;
   }
 
   .features {
-    display: flex; /* Enable Flexbox */
-    flex-direction: column; /* Ensure items stack vertically */
-    justify-content: center; /* Center items vertically */
-    align-items: center; /* Center items horizontally */
-    height: 80vh; /* Full viewport height */
-    width: 100%; /* Full viewport width */
-    margin: 0; /* Remove default margins */
-    padding: 0; /* Remove default padding */
-    text-align: center; /* Center text inside list items */
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;  
+    align-items: center; 
+    height: 80vh; 
+    width: 100%; 
+    margin: 0; 
+    padding: 0; 
+    text-align: center; 
 }
 .features ul {
-    list-style: none; /* Remove bullet points */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margins */
+    list-style: none; 
+    padding: 0; 
+    margin: 0;
 }
 
 .features ul li {
-    margin: 10px 0; /* Add spacing between items */
+    margin: 10px 0; 
 }
 
   
@@ -174,7 +163,6 @@ font-size: 3rem;
   box-shadow: 0 10px 10px #D4BDAC;
 margin-top: 5%;
 }
-  /* Testimonials Section */
   .testimonials {
     grid-area: testimonials;
     display: flex;

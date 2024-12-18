@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styles from "./transactions.module.css";
 import { AddTransaction, TransactionTable } from '../components/index';
-import { Transaction } from '../../types/types';
+import { Transaction, Saving, Category } from '../../types/types';
 import useUserStore from "../../store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from '@/services/user';
@@ -12,7 +12,7 @@ import UploadExcel from "../components/UploadExcel/UploadExcel";
 
 function Transactions() {
 
-  const { user, addTransaction, updateTransaction, loading } = useUserStore();
+  const { user, addTransaction, updateTransaction, updateSaving, updateCategory, loading } = useUserStore();
 
   const queryClient = useQueryClient();
 
@@ -50,8 +50,60 @@ function Transactions() {
     },
   });
 
+  const updateUserMutationUpdateSaving = useMutation({
+    mutationFn: async ({ id, saving }: { id: string; saving: Saving }) => {
+      if (user) {
+        const response = await userService.updateUser(id, { savings: user?.savings.map((c) => c._id === saving._id ? saving : c) });
+        updateSaving(saving);
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error updating user:', error.message);
+    },
+  });
+  const updateUserMutationUpdateCategory = useMutation({
+    mutationFn: async ({ id, category }: { id: string; category: Category }) => {
+      if (user) {
+        const response = await userService.updateUser(id, { categories: user?.categories.map((c) => c._id === category._id ? category : c) });
+        updateCategory(category);
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error updating user:', error.message);
+    },
+  });
+
+
   const handleAddTransaction = (transaction: Transaction) => {
     transaction._id = Math.random().toString(36).substr(2, 8);
+    if (transaction.category == 'saving') {
+      let saving = user?.savings.find((s) => s.goalName === transaction.description)
+      if (saving && typeof saving.currentAmount === "number") {
+        saving.currentAmount += transaction.amount;
+        updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving });
+      }
+    }
+
+    else{
+      let category=user?.categories.find((c) => c.name === transaction.category)
+      if(category&&typeof category.spent==="number"){
+        if(transaction.type==="expense")
+          category.spent-=transaction.amount;
+        else
+          category.spent+=transaction.amount;
+        updateUserMutationUpdateCategory.mutate({ id: user?._id ?? '', category });
+      }
+    }
     updateUserMutationAddTransaction.mutate({ id: user?._id ?? '', transaction });
   }
 
@@ -61,7 +113,7 @@ function Transactions() {
 
   return (
     <div className={styles.container}>
-      <UploadExcel/>
+      <UploadExcel />
 
       <h2 className={styles.title}>Manage My Transactions</h2>
 

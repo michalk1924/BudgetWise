@@ -1,8 +1,6 @@
 /* PieChart.module.css */
 
 .chartContainer {
-    /* width: 50vh; */
-    /* height: ; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,6 +34,6 @@
 }
 
 .doughnut-chart {
-    width: 50%; /* התאמה לגודל המיכל */
-    height: 50%; /* התאמה לגודל המיכל */
+    width: 50%; 
+    height: 50%; 
 }

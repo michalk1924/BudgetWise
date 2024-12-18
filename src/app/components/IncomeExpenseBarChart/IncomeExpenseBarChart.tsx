@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useRef } from "react";
 import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { Transaction } from "@/types/types";
@@ -58,7 +59,8 @@ const IncomeExpenseBarChart = ({ transactions }: BarChartProps) => {
                     },
                     options: {
                         responsive: false,
-                        maintainAspectRatio: false,                        plugins: {
+                        maintainAspectRatio: false,
+                        plugins: {
                             legend: {
                                 position: "top",
                             },
@@ -69,6 +71,9 @@ const IncomeExpenseBarChart = ({ transactions }: BarChartProps) => {
                                     },
                                 },
                             },
+                            datalabels: {
+                                display: false
+                            }
                         },
                         scales: {
                             x: {
