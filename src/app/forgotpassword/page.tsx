@@ -31,7 +31,7 @@ const CreateNewPassword = () => {
             setLoading(true);
             const user = await authService.CreateNewPassword(newPassword);
             setUser(user);
-            await showSuccessAlert("your password changed successfully! welcome!");
+            await showSuccessAlert("Welcome!", "your password changed successfully!", 1000);
             router.push("/home");
         } catch (error: any) {
             console.error("Error creating user:", error);
