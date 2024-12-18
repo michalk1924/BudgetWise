@@ -129,15 +129,15 @@ function TransactionsList({ transactions, updateTransaction }: { transactions: T
                             <div className={styles.options}>
                                 {Object.values(DateFilter)
                                     .filter((value) => typeof value === "string")
-                                    .map((date: DateFilter, index: number) => (<div
-                                        key={index}
-                                        className={`${styles.option} ${date === dateFilter ? styles.selectedOption : ''}`}
-                                        onClick={() => handleDateChange(date)}
-                                    >
-                                        {date}
-                                    </div>
+                                    .map((date: DateFilter, index: number) => (
+                                        <div
+                                            key={index}
+                                            className={`${styles.option} ${date === dateFilter ? styles.selectedOption : ''}`}
+                                            onClick={() => handleDateChange(date)}
+                                        >
+                                            {date}
+                                        </div>
                                     ))}
-
                             </div>
                         )}
                     </div>
@@ -175,7 +175,9 @@ function TransactionsList({ transactions, updateTransaction }: { transactions: T
                     </div>
                 </div>
                 <div>Description</div>
+                <div>Payment Method</div> {/* הכנס את השדה Payment Method כאן */}
             </div>
+
 
             {currentTransactions.map((transaction) => (
                 <TransactionComp key={transaction._id} transaction={transaction} updateTransaction={updateTransaction} />
