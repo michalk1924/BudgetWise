@@ -58,7 +58,7 @@ export default function Home() {
   const loginWithGoogle = async () => {
     try {
       await googleSignup();
-      await showSuccessAlert("You have logged in successfully!");
+      await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
       router.push("/home");
     } catch (error: any) {
       console.error("Error signing up with Google:", error);
