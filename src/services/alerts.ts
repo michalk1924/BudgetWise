@@ -1,12 +1,12 @@
 import Swal from 'sweetalert2';
 
-export const showSuccessAlert = (message: string) => {
+export const showSuccessAlert = (title:string, message: string,timer: number) => {
     return Swal.fire({
         icon: 'success',
-        title: 'welcome',
+        title: title,
         text: message,
         confirmButtonColor: "#536493",
-        timer: 2000,
+        timer: timer,
         showConfirmButton: false,
     });
 };
