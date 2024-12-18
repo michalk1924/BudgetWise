@@ -1,0 +1,141 @@
+// import { useEffect, useRef } from 'react';
+// import { Chart, ChartConfiguration, ChartData, ChartOptions } from 'chart.js';
+
+// // Define the shape of the comparison results
+// interface ComparisonResult {
+//   category: string;
+//   year: number; 
+//   userAmount: number;
+//   marketPrice: number;
+// }
+
+// // Define the component's props
+// interface ExpenseComparisonChartProps {
+//   comparisonResults: ComparisonResult[];
+// }
+
+// const ExpenseComparisonChart: React.FC<ExpenseComparisonChartProps> = ({ comparisonResults }) => {
+//   const chartRef = useRef<HTMLCanvasElement | null>(null);
+
+//   useEffect(() => {
+//     if (!chartRef.current) return;
+
+//     const ctx = chartRef.current.getContext('2d');
+//     if (!ctx) return;
+
+//     // Organize data to be grouped by category and year
+//     const groupedData: { [key: string]: { userAmount: number; marketPrice: number } } = {};
+
+//     comparisonResults.forEach(result => {
+//       const key = `${result.category} - ${result.year}`;
+//       if (!groupedData[key]) {
+//         groupedData[key] = { userAmount: 0, marketPrice: 0 };
+//       }
+//       groupedData[key].userAmount += result.userAmount;
+//       groupedData[key].marketPrice += result.marketPrice;
+//     });
+
+//     const labels = Object.keys(groupedData);
+//     const userData = labels.map(label => groupedData[label].userAmount);
+//     const marketData = labels.map(label => groupedData[label].marketPrice);
+
+//     const chartConfig: ChartConfiguration = {
+//       type: 'bar',
+//       data: {
+//         labels: labels,
+//         datasets: [
+//           {
+//             label: 'User',
+//             data: userData,
+//             backgroundColor: "#FFF1DB",
+//           },
+//           {
+//             label: 'Market',
+//             data: marketData,
+//             backgroundColor: "#D4BDAC",
+//           }
+//         ]
+//       },
+//       options: {
+//         responsive: true,
+//         scales: {
+//           x: {
+//             title: {
+//               display: true,
+//               text: 'Category - Year',
+//             }
+//           },
+//           y: {
+//             title: {
+//               display: true,
+//               text: 'Sum',
+//             }
+//           }
+//         }
+//       } as ChartOptions,
+//     };
+
+//     const chart = new Chart(ctx, chartConfig);
+
+//     return () => {
+//       chart.destroy();
+//     };
+//   }, [comparisonResults]);
+
+//   return <canvas ref={chartRef}></canvas>;
+// };
+
+// export default ExpenseComparisonChart;
+
+import React from 'react';
+
+interface ComparisonResult {
+  category: string;
+  year: number;
+  userAmount: number;
+  marketPrice: number;
+}
+
+interface ExpenseComparisonBarProps {
+  comparisonResults: ComparisonResult[];
+}
+
+const ExpenseComparisonBars: React.FC<ExpenseComparisonBarProps> = ({ comparisonResults }) => {
+  return (
+    <div style={{ width: "100%" }}>
+      {comparisonResults.map((result, index) => {
+        const relativeUsage = Math.min((result.userAmount / result.marketPrice) * 100, 100); // אחוז יחס
+        return (
+          <div key={index} style={{ marginBottom: "20px" }}>
+            <div style={{ marginBottom: "5px", fontWeight: "bold" }}>
+              {result.category} - {result.year}
+            </div>
+            <div
+              style={{
+                width: "100%",
+                backgroundColor: "#F0F0F0",
+                borderRadius: "15px",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  width: `${relativeUsage}%`,
+                  height: "20px",
+                  backgroundColor: "#A8D5BA",
+                  borderRadius: "15px",
+                  transition: "width 0.5s ease-in-out",
+                }}
+              ></div>
+            </div>
+            <div style={{ fontSize: "12px", marginTop: "5px" }}>
+              {relativeUsage.toFixed(2)}% used ({result.userAmount} / {result.marketPrice})
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default ExpenseComparisonBars;

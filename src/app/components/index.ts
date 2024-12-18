@@ -6,6 +6,7 @@ export { default as SavingsGrid } from './savingsGrid/SavingsGrid/SavingsGrid';
 export { default as AddTransaction } from './transactions/addTransaction/AddTransaction';
 export { default as TransactionComp } from './transactions/transaction/Transaction';
 export { default as AddTransactionComp } from './transactions/addTransaction/AddTransaction';
+export { default as ExpenseComparisonChart} from './ExpenseComparisonChart/ExpenseComparisonChart ';
 export { default as AddNewSaving } from './savingsGrid/AddNewSaving/AddNewSaving';
 export { default as DoughnutChart } from './PieChart-monthly-expenses/PieChart-monthly-expenses';
 export { default as IncomeExpenseBarChart } from './IncomeExpenseBarChart/IncomeExpenseBarChart';
