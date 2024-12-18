@@ -6,14 +6,17 @@ import { Saving } from "@/types/types";
 
 interface SavingsGridProps {
   savings: Saving[]
+  onUpdateSaving?: (updatedSaving: Saving) => void;
+  onWithdrawSaving ?: (updatedSaving: Saving) => void;
+
 }
 
-const SavingsGrid: React.FC<SavingsGridProps> = ({ savings }) => {
+const SavingsGrid: React.FC<SavingsGridProps> = ({ savings,onUpdateSaving ,onWithdrawSaving}) => {
 
   return (
     <div className={styles.gridContainer}>
       {savings.map((saving, index) => (
-        <SavingsGridItem key={index} saving={saving} />
+        <SavingsGridItem key={index} saving={saving} onUpdateSaving={onUpdateSaving} onWithdrawSaving={onWithdrawSaving}/>
       ))}
     </div>
   );

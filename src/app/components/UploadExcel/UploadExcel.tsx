@@ -1,53 +1,70 @@
 import { useState } from "react";
-import * as XLSX from "xlsx";
-
-type ExcelRow = {
-    createdAt: Date;  
-    amount: number;   
-    income: string;  
-    description: string; 
-};
+import useUserStore from "@/store/userStore";
+import { parseExcelFile } from "@/services/excelService";
+import { Transaction } from "@/types/types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import userService from "@/services/user";
+import { showSuccessAlert } from "@/services/alerts";
+import styles from './UploadExcel.module.css'
 
 export default function UploadExcel() {
-    const [data, setData] = useState<ExcelRow[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const { addTransactionsFromExcel, user } = useUserStore();
 
-    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const queryClient = useQueryClient();
+
+    const updateUserMutationAddTransactions = useMutation({
+        mutationFn: async ({ id, transactions }: { id: string; transactions: Transaction[] }) => {
+            if (user) {
+                const response = await userService.updateUser(id, { transactions: [...user?.transactions, ...transactions] });
+                return response;
+            }
+            return null;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['users'] });
+        },
+        onError: (error: Error) => {
+            console.error("Error updating user transactions:", error.message);
+        },
+    });
+
+    const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (!file) return;
 
-        const reader = new FileReader();
+        setIsLoading(true);
 
-        reader.onload = (e: ProgressEvent<FileReader>) => {
-            const binaryStr = e.target?.result;
-            if (typeof binaryStr !== "string") return;
+        try {
+            const filteredData = await parseExcelFile(file);
+            if (user) {
+                updateUserMutationAddTransactions.mutate({
+                    id: user._id,
+                    transactions: filteredData,
+                });
 
-            const workbook = XLSX.read(binaryStr, { type: "binary" });
-            const sheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[sheetName];
-            const rawData = XLSX.utils.sheet_to_json(worksheet);
-
-            // המרת הנתונים לפורמט הרצוי
-            const filteredData = rawData.map((row: any) => {
-                const amount = row["זכות"] ? row["זכות"] : row["חובה"] ? row["חובה"] : 0;
-
-                return {
-                    createdAt: new Date(row["תאריך"]),  
-                    amount: amount,
-                    income: row["זכות"] ? "זכות" : "חובה",  
-                    description: row["פרטים"]
-                };
-            });
-
-            setData(filteredData);  // כאן הגדרת ה-state עם טיפוס חדש
-        };
-
-        reader.readAsBinaryString(file);
+                showSuccessAlert("Succses!","The file has been loaded successfully!",4000);
+            }
+            addTransactionsFromExcel(filteredData); // עדכון ב-store אם צריך
+        } catch (error) {
+            console.error("Error parsing file:", error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
-        <div>
-            <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
-            <pre>{JSON.stringify(data, null, 2)}</pre>
+
+        <div className={styles.fileUploadWrapper}>
+            <label htmlFor="file-upload" className={styles.customFileUpload}>
+                Select an Excel file to add transactions            </label>
+            <input
+                id="file-upload"
+                type="file"
+                accept=".xlsx, .xls"
+                onChange={handleFileUpload}
+                className={styles.hiddenInput}
+            />
         </div>
     );
 }

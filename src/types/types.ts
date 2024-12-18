@@ -37,6 +37,7 @@ export interface Saving {
   updatedAt: Date;
 }
 
+
 export interface Transaction {
   _id: string;
   category: string;
@@ -46,7 +47,9 @@ export interface Transaction {
   date: Date;
   createdAt: Date;
   updatedAt: Date;
+  paymentMethod?: "cash" | "credit" | "check" | "bank_transfer" | "bit" | "other";
 }
+
 
 export interface Recommendation {
   _id: string;

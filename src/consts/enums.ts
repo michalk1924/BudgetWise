@@ -22,3 +22,14 @@ export enum AlertType {
     BudgetOverrun = "BudgetOverrun",
     Occasion = "Occasion"
 }
+
+const categories1 = ["Health", "Food", "Transport", "Entertainment", "Utilities", "Others"];
+
+export enum categories {
+    Health = "HLTHSCPCHCSA",
+    Food = "PCEFOOD",
+    Transport = "HLTHSCPCHCSA",
+    Entertainment = "HLTHSCPCHCSA",
+    Utilities = "HLTHSCPCHCSA",
+  }
+  

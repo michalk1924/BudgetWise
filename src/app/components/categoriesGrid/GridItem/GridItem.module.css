@@ -1,83 +1,83 @@
 .gridItem {
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0px 4px 6px #D4BDAC;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    background-color: #fbf6f3;
-    position: relative;
-    color: #536493;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0px 4px 6px #D4BDAC;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #fbf6f3;
+  position: relative;
+  color: #536493;
 
-  }
-
-  .gridTotalItem {
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0px 4px 6px #D4BDAC;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    position: relative;
-    width:90%;
-    font-size: 1.2rem;
-    font-family: 'Malvie Trial', Arial, sans-serif;
-  }
-
-  .gridTotalItem .details .numeric{
-    font-family: 'DynaPuff'; /* Use a clean, readable font for numbers */
-    font-size: 1rem; 
-    font-weight: bold; 
 }
-    
-  .categoryTotalName {
-    font-size: 1.6rem;
-    margin-bottom: 10px;
-  }
 
-  .categoryName {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-  
-  .details {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    color: #536493;
-    font-weight: lighter;
-  }
-  
-  .editButton {
-    background: none; /* Remove background styling */
-    border: none; /* Remove borders */
-    cursor: pointer; /* Add pointer cursor */
-    display: flex; /* Ensure the icon is displayed properly */
-    justify-content: center; /* Center the icon */
-    align-items: center; /* Center the icon vertically */
-    color: #536493; /* Set the color for the icon */
-    padding: 0; /* Remove unnecessary padding */
-    width:20px;
-  }
- 
-  .spent{
-    color: #EF5A6F;
-  }
-  
-  .left{
-color:#A1D6B2;
-  }
-  
-  .editButton:hover {
-    color: #1d3c6a;
-  }
-  
-  .spent,
-  .left,
-  .budget {
-    display: flex; /* Flex layout for inner content */
-    align-items: center; /* Vertically align items */
-    gap: 5px; /* Add spacing between the number and text */
-  }
-  
-  
+.gridTotalItem {
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0px 4px 6px #D4BDAC;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  width: 90%;
+  font-size: 1.2rem;
+  font-family: 'Malvie Trial', Arial, sans-serif;
+}
+
+.gridTotalItem .details .numeric {
+  font-family: 'DynaPuff';
+  /* Use a clean, readable font for numbers */
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.categoryTotalName {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.categoryName {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  color: #536493;
+  font-weight: lighter;
+}
+
+.editButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #536493;
+  padding: 0;
+  width: 20px;
+}
+
+
+.spent {
+  color: #EF5A6F;
+}
+
+.left {
+  color: #A1D6B2;
+}
+
+.editButton:hover {
+  color: #1d3c6a;
+}
+
+.spent,
+.left,
+.budget {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

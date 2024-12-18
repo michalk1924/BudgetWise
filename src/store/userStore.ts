@@ -13,12 +13,14 @@ interface UserStore {
   setUser: (user: User) => void;
   clearUser: () => void;
   addCategory: (category: Category) => void;
-  updateCategory: (categoryId: string, updatedCategory: Partial<Category>) => void;
+  updateCategory: (updatedCategory:Category) => void;
   removeCategory: (categoryId: string) => void;
   addTransaction: (transaction: Transaction) => void;
+  addTransactionsFromExcel: (transactions: Transaction[]) => void;
   updateTransaction: (transaction: Transaction) => void;
   removeTransaction: (transactionId: string) => void;
   addSaving: (saving: Saving) => void;
+  updateSaving: (saving: Saving) => void;
   setAlerts: (alerts: Alert[]) => void;
   addAlert: (alert: Alert) => void;
   setRecommendations: (recommendations: Recommendation[]) => void;
@@ -58,12 +60,12 @@ const useUserStore = create<UserStore>()(
           },
         })),
 
-      updateCategory: (categoryId, updatedCategory) =>
+      updateCategory: (updatedCategory) =>
         set((state) => ({
           user: {
             ...state.user!,
             categories: state.user!.categories.map((cat) =>
-              cat._id === categoryId ? { ...cat, ...updatedCategory } : cat
+              cat._id === updatedCategory._id ? { ...cat, ...updatedCategory } : cat
             ),
           },
         })),
@@ -83,6 +85,14 @@ const useUserStore = create<UserStore>()(
             transactions: [...state.user!.transactions, transaction],
           },
         })),
+
+        addTransactionsFromExcel: (transactionsFromExcel: Transaction[]) =>
+          set((state) => ({
+            user: {
+              ...state.user!,
+              transactions: [...state.user!.transactions, ...transactionsFromExcel],
+            },
+          })),
 
       updateTransaction: (transaction) =>
         set((state) => ({
@@ -109,6 +119,15 @@ const useUserStore = create<UserStore>()(
             savings: [...state.user!.savings, saving],
           },
         })),
+        updateSaving: (updatedSaving) =>
+          set((state) => ({
+            user: {
+              ...state.user!,
+              savings: state.user!.savings.map((cat) =>
+                cat._id === updatedSaving._id ? { ...cat, ...updatedSaving } : cat
+              ),
+            },
+          })),
 
       setAlerts: (alerts) =>
         set((state) => ({

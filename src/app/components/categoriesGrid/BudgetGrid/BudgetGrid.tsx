@@ -8,9 +8,11 @@ import { Category } from "../../../../types/types";
 
 interface BudgetGridProps {
   categories: Category[];
+  onUpdateCategory?: (updatedCategory: Category) => void; 
+
 }
 
-const BudgetGrid: React.FC<BudgetGridProps> = ({ categories }) => {
+const BudgetGrid: React.FC<BudgetGridProps> = ({ categories , onUpdateCategory }) => {
   const [selectedYear, setSelectedYear] = useState<number>(2024);
   const [selectedMonth, setSelectedMonth] = useState<number>(0);
 
@@ -34,7 +36,7 @@ const BudgetGrid: React.FC<BudgetGridProps> = ({ categories }) => {
 
       <div className={styles.gridContainer}>
         {filteredCategories.map((category, index) => (
-          <GridItem key={index} category={category} />
+          <GridItem key={index} category={category} onUpdateCategory={onUpdateCategory} />
         ))}
       </div>
       <span className={styles.seeMore}>See More...</span>

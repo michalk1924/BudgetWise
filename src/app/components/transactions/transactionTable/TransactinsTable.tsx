@@ -2,26 +2,30 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from './TransactionTable.module.css';
-import { Transaction } from '../../../../types/types';
+import { Transaction, Category } from '../../../../types/types';
 import { DateFilter } from '@/consts/enums';
 import { TransactionComp } from "../../index";
+import useUserStore from "@/store/userStore";
 
 const ITEMS_PER_PAGE = 8;
 
 function TransactionsList({ transactions, updateTransaction }: { transactions: Transaction[], updateTransaction: (transaction: Transaction) => void }) {
+
+    const { user } = useUserStore();
 
     const [currentTransactions, setCurrentTransactions] = useState<Transaction[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [categoryFilter, setCategoryFilter] = useState<string>('');
     const [dateFilter, setDateFilter] = useState<DateFilter>(DateFilter.Last30Days);
-    const [categories, setCategories] = useState<string[]>([
-        "Food",
-        "Transport",
-        "Entertainment",
-        "Utilities",
-        "Others",
-    ]);
+    const categories = new Set(user?.categories?.map((cat: Category) => cat.name)); // Track existing triggerConditions
+    // const [categories, setCategories] = useState<string[]>([
+    //     "Food",
+    //     "Transport",
+    //     "Entertainment",
+    //     "Utilities",
+    //     "Others",
+    // ]);
     const [isDropdownOpenCategory, setIsDropdownOpenCategory] = useState<boolean>(false);
     const [isDropdownOpenDate, setIsDropdownOpenDate] = useState<boolean>(false);
 
@@ -129,15 +133,15 @@ function TransactionsList({ transactions, updateTransaction }: { transactions: T
                             <div className={styles.options}>
                                 {Object.values(DateFilter)
                                     .filter((value) => typeof value === "string")
-                                    .map((date: DateFilter, index: number) => (<div
-                                        key={index}
-                                        className={`${styles.option} ${date === dateFilter ? styles.selectedOption : ''}`}
-                                        onClick={() => handleDateChange(date)}
-                                    >
-                                        {date}
-                                    </div>
+                                    .map((date: DateFilter, index: number) => (
+                                        <div
+                                            key={index}
+                                            className={`${styles.option} ${date === dateFilter ? styles.selectedOption : ''}`}
+                                            onClick={() => handleDateChange(date)}
+                                        >
+                                            {date}
+                                        </div>
                                     ))}
-
                             </div>
                         )}
                     </div>
@@ -161,7 +165,16 @@ function TransactionsList({ transactions, updateTransaction }: { transactions: T
                                 >
                                     All Categories
                                 </div>
-                                {categories.map((category, index) => (
+                                {/* {categories.map((category, index) => (
+                                    <div
+                                        key={index}
+                                        className={`${styles.option} ${category === categoryFilter ? styles.selectedOption : ''}`}
+                                        onClick={() => handleCategoryChange(category)}
+                                    >
+                                        {category}
+                                    </div>
+                                ))} */}
+                                {Array.from(categories).map((category: string, index: number) => (
                                     <div
                                         key={index}
                                         className={`${styles.option} ${category === categoryFilter ? styles.selectedOption : ''}`}
@@ -175,7 +188,9 @@ function TransactionsList({ transactions, updateTransaction }: { transactions: T
                     </div>
                 </div>
                 <div>Description</div>
+                <div>Payment Method</div> {/* הכנס את השדה Payment Method כאן */}
             </div>
+
 
             {currentTransactions.map((transaction) => (
                 <TransactionComp key={transaction._id} transaction={transaction} updateTransaction={updateTransaction} />

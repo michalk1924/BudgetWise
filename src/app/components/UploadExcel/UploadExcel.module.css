@@ -1,0 +1,25 @@
+
+.customFileUpload {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #4455a0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.customFileUpload:hover {
+    background-color: #3a4b8f;
+}
+
+.fileUploadWrapper {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.hiddenInput {
+    display: none;
+}

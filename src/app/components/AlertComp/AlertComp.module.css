@@ -47,7 +47,7 @@
     font-weight: bold;
     flex: 1;
     text-align: left;
-    margin-right: 50px; /* ריווח מצד התמונה */
+    margin-right: 50px;
 }
 
 
@@ -123,39 +123,43 @@
 
 /* Critical */
 .criticalActive {
-    border: 5px solid #EF5A6F; /* אדום כהה שקוף */
-    background-color: rgba(239, 90, 111, 0.2); /* אדום ורדרד שקוף */
+    border: 5px solid #EF5A6F; 
+    background-color: rgba(239, 90, 111, 0.2); 
     animation: pulse 2s infinite;
 
 }
 
 .criticalInactive {
-    border-left: 5px solid #EF5A6F; /* גבול שמאלי אדום כהה שקוף */
+    border-left: 5px solid #EF5A6F;
     background-color: rgba(239, 90, 111, 0.2);
 }
 
 /* Warning */
 .warningActive {
-    border: 5px solid rgba(57, 72, 110, 0.6); /* גבול כהה שקוף */
-    background-color: rgba(83, 100, 147, 0.2); /* רקע כחול פסטלי שקוף */ 
+    border: 5px solid rgba(57, 72, 110, 0.6); 
+    background-color: rgba(83, 100, 147, 0.2); 
     animation: pulse 2s infinite;
 
 }
 
 .warningInactive {
-    border-left: 5px solid rgba(57, 72, 110, 0.3); /* גבול שמאלי כהה עם שקיפות */
-    background-color: rgba(83, 100, 147, 0.2); /* רקע כחול פסטלי שקוף */
+    border-left: 5px solid rgba(57, 72, 110, 0.3);
+    background-color: rgba(83, 100, 147, 0.2); 
 }
 
-
-/* Pay Attention */
 .payAttentionActive {
-    border: 5px solid rgba(109, 167, 133, 0.6); /* ירוק כהה שקוף */
-    background-color: rgba(161, 214, 178, 0.2); /* ירוק מנטה שקוף */
+    border: 5px solid rgba(109, 167, 133, 0.6); 
+    background-color: rgba(161, 214, 178, 0.2); 
     animation: pulse 2s infinite;
 }
 
 .payAttentionInactive {
-    border-left: 5px solid rgba(109, 167, 133, 0.6); /* גבול שמאלי ירוק כהה שקוף */
+    border-left: 5px solid rgba(109, 167, 133, 0.6); 
     background-color: rgba(161, 214, 178, 0.2);
+}
+
+.solution{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
 }

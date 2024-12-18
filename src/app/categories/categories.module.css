@@ -3,21 +3,21 @@
     display: flex;
     flex-direction: row;
     height: 80vh;
-    gap: 5%; /* Space between leftSection and mainSection */
+    gap: 5%; 
     margin: 0 3% 3% 3%;
 }
   
   .leftSection {
     display: flex;
     flex-direction: column;
-    flex: 1; /* Make left section flexible */
+    flex: 1;
     justify-content: space-around;
   }
   
   .title {
-    display: grid; /* Enable Grid layout */
-    place-items: center; /* Centers content both horizontally and vertically */
-    text-align: center; /* Align multiline text */
+    display: grid; 
+    place-items: center; 
+    text-align: center; 
     align-items: center;
     text-shadow: 10px 7px 10px #D4BDAC;
     font-family: 'Painting_With_Chocolate', Arial, sans-serif;
@@ -33,19 +33,19 @@
   .mainSection {
     display: flex;
     flex-direction: column;
-    flex: 3; /* Allow the main section to take up more space */
+    flex: 3; 
     position: relative;
-    overflow: hidden; /* Prevent unwanted scrolling */
+    overflow: hidden; 
 
   }
   
   .tableSection {
-    flex-grow: 1; /* Allow the table section to grow and fill space */
-    overflow-y: auto; /* Enable scrolling if content exceeds the height */
+    flex-grow: 1; 
+    overflow-y: auto; 
   }
   
   .addBudgetSection {
-    margin-top: auto; /* Push this section to the bottom */
+    margin-top: auto; 
     padding: 20px;
     flex-shrink: 0;
   }
