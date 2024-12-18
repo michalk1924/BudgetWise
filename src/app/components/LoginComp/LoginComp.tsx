@@ -41,7 +41,7 @@ export default function LoginComp() {
         try {
             const user = await authService.login(data);
             setUser(user);
-            await showSuccessAlert("You have logged in successfully!");
+            await showSuccessAlert("Welcome","You have logged in successfully!",2000);
             router.push("/home");
         } catch (error: any) {
             console.error("Error creating user:", error);
@@ -57,7 +57,7 @@ export default function LoginComp() {
             const user = await googleSignup();
             if (user) {
                 setUser(user);
-                await showSuccessAlert("You have logged in successfully!");
+                await showSuccessAlert("Welcome","You have logged in successfully!",2000);
                 router.push("/home");
             } else {
                 await showErrorAlert("Failed to login with Google.");

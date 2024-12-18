@@ -43,7 +43,7 @@ export default function UploadExcel() {
                     transactions: filteredData,
                 });
 
-                showSuccessAlert("The file has been loaded successfully!");
+                showSuccessAlert("Succses!","The file has been loaded successfully!",4000);
             }
             addTransactionsFromExcel(filteredData); // עדכון ב-store אם צריך
         } catch (error) {
