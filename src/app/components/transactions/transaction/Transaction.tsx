@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./TransactionComp.module.css";
 import { Transaction } from "../../../../types/types";
 import { FaPencilAlt } from "react-icons/fa";
+import { FiSave } from "react-icons/fi";
 
 const transactionSchema = z.object({
     category: z.string().min(1, "Category is required"),
@@ -62,10 +63,26 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
     return (
         <div key={transaction._id}>
             {isEditing ? (
-                <form onSubmit={handleSubmit(onSubmit)} className={styles.editForm}>
+                <div className={`${styles.transactionItem} ${isPositive(transaction.type) ? styles.expense : styles.income}`}>
                     <div>
-                        <label>Category</label>
-                        <select {...register("category")}>
+                        <input
+                            type="date"
+                            {...register("date")}
+                            className={styles.inlineInput}
+                        />
+                        {errors.date && <p className={styles.error}>{errors.date.message}</p>}
+                    </div>
+                    <div>
+                        <input
+                            type="number"
+                            placeholder="Amount"
+                            {...register("amount", { valueAsNumber: true })}
+                            className={styles.inlineInput}
+                        />
+                        {errors.amount && <p className={styles.error}>{errors.amount.message}</p>}
+                    </div>
+                    <div>
+                        <select {...register("category")} className={styles.inlineSelect}>
                             <option value="Food">Food</option>
                             <option value="Transport">Transport</option>
                             <option value="Entertainment">Entertainment</option>
@@ -74,31 +91,16 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                         </select>
                         {errors.category && <p className={styles.error}>{errors.category.message}</p>}
                     </div>
-
                     <div>
-                        <label>Date</label>
-                        <input type="date" {...register("date")} />
-                        {errors.date && <p className={styles.error}>{errors.date.message}</p>}
-                    </div>
-
-                    <div>
-                        <label>Amount</label>
                         <input
-                            type="number"
-                            placeholder="Amount"
-                            {...register("amount", { valueAsNumber: true })}
+                            type="text"
+                            placeholder="Description"
+                            {...register("description")}
+                            className={styles.inlineInput}
                         />
-                        {errors.amount && <p className={styles.error}>{errors.amount.message}</p>}
                     </div>
-
                     <div>
-                        <label>Description (Optional)</label>
-                        <input type="text" {...register("description")} />
-                    </div>
-
-                    <div>
-                        <label>Payment Method</label>
-                        <select {...register("paymentMethod")}>
+                        <select {...register("paymentMethod")} className={styles.inlineSelect}>
                             <option value="cash">Cash</option>
                             <option value="credit">Credit</option>
                             <option value="check">Check</option>
@@ -108,10 +110,12 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                         </select>
                         {errors.paymentMethod && <p className={styles.error}>{errors.paymentMethod.message}</p>}
                     </div>
-
-                    <button type="submit">Save Changes</button>
-                    <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
-                </form>
+                    <div className={styles.actions}>
+                        <button type="button" onClick={handleSubmit(onSubmit)} className={styles.inlineButton}>
+                        <FiSave/>
+                        </button>
+                    </div>
+                </div>
             ) : (
                 <div className={`${styles.transactionItem} ${isPositive(transaction.type) ? styles.expense : styles.income}`}>
                     <div>{new Date(transaction.date).toLocaleDateString()}</div>
@@ -124,6 +128,7 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                     </div>
                 </div>
             )}
+
         </div>
     );
 };

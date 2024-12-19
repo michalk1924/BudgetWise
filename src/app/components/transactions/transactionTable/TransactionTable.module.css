@@ -1,5 +1,7 @@
 .listContainer {
-  width: 65%;
+  margin-right: 0;
+  margin-left: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
@@ -8,25 +10,13 @@
 
 .header {
   display: grid;
-  grid-template-columns: repeat(4, 1fr) 40px;
-  font-weight: bold;
+  grid-template-columns: 2fr 1fr 3fr 3fr 2fr 1fr;
+  font-weight: normal;
   color: #2c3e50;
   background-color: #D4BDAC;
   padding: 10px;
   text-align: center;
   align-items: center;
-}
-
-.transactionItem {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr) 40px;
-  padding: 0.3rem;
-  border-radius: 8px;
-  align-items: center;
-  transition: background-color 0.3s ease;
-  text-align: center;
-  margin: 0;
-  line-height: 1.2vh;
 }
 
 .transactionItem:hover {
@@ -112,7 +102,7 @@
 }
 
 .categoryText {
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .options {

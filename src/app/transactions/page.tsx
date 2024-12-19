@@ -94,13 +94,13 @@ function Transactions() {
       }
     }
 
-    else{
-      let category=user?.categories.find((c) => c.name === transaction.category)
-      if(category&&typeof category.spent==="number"){
-        if(transaction.type==="expense")
-          category.spent-=transaction.amount;
+    else {
+      let category = user?.categories.find((c) => c.name === transaction.category)
+      if (category && typeof category.spent === "number") {
+        if (transaction.type === "expense")
+          category.spent -= transaction.amount;
         else
-          category.spent+=transaction.amount;
+          category.spent += transaction.amount;
         updateUserMutationUpdateCategory.mutate({ id: user?._id ?? '', category });
       }
     }
@@ -113,25 +113,27 @@ function Transactions() {
 
   return (
     <div className={styles.container}>
-      <UploadExcel />
 
-      <h2 className={styles.title}>Manage My Transactions</h2>
+      {!loading && user && <div className={styles.main}>
+        {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
+          updateTransaction={handleUpdateTransaction}
+        />}
+        <UploadExcel />
+        {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction} />}
+      </div>}
 
-      {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
-        updateTransaction={handleUpdateTransaction}
-      />}
-
-      {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction} />}
-
-      {user && <div className={styles.total}>
-        Total:
-        {user?.transactions?.reduce((amount, t) => {
-          if (t.type === 'expense') {
-            return amount - Number(t.amount || 0);
-          }
-          return amount + Number(t.amount || 0);
-        }, 0).toFixed(2)}
-        $
+      {!loading && user && <div className={styles.headers}>
+        <h2 className={styles.title}>Manage My Transactions</h2>
+        {user && <div className={styles.total}>
+          Total:
+          {user?.transactions?.reduce((amount, t) => {
+            if (t.type === 'expense') {
+              return amount - Number(t.amount || 0);
+            }
+            return amount + Number(t.amount || 0);
+          }, 0).toFixed(2)}
+          $
+        </div>}
       </div>}
 
       {loading && <div className={styles.loader}>Loading...</div>}
