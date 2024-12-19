@@ -23,13 +23,12 @@ export enum AlertType {
     Occasion = "Occasion"
 }
 
-const categories1 = ["Health", "Food", "Transport", "Entertainment", "Utilities", "Others"];
 
-export enum categories {
+export enum Categories {
     Health = "HLTHSCPCHCSA",
-    Food = "PCEFOOD",
-    Transport = "HLTHSCPCHCSA",
-    Entertainment = "HLTHSCPCHCSA",
-    Utilities = "HLTHSCPCHCSA",
+    Food = "PCU311311",
+    Transport = "PCU484484",
+    Entertainment = "CXUENTRTAINLB0101M",
+    Utilities = "AWHAEUTIL",
   }
   

@@ -7,3 +7,7 @@ export const holidays = [
 export const BUDGET_MULTIPLIER = 1.5;
 export const MIN_BALANCE_MULTIPLIER = 0.2;
 export const BUDGET_WARNING_THRESHOLD = 0.9;
+
+export const CACHE_KEY = "marketDataCache";
+export const CACHE_TIMESTAMP_KEY = "marketDataTimestamp";
+export const ONE_DAY = 24 * 60 * 60 * 1000;
