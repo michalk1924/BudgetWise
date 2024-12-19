@@ -88,6 +88,8 @@
 // export default ExpenseComparisonChart;
 
 import React from 'react';
+import styles from './ExpenseComparisonBars.module.css';
+import { Colors } from '@/consts/enums'
 
 interface ComparisonResult {
   category: string;
@@ -102,34 +104,42 @@ interface ExpenseComparisonBarProps {
 
 const ExpenseComparisonBars: React.FC<ExpenseComparisonBarProps> = ({ comparisonResults }) => {
   return (
-    <div style={{ width: "100%" }}>
+    <div className={styles.container}>
+      {/* Explanation Container */}
+      <div className={styles.explanationContainer}>
+        <p className={styles.explanationText}>
+          This comparison is made relative to others to give you a broader perspective on the situation.
+        </p>
+      </div>
+
       {comparisonResults.map((result, index) => {
-        const relativeUsage = Math.min((result.userAmount / result.marketPrice) * 100, 100); // אחוז יחס
+        const relativeUsage = Math.min((result.userAmount / result.marketPrice) * 100, 200); // Limit to 200% for better visualization
+        const isOverBudget = result.userAmount > result.marketPrice;
+
         return (
-          <div key={index} style={{ marginBottom: "20px" }}>
-            <div style={{ marginBottom: "5px", fontWeight: "bold" }}>
-              {result.category} - {result.year}
+          <div key={index} className={styles.barContainer}>
+            <div className={styles.barHeader}>
+              <span className={styles.category}>{result.category}</span>
+              <span className={styles.year}>{result.year}</span>
             </div>
-            <div
-              style={{
-                width: "100%",
-                backgroundColor: "#F0F0F0",
-                borderRadius: "15px",
-                overflow: "hidden",
-              }}
-            >
+            <div className={styles.barBackground}>
               <div
+                className={styles.barFill}
                 style={{
                   width: `${relativeUsage}%`,
-                  height: "20px",
-                  backgroundColor: "#A8D5BA",
-                  borderRadius: "15px",
-                  transition: "width 0.5s ease-in-out",
+                  backgroundColor: isOverBudget ? Colors.Primary : Colors.Success,
                 }}
               ></div>
             </div>
-            <div style={{ fontSize: "12px", marginTop: "5px" }}>
-              {relativeUsage.toFixed(2)}% used ({result.userAmount} / {result.marketPrice})
+            <div className={styles.barFooter}>
+              <span className={styles.usageText}>
+                {relativeUsage.toFixed(2)}% used ({result.userAmount} / {result.marketPrice})
+              </span>
+              {isOverBudget && (
+                <span className={styles.overBudget}>
+                  Over by {result.userAmount - result.marketPrice}!
+                </span>
+              )}
             </div>
           </div>
         );

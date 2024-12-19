@@ -2,14 +2,13 @@
 
 import axios from "axios";
 import { Transaction, User } from "@/types/types";
-import { categories } from "@/consts/enums";
-
-// const categories = ["Health", "Food", "Transport", "Entertainment", "Utilities", "Others"];
+import { Categories } from "@/consts/enums";
+import { ONE_DAY, CACHE_TIMESTAMP_KEY, CACHE_KEY } from "@/consts/consts";
 
 //fetches market data for a specific category.
 const getMarketDataForCategory = async (category: string) => {
     const apiKey = process.env.API_KEY;
-    const url = `https://cors-anywhere.herokuapp.com/https://api.stlouisfed.org/fred/series/observations?series_id=HLTHSCPCHCSA&api_key=ba9324ede36587a78520e2c4da4dce5a&file_type=json`;
+    const url = `https://cors-anywhere.herokuapp.com/https://api.stlouisfed.org/fred/series/observations?series_id=${category}&api_key=${apiKey}&file_type=json`;
 
     try {
         const response = await axios.get(url);
@@ -25,7 +24,7 @@ const getMarketDataForCategory = async (category: string) => {
 const fetchMarketDataForAllCategories = async (): Promise<any> => {
     const marketDataByYear: { [year: number]: any[] } = {};
 
-    for (const category of Object.values(categories)) {
+    for (const category of Object.values(Categories)) {
         try {
             const data = await getMarketDataForCategory(category);
 
@@ -69,8 +68,10 @@ const compareUserWithMarket = (userExpenses: any, marketTrends: any) => {
                 const expenseDifference = marketData.total_price - userAmount;
                 const percentageDifference = ((userAmount / marketData.total_price) * 100).toFixed(2);
 
+                const categoryKey = Object.keys(Categories).find((key) => Categories[key as keyof typeof Categories] === category);
+
                 comparisons.push({
-                    category,
+                    category: categoryKey,
                     year: parseInt(year),
                     userAmount,
                     marketPrice: marketData.total_price,
@@ -89,7 +90,7 @@ const groupExpensesByCategoryAndYear = (userExpenses: any) => {
     const groupedExpenses = userExpenses.reduce((acc: any, transaction: Transaction) => {
         let year = new Date(transaction.date).getFullYear();
         year = year - 3;
-        const category = transaction.category;
+        const category = Categories[transaction.category as keyof typeof Categories] || transaction.category;
 
         if (!acc[year]) {
             acc[year] = {};
@@ -115,9 +116,6 @@ const fetchDataAndCompare = async (user: User | null) => {
 
         let marketTrends = {};
 
-        const CACHE_KEY = "marketDataCache";
-        const CACHE_TIMESTAMP_KEY = "marketDataTimestamp";
-        const ONE_DAY = 24 * 60 * 60 * 1000;
         const now = new Date().getTime();
 
         const cachedData = localStorage.getItem(CACHE_KEY);
@@ -128,6 +126,8 @@ const fetchDataAndCompare = async (user: User | null) => {
         }
         else {
             marketTrends = await fetchMarketDataForAllCategories();
+            localStorage.setItem(CACHE_KEY, JSON.stringify(marketTrends));
+            localStorage.setItem(CACHE_TIMESTAMP_KEY, now.toString());
             // marketTrends = {
             //     2021: [
             //         {
