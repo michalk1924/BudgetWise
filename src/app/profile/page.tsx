@@ -10,10 +10,9 @@ const Profile: React.FC = () => {
     const { user } = useUserStore();
     const router = useRouter();
 
-    // בדוק אם אנחנו בצד הלקוח בלבד לפני הפנייה ל-router
     if (typeof window !== "undefined" && !user) {
-        router.push('/login');
-        return null; // לא להציג את הקומפוננטה אם אין משתמש
+        router.push('/home-page');
+        return null;
     }
 
     const handleSave = () => {
@@ -22,7 +21,7 @@ const Profile: React.FC = () => {
 
     const handleLogout = () => {
         clearUser();
-        router.push('/about');
+        router.push('/home-page');
     };
 
     return (
