@@ -1,19 +1,17 @@
-"use servvice"
+"use service"
 
 import axios from "axios";
+import { http } from './http';
 import { Transaction, User } from "@/types/types";
 import { Categories } from "@/consts/enums";
 import { ONE_DAY, CACHE_TIMESTAMP_KEY, CACHE_KEY } from "@/consts/consts";
 
 //fetches market data for a specific category.
 const getMarketDataForCategory = async (category: string) => {
-    const apiKey = process.env.API_KEY;
-    const url = `https://cors-anywhere.herokuapp.com/https://api.stlouisfed.org/fred/series/observations?series_id=${category}&api_key=${apiKey}&file_type=json`;
 
     try {
-        const response = await axios.get(url);
-
-        return response.data;
+        const data = (await http.get(`/stlouisfed/${category}`)).data;
+        return data;
     } catch (error) {
         console.error(`Error fetching data for ${category}`, error);
         return null;
@@ -121,7 +119,7 @@ const fetchDataAndCompare = async (user: User | null) => {
         const cachedData = localStorage.getItem(CACHE_KEY);
         const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
 
-        if (cachedData && cachedTimestamp && now - parseInt(cachedTimestamp) < ONE_DAY) {
+        if (cachedData && cachedData.length > 0 && cachedTimestamp && now - parseInt(cachedTimestamp) < ONE_DAY) {
             marketTrends = JSON.parse(cachedData);
         }
         else {
