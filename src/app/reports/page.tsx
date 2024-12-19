@@ -2,7 +2,7 @@
 import {DoughnutChart, IncomeExpenseBarChart, SavingsBarChart} from '../components/index';
 import useUserStore from "@/store/userStore";
 import { ExpenseComparisonChart } from "../components/index";
-import fetchDataAndCompare from '@/services/api';
+import fetchDataAndCompare from '@/services/stlouisfedApi';
 import { useState, useEffect } from 'react';
 
 
