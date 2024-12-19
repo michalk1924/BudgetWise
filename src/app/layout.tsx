@@ -20,7 +20,7 @@ export default function RootLayout({
 
   const router = useRouter();
   const pathname = usePathname();
-  const hideHeaderFooter = pathname === '/login' || pathname === '/signup' || pathname === '/forgotpassword' || pathname === '/homePage';
+  const hideHeaderFooter = pathname === '/login' || pathname === '/signup' || pathname === '/forgotpassword' || pathname === '/home-page';
 
   useEffect(() => {
     if (pathname === '/') {
@@ -30,7 +30,7 @@ export default function RootLayout({
         router.push('/home');
       }
       else {
-        router.push('/homePage');
+        router.push('/home-page');
       }
     }
 
