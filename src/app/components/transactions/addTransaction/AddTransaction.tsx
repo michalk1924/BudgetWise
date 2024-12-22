@@ -6,7 +6,7 @@ import { z } from "zod";
 import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./AddTransaction.module.css";
-import { Transaction } from "../../../../types/types";
+import { Transaction, Category } from "../../../../types/types";
 
 const transactionSchema = z.object({
     category: z.string().min(1, "Category is required"),
@@ -20,18 +20,11 @@ export type TransactionInput = z.infer<typeof transactionSchema>;
 
 interface AddTransactionProps {
     transactions: Transaction[];
+    categories: Category[];
     addTransaction: (transaction: Transaction) => void;
 }
 
-export default function AddTransaction({ transactions, addTransaction }: AddTransactionProps) {
-
-    const [categories, setCategories] = useState<string[]>([
-        "Food",
-        "Transport",
-        "Entertainment",
-        "Utilities",
-        "Others",
-    ]);
+export default function AddTransaction({ transactions, addTransaction, categories }: AddTransactionProps) {
 
     const {
         register,
@@ -46,7 +39,7 @@ export default function AddTransaction({ transactions, addTransaction }: AddTran
         const transaction: Transaction =
         {
             _id: "",
-            category: data.category,
+            category: new Category(),
             date: new Date(data.date),
             amount: Number(data.amount),
             description: data.description || "",
@@ -72,8 +65,8 @@ export default function AddTransaction({ transactions, addTransaction }: AddTran
                         Select a category
                     </option>
                     {categories.map((category, index) => (
-                        <option key={index} value={category}>
-                            {category}
+                        <option key={index} value={category.name}>
+                            {category.name}
                         </option>
                     ))}
                 </select>
