@@ -25,13 +25,11 @@ export type TransactionInput = z.infer<typeof transactionSchema>;
 
 const TransactionComp = ({ transaction, updateTransaction }: { transaction: Transaction, updateTransaction: (transaction: Transaction) => void }) => {
 
-    const isPositive = (type: string) => type === 'expense';
-
     const [isEditing, setIsEditing] = useState(false);
     const { register, handleSubmit, formState: { errors }, reset } = useForm<TransactionInput>({
         resolver: zodResolver(transactionSchema),
         defaultValues: {
-            category: transaction.category,
+            category: transaction.category?.name,
             date: transaction.date instanceof Date
                 ? transaction.date.toISOString().split('T')[0]
                 : new Date(transaction.date).toISOString().split('T')[0],
@@ -117,10 +115,10 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                     </div>
                 </div>
             ) : (
-                <div className={`${styles.transactionItem} ${isPositive(transaction.type) ? styles.expense : styles.income}`}>
+                <div className={`${styles.transactionItem} ${styles[transaction.type]}`}>
                     <div>{new Date(transaction.date).toLocaleDateString()}</div>
                     <div>{transaction.amount}</div>
-                    <div>{transaction.category}</div>
+                    <div>{transaction.category?.name}</div>
                     <div>{transaction.description || 'N/A'}</div>
                     <div>{transaction.paymentMethod}</div>
                     <div className={styles.icon} onClick={handleEdit}>

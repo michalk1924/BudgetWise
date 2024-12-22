@@ -65,7 +65,7 @@ function TransactionsList({ transactions, categories, updateTransaction }:
     const filterTransactions = () => {
         return transactions.filter((transaction) => {
             let isValid = true;
-            if (categoryFilter && transaction.category.toString() != categoryFilter) {
+            if (categoryFilter && transaction?.category?.toString() != categoryFilter) {
                 isValid = false;
             }
             if (dateFilter && !filterTransactionsByDate[dateFilter](transaction)) {
