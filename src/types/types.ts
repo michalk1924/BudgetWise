@@ -18,11 +18,9 @@ export interface User {
 
 export interface Category {
   _id: string;
-  type: 'general' | 'personal';
   name: string;
   description: string;
-  budget: number;
-  spent: number;
+  monthlyBudget: number;
   month: Date;
 }
 
