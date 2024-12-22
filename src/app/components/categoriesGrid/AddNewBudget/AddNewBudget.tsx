@@ -35,7 +35,6 @@ export default function AddNewBudget({ addCategory }: AddCategoryProps) {
 
     const newCategory: Category = {
       _id: Math.random().toString(36).substr(2, 8),
-      userId: "user123", // Replace with dynamic user ID if needed
       type: "general", // Default type
       name: category,
       description: "Custom category",
