@@ -38,26 +38,35 @@ export default function Home() {
 
     return (
         <div className={styles.container}>
+            <section className={styles.greeting}>
+
+                <h1>Hello {user?.username || "Name"}!</h1>
+                <h2> Great to have you here!</h2>
+            </section>
+
             <main className={styles.main}>
                 <section className={styles.stats}>
-                    <div className={`${styles.statBox} ${styles.statBoxWithImage7}`}>
-                        <h2>CHA-CHING!</h2>
-                        <h2> MY MONTHLY INCOMES</h2>
-                        <p className={styles.aaa}>{monthlyIncome}</p>
+                    <div className={styles.statBox}>
+                        <div className={styles.monthlyIncome}>
+                            <h2> Your Monthly Incomes</h2>
+                            <p className={styles.aaa}>{monthlyIncome}</p>
+                        </div>
                     </div>
-                    <div className={`${styles.statBox} ${styles.statBoxWithImage8}`}>
-                        <h2>MY MONTHLY EXPENSES</h2>
-                        <p className={styles.aaa}>{monthlyExpenses}</p>
+                    <div className={styles.statBox}>
+                        <div className={styles.monthlyExpenses}>
+                            <h2>Your Monthly Expenses</h2>
+                            <p className={styles.aaa}>{monthlyExpenses}</p>
+                        </div>
                     </div>
-                    <div className={`${styles.statBox} ${styles.statBoxWithImage9}`}>
-                        <h2>YOU SAVED THIS MONTH</h2>
-                        <p className={styles.aaa}>{monthlySavings}</p>
+                    <div className={styles.statBox}>
+                        <div className={styles.monthlySavings}>
+                            <h2>You Saved This Month</h2>
+                            <p className={styles.aaa}>{monthlySavings}</p>
+                        </div>
                     </div>
                 </section>
 
                 <section className={styles.greeting}>
-                    <h1>Hello {user?.username || "Name"}!</h1>
-                    <h2> Great to have you here!</h2>
                     <h2>What would you like to do today?</h2>
                 </section>
                 <AlertsList

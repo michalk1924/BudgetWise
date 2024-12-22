@@ -36,3 +36,42 @@
 
 
 
+/* Medium Screens */
+@media (max-width: 1024px) {
+  .gridContainer {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+  }
+}
+
+/* Small Screens */
+@media (max-width: 768px) {
+  .gridContainer {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+  }
+
+  .wrapper {
+    margin-top: 2%;
+    gap: 8px; 
+  }
+
+  .seeMore {
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra Small Screens */
+@media (max-width: 480px) {
+  .gridContainer {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+    gap: 15px;
+  }
+
+  .wrapper {
+    margin-top: 1%;
+    gap: 5px; 
+  }
+
+  .seeMore {
+    font-size: 0.75rem;
+  }
+}

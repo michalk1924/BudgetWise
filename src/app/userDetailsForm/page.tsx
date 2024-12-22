@@ -85,113 +85,6 @@ const UserDetailsForm = () => {
         entertainmentPreference: "",
         householdType: "",
     });
-    /*   function generateBudgetWithCategories(formData: FormData) {
-          const budget = {
-              savings: 0,
-              debtRepayment: 0,
-              expenses: {
-                  housing: 0,
-                  transportation: 0,
-                  car: 0,
-                  food: 0,
-                  insurance: 0,
-                  health: 0,
-                  education: 0,
-                  entertainment: 0,
-                  communication: 0,
-                  clothing: 0,
-                  children: 0,
-                  events: 0,
-                  leisure: 0,
-                  travel: 0,
-                  pets: 0,
-                  subscriptions: 0,
-                  other: 0,
-              },
-              discretionary: 0,
-          };
-      
-          const incomeRanges: { [key: string]: number } = {
-              "<3000": 3000,
-              "3000-5000": 4000,
-              "5000-10000": 7500,
-              ">10000": 12000,
-          };
-      
-          const fixedExpenseRanges: { [key: string]: number } = {
-              "<1000": 1000,
-              "1000-3000": 2000,
-              "3000-5000": 4000,
-              ">5000": 6000,
-          };
-      
-          const variableExpenseRanges: { [key: string]: number } = {
-              "<500": 500,
-              "500-1000": 750,
-              "1000-3000": 2000,
-              ">3000": 4000,
-          };
-      
-          const income = incomeRanges[formData.estimatedIncome] || 0;
-          const fixedExpenses = fixedExpenseRanges[formData.fixedExpenses] || 0;
-          const variableExpenses = variableExpenseRanges[formData.variableExpenses] || 0;
-      
-          const savingsPriorityPercentage =
-              formData.budgetPriority === "increaseSavings" ? 0.3 : 0.1;
-          const debtPriorityPercentage = formData.debts === "yes" ? 0.2 : 0.1;
-      
-          // Calculate savings
-          budget.savings = income * savingsPriorityPercentage;
-      
-          // Calculate debt repayment
-          if (formData.loans === "yes" || formData.debts === "yes") {
-              budget.debtRepayment = income * debtPriorityPercentage;
-          }
-      
-          // Adjust percentages based on user details
-          const categoryPercentages = {
-              housing: 0.30,
-              transportation: formData.hasCar === "yes" ? 0.05 : 0.10, // More for public transport if no car
-              car: formData.hasCar === "yes" ? 0.06 * formData.numberOfCars : 0,
-              food: 0.15 + (formData.dependents > 0 ? 0.05 : 0), // More food expenses for dependents
-              insurance: 0.05,
-              health: 0.05,
-              education: formData.dependents * 0.06, // Only for users with children
-              entertainment:
-                  formData.entertainmentPreference === "high"
-                      ? 0.10
-                      : formData.entertainmentPreference === "medium"
-                      ? 0.05
-                      : 0.03,
-              communication: 0.01,
-              clothing: 0.03,
-              children: formData.dependents *0.02,
-              events: 0.02,
-              leisure: 0.02,
-              travel: formData.hasPets === "yes" ? 0.02 : 0.03, 
-              pets: formData.hasPets === "yes" ? 0.01 * formData.numberOfPets : 0,
-              subscriptions: 0.02,
-              other: 0.2,
-          };
-      
-          // Divide expenses into categories
-          const remainingForExpenses = income - (budget.savings + budget.debtRepayment);
-      
-          for (const category in budget.expenses) {
-              budget.expenses[category as keyof typeof budget.expenses] =
-                  remainingForExpenses * categoryPercentages[category as keyof typeof budget.expenses];
-          }
-      
-          // Calculate discretionary funds
-          budget.discretionary =
-              income -
-              (budget.savings +
-                  budget.debtRepayment +
-                  Object.values(budget.expenses).reduce((sum, value) => sum + value, 0));
-      
-          return budget;
-      } */
-
 
 
     const handleInputChange = (
@@ -231,6 +124,7 @@ const UserDetailsForm = () => {
         <div className={styles.container}>
             <h1 className={styles.title}>Welcome to BudgetWise!</h1>
             <p className={styles.subtitle}>Please fill out the details below to get started:</p>
+            
             <form onSubmit={handleSubmit} className={styles.form}>
                 {/* Full Name */}
                 <label className={styles.label}>
