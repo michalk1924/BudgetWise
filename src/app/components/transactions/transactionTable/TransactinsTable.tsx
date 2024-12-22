@@ -157,10 +157,10 @@ function TransactionsList({ transactions, categories, updateTransaction }:
                                 {categories.map((category: Category, index) => (
                                     <div
                                         key={index}
-                                        className={`${styles.option} ${category.name === categoryFilter ? styles.selectedOption : ''}`}
-                                        onClick={() => handleCategoryChange(category.name)}
+                                        className={`${styles.option} ${category.categoryName === categoryFilter ? styles.selectedOption : ''}`}
+                                        onClick={() => handleCategoryChange(category.categoryName)}
                                     >
-                                        {category.name}
+                                        {category.categoryName}
                                     </div>
                                 ))}
                             </div>
@@ -168,11 +168,11 @@ function TransactionsList({ transactions, categories, updateTransaction }:
                     </div>
                 </div>
                 <div>Description</div>
-                <div>Payment Method</div> {/* הכנס את השדה Payment Method כאן */}
+                <div>Payment Method</div>
             </div>
 
             {currentTransactions.map((transaction) => (
-                <TransactionComp key={transaction._id} transaction={transaction} updateTransaction={updateTransaction} />
+                <TransactionComp key={transaction._id} transaction={transaction} categories={categories} updateTransaction={updateTransaction} />
             ))}
 
             <div className={styles.pagination}>

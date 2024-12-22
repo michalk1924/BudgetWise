@@ -46,12 +46,12 @@ const GridItem: React.FC<GridItemProps> = ({ category, isTotal = false, onUpdate
         {isEditing ? (
           <input
             type="text"
-            value={editedCategory.name}
-            onChange={(e) => handleInputChange("name", e.target.value)}
+            value={editedCategory.categoryName}
+            onChange={(e) => handleInputChange("categoryName", e.target.value)}
             className={styles.editInput}
           />
         ) : (
-          category.name
+          category.categoryName
         )}
       </div>
 
