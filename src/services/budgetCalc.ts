@@ -82,6 +82,7 @@ export function generateBudgetWithCategories(formData: FormData): Budget {
     if (formData.loans === "yes" || formData.debts === "yes") {
         budget.debtRepayment = income * debtPriorityPercentage;
     }
+    else  budget.debtRepayment =0;
 
     // Adjust percentages based on user details
     const categoryPercentages = {
@@ -97,7 +98,7 @@ export function generateBudgetWithCategories(formData: FormData): Budget {
                 ? 0.08
                 : formData.entertainmentPreference === "medium"
                     ? 0.05
-                    : 0.03,
+                    : 0.01,
         communication: 0.01,
         clothing: 0.03,
         children: formData.dependents * 0.02,
@@ -113,7 +114,7 @@ export function generateBudgetWithCategories(formData: FormData): Budget {
         (sum, value) => sum + value,
         0
     );
-    const normalizationFactor = (1 - savingsPriorityPercentage - debtPriorityPercentage) / totalPercentages;
+    const normalizationFactor = 1 / totalPercentages;
 
     for (const category in categoryPercentages) {
         categoryPercentages[category as keyof typeof categoryPercentages] *= normalizationFactor;
@@ -121,7 +122,7 @@ export function generateBudgetWithCategories(formData: FormData): Budget {
 
     // Divide expenses into categories
     const remainingForExpenses = income - (budget.savings + budget.debtRepayment);
-
+console.log(remainingForExpenses)
     for (const category in budget.expenses) {
         budget.expenses[category as keyof typeof budget.expenses] =
             remainingForExpenses * categoryPercentages[category as keyof typeof budget.expenses];
