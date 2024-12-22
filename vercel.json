@@ -1,9 +1,4 @@
 {
-    "functions": {
-      "api/crons/route.ts": {
-        "runtime": "vercel-node@18.0.0"
-      }
-    },
     "crons": [
       {
         "path": "/api/crons",
