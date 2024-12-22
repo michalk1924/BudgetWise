@@ -11,3 +11,5 @@ export const BUDGET_WARNING_THRESHOLD = 0.9;
 export const CACHE_KEY = "marketDataCache";
 export const CACHE_TIMESTAMP_KEY = "marketDataTimestamp";
 export const ONE_DAY = 24 * 60 * 60 * 1000;
+
+export const ITEMS_PER_PAGE = 10;

@@ -87,7 +87,6 @@ const Categories = () => {
               key="total"
               category={{
                 _id: "total",
-                userId: user?._id || "",
                 type: "general",
                 name: "Monthly Total Budget",
                 description: "Total budget for the month",

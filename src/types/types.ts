@@ -18,7 +18,6 @@ export interface User {
 
 export interface Category {
   _id: string;
-  userId: string;
   type: 'general' | 'personal';
   name: string;
   description: string;

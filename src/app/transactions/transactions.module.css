@@ -1,53 +1,35 @@
 .container {
-  min-height: 55vh;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 0;
+  padding: 2%;
 }
 
 .title {
-  position: absolute;
-  width: 30%;
-  height: 45vh;
-  top: 45%;
-  left: 83%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  display: grid;
-  place-items: center;
-  background-image: url('../../../public/Screenshot_2024-12-03_111853-removebg-preview.png');
+  /* text-align: center; */
+  /* background-image: url('../../../public/Screenshot_2024-12-03_111853-removebg-preview.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: contain; */
   font-family: 'Gagalin', Arial, sans-serif;
   font-size: 3vw;
   color: #536493;
   padding: 0;
   margin: 0;
-  z-index: 10;
-}
-
-
-.titleContainer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 30vw;
-  height: 30vh;
-  z-index: 1;
-  border-radius: 8px;
+  /* z-index: 10; */
 }
 
 .transactionsSection {
-  margin-bottom: 5vh;
+  margin-bottom: 3vh;
   text-align: center;
 }
 
 .total {
-  position: absolute;
-  top: 80%;
-  left: 80%;
-  transform: translate(-50%, -50%);
-  font-size: 2rem;
+  /* transform: translate(-50%, -50%); */
+  font-size: 1.5rem;
   color: #536493;
+  margin-top: 5rem;
 }
 
 .loader {
@@ -55,14 +37,45 @@
   aspect-ratio: 1;
   border-radius: 50%;
   animation: l5 1s infinite linear alternate;
-  margin: auto ;
+  margin: auto;
 }
 
 @keyframes l5 {
-  0%  { box-shadow: 20px 0 #EF5A6F, -20px 0 #EF5A6F;background: #EF5A6F}
-  33% { box-shadow: 20px 0 #EF5A6F, -20px 0 #EF5A6F; background: #FFF1DB}
-  66% { box-shadow: 20px 0 #FFF1DB, -20px 0 #D4BDAC;background: #D4BDAC}
-  100% { box-shadow: 20px 0 #D4BDAC, -20px 0 #FFF1DB;background: #536493}
+  0% {
+    box-shadow: 20px 0 #EF5A6F, -20px 0 #EF5A6F;
+    background: #EF5A6F
+  }
+
+  33% {
+    box-shadow: 20px 0 #EF5A6F, -20px 0 #EF5A6F;
+    background: #FFF1DB
+  }
+
+  66% {
+    box-shadow: 20px 0 #FFF1DB, -20px 0 #D4BDAC;
+    background: #D4BDAC
+  }
+
+  100% {
+    box-shadow: 20px 0 #D4BDAC, -20px 0 #FFF1DB;
+    background: #536493
+  }
 }
 
+.headers {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  text-align: center;
+  padding: 0;
+}
 
+.main{
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  text-align: center;
+  align-items: center;
+}

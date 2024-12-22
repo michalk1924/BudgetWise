@@ -6,8 +6,7 @@ import { Transaction, Category } from '../../../../types/types';
 import { DateFilter } from '@/consts/enums';
 import { TransactionComp } from "../../index";
 import useUserStore from "@/store/userStore";
-
-const ITEMS_PER_PAGE = 8;
+import { ITEMS_PER_PAGE } from '@/consts/consts';
 
 function TransactionsList({ transactions, updateTransaction }: { transactions: Transaction[], updateTransaction: (transaction: Transaction) => void }) {
 
@@ -18,14 +17,7 @@ function TransactionsList({ transactions, updateTransaction }: { transactions: T
     const [totalPages, setTotalPages] = useState<number>(0);
     const [categoryFilter, setCategoryFilter] = useState<string>('');
     const [dateFilter, setDateFilter] = useState<DateFilter>(DateFilter.Last30Days);
-    const categories = new Set(user?.categories?.map((cat: Category) => cat.name)); // Track existing triggerConditions
-    // const [categories, setCategories] = useState<string[]>([
-    //     "Food",
-    //     "Transport",
-    //     "Entertainment",
-    //     "Utilities",
-    //     "Others",
-    // ]);
+    const categories = new Set(user?.categories?.map((cat: Category) => cat.name)); 
     const [isDropdownOpenCategory, setIsDropdownOpenCategory] = useState<boolean>(false);
     const [isDropdownOpenDate, setIsDropdownOpenDate] = useState<boolean>(false);
 
@@ -190,7 +182,6 @@ function TransactionsList({ transactions, updateTransaction }: { transactions: T
                 <div>Description</div>
                 <div>Payment Method</div> {/* הכנס את השדה Payment Method כאן */}
             </div>
-
 
             {currentTransactions.map((transaction) => (
                 <TransactionComp key={transaction._id} transaction={transaction} updateTransaction={updateTransaction} />
