@@ -9,6 +9,7 @@ import styles from "./AddTransaction.module.css";
 import { Transaction, Category } from "../../../../types/types";
 
 const transactionSchema = z.object({
+    type: z.enum(['income', 'expense', 'saved']),
     category: z.string().min(1, "Category is required"),
     date: z.string().min(1, "Date is required")
         .refine((dateString) => new Date(dateString) < new Date(), { message: "Date must be before today", }),
@@ -39,13 +40,12 @@ export default function AddTransaction({ transactions, addTransaction, categorie
         const transaction: Transaction =
         {
             _id: "",
-            category: new Category(),
             date: new Date(data.date),
             amount: Number(data.amount),
             description: data.description || "",
             createdAt: new Date(),
             updatedAt: new Date(),
-            type: data.amount > 0 ? 'income' : 'expense',
+            type: data.type,
         }
         addTransaction(transaction);
         reset();
@@ -53,6 +53,21 @@ export default function AddTransaction({ transactions, addTransaction, categorie
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.addTransaction}>
+
+            <div className={styles.formGroup}>
+                <select className={styles.select} {...register("type")} defaultValue="">
+                    <option value="" disabled>
+                        Select a type
+                    </option>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                    <option value="saved">Saved</option>
+                </select>
+                {errors.type && (
+                    <p className={styles.error}>{String(errors.type.message)}</p>
+                )}
+            </div>
+
 
             {/* Category Selector */}
             <div className={styles.formGroup}>

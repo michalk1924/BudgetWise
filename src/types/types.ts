@@ -39,7 +39,7 @@ export interface Saving {
 
 export interface Transaction {
   _id: string;
-  category: Category;
+  category?: Category;
   type: 'income' | 'expense' | 'saved';
   amount: number;
   description: string;

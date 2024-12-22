@@ -86,7 +86,7 @@ function Transactions() {
 
   const handleAddTransaction = (transaction: Transaction) => {
     transaction._id = Math.random().toString(36).substr(2, 8);
-    if (transaction.category.name == 'saving') {
+    if (transaction?.category?.name == 'saving') {
       let saving = user?.savings.find((s) => s.goalName === transaction.description)
       if (saving && typeof saving.currentAmount === "number") {
         saving.currentAmount += transaction.amount;
@@ -95,7 +95,7 @@ function Transactions() {
     }
 
     else {
-      let category = user?.categories.find((c) => c.name === transaction.category.name)
+      let category = user?.categories.find((c) => c.name === transaction?.category?.name)
       if (category && typeof category.spent === "number") {
         if (transaction.type === "expense")
           category.spent -= transaction.amount;
