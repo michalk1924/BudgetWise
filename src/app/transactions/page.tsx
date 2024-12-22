@@ -1,163 +1,151 @@
 "use client"
 
 import React, { useState } from 'react';
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./transactions.module.css";
-import { TransactionTable } from '../components/index';
-import { Transaction } from '../../types/types';
+import { AddTransaction, TransactionTable } from '../components/index';
+import { Transaction, Saving, Category } from '../../types/types';
+import useUserStore from "../../store/userStore";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import userService from '@/services/user';
+import UploadExcel from "../components/UploadExcel/UploadExcel";
 
-const transactionSchema = z.object({
-  category: z.string().min(1, "Category is required"),
-  date: z.string().min(1, "Date is required"), amount: z
-    .number({ invalid_type_error: "amount must be a number" })
-    .positive("amount must be positive"),
-  description: z.string().optional(),
-});
-
-export type TransactionInput = z.infer<typeof transactionSchema>;
 
 function Transactions() {
 
-  const [transactions, setTransactions] = useState<Array<Transaction>>([
-    {
-      _id: "1",
-      userId: "user123",
-      category: "Food",
-      type: "expense", // סוג ההוצאה
-      amount: 100,
-      description: "Burger",
-      date: new Date("2022-01-01"),
-      createdAt: new Date("2022-01-01"),
-      updatedAt: new Date("2022-01-01"),
-    },
-    {
-      _id: "2",
-      userId: "user123",
-      category: "Transportation",
-      type: "expense", // סוג ההוצאה
-      amount: 50,
-      description: "Car rental",
-      date: new Date("2022-01-02"),
-      createdAt: new Date("2022-01-02"),
-      updatedAt: new Date("2022-01-02"),
-    },
-    {
-      _id: "3",
-      userId: "user123",
-      category: "Entertainment",
-      type: "expense", // סוג ההוצאה
-      amount: 20,
-      description: "Movie",
-      date: new Date("2022-01-03"),
-      createdAt: new Date("2022-01-03"),
-      updatedAt: new Date("2022-01-03"),
-    },
-  ]);
+  const { user, addTransaction, updateTransaction, updateSaving, updateCategory, loading } = useUserStore();
 
+  const queryClient = useQueryClient();
 
-  const [categories, setCategories] = useState<string[]>([
-    "Food",
-    "Transport",
-    "Entertainment",
-    "Utilities",
-    "Others",
-  ]);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<TransactionInput>({
-    resolver: zodResolver(transactionSchema),
+  const updateUserMutationAddTransaction = useMutation({
+    mutationFn: async ({ id, transaction }: { id: string; transaction: Transaction }) => {
+      if (user) {
+        const response = await userService.updateUser(id, { transactions: [...user?.transactions, transaction] });
+        addTransaction(transaction);
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error updating user:', error.message);
+    },
   });
 
-  const onSubmit: SubmitHandler<TransactionInput> = async (data: TransactionInput) => {
-    const transaction: Transaction =
-    {
-      _id: "",
-      category: data.category,
-      date: new Date(data.date),
-      amount: Number(data.amount),
-      description: data.description || "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      userId: "123",
-      type: data.amount > 0 ? 'income' : 'expense',
+  const updateUserMutationUpdateTransaction = useMutation({
+    mutationFn: async ({ id, transaction }: { id: string; transaction: Transaction }) => {
+      if (user) {
+        const response = await userService.updateUser(id, { transactions: user?.transactions.map((t) => t._id === transaction._id ? transaction : t) });
+        updateTransaction(transaction);
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error updating user:', error.message);
+    },
+  });
+
+  const updateUserMutationUpdateSaving = useMutation({
+    mutationFn: async ({ id, saving }: { id: string; saving: Saving }) => {
+      if (user) {
+        const response = await userService.updateUser(id, { savings: user?.savings.map((c) => c._id === saving._id ? saving : c) });
+        updateSaving(saving);
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error updating user:', error.message);
+    },
+  });
+  const updateUserMutationUpdateCategory = useMutation({
+    mutationFn: async ({ id, category }: { id: string; category: Category }) => {
+      if (user) {
+        const response = await userService.updateUser(id, { categories: user?.categories.map((c) => c._id === category._id ? category : c) });
+        updateCategory(category);
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error updating user:', error.message);
+    },
+  });
+
+
+  const handleAddTransaction = (transaction: Transaction) => {
+    transaction._id = Math.random().toString(36).substr(2, 8);
+    if (transaction.category == 'saving') {
+      let saving = user?.savings.find((s) => s.goalName === transaction.description)
+      if (saving && typeof saving.currentAmount === "number") {
+        saving.currentAmount += transaction.amount;
+        updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving });
+      }
     }
-    setTransactions(prev => [...prev, transaction]);
-    reset();
-  };
+
+    else {
+      let category = user?.categories.find((c) => c.name === transaction.category)
+      if (category && typeof category.spent === "number") {
+        if (transaction.type === "expense")
+          category.spent -= transaction.amount;
+        else
+          category.spent += transaction.amount;
+        updateUserMutationUpdateCategory.mutate({ id: user?._id ?? '', category });
+      }
+    }
+    updateUserMutationAddTransaction.mutate({ id: user?._id ?? '', transaction });
+  }
+
+  const handleUpdateTransaction = (transaction: Transaction) => {
+    updateUserMutationUpdateTransaction.mutate({ id: user?._id ?? '', transaction });
+  }
 
   return (
     <div className={styles.container}>
 
-      <h2 className={styles.title}>Manage My Transactions</h2>
+      {!loading && user && <div className={styles.main}>
+        {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
+          updateTransaction={handleUpdateTransaction}
+        />}
+        <UploadExcel />
+        {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction} />}
+      </div>}
 
-      <TransactionTable transactions={transactions} />
+      {!loading && user && <div className={styles.headers}>
+        <h2 className={styles.title}>Manage My Transactions</h2>
+        {user && <div className={styles.total}>
+          Total:
+          {user?.transactions?.reduce((amount, t) => {
+            if (t.type === 'expense') {
+              return amount - Number(t.amount || 0);
+            }
+            return amount + Number(t.amount || 0);
+          }, 0).toFixed(2)}
+          $
+        </div>}
+      </div>}
 
-      <div className={styles.total}>
-        Total: +$
-        {transactions.reduce((amount, t) => amount + Number(t.amount || 0), 0).toFixed(2)}
-      </div>
+      {loading && <div className={styles.loader}>Loading...</div>}
 
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.addTransaction}>
-        {/* Category Selector */}
-        <div className={styles.formGroup}>
-          <select
-            className={styles.select}
-            {...register("category")}
-            defaultValue=""
-          >
-            <option value="" disabled>
-              Select a category
-            </option>
-            {categories.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-          {errors.category && (
-            <p className={styles.error}>{String(errors.category.message)}</p>
-          )}
-        </div>
+      {!loading && user && user?.transactions?.length === 0 && <div>
+        No transactions found. Add some today!
+      </div>}
 
-        <div className={styles.formGroup}>
-          <input
-            className={styles.input}
-            type="date"
-            {...register("date")}
-          />
-          {errors.date && <p className={styles.error}>{errors.date.message}</p>}
-        </div>
+      {!loading && !user && <div className={styles.loader}>
+        {/* Please log in to access this feature. */}
+      </div>}
 
-        <div className={styles.formGroup}>
-          <input
-            className={styles.input}
-            type="number"
-            placeholder="Sum"
-            {...register("amount", { valueAsNumber: true })}
-          />
-          {errors.amount && <p className={styles.error}>{errors.amount.message}</p>}
-        </div>
-
-        <div className={styles.formGroup}>
-          <input
-            className={styles.input}
-            type="text"
-            placeholder="Description (Optional)"
-            {...register("description")}
-          />
-        </div>
-
-        <button className={styles.addButton} type="submit">
-          Add Transaction
-        </button>
-      </form>
     </div>
   )
 }

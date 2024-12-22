@@ -1,41 +1,36 @@
 .wrapper {
   display: flex;
-  flex-direction: column; /* Stack grid and "See More..." vertically */
-  align-items: flex-start; /* Align content to the left by default */
-  gap: 10px; /* Add spacing between grid and "See More..." */
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 10px; 
+  margin-top: 3%;
 }
 
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
-  width: 100%; /* Ensure the grid takes the full width */
+  width: 100%; 
 }
 
 .seeMore {
-  align-self: flex-end; /* Align "See More..." to the right */
+  align-self: flex-end; 
   cursor: pointer;
   font-size: 0.9rem;
-  color: #2f5f98;
+  color: #536493;
   text-decoration: underline;
 }
-.gridContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* עד 4 עמודות */
-  gap: 20px; /* מרווח בין הפריטים */
-  padding: 20px; /* ריווח פנימי מסביב ל-Grid */
-}
 
-/* עבור מסכים קטנים יותר */
+
 @media (max-width: 768px) {
   .gridContainer {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* יותר קומפקטי במסכים קטנים */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
   }
 }
 
 @media (max-width: 480px) {
   .gridContainer {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* עוד יותר קומפקטי במסכים קטנים מאוד */
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
   }
 }
 

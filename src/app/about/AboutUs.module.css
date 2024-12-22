@@ -1,0 +1,74 @@
+/* about-us.module.css */
+
+.container {
+  color: #536493;
+
+}
+
+.header {
+  background-image: url('/splash_title.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 30vh;
+  text-shadow: 10px 7px 10px #D4BDAC;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+}
+
+
+.header h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+.main {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
+  text-align: center; 
+  padding: 20px; 
+}
+
+.introduction {
+  max-width: 600px; 
+  line-height: 1.6; 
+  font-size: 1.2rem; 
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+
+
+.authButtons {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.button {
+  padding: 10px 20px;
+  color: #536493;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color:#D4BDAC;
+}
+

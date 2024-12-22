@@ -5,102 +5,74 @@ import styles from "./categories.module.css";
 import BudgetGrid from "../components/categoriesGrid/BudgetGrid/BudgetGrid";
 import AddNewBudget from "../components/categoriesGrid/AddNewBudget/AddNewBudget";
 import GridItem from "../components/categoriesGrid/GridItem/GridItem";
-import { UserCategory } from "../../types/types";
-
-const total:UserCategory={
-    _id: "total",
-    userId: "123",
-    type: "general",
-    name: "Total",
-    description: "Total budget for the month",
-    budget: 300,
-    spent: 150,
-    month: new Date(2024, 0), // January 2024,
-  };
-
-// Categories Data
-const categories: UserCategory[] = [
-  {
-    _id: "1",
-    userId: "123",
-    type: "general",
-    name: "Groceries",
-    description: "Spending on food and supplies",
-    budget: 100,
-    spent: 50,
-    month: new Date(2024, 0), // January 2024
-  },
-  {
-    _id: "2",
-    userId: "123",
-    type: "general",
-    name: "Transportation",
-    description: "Spending on public transport or fuel",
-    budget: 100,
-    spent: 30,
-    month: new Date(2024, 0), // January 2024
-  },
-  {
-    _id: "3",
-    userId: "123",
-    type: "personal",
-    name: "Entertainment",
-    description: "Movies, games, and other fun activities",
-    budget: 150,
-    spent: 70,
-    month: new Date(2024, 1), // February 2024
-  },
-  {
-    _id: "4",
-    userId: "123",
-    type: "personal",
-    name: "ll",
-    description: "Movies, games, and other fun activities",
-    budget: 50,
-    spent: 70,
-    month: new Date(2024, 1), // February 2024
-  },
-  {
-    _id: "5",
-    userId: "123",
-    type: "personal",
-    name: "llllllllll",
-    description: "Movies, games, and other fun activities",
-    budget: 70,
-    spent: 70,
-    month: new Date(2024, 1), // February 2024
-  },
-  {
-    _id: "6",
-    userId: "123",
-    type: "personal",
-    name: "yyyyy",
-    description: "Movies, games, and other fun activities",
-    budget: 75,
-    spent: 70,
-    month: new Date(2024, 1), // February 2024
-  },
-  {
-    _id: "7",
-    userId: "123",
-    type: "personal",
-    name: "yyllyyy",
-    description: "Movies, games, and other fun activities",
-    budget: 75,
-    spent: 70,
-    month: new Date(2024, 1), // February 2024
-  },
-];
+import { Category } from "../../types/types";
+import useUserStore from "@/store/userStore";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import userService from "@/services/user";
 
 const Categories = () => {
-  const totalBudget = categories.reduce(
-    (sum, category) => sum + category.budget,
-    0
+  const { user, addCategory, updateCategory } = useUserStore();
+
+  const queryClient = useQueryClient();
+
+  const updateUserMutation = useMutation({
+    mutationFn: async ({
+      id,
+      category,
+    }: {
+      id: string;
+      category: Category;
+    }) => {
+      if (user) {
+        const response = await userService.updateUser(id, {
+          categories: [...user?.categories, category],
+        });
+        addCategory(category);
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+    onError: (error: Error) => {
+      console.error("Error updating user:", error.message);
+    },
+  });
+
+  const total = user?.categories?.reduce(
+    (acc, category) => {
+      acc.budget += category.budget;
+      acc.spent += category.spent;
+      return acc;
+    },
+    { budget: 0, spent: 0 }
   );
-  const totalSpent = categories.reduce(
-    (sum, category) => sum + category.spent,
-    0
-  );
+
+  const updateUserMutationUpdateCategory = useMutation({
+    mutationFn: async ({ id, category }: { id: string; category: Category }) => {
+      if (user) {
+        const response = await userService.updateUser(id, { categories: user?.categories.map((c) => c._id === category._id ? category : c) });
+        updateCategory(category);
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error updating user:', error.message);
+    },
+  });
+  const handleAddCategory = (category: Category) => {
+    category._id = Math.random().toString(36).substr(2, 8);
+    updateUserMutation.mutate({ id: user?._id ?? "", category });
+  };
+
+  const handleUpdateCategory = (category: Category) => {
+    updateUserMutationUpdateCategory.mutate({ id: user?._id ?? "", category });
+  };
 
   return (
     <div className={styles.page}>
@@ -109,19 +81,34 @@ const Categories = () => {
           <span>BUDGET SETTING</span>
         </header>
 
-        {/* Totals Section */}
         <section className={styles.totalsSection}>
-          <GridItem key={1} category={total} isTotal={true} />
+          {total && (
+            <GridItem
+              key="total"
+              category={{
+                _id: "total",
+                type: "general",
+                name: "Monthly Total Budget",
+                description: "Total budget for the month",
+                budget: total.budget,
+                spent: total.spent,
+                month: new Date(),
+              }}
+              isTotal={true}
+            />
+          )}
         </section>
       </section>
+
       <section className={styles.mainSection}>
         <section className={styles.tableSection}>
-          {/* Pass categories as a prop to BudgetGrid */}
-          <BudgetGrid categories={categories} />
+          {user && user?.categories?.length > 0 && (
+            <BudgetGrid categories={user?.categories || []} onUpdateCategory={handleUpdateCategory}/>
+          )}
         </section>
 
         <section className={styles.addBudgetSection}>
-          <AddNewBudget />
+          {user && <AddNewBudget addCategory={handleAddCategory} />} 
         </section>
       </section>
     </div>

@@ -1,15 +1,10 @@
 .container {
-    font-family: Arial, sans-serif;
-    background: #f9f9f9;
     color: #333;
     padding: 20px;
-}
+    color: #536493;
+    text-shadow:0 10px 10px #FFF1DB;
 
-/* .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-} */
+}
 
 .nav a {
     margin: 0 10px;
@@ -30,36 +25,40 @@
 .statBox {
     padding: 20px;
     border-radius: 5px;
-    color: #fff;
     width: 30%;
     text-align: center;
 }
 
 .greeting {
+    font-size:xx-large;
     margin: 40px 0;
+    font-family: 'Malvie Trial', Arial, sans-serif;
+
 }
 
 .actions button {
     margin: 10px;
     padding: 10px 20px;
     border: none;
-    /* background: #0070f3; */
-    /* color: #fff; */
     border-radius: 5px;
     cursor: pointer;
 }
 
 .statBoxWithImage7 {
-    background-image: url('/7.jpg');
+    background-image: url('/7-removebg-preview.png');
     background-size: cover;
 }
 
 .statBoxWithImage8 {
-    background-image: url('/8.jpg');
+    background-image: url('/8-removebg-preview.png');
     background-size: cover;
 }
 
 .statBoxWithImage9 {
-    background-image: url('/9.jpg');
+    background-image: url('/9-removebg-preview.png');
     background-size: cover;
+}
+
+.aaa {
+    font-size: x-large;
 }

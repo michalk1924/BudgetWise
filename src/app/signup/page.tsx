@@ -8,6 +8,7 @@ import authService from "@/services/auth";
 import { googleSignup } from "../../services/signInWithGoogle";
 import { useRouter } from "next/navigation";
 import { showSuccessAlert, showErrorAlert } from "../../services/alerts";
+import useUserStore from "../../store/userStore";
 
 type FormFields = z.infer<typeof schema>;
 
@@ -20,6 +21,7 @@ const schema = z.object({
 export default function Home() {
 
     const router = useRouter();
+    const { setUser } = useUserStore();
 
     const goToLogin = () => {
         router.push("/login");
@@ -37,8 +39,9 @@ export default function Home() {
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
-            await authService.signup(data);
-            await showSuccessAlert("You Signed up successfully");
+            const user = await authService.signup(data);
+            setUser(user);
+            await showSuccessAlert("Welcome!", "You Signed up successfully", 1000);
             router.push("/home");
         } catch (error: any) {
             console.error("Error creating user:", error);
@@ -51,12 +54,18 @@ export default function Home() {
 
     const loginWithGoogle = async () => {
         try {
-            await googleSignup();
-            await showSuccessAlert("You have logged in successfully!");
-            router.push("/home");
+            const user = await googleSignup();
+            if (user) {
+                setUser(user);
+                await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
+                router.push("/home");
+            } else {
+                await showErrorAlert("Failed to login with Google.");
+            }
         }
         catch (error: any) {
             console.error("Error signing up with Google:", error);
+            await showErrorAlert("Failed to login with Google.");
         }
     };
 
@@ -104,7 +113,7 @@ export default function Home() {
                     <button className={styles.googleButton} onClick={loginWithGoogle}>Signup with Google </button>
                 </div>
                 <div className={styles.movePage}>
-                    <p>Already have an account? <span onClick={goToLogin}>Login</span></p>
+                    <p onClick={goToLogin}>Already have an account? <span >Login</span></p>
                 </div>
             </div>
         </div>

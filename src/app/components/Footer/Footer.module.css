@@ -1,0 +1,137 @@
+.footer {
+  margin-top: auto;
+  font-weight: lighter;
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footerTop {
+  text-align: center;
+  background-image: url('/backg-footer.jpeg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-size: cover;
+  height: 200px;
+  width: 100%;
+  position: relative;
+}
+
+.footerTop form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.footerTop input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 300px;
+}
+
+.footerTop button {
+  padding: 10px 20px;
+  background-color: #D4BDAC;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.footerTop button:hover {
+  background-color: #e67e22;
+}
+
+.footerMain {
+  background-color: #536493;
+  color: #fff;
+  padding: 20px;
+}
+
+.footerMiddle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.footerSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+
+}
+
+.footerTop>* {
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+
+.footerTop::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #5364937e;
+  z-index: 1;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.icons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-between;
+  margin-left: auto;
+}
+
+.companies {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.companies a {
+  width: 75px;
+}
+
+.socialMedia a img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.footerBottom {
+  text-align: center;
+  font-size: 0.9rem;
+  border-top: 1px solid #444;
+  padding-top: 10px;
+}
+
+.footerBottom a {
+  margin: 0 10px;
+}
+
+.form{
+  color: black;
+}

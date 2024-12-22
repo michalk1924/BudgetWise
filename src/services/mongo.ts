@@ -73,7 +73,7 @@ export async function putDocument(
     }
 }
 
-export async function updateDocument(
+export async function patchDocument(
     client: MongoClient,
     collection: string,
     documentId: string,
@@ -119,8 +119,20 @@ export async function getUserByEmail(client: any, email: string) {
 export async function getPassword(client: any, user_id: string) {
     try {
         const db = client.db(process.env.DB_NAME);
-        const user = await db.collection('passwords').findOne({ user_id: user_id });
-        return user;
+        const passwordObj = await db.collection('passwords').findOne({ user_id: user_id });
+        return passwordObj;
+    }
+    catch (error) {
+        console.error('Error getting user by email:', error);
+        return null;
+    }
+}
+
+export async function getCodeByUserID(client: any, user_id: string){
+    try {
+        const db = client.db(process.env.DB_NAME);
+        const codeObj = await db.collection('codes').findOne({ user_id: user_id });
+        return codeObj;
     }
     catch (error) {
         console.error('Error getting user by email:', error);

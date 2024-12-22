@@ -1,77 +1,52 @@
-/* General Page Layout */
 .page {
-    color: #2f5f98;
-    padding: 20px;
+    color: #536493;
     display: flex;
     flex-direction: row;
-  }
+    height: 80vh;
+    gap: 5%; 
+    margin: 0 3% 3% 3%;
+}
   
-  /* Title Section */
-  .title {
-    display: grid; /* Enable Grid layout */
-    place-items: center; /* Centers content both horizontally and vertically */
-    text-align: center; /* Align multiline text */
-    background-image: url('/splash.png'); /* Replace with your watercolor splash */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    font-family: 'Painting_With_Chocolate', Arial, sans-serif;
-    font-size: 3rem;
-    font-weight: bold;
-    color: #2f5f98;
+  .leftSection {
+    display: flex;
+    flex-direction: column;
     flex: 1;
-    padding: 5%;
-    height: 400px; /* Set a fixed height */
+    justify-content: space-around;
   }
   
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .title {
-      height: 200px; /* Smaller height for smaller screens */
-      font-size: 2.5rem; /* Adjust font size */
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .title {
-      height: 150px; /* Smaller height for very small screens */
-      font-size: 2rem; /* Adjust font size */
-    }
-  }
-  
-  
-  .title-text h1 {
-    margin: 0; /* Remove default margin */
-    line-height: 1; /* Adjust line spacing if needed */
-  }
-  
-  
-  .header h1 {
-    margin: 0;
-    font-size: 3rem;
+  .title {
+    display: grid; 
+    place-items: center; 
+    text-align: center; 
+    align-items: center;
+    text-shadow: 10px 7px 10px #D4BDAC;
+    font-family: 'Painting_With_Chocolate', Arial, sans-serif;
+    font-size: 4rem;
     font-weight: bold;
+    
+  }
+  
+  .totalsSection {
+    padding: 10px;
   }
   
   .mainSection {
-    display:flex;
-    flex-direction: column;
-    flex:4;
-  }
-  .addBudgetSection {
-    margin-top: 150px; /* Adjust this value as needed */
-  }
- /* Totals Section */
-.totalsSection {
     display: flex;
-    justify-content: space-between; /* Align items horizontally */
-    margin: 20px 0; /* Space above and below */
-    padding: 10px;
-  
+    flex-direction: column;
+    flex: 3; 
+    position: relative;
+    overflow: hidden; 
+
   }
   
+  .tableSection {
+    flex-grow: 1; 
+    overflow-y: auto; 
+  }
   
-  
-  
-  
- 
+  .addBudgetSection {
+    margin-top: auto; 
+    padding: 20px;
+    flex-shrink: 0;
+  }
   

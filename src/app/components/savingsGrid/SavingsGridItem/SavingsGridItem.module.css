@@ -1,0 +1,35 @@
+
+.gridItem {
+    border-radius: 10px;
+    padding: 30px;
+    background-color: #fbf6f3;
+    box-shadow: 0px 4px 10px #D4BDAC;
+    text-align: center;
+    flex-direction: column;
+    justify-items: center;
+    color: #536493;
+  }
+
+  .goalName {
+
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow:0px 4px 10px #536493;
+  }
+  
+  .deadline {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #536493;
+
+  }
+  
+  .deadline {
+    display: block;
+    margin-top: 10px; 
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #536493;
+  }
+  

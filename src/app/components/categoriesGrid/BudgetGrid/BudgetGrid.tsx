@@ -4,21 +4,24 @@ import React, { useState } from "react";
 import styles from "./BudgetGrid.module.css";
 import GridItem from "../GridItem/GridItem";
 import YearMonthSelector from "../YearMonthSelector/YearMonthSelector";
-import { UserCategory } from "../../../../types/types";
+import { Category } from "../../../../types/types";
 
 interface BudgetGridProps {
-  categories: UserCategory[];
+  categories: Category[];
+  onUpdateCategory?: (updatedCategory: Category) => void; 
+
 }
 
-const BudgetGrid: React.FC<BudgetGridProps> = ({ categories }) => {
+const BudgetGrid: React.FC<BudgetGridProps> = ({ categories , onUpdateCategory }) => {
   const [selectedYear, setSelectedYear] = useState<number>(2024);
-  const [selectedMonth, setSelectedMonth] = useState<number>(0); // Default to January
+  const [selectedMonth, setSelectedMonth] = useState<number>(0);
+
 
   // Filter categories by selected month and year
   const filteredCategories = categories.filter(
     (category) =>
-      category.month.getFullYear() === selectedYear &&
-      category.month.getMonth() === selectedMonth
+      new Date(category.month).getFullYear() === selectedYear &&
+      new Date(category.month).getMonth() === selectedMonth
   );
 
   return (
@@ -31,10 +34,9 @@ const BudgetGrid: React.FC<BudgetGridProps> = ({ categories }) => {
         onMonthChange={setSelectedMonth}
       />
 
-      {/* Grid */}
       <div className={styles.gridContainer}>
         {filteredCategories.map((category, index) => (
-          <GridItem key={index} category={category} />
+          <GridItem key={index} category={category} onUpdateCategory={onUpdateCategory} />
         ))}
       </div>
       <span className={styles.seeMore}>See More...</span>
