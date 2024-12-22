@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "./UserDetailsForm.module.css";
+import styles from "./userDetailsForm.module.css";
 import { generateBudgetWithCategories } from "@/services/budgetCalc";
 import { Category } from "@/types/types";
 import useUserStore from "@/store/userStore";
