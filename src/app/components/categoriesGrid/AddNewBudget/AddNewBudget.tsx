@@ -11,7 +11,7 @@ export default function AddNewBudget({ addCategory }: AddCategoryProps) {
   const [formData, setFormData] = useState({
     category: "",
     budget: "",
-    spent: "",
+    description: "",
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -26,7 +26,7 @@ export default function AddNewBudget({ addCategory }: AddCategoryProps) {
 
   // Handle form submission
   const handleSubmit = () => {
-    const { category, budget, spent } = formData;
+    const { category, budget, description } = formData;
 
     if (!category || !budget) {
       setError("Please fill in all required fields.");
@@ -37,17 +37,17 @@ export default function AddNewBudget({ addCategory }: AddCategoryProps) {
       _id: Math.random().toString(36).substr(2, 8),
       type: "general", // Default type
       name: category,
-      description: "Custom category",
+      description: description,
       budget: parseFloat(budget),
-      spent: parseFloat(spent) || 0,
-      month: new Date(), // Assign current month
+      spent:  0,
+      month: new Date(), 
     };
 
     // Call the parent function to add the category
     addCategory(newCategory);
 
     // Clear the form
-    setFormData({ category: "", budget: "", spent: "" });
+    setFormData({ category: "", budget: "", description: "" });
     setError(null);
   };
 
@@ -63,6 +63,14 @@ export default function AddNewBudget({ addCategory }: AddCategoryProps) {
           placeholder="Category"
           className={styles.input}
         />
+          <input
+          type="text"
+          name="description"
+          value={formData.description}
+          onChange={handleInputChange}
+          placeholder="description"
+          className={styles.input}
+        />
         <input
           type="number"
           name="budget"
@@ -71,14 +79,7 @@ export default function AddNewBudget({ addCategory }: AddCategoryProps) {
           placeholder="Budget"
           className={styles.input}
         />
-        <input
-          type="number"
-          name="spent"
-          value={formData.spent}
-          onChange={handleInputChange}
-          placeholder="Already Spent"
-          className={styles.input}
-        />
+      
         {error && <p className={styles.error}>{error}</p>}
         <button onClick={handleSubmit} className={styles.submitButton}>
           Add 

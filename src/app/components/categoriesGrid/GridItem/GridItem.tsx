@@ -42,7 +42,7 @@ const GridItem: React.FC<GridItemProps> = ({ category, isTotal = false, onUpdate
   return (
     <div className={isTotal ? styles.gridTotalItem : styles.gridItem}>
       {/* Category Name */}
-      <div className={isTotal ? styles.categoryTotalName : styles.categoryName}>
+      <div className={isTotal ? styles.categoryTotalName : styles.categoryName}  title={category.description} >
         {isEditing ? (
           <input
             type="text"
@@ -58,12 +58,12 @@ const GridItem: React.FC<GridItemProps> = ({ category, isTotal = false, onUpdate
       {/* Spending Details */}
       <div className={styles.details}>
         <span className={styles.spent}>
-          <h1 className={styles.numeric}>${category.spent}</h1>
+          <h1 className={styles.numeric}>${category.spent.toFixed(2)}</h1>
           <span className={styles.text}>spent</span>
         </span>
         <span className={styles.left}>
           <h1 className={styles.numeric}>
-            ${category.budget - category.spent}
+          ${((category.budget - category.spent).toFixed(2))}
           </h1>
           <span className={styles.text}>left</span>
         </span>
@@ -79,12 +79,12 @@ const GridItem: React.FC<GridItemProps> = ({ category, isTotal = false, onUpdate
           {isEditing ? (
             <input
               type="number"
-              value={editedCategory.budget}
+              value={editedCategory.budget.toFixed(2)}
               onChange={(e) => handleInputChange("budget", Number(e.target.value))}
               className={styles.editInput}
             />
           ) : (
-            <h1 className={styles.numeric}>${category.budget}</h1>
+            <h1 className={styles.numeric}>${category.budget.toFixed(2)}</h1>
           )}
         </span>
         {!isEditing ? (

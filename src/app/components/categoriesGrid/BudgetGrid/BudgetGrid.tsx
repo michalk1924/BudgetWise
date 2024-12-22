@@ -13,8 +13,8 @@ interface BudgetGridProps {
 }
 
 const BudgetGrid: React.FC<BudgetGridProps> = ({ categories , onUpdateCategory }) => {
-  const [selectedYear, setSelectedYear] = useState<number>(2024);
-  const [selectedMonth, setSelectedMonth] = useState<number>(0);
+  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth());
 
 
   // Filter categories by selected month and year
