@@ -13,6 +13,7 @@ interface UserStore {
   setUser: (user: User) => void;
   clearUser: () => void;
   addCategory: (category: Category) => void;
+  initCategories: (categories:Category[]) =>void;
   updateCategory: (updatedCategory:Category) => void;
   removeCategory: (categoryId: string) => void;
   addTransaction: (transaction: Transaction) => void;
@@ -59,6 +60,14 @@ const useUserStore = create<UserStore>()(
             categories: [...state.user!.categories, category],
           },
         })),
+
+        initCategories: (categories) =>
+          set((state) => ({
+            user: {
+              ...state.user!,
+              categories: categories,
+            },
+          })),
 
       updateCategory: (updatedCategory) =>
         set((state) => ({
