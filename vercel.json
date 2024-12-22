@@ -1,8 +1,14 @@
 {
+
+    "functions": {
+        "api/crons/route.ts": {
+            "runtime": "nodejs18.x"
+        }
+    },
     "crons": [
         {
-            "path": "/api/scheduler",
-            "schedule": "0 22 * * *"
+            "path": "/api/crons",
+            "schedule": "* * * * *"
         }
     ]
 }
