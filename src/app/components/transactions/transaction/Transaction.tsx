@@ -61,7 +61,7 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
     return (
         <div key={transaction._id}>
             {isEditing ? (
-                <div className={`${styles.transactionItem} ${isPositive(transaction.type) ? styles.expense : styles.income}`}>
+                <div className={`${styles.transactionItem} ${styles[transaction.type]}`}>
                     <div>
                         <input
                             type="date"
