@@ -136,3 +136,16 @@
   font-weight: bold;
   color: #33448e;
 }
+
+
+.hiddenOnSmall {
+  display: block; /* Default: show all */
+}
+
+@media (max-width: 768px) {
+ 
+
+  .hiddenOnSmall {
+    display: none; 
+  }
+}

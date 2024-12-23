@@ -2,24 +2,19 @@
   color: #536493;
   padding: 5px 20px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
-  font-family: 'Malvie Trial', Arial, sans-serif;
+  font-family: "Malvie Trial", Arial, sans-serif;
   z-index: 100;
   width: 100%;
+  position: relative;
 }
 
 .navbar {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-}
-
-.brand h1 {
-  margin: 0;
-  font-size: 32px;
-
 }
 
 .menu {
@@ -51,29 +46,67 @@
 
 .active a {
   color: #1d3c6a;
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 .userAccount {
-  margin-left: auto; 
+  margin-left: auto;
   cursor: pointer;
 }
 
 .userAccount a {
   display: flex;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
   color: #536493;
   text-decoration: none;
   transition: color 0.3s ease;
 }
-@media (max-width: 768px) {
+
+.logoutButton {
+  cursor: pointer;
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #536493;
+  cursor: pointer;
+  z-index: 101;
+}
+
+/* For small screens */
+@media (max-width: 900px) {
+  .hamburger {
+    display: block;
+  }
+
+  .navbar {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    position: absolute;
+    top: 70px; /* Adjust based on header height */
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+
+  .navbar.active {
+    display: flex;
+  }
+
   .menu {
     flex-direction: column;
     gap: 10px;
   }
-}
 
-.logoutButton{
-  cursor: pointer;
+  .menu li {
+    justify-content: flex-start;
+  }
 }

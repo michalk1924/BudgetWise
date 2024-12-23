@@ -78,7 +78,6 @@ const SavingsGridItem: React.FC<SavingGridItemProps> = ({
         isEditing={isEditing}
         onTargetChange={(value) => handleInputChange("targetAmount", value)}
       />
-
       {/* תאריך היעד */}
       {isEditing ? (
         <input

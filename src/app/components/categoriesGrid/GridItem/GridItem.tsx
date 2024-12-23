@@ -25,6 +25,20 @@ const GridItem: React.FC<GridItemProps> = ({
   const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
   const [editedCategory, setEditedCategory] = useState<Category>(category); // State for edited category
 
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  // Listen for screen size changes
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 768); // Adjust breakpoint as needed
+    };
+
+    handleResize(); // Check initial size
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleEditClick = () => {
     setIsEditing(true); // Enable edit mode
   };
@@ -53,6 +67,7 @@ const GridItem: React.FC<GridItemProps> = ({
   return (
     <div className={isTotal ? styles.gridTotalItem : styles.gridItem}>
       {/* Category Name */}
+      <div className={isTotal ? styles.categoryTotalName : styles.categoryName} >
       <div
         className={isTotal ? styles.categoryTotalName : styles.categoryName}
         title={category.description}
@@ -88,8 +103,9 @@ const GridItem: React.FC<GridItemProps> = ({
 
       {/* Budget Info */}
       <div className={styles.details}>
+       
         <span className={styles.budget}>
-          Budget:{" "}
+          { isTotal && isSmallScreen ? "Monthly Budget: ": "Budget: "}
           {isEditing ? (
             <input
               type="number"
@@ -117,7 +133,7 @@ const GridItem: React.FC<GridItemProps> = ({
             </button>
           </div>
         )}
-      </div>
+        </div>
     </div>
   );
 };

@@ -1,47 +1,107 @@
-
 .addBudgetSection {
-    padding: 20px;
-    align-items: center;
-    margin:10px;
-  }
-  
-  .addBudgetContainer {
-    display: flex; 
-    align-items: center; 
-    gap: 20px; 
-  }
-  
-  .addBudgetTitle {
-    font-size: 1rem;
-    color: #536493;
-    white-space: nowrap; 
-  }
-  
-  .form {
-    display: flex; 
-    gap: 10px;
-    color: #536493;
-  }
-  
-  .input {
-    padding: 10px;
-    color: #536493;
-    background-color: #fbf6f3;
-    box-shadow: 0px 4px 6px #D4BDAC;
-    border-radius: 8px;
-    flex: 1; 
-    max-width: 150px; 
-  }
-  
-  .input::placeholder {
-    color: #2f5e98af; 
-    font-style: italic; 
-    font-size: 0.8rem;
+  padding: 20px;
+  align-items: center;
+  margin: 10px;
+  text-align: center; /* Center align content */
+}
 
+.addBudgetContainer {
+  display: flex; 
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  align-items: center; 
+  gap: 20px; 
+  justify-content: center; /* Center content horizontally */
+}
+
+.addBudgetTitle {
+  font-size: 1.2rem; /* Slightly larger for better visibility */
+  color: #536493;
+  white-space: nowrap; 
+  text-align: center; /* Center align title */
+}
+
+.form {
+  display: flex; 
+  flex-wrap: wrap; /* Ensure inputs wrap on smaller screens */
+  gap: 10px;
+  color: #536493;
+  justify-content: center; /* Center the form content */
+  width: 100%; /* Make form responsive */
+  max-width: 600px; /* Limit the width */
+}
+
+.input {
+  padding: 10px;
+  color: #536493;
+  background-color: #fbf6f3;
+  box-shadow: 0px 4px 6px #D4BDAC;
+  border-radius: 8px;
+  flex: 1; 
+  max-width: 200px; /* Increase max width for better usability */
+  min-width: 120px; /* Set a minimum width */
+  font-size: 0.9rem;
+}
+
+.input::placeholder {
+  color: #2f5e98af; 
+  font-style: italic; 
+  font-size: 0.8rem;
+}
+
+.submitButton {
+  color: white;
+  background-color: #536493;
+  border-radius: 8px;
+  padding: 10px 15px; /* Add more padding for better UX */
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #2f5e98; /* Slightly darker shade on hover */
+}
+
+/* Media Query for Smaller Screens */
+@media (max-width: 768px) {
+  .addBudgetContainer {
+      flex-direction: column; /* Stack elements vertically */
+      gap: 15px;
   }
-  .submitButton{
-    color:white;
-    background-color: #536493;
-    border-radius: 8px;
-    padding:5px;
+
+  .form {
+      gap: 5px; /* Reduce gap on smaller screens */
   }
+
+  .input {
+      max-width: 100%; /* Inputs take full width */
+  }
+
+  .submitButton {
+      width: 100%; /* Button takes full width */
+  }
+}
+
+/* Media Query for Very Small Screens */
+@media (max-width: 480px) {
+  .addBudgetSection {
+      padding: 10px; /* Reduce padding */
+  }
+
+  .addBudgetTitle {
+      font-size: 1rem; /* Adjust title size */
+  }
+
+  .form {
+      gap: 8px; /* Adjust gap */
+  }
+
+  .input {
+      font-size: 0.8rem; /* Reduce font size */
+  }
+
+  .submitButton {
+      padding: 8px; /* Adjust button padding */
+      font-size: 0.9rem; /* Adjust button font size */
+  }
+}
