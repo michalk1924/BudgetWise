@@ -87,12 +87,11 @@ const Categories = () => {
               key="total"
               category={{
                 _id: "total",
-                type: "general",
-                name: "Monthly Total Budget",
+                categoryName: "Monthly Total Budget",
                 description: "Total budget for the month",
                 budget: total.budget,
                 spent: total.spent,
-                month: new Date(),
+                // month: new Date(),
               }}
               isTotal={true}
             />

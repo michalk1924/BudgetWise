@@ -29,7 +29,7 @@ export interface Category {
   description: string;
   budget: number;
   spent: number;
-  monthlyBudget: MonthlyBudget[];
+  monthlyBudget?: MonthlyBudget[];
 }
 
 

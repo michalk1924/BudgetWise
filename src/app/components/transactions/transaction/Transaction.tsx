@@ -5,9 +5,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./TransactionComp.module.css";
-import { Transaction,Category } from "../../../../types/types";
+import { Transaction, Category } from "../../../../types/types";
 import { FaPencilAlt } from "react-icons/fa";
 import { FiSave } from "react-icons/fi";
+
 
 const transactionSchema = z.object({
     category: z.string().min(1, "Category is required"),
@@ -23,7 +24,7 @@ const transactionSchema = z.object({
 
 export type TransactionInput = z.infer<typeof transactionSchema>;
 
-const TransactionComp = ({ transaction, updateTransaction, categories }: { transaction: Transaction,  categories: Category[], updateTransaction: (transaction: Transaction) => void }) => {
+const TransactionComp = ({ transaction, updateTransaction, categories }: { transaction: Transaction, categories: Category[], updateTransaction: (transaction: Transaction) => void }) => {
 
     const [isEditing, setIsEditing] = useState(false);
     const { register, handleSubmit, formState: { errors }, reset } = useForm<TransactionInput>({
@@ -79,7 +80,7 @@ const TransactionComp = ({ transaction, updateTransaction, categories }: { trans
                         />
                         {errors.amount && <p className={styles.error}>{errors.amount.message}</p>}
                     </div>
-                    <div>
+                    {/* <div>
                         <select {...register("category")} className={styles.inlineSelect}>
                             <option value="Food">Food</option>
                             <option value="Transport">Transport</option>
@@ -88,7 +89,20 @@ const TransactionComp = ({ transaction, updateTransaction, categories }: { trans
                             <option value="Others">Others</option>
                         </select>
                         {errors.category && <p className={styles.error}>{errors.category.message}</p>}
+                    </div> */}
+
+                    <div>
+                        <select {...register("category")} className={styles.inlineSelect}>
+                            {categories.map((category) => (
+                                <option key={category._id} value={category.categoryName}>
+                                    {category.categoryName}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.category && <p className={styles.error}>{errors.category.message}</p>}
                     </div>
+
+
                     <div>
                         <input
                             type="text"

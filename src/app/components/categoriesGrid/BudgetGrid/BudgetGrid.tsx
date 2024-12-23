@@ -19,20 +19,20 @@ const BudgetGrid: React.FC<BudgetGridProps> = ({ categories , onUpdateCategory }
 
   // Filter categories by selected month and year
   const filteredCategories = categories.filter(
-    (category) =>
-      new Date(category.month).getFullYear() === selectedYear &&
-      new Date(category.month).getMonth() === selectedMonth
+    (category) => category
+      // new Date(category.month).getFullYear() === selectedYear &&
+      // new Date(category.month).getMonth() === selectedMonth
   );
 
   return (
     <div className={styles.wrapper}>
       {/* Year and Month Selector */}
-      <YearMonthSelector
+      {/* <YearMonthSelector
         selectedYear={selectedYear}
         selectedMonth={selectedMonth}
         onYearChange={setSelectedYear}
         onMonthChange={setSelectedMonth}
-      />
+      /> */}
 
       <div className={styles.gridContainer}>
         {filteredCategories.map((category, index) => (
