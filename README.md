@@ -32,12 +32,38 @@ Whether it's tracking daily expenses, setting monthly budgets, or saving for fut
   
 ---
 
+## **System Design Document**
+For more details about the system design, including wireframes, component architecture, and database structure, check out the [System Design Document](https://docs.google.com/document/d/1JoPnCn85PsVdiyXQbZnf9Cy9x2vkvi0mI1HoedEHzGo/edit?tab=t.0).
+
+---
+
 ## **Features**
 - **Expense and Income Tracking**: Easily log and categorize your expenses and income.
 - **Personal Savings Goals**: Set and track progress on your financial goals.
 - **Personalized Alerts**: Get notified based on your spending behavior.
 - **Insightful Reports**: View detailed statistics and reports of your spending and saving habits.
 - **User-Friendly Interface**: Intuitive and clean UI for effortless navigation.
+
+---
+
+## **System Overview**
+BudgetWise is built to simplify financial management for users, offering robust features and seamless functionality. 
+
+### **Core Modules:**
+1. **User Management**:
+   - User authentication using encrypted passwords (via **bcrypt**).
+   - Password recovery and email notifications using **nodemailer**.
+
+2. **Budget Tracking**:
+   - Logging daily, weekly, or monthly expenses and income.
+   - Categorization of transactions for better insights.
+
+3. **Analytics and Reports**:
+   - Generate visual reports and graphs using **chart.js**.
+   - Real-time data updates and state management with **zustand** and **react-query**.
+
+4. **Data Storage and Integration**:
+   - Data stored in **MongoDB** with API integration using **axios**.
 
 ---
 
