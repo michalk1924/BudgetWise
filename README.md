@@ -7,7 +7,7 @@ Whether it's tracking daily expenses, setting monthly budgets, or saving for fut
 ---
 
 ## **Live Demo**
-- [Check out the project on Vercel](https://budget-wise-gamma.vercel.app/)
+- 🌍 [Check out the project on Vercel](https://budget-wise-gamma.vercel.app/)
 
 ---
 
@@ -56,7 +56,7 @@ Thank you for your interest in BudgetWise! Contributions, suggestions, or ideas 
 ## **Setup**
 
 ### **Development Setup**
-1. Clone the repository:
+ Clone the repository:
    ```bash
    git clone https://github.com/michalk1924/BudgetWise.git
    npm install
