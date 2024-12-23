@@ -8,36 +8,57 @@ import { Category } from "../../../../types/types";
 
 interface BudgetGridProps {
   categories: Category[];
-  onUpdateCategory?: (updatedCategory: Category) => void; 
-
+  onUpdateCategory?: (updatedCategory: Category) => void;
 }
 
-const BudgetGrid: React.FC<BudgetGridProps> = ({ categories , onUpdateCategory }) => {
+const BudgetGrid: React.FC<BudgetGridProps> = ({ categories, onUpdateCategory }) => {
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth());
 
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
 
-  // Filter categories by selected month and year
-  const filteredCategories = categories.filter(
-    (category) => category
-      // new Date(category.month).getFullYear() === selectedYear &&
-      // new Date(category.month).getMonth() === selectedMonth
-  );
+  const filteredCategories = categories.filter((category) => {
+    // אם החודש הנבחר הוא החודש הנוכחי
+    if (selectedYear === currentYear && selectedMonth === currentMonth) {
+      return true; // כל הקטגוריות יוצגו
+    }
+
+    // אחרת, סינון לפי התקציב החודשי
+    return category.monthlyBudget?.some(
+      (budget) =>
+        new Date(budget.month).getFullYear() === selectedYear &&
+        new Date(budget.month).getMonth() === selectedMonth
+    );
+  });
 
   return (
     <div className={styles.wrapper}>
       {/* Year and Month Selector */}
-      {/* <YearMonthSelector
+      <YearMonthSelector
         selectedYear={selectedYear}
         selectedMonth={selectedMonth}
         onYearChange={setSelectedYear}
         onMonthChange={setSelectedMonth}
-      /> */}
+      />
 
       <div className={styles.gridContainer}>
-        {filteredCategories.map((category, index) => (
-          <GridItem key={index} category={category} onUpdateCategory={onUpdateCategory} />
-        ))}
+        {filteredCategories.map((category, index) => {
+          // אם החודש הנבחר הוא הנוכחי, נשתמש בערכים הראשיים
+          const isCurrentMonth = selectedYear === currentYear && selectedMonth === currentMonth;
+          const budget = isCurrentMonth ? category.budget : undefined;
+          const spent = isCurrentMonth ? category.spent : undefined;
+
+          return (
+            <GridItem
+              key={index}
+              category={category}
+              budget={budget}
+              spent={spent}
+              onUpdateCategory={onUpdateCategory}
+            />
+          );
+        })}
       </div>
       <span className={styles.seeMore}>See More...</span>
     </div>

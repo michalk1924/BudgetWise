@@ -5,8 +5,6 @@ export interface User {
   username: string;
   email: string;
   passwordHash: string;
-  totalBudget: number;
-  totalSpending: number;
   balance: number;
   financialStartDay: number
   categories: Category[];
@@ -35,7 +33,7 @@ export interface Category {
 
 export interface Transaction {
   _id: string;
-  category: string;
+  category?: string;
   type: 'income' | 'expense' | 'saved';
   amount: number;
   description: string;

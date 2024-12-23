@@ -35,12 +35,11 @@ export default function AddNewBudget({ addCategory }: AddCategoryProps) {
 
     const newCategory: Category = {
       _id: Math.random().toString(36).substr(2, 8),
-      type: "general", // Default type
-      name: category,
+      categoryName: category,
       description: description,
       budget: parseFloat(budget),
       spent:  0,
-      month: new Date(), 
+      // month: new Date(), 
     };
 
     // Call the parent function to add the category

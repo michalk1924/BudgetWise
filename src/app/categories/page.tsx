@@ -24,6 +24,7 @@ const Categories = () => {
       category: Category;
     }) => {
       if (user) {
+        console.log("category to add", category);
         const response = await userService.updateUser(id, {
           categories: [...user?.categories, category],
         });
@@ -91,7 +92,6 @@ const Categories = () => {
                 description: "Total budget for the month",
                 budget: total.budget,
                 spent: total.spent,
-                // month: new Date(),
               }}
               isTotal={true}
             />
