@@ -179,8 +179,8 @@ function TransactionsList({ transactions, updateTransaction }: { transactions: T
                         )}
                     </div>
                 </div>
-                <div>Description</div>
-                <div>Payment Method</div> {/* הכנס את השדה Payment Method כאן */}
+                <div className={styles.hiddenOnSmall}>Description</div>
+                <div className={styles.hiddenOnSmall}>Payment Method</div> {/* הכנס את השדה Payment Method כאן */}
             </div>
 
             {currentTransactions.map((transaction) => (

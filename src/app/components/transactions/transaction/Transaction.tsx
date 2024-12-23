@@ -82,7 +82,7 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                         {errors.amount && <p className={styles.error}>{errors.amount.message}</p>}
                     </div>
                     <div>
-                        <select {...register("category")} className={styles.inlineSelect}>
+                        <select {...register("category")} className={styles.inlineSelect} title="Select a category for the transaction">
                             <option value="Food">Food</option>
                             <option value="Transport">Transport</option>
                             <option value="Entertainment">Entertainment</option>
@@ -91,7 +91,8 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                         </select>
                         {errors.category && <p className={styles.error}>{errors.category.message}</p>}
                     </div>
-                    <div>
+
+                    <div className={styles.hiddenOnSmall}>
                         <input
                             type="text"
                             placeholder="Description"
@@ -99,7 +100,7 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                             className={styles.inlineInput}
                         />
                     </div>
-                    <div>
+                    <div className={styles.hiddenOnSmall}>
                         <select {...register("paymentMethod")} className={styles.inlineSelect}>
                             <option value="cash">Cash</option>
                             <option value="credit">Credit</option>
@@ -112,7 +113,7 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                     </div>
                     <div className={styles.actions}>
                         <button type="button" onClick={handleSubmit(onSubmit)} className={styles.inlineButton}>
-                        <FiSave/>
+                            <FiSave />
                         </button>
                     </div>
                 </div>
@@ -121,8 +122,8 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                     <div>{new Date(transaction.date).toLocaleDateString()}</div>
                     <div>{transaction.amount}</div>
                     <div>{transaction.category}</div>
-                    <div>{transaction.description || 'N/A'}</div>
-                    <div>{transaction.paymentMethod}</div>
+                    <div className={styles.hiddenOnSmall}>{transaction.description || 'N/A'}</div>
+                    <div className={styles.hiddenOnSmall}>{transaction.paymentMethod}</div>
                     <div className={styles.icon} onClick={handleEdit}>
                         <FaPencilAlt />
                     </div>

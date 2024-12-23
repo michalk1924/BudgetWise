@@ -44,3 +44,25 @@
 .icon:hover {
     color: #505051;
 }
+
+
+.transactionItem .hiddenOnSmall {
+    display: block; /* Default: show all */
+  }
+  
+  @media (max-width: 768px) {
+    .transactionItem {
+      grid-template-columns: repeat(3, 1fr); /* Show only 3 columns */
+      font-size: 1.5rem;
+    }
+    .transactionItem>* {
+        grid-template-columns: repeat(3, 1fr); /* Show only 3 columns */
+        font-size: 1rem;
+      }
+  
+    .transactionItem .hiddenOnSmall {
+      display: none; /* Hide additional fields */
+
+    }
+  }
+
