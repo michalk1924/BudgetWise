@@ -79,9 +79,9 @@ export default function AddTransaction({ transactions, addTransaction, categorie
                     <option value="" disabled>
                         Select a category
                     </option>
-                    {categories.map((category, index) => (
-                        <option key={index} value={category.name}>
-                            {category.name}
+                    {categories?.map((category, index) => (
+                        <option key={index} value={category.categoryName}>
+                            {category.categoryName}
                         </option>
                     ))}
                 </select>

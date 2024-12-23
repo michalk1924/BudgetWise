@@ -98,7 +98,6 @@ const useUserStore = create<UserStore>()(
 
       addTransaction: (transaction) =>
         set((state) => {
-          let newTotalSpending = state.user!.totalSpending;
           let updatedCategories = [...state.user!.categories];
           
           if (transaction.type === 'expense') {
@@ -116,12 +115,12 @@ const useUserStore = create<UserStore>()(
               if (transaction.date.toISOString().slice(0, 7) === currentMonth) {
                 category.spent += transaction.amount;
               } else {
-                const monthIndex = category.monthlyBudget.findIndex(
+                const monthIndex = category.monthlyBudget?.findIndex(
                   (monthlyBudget) => monthlyBudget.month.toISOString().slice(0, 7) === transaction.date.toISOString().slice(0, 7)
                 );
       
                 if (monthIndex !== -1) {
-                  category.monthlyBudget[monthIndex].spent += transaction.amount;
+                  category.monthlyBudget?[monthIndex].spent += transaction.amount;
                 } else {
                   category.monthlyBudget.push({
                     _id: new Date().toISOString(),
@@ -137,7 +136,6 @@ const useUserStore = create<UserStore>()(
           return {
             user: {
               ...state.user!,
-              totalSpending: newTotalSpending,
               categories: updatedCategories,
               transactions: [...state.user!.transactions, transaction],
             },
