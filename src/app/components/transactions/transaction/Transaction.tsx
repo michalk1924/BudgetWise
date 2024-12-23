@@ -5,9 +5,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./TransactionComp.module.css";
-import { Transaction } from "../../../../types/types";
+import { Transaction, Category } from "../../../../types/types";
 import { FaPencilAlt } from "react-icons/fa";
 import { FiSave } from "react-icons/fi";
+
 
 const transactionSchema = z.object({
     category: z.string().min(1, "Category is required"),
@@ -23,13 +24,13 @@ const transactionSchema = z.object({
 
 export type TransactionInput = z.infer<typeof transactionSchema>;
 
-const TransactionComp = ({ transaction, updateTransaction }: { transaction: Transaction, updateTransaction: (transaction: Transaction) => void }) => {
+const TransactionComp = ({ transaction, updateTransaction, categories }: { transaction: Transaction, categories: Category[], updateTransaction: (transaction: Transaction) => void }) => {
 
     const [isEditing, setIsEditing] = useState(false);
     const { register, handleSubmit, formState: { errors }, reset } = useForm<TransactionInput>({
         resolver: zodResolver(transactionSchema),
         defaultValues: {
-            category: transaction.category?.name,
+            // category: transaction,
             date: transaction.date instanceof Date
                 ? transaction.date.toISOString().split('T')[0]
                 : new Date(transaction.date).toISOString().split('T')[0],
@@ -42,7 +43,7 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
     const onSubmit: SubmitHandler<TransactionInput> = (data) => {
         const updatedTransaction: Transaction = {
             ...transaction,
-            category: data.category,
+            category: transaction.category,
             date: new Date(data.date),
             amount: data.amount,
             description: data.description || "",
@@ -61,7 +62,7 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
     return (
         <div key={transaction._id}>
             {isEditing ? (
-                <div className={`${styles.transactionItem} ${isPositive(transaction.type) ? styles.expense : styles.income}`}>
+                <div className={`${styles.transactionItem} ${styles[transaction.type]}`}>
                     <div>
                         <input
                             type="date"
@@ -79,7 +80,7 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                         />
                         {errors.amount && <p className={styles.error}>{errors.amount.message}</p>}
                     </div>
-                    <div>
+                    {/* <div>
                         <select {...register("category")} className={styles.inlineSelect}>
                             <option value="Food">Food</option>
                             <option value="Transport">Transport</option>
@@ -88,7 +89,20 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                             <option value="Others">Others</option>
                         </select>
                         {errors.category && <p className={styles.error}>{errors.category.message}</p>}
+                    </div> */}
+
+                    <div>
+                        <select {...register("category")} className={styles.inlineSelect}>
+                            {categories.map((category) => (
+                                <option key={category._id} value={category.categoryName}>
+                                    {category.categoryName}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.category && <p className={styles.error}>{errors.category.message}</p>}
                     </div>
+
+
                     <div>
                         <input
                             type="text"
@@ -110,7 +124,7 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                     </div>
                     <div className={styles.actions}>
                         <button type="button" onClick={handleSubmit(onSubmit)} className={styles.inlineButton}>
-                        <FiSave/>
+                            <FiSave />
                         </button>
                     </div>
                 </div>
@@ -118,7 +132,7 @@ const TransactionComp = ({ transaction, updateTransaction }: { transaction: Tran
                 <div className={`${styles.transactionItem} ${styles[transaction.type]}`}>
                     <div>{new Date(transaction.date).toLocaleDateString()}</div>
                     <div>{transaction.amount}</div>
-                    <div>{transaction.category?.name}</div>
+                    <div>{transaction.category}</div>
                     <div>{transaction.description || 'N/A'}</div>
                     <div>{transaction.paymentMethod}</div>
                     <div className={styles.icon} onClick={handleEdit}>

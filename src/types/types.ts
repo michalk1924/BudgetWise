@@ -8,20 +8,41 @@ export interface User {
   totalBudget: number;
   totalSpending: number;
   balance: number;
-  financialStartDay:number
-  categories: Category[]; 
+  financialStartDay: number
+  categories: Category[];
   savings: Saving[];
   transactions: Transaction[];
   alerts: Alert[];
   recommendations: Recommendation[];
 }
 
+export interface MonthlyBudget {
+  _id: string;
+  month: Date;
+  budget: number;
+  spent: number;
+}
+
 export interface Category {
   _id: string;
-  name: string;
+  categoryName: string;
   description: string;
-  monthlyBudget: number;
-  month: Date;
+  budget: number;
+  spent: number;
+  monthlyBudget?: MonthlyBudget[];
+}
+
+
+export interface Transaction {
+  _id: string;
+  category: string;
+  type: 'income' | 'expense' | 'saved';
+  amount: number;
+  description: string;
+  date: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  paymentMethod?: "cash" | "credit" | "check" | "bank_transfer" | "bit" | "other";
 }
 
 export interface Saving {
@@ -33,20 +54,6 @@ export interface Saving {
   createdAt: Date;
   updatedAt: Date;
 }
-
-
-export interface Transaction {
-  _id: string;
-  category?: Category;
-  type: 'income' | 'expense' | 'saved';
-  amount: number;
-  description: string;
-  date: Date;
-  createdAt: Date;
-  updatedAt: Date;
-  paymentMethod?: "cash" | "credit" | "check" | "bank_transfer" | "bit" | "other";
-}
-
 
 export interface Recommendation {
   _id: string;
@@ -61,13 +68,13 @@ export interface Recommendation {
 
 export interface Alert {
   alertId: string;
-  type:string;
-  triggerCondition: string; 
+  type: string;
+  triggerCondition: string;
   isActive: boolean;
-  createdAt: Date; 
-  updatedAt: Date; 
-  severityLevel:'critical' | 'warning' | 'Pay attention';
-  solutions :Solution[];
+  createdAt: Date;
+  updatedAt: Date;
+  severityLevel: 'critical' | 'warning' | 'Pay attention';
+  solutions: Solution[];
 }
 
 export interface Solution {
