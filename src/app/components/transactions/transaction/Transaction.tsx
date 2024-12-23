@@ -11,7 +11,7 @@ import { FiSave } from "react-icons/fi";
 
 
 const transactionSchema = z.object({
-    category: z.string().min(1, "Category is required"),
+    category: z.string().optional(),
     date: z.string()
         .min(1, "Date is required")
         .refine((dateString) => new Date(dateString) < new Date(), { message: "Date must be before today" }),
@@ -30,7 +30,6 @@ const TransactionComp = ({ transaction, updateTransaction, categories }: { trans
     const { register, handleSubmit, formState: { errors }, reset } = useForm<TransactionInput>({
         resolver: zodResolver(transactionSchema),
         defaultValues: {
-            // category: transaction,
             date: transaction.date instanceof Date
                 ? transaction.date.toISOString().split('T')[0]
                 : new Date(transaction.date).toISOString().split('T')[0],
@@ -80,27 +79,24 @@ const TransactionComp = ({ transaction, updateTransaction, categories }: { trans
                         />
                         {errors.amount && <p className={styles.error}>{errors.amount.message}</p>}
                     </div>
-                    {/* <div>
-                        <select {...register("category")} className={styles.inlineSelect}>
-                            <option value="Food">Food</option>
-                            <option value="Transport">Transport</option>
-                            <option value="Entertainment">Entertainment</option>
-                            <option value="Utilities">Utilities</option>
-                            <option value="Others">Others</option>
-                        </select>
-                        {errors.category && <p className={styles.error}>{errors.category.message}</p>}
-                    </div> */}
 
                     <div>
-                        <select {...register("category")} className={styles.inlineSelect}>
-                            {categories.map((category) => (
-                                <option key={category._id} value={category.categoryName}>
-                                    {category.categoryName}
-                                </option>
-                            ))}
-                        </select>
-                        {errors.category && <p className={styles.error}>{errors.category.message}</p>}
+                        {transaction.type === "expense" ? ( // בודק אם הפעולה היא "הוצאה"
+                            <select {...register("category")} className={styles.inlineSelect}>
+                                {categories.map((category) => (
+                                    <option key={category._id} value={category.categoryName}>
+                                        {category.categoryName}
+                                    </option>
+                                ))}
+                            </select>
+                        ) : (
+                            <span>{transaction.category}</span> // מציג את הקטגוריה בתור טקסט
+                        )}
+                        {errors.category && transaction.type === "expense" && (
+                            <p className={styles.error}>{errors.category.message}</p>
+                        )}
                     </div>
+
 
 
                     <div>
