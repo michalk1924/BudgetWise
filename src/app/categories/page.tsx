@@ -24,6 +24,7 @@ const Categories = () => {
       category: Category;
     }) => {
       if (user) {
+        console.log("category to add", category);
         const response = await userService.updateUser(id, {
           categories: [...user?.categories, category],
         });
@@ -87,12 +88,10 @@ const Categories = () => {
               key="total"
               category={{
                 _id: "total",
-                type: "general",
-                name: "Monthly Total Budget",
+                categoryName: "Monthly Total Budget",
                 description: "Total budget for the month",
                 budget: total.budget,
                 spent: total.spent,
-                month: new Date(),
               }}
               isTotal={true}
             />

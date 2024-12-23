@@ -6,9 +6,10 @@ import { z } from "zod";
 import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./AddTransaction.module.css";
-import { Transaction } from "../../../../types/types";
+import { Transaction, Category } from "../../../../types/types";
 
 const transactionSchema = z.object({
+    type: z.enum(['income', 'expense', 'saved']),
     category: z.string().min(1, "Category is required"),
     date: z.string().min(1, "Date is required")
         .refine((dateString) => new Date(dateString) < new Date(), { message: "Date must be before today", }),
@@ -20,18 +21,11 @@ export type TransactionInput = z.infer<typeof transactionSchema>;
 
 interface AddTransactionProps {
     transactions: Transaction[];
+    categories: Category[];
     addTransaction: (transaction: Transaction) => void;
 }
 
-export default function AddTransaction({ transactions, addTransaction }: AddTransactionProps) {
-
-    const [categories, setCategories] = useState<string[]>([
-        "Food",
-        "Transport",
-        "Entertainment",
-        "Utilities",
-        "Others",
-    ]);
+export default function AddTransaction({ transactions, addTransaction, categories }: AddTransactionProps) {
 
     const {
         register,
@@ -46,13 +40,12 @@ export default function AddTransaction({ transactions, addTransaction }: AddTran
         const transaction: Transaction =
         {
             _id: "",
-            category: data.category,
             date: new Date(data.date),
             amount: Number(data.amount),
             description: data.description || "",
             createdAt: new Date(),
             updatedAt: new Date(),
-            type: data.amount > 0 ? 'income' : 'expense',
+            type: data.type,
         }
         addTransaction(transaction);
         reset();
@@ -60,6 +53,21 @@ export default function AddTransaction({ transactions, addTransaction }: AddTran
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.addTransaction}>
+
+            <div className={styles.formGroup}>
+                <select className={styles.select} {...register("type")} defaultValue="">
+                    <option value="" disabled>
+                        Select a type
+                    </option>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                    <option value="saved">Saved</option>
+                </select>
+                {errors.type && (
+                    <p className={styles.error}>{String(errors.type.message)}</p>
+                )}
+            </div>
+
 
             {/* Category Selector */}
             <div className={styles.formGroup}>
@@ -71,9 +79,9 @@ export default function AddTransaction({ transactions, addTransaction }: AddTran
                     <option value="" disabled>
                         Select a category
                     </option>
-                    {categories.map((category, index) => (
-                        <option key={index} value={category}>
-                            {category}
+                    {categories?.map((category, index) => (
+                        <option key={index} value={category.categoryName}>
+                            {category.categoryName}
                         </option>
                     ))}
                 </select>

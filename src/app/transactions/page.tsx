@@ -86,7 +86,7 @@ function Transactions() {
 
   const handleAddTransaction = (transaction: Transaction) => {
     transaction._id = Math.random().toString(36).substr(2, 8);
-    if (transaction.category == 'saving') {
+    if (transaction?.category == 'saving') {
       let saving = user?.savings.find((s) => s.goalName === transaction.description)
       if (saving && typeof saving.currentAmount === "number") {
         saving.currentAmount += transaction.amount;
@@ -95,7 +95,7 @@ function Transactions() {
     }
 
     else {
-      let category = user?.categories.find((c) => c.name === transaction.category)
+      let category = user?.categories.find((c) => c.categoryName === transaction?.category)
       if (category && typeof category.spent === "number") {
         if (transaction.type === "expense")
           category.spent -= transaction.amount;
@@ -115,11 +115,16 @@ function Transactions() {
     <div className={styles.container}>
 
       {!loading && user && <div className={styles.main}>
-        {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
-          updateTransaction={handleUpdateTransaction}
-        />}
+
         <UploadExcel />
-        {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction} />}
+
+
+        {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
+          updateTransaction={handleUpdateTransaction} categories={user?.categories}
+        />}
+
+        {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction}
+          categories={user?.categories} />}
       </div>}
 
       {!loading && user && <div className={styles.headers}>

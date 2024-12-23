@@ -95,6 +95,56 @@ const useUserStore = create<UserStore>()(
           },
         })),
 
+
+      // addTransaction: (transaction) =>
+      //   set((state) => {
+      //     let newTotalSpending = state.user!.totalSpending;
+      //     let updatedCategories = [...state.user!.categories];
+          
+      //     if (transaction.type === 'expense') {
+      //       newTotalSpending += transaction.amount;
+            
+      //       const currentMonth = new Date().toISOString().slice(0, 7); 
+      
+      //       const categoryIndex = updatedCategories.findIndex(
+      //         (category) => category._id === transaction.category
+      //       );
+      
+      //       if (categoryIndex !== -1) {
+      //         const category = updatedCategories[categoryIndex];
+      
+      //         if (transaction.date.toISOString().slice(0, 7) === currentMonth) {
+      //           category.spent += transaction.amount;
+      //         } else {
+      //           const monthIndex = category.monthlyBudget.findIndex(
+      //             (monthlyBudget) => monthlyBudget.month.toISOString().slice(0, 7) === transaction.date.toISOString().slice(0, 7)
+      //           );
+      
+      //           if (monthIndex !== -1) {
+      //             category.monthlyBudget[monthIndex].spent += transaction.amount;
+      //           } else {
+      //             category.monthlyBudget.push({
+      //               _id: new Date().toISOString(),
+      //               month: transaction.date,
+      //               budget: category.budget,  
+      //               spent: transaction.amount,
+      //             });
+      //           }
+      //         }
+      //       }
+      //     }
+      
+      //     return {
+      //       user: {
+      //         ...state.user!,
+      //         totalSpending: newTotalSpending,
+      //         categories: updatedCategories,
+      //         transactions: [...state.user!.transactions, transaction],
+      //       },
+      //     };
+      //   }),
+      
+
         addTransactionsFromExcel: (transactionsFromExcel: Transaction[]) =>
           set((state) => ({
             user: {
