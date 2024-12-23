@@ -7,7 +7,7 @@ Whether it's tracking daily expenses, setting monthly budgets, or saving for fut
 ---
 
 ## **Live Demo**
-- 🌍 [Check out the project on Vercel](https://budget-wise-gamma.vercel.app/)
+- [Check out the project on Vercel](https://budget-wise-gamma.vercel.app/)
 
 ---
 
@@ -41,11 +41,10 @@ Whether it's tracking daily expenses, setting monthly budgets, or saving for fut
 
 ---
 
-
 ## **Team**
-- **Michal Kastner**
-- **Yael Kopel**
-- **Racheli Venderolada**
+- [**Racheli Venderolada**](https://github.com/RacheliVa)
+- [**Michal Kastner**](https://github.com/michalk1924)
+- [**Yael Kopel**](https://github.com/YaelKoppel)
 
 ---
 
