@@ -23,11 +23,11 @@ interface FormData {
     budgetPriority: "avoidOverspending" | "increaseSavings" | "investLongTerm" | "improveQualityOfLife" | "";
     transportation: string;
     housing: string;
+    housingCost:number;
     dependents: number;
+    educationCost:number;
     hasCar: "yes" | "no" | "";
     numberOfCars: number;
-    hasPets: "yes" | "no" | "";
-    numberOfPets: number;
     entertainmentPreference: "low" | "medium" | "high" | "";
     householdType: "single" | "partnered" | "";
 }
@@ -77,11 +77,11 @@ const UserDetailsForm = () => {
         budgetPriority: "",
         transportation: "",
         housing: "",
+        housingCost:0,
         dependents: 0,
+        educationCost:0,
         hasCar: "",
         numberOfCars: 0,
-        hasPets: "",
-        numberOfPets: 0,
         entertainmentPreference: "",
         householdType: "",
     });
@@ -155,7 +155,7 @@ const UserDetailsForm = () => {
 
                 {/* Household Type */}
                 <label className={styles.label}>
-                    Household Type:
+                    Household Type: *
                     <select
                         name="householdType"
                         value={formData.householdType}
@@ -207,7 +207,6 @@ const UserDetailsForm = () => {
                         value={formData.incomeSources}
                         onChange={handleInputChange}
                         className={styles.input}
-                        required
                     >
                         <option value="">Select source</option>
                         <option value="salary">Salary</option>
@@ -217,7 +216,7 @@ const UserDetailsForm = () => {
                     </select>
                 </label>
 
-                {/* Fixed Expenses */}
+              {/*   
                 <label className={styles.label}>
                     Fixed Monthly Expenses:
                     <select
@@ -235,7 +234,6 @@ const UserDetailsForm = () => {
                     </select>
                 </label>
 
-                {/* Variable Expenses */}
                 <label className={styles.label}>
                     Variable Monthly Expenses:
                     <select
@@ -251,7 +249,7 @@ const UserDetailsForm = () => {
                         <option value="1000-3000">$1,000 - $3,000</option>
                         <option value=">3000">More than $3,000</option>
                     </select>
-                </label>
+                </label> */}
 
                 {/* Loans */}
                 <label className={styles.label}>
@@ -293,7 +291,6 @@ const UserDetailsForm = () => {
                         value={formData.savings}
                         onChange={handleInputChange}
                         className={styles.input}
-                        required
                     >
                         <option value="">Select range</option>
                         <option value="<1000">Less than $1,000</option>
@@ -311,7 +308,6 @@ const UserDetailsForm = () => {
                         value={formData.emergencyFund}
                         onChange={handleInputChange}
                         className={styles.input}
-                        required
                     >
                         <option value="">Select option</option>
                         <option value="no">No</option>
@@ -354,7 +350,21 @@ const UserDetailsForm = () => {
                 </label>
 
                 <label className={styles.label}>
-                    Number of Dependents:
+                    How much do you spend on housing? *
+                    <input
+                        type="number"
+                        name="housingCost"
+                        value={formData.estimatedIncome}
+                        onChange={handleInputChange}
+                        className={styles.input}
+                        placeholder="Enter your monthly income"
+                        required
+                    />
+                </label>
+                
+
+                <label className={styles.label}>
+                    Number of Children: *
                     <input
                         type="number"
                         name="dependents"
@@ -366,9 +376,22 @@ const UserDetailsForm = () => {
                     />
                 </label>
 
+                <label className={styles.label}>
+                    How much do you spend on education? *
+                    <input
+                        type="number"
+                        name="educationCost"
+                        value={formData.estimatedIncome}
+                        onChange={handleInputChange}
+                        className={styles.input}
+                        placeholder="Enter your monthly income"
+                        required
+                    />
+                </label>
+
                 {/* Has Car */}
                 <label className={styles.label}>
-                    Do you own a car?:
+                    Do you own a car?: *
                     <select
                         name="hasCar"
                         value={formData.hasCar}
@@ -385,7 +408,7 @@ const UserDetailsForm = () => {
                 {/* Number of Cars */}
                 {formData.hasCar === "yes" && (
                     <label className={styles.label}>
-                        Number of Cars:
+                        Number of Cars: *
                         <input
                             type="number"
                             name="numberOfCars"
@@ -398,37 +421,7 @@ const UserDetailsForm = () => {
                     </label>
                 )}
 
-                {/* Has Pets */}
-                <label className={styles.label}>
-                    Do you have pets?:
-                    <select
-                        name="hasPets"
-                        value={formData.hasPets}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        required
-                    >
-                        <option value="">Select option</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-                </label>
-
-                {/* Number of Pets */}
-                {formData.hasPets === "yes" && (
-                    <label className={styles.label}>
-                        Number of Pets:
-                        <input
-                            type="number"
-                            name="numberOfPets"
-                            value={formData.numberOfPets}
-                            onChange={handleInputChange}
-                            className={styles.input}
-                            placeholder="Enter number of pets"
-                            required
-                        />
-                    </label>
-                )}
+                
 
                 {/* Entertainment Preference */}
                 <label className={styles.label}>

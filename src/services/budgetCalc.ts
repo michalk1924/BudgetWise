@@ -17,7 +17,6 @@ interface Budget {
         children: number;
         events: number;
         travel: number;
-        pets: number;
         subscriptions: number;
         gifts: number;
         other: number;
@@ -26,17 +25,25 @@ interface Budget {
 }
 
 interface FormData {
+    fullName: string;
+    email: string;
+    startBudgetMonth: string;
     estimatedIncome: number;
+    incomeSources: "salary" | "business" | "investments" | "other" | "";
     fixedExpenses: "<1000" | "1000-3000" | "3000-5000" | ">5000" | "";
     variableExpenses: "<500" | "500-1000" | "1000-3000" | ">3000" | "";
-    budgetPriority: "avoidOverspending" | "increaseSavings" | "investLongTerm" | "improveQualityOfLife" | "";
-    debts: "yes" | "no" | "";
     loans: "yes" | "no" | "";
+    debts: "yes" | "no" | "";
+    savings: string;
+    emergencyFund: "yes" | "no" | "";
+    budgetPriority: "avoidOverspending" | "increaseSavings" | "investLongTerm" | "improveQualityOfLife" | "";
+    transportation: string;
+    housing: string;
+    housingCost:number;
+    dependents: number;
+    educationCost:number;
     hasCar: "yes" | "no" | "";
     numberOfCars: number;
-    dependents: number;
-    hasPets: "yes" | "no" | "";
-    numberOfPets: number;
     entertainmentPreference: "low" | "medium" | "high" | "";
     householdType: "single" | "partnered" | "";
 }
@@ -59,7 +66,6 @@ export function generateBudgetWithCategories(formData: FormData): Budget {
             children: 0,
             events: 0,
             travel: 0,
-            pets: 0,
             subscriptions: 0,
             gifts: 0,
             other: 0,
@@ -103,8 +109,7 @@ export function generateBudgetWithCategories(formData: FormData): Budget {
         clothing: 0.03,
         children: formData.dependents * 0.02,
         events: 0.02,
-        travel: formData.hasPets === "yes" ? 0.01 : 0.02,
-        pets: formData.hasPets === "yes" ? 0.01 * formData.numberOfPets : 0,
+        travel: 0.02,
         subscriptions: 0.02,
         gifts: 0.01,
         other: 0.2,
