@@ -11,3 +11,4 @@ export { default as AddNewSaving } from './savingsGrid/AddNewSaving/AddNewSaving
 export { default as DoughnutChart } from './PieChart-monthly-expenses/PieChart-monthly-expenses';
 export { default as IncomeExpenseBarChart } from './IncomeExpenseBarChart/IncomeExpenseBarChart';
 export { default as SavingsBarChart } from './SavingsBarChart/SavingsBarChart';
+export {default as BudgetDoughnutChart} from './budgetDoughnutChart/budgetDoughnutChart'
