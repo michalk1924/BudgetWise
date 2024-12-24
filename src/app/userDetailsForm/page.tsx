@@ -63,8 +63,8 @@ const UserDetailsForm = () => {
     });
 
     const [formData, setFormData] = useState<FormData>({
-        fullName: "",
-        email: "",
+        fullName: user?.username || "",
+        email: user?.email ||"",
         startBudgetMonth: "",
         estimatedIncome: 0,
         incomeSources: "",
@@ -126,7 +126,7 @@ const UserDetailsForm = () => {
 
             <form onSubmit={handleSubmit} className={styles.form}>
                 {/* Full Name */}
-                <label className={styles.label}>
+               {/*  <label className={styles.label}>
                     Full Name:
                     <input
                         type="text"
@@ -139,7 +139,6 @@ const UserDetailsForm = () => {
                     />
                 </label>
 
-                {/* Email */}
                 <label className={styles.label}>
                     Email:
                     <input
@@ -152,7 +151,7 @@ const UserDetailsForm = () => {
                         required
                     />
                 </label>
-
+ */}
                 {/* Household Type */}
                 <label className={styles.label}>
                     Household Type: *
@@ -171,7 +170,7 @@ const UserDetailsForm = () => {
 
                 {/* Start of Budget Month */}
                 <label className={styles.label}>
-                    Start of Budget Month:
+                    Start of Budget Month: *
                     <select
                         name="startBudgetMonth"
                         value={formData.startBudgetMonth}
@@ -187,7 +186,7 @@ const UserDetailsForm = () => {
 
                 {/* Estimated Income */}
                 <label className={styles.label}>
-                    Estimated Monthly Income:
+                    Estimated Monthly Income: *
                     <input
                         type="number"
                         name="estimatedIncome"
@@ -253,7 +252,7 @@ const UserDetailsForm = () => {
 
                 {/* Loans */}
                 <label className={styles.label}>
-                    Do you have any loans?:
+                    Do you have any loans? *
                     <select
                         name="loans"
                         value={formData.loans}
@@ -269,7 +268,7 @@ const UserDetailsForm = () => {
 
                 {/* Debts */}
                 <label className={styles.label}>
-                    Do you have any debts?:
+                    Do you have any debts? *
                     <select
                         name="debts"
                         value={formData.debts}
@@ -302,7 +301,7 @@ const UserDetailsForm = () => {
 
                 {/* Emergency Fund */}
                 <label className={styles.label}>
-                    Do you have an emergency fund?:
+                    Do you have an emergency fund?
                     <select
                         name="emergencyFund"
                         value={formData.emergencyFund}
@@ -317,7 +316,7 @@ const UserDetailsForm = () => {
 
                 {/* Budget Priority */}
                 <label className={styles.label}>
-                    What is your top budgeting priority?:
+                    What is your top budgeting priority?
                     <select
                         name="budgetPriority"
                         value={formData.budgetPriority}
