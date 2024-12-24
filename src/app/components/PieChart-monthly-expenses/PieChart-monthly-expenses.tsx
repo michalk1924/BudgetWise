@@ -19,7 +19,7 @@ const DoughnutChart = ({ transactions }: DoughnutChartProps) => {
                 const expenseCategories = transactions
                     .filter(transaction => transaction.type === 'expense')
                     .reduce((acc, transaction) => {
-                        acc[transaction.category] = (acc[transaction.category] || 0) + transaction.amount;
+                        acc[transaction.category || ""] = (acc[transaction.category || ""] || 0) + transaction.amount;
                         return acc;
                     }, {} as { [key: string]: number });
 

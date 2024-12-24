@@ -9,6 +9,7 @@ import { Category } from "../../types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
+import { BudgetDoughnutChart } from "../components/index";
 
 const Categories = () => {
   const { user, addCategory, updateCategory } = useUserStore();
@@ -76,10 +77,12 @@ const Categories = () => {
   };
 
   return (
+    <div>
+    <span className={styles.centeredTitle}>BUDGET SETTING</span>
     <div className={styles.page}>
       <section className={styles.leftSection}>
         <header className={styles.title}>
-          <span>BUDGET SETTING</span>
+          <BudgetDoughnutChart categories={user?.categories ?? []} />
         </header>
 
         <section className={styles.totalsSection}>
@@ -110,6 +113,7 @@ const Categories = () => {
           {user && <AddNewBudget addCategory={handleAddCategory} />} 
         </section>
       </section>
+    </div>
     </div>
   );
 };
