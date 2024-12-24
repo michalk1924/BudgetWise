@@ -13,8 +13,8 @@ interface UserStore {
   setUser: (user: User) => void;
   clearUser: () => void;
   addCategory: (category: Category) => void;
-  initCategories: (categories:Category[]) =>void;
-  updateCategory: (updatedCategory:Category) => void;
+  initCategories: (categories: Category[]) => void;
+  updateCategory: (updatedCategory: Category) => void;
   removeCategory: (categoryId: string) => void;
   addTransaction: (transaction: Transaction) => void;
   addTransactionsFromExcel: (transactions: Transaction[]) => void;
@@ -61,13 +61,13 @@ const useUserStore = create<UserStore>()(
           },
         })),
 
-        initCategories: (categories) =>
-          set((state) => ({
-            user: {
-              ...state.user!,
-              categories: categories,
-            },
-          })),
+      initCategories: (categories) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            categories: categories,
+          },
+        })),
 
       updateCategory: (updatedCategory) =>
         set((state) => ({
@@ -94,56 +94,6 @@ const useUserStore = create<UserStore>()(
             transactions: [...state.user!.transactions, transaction],
           },
         })),
-
-
-      // addTransaction: (transaction) =>
-      //   set((state) => {
-      //     let newTotalSpending = state.user!.totalSpending;
-      //     let updatedCategories = [...state.user!.categories];
-          
-      //     if (transaction.type === 'expense') {
-      //       newTotalSpending += transaction.amount;
-            
-      //       const currentMonth = new Date().toISOString().slice(0, 7); 
-      
-      //       const categoryIndex = updatedCategories.findIndex(
-      //         (category) => category._id === transaction.category
-      //       );
-      
-      //       if (categoryIndex !== -1) {
-      //         const category = updatedCategories[categoryIndex];
-      
-      //         if (transaction.date.toISOString().slice(0, 7) === currentMonth) {
-      //           category.spent += transaction.amount;
-      //         } else {
-      //           const monthIndex = category.monthlyBudget.findIndex(
-      //             (monthlyBudget) => monthlyBudget.month.toISOString().slice(0, 7) === transaction.date.toISOString().slice(0, 7)
-      //           );
-      
-      //           if (monthIndex !== -1) {
-      //             category.monthlyBudget[monthIndex].spent += transaction.amount;
-      //           } else {
-      //             category.monthlyBudget.push({
-      //               _id: new Date().toISOString(),
-      //               month: transaction.date,
-      //               budget: category.budget,  
-      //               spent: transaction.amount,
-      //             });
-      //           }
-      //         }
-      //       }
-      //     }
-      
-      //     return {
-      //       user: {
-      //         ...state.user!,
-      //         totalSpending: newTotalSpending,
-      //         categories: updatedCategories,
-      //         transactions: [...state.user!.transactions, transaction],
-      //       },
-      //     };
-      //   }),
-      
 
         addTransactionsFromExcel: (transactionsFromExcel: Transaction[]) =>
           set((state) => ({
@@ -178,15 +128,15 @@ const useUserStore = create<UserStore>()(
             savings: [...state.user!.savings, saving],
           },
         })),
-        updateSaving: (updatedSaving) =>
-          set((state) => ({
-            user: {
-              ...state.user!,
-              savings: state.user!.savings.map((cat) =>
-                cat._id === updatedSaving._id ? { ...cat, ...updatedSaving } : cat
-              ),
-            },
-          })),
+      updateSaving: (updatedSaving) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            savings: state.user!.savings.map((cat) =>
+              cat._id === updatedSaving._id ? { ...cat, ...updatedSaving } : cat
+            ),
+          },
+        })),
 
       setAlerts: (alerts) =>
         set((state) => ({

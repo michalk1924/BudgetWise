@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styles from "./transactions.module.css";
 import { AddTransaction, TransactionTable } from '../components/index';
-import { Transaction, Saving, Category } from '../../types/types';
+import { Transaction, Saving, Category, User, MonthlyBudget } from '../../types/types';
 import useUserStore from "../../store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from '@/services/user';
@@ -12,18 +12,22 @@ import UploadExcel from "../components/UploadExcel/UploadExcel";
 
 function Transactions() {
 
-  const { user, addTransaction, updateTransaction, updateSaving, updateCategory, loading } = useUserStore();
+  const { user, addTransaction, updateTransaction, updateSaving, updateCategory, removeTransaction, loading } = useUserStore();
 
   const queryClient = useQueryClient();
 
   const updateUserMutationAddTransaction = useMutation({
     mutationFn: async ({ id, transaction }: { id: string; transaction: Transaction }) => {
       if (user) {
-        const response = await userService.updateUser(id, { transactions: [...user?.transactions, transaction] });
-        addTransaction(transaction);
-        return response;
+
+        try {
+          addTransaction(transaction);
+          const response = await userService.updateUser(id, { transactions: [...user?.transactions, transaction] });
+        } catch (error) {
+          console.error('Error updating user:', error);
+          removeTransaction(transaction._id);
+        }
       }
-      return null;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
@@ -66,6 +70,7 @@ function Transactions() {
       console.error('Error updating user:', error.message);
     },
   });
+
   const updateUserMutationUpdateCategory = useMutation({
     mutationFn: async ({ id, category }: { id: string; category: Category }) => {
       if (user) {
@@ -83,9 +88,11 @@ function Transactions() {
     },
   });
 
+  const handleAddTransaction = async (transaction: Transaction) => {
 
-  const handleAddTransaction = (transaction: Transaction) => {
     transaction._id = Math.random().toString(36).substr(2, 8);
+    transaction.category = 'abc';
+
     if (transaction?.category == 'saving') {
       let saving = user?.savings.find((s) => s.goalName === transaction.description)
       if (saving && typeof saving.currentAmount === "number") {
@@ -95,20 +102,113 @@ function Transactions() {
     }
 
     else {
-      let category = user?.categories.find((c) => c.categoryName === transaction?.category)
-      if (category && typeof category.spent === "number") {
-        if (transaction.type === "expense")
-          category.spent -= transaction.amount;
-        else
-          category.spent += transaction.amount;
-        updateUserMutationUpdateCategory.mutate({ id: user?._id ?? '', category });
+      try {
+        if (user) {
+          const category = updateCategoryF(user, transaction);
+          console.log("category" + JSON.stringify(category));
+
+          if (category) {
+            updateUserMutationUpdateCategory.mutate({ id: user?._id ?? '', category });
+          }
+        }
+      }
+      catch (error) {
+        console.error('Error updating category:', error);
       }
     }
+
     updateUserMutationAddTransaction.mutate({ id: user?._id ?? '', transaction });
   }
 
   const handleUpdateTransaction = (transaction: Transaction) => {
     updateUserMutationUpdateTransaction.mutate({ id: user?._id ?? '', transaction });
+  }
+
+  const updateCategoryF = (user: User, transaction: Transaction): Category | undefined => {
+
+    const currentMonth = new Date().getMonth();
+
+    const categoryIndex = user.categories.findIndex(
+      (category) => category.categoryName === transaction.category
+    );
+
+    if (categoryIndex !== -1) {
+
+      const category = { ...user.categories[categoryIndex] };
+
+      console.log("category: " + JSON.stringify(category));
+
+      if (new Date(transaction.date).getMonth() === currentMonth) {
+        if (transaction.type === 'expense') {
+          category.spent = (category.spent || 0) + transaction.amount;
+        }
+        else if (transaction.type === 'income') {
+          category.spent = (category.spent || 0) - transaction.amount;
+        }
+      }
+
+      else {
+
+        if (!category.monthlyBudget) {
+          category.monthlyBudget = [];
+        }
+
+        console.log("monthly budget: " + category.monthlyBudget);
+
+
+        const monthIndex = category.monthlyBudget?.findIndex(
+          (monthlyBudget) =>
+            new Date(monthlyBudget.month).getMonth() === transaction.date.getMonth()
+        );
+
+        console.log("monthIndex: " + monthIndex);
+        console.log("monthlyBudget" + JSON.stringify(category.monthlyBudget));
+        
+
+        if (monthIndex !== -1 && category.monthlyBudget) {
+          console.log("33");
+          
+          let updatedMonth : MonthlyBudget;
+
+          if (transaction.type === 'expense') {
+            updatedMonth = {
+              ...category.monthlyBudget[monthIndex],
+              spent: (category.monthlyBudget[monthIndex].spent || 0) + transaction.amount,
+            };
+          }
+
+          else if (transaction.type === 'income') {
+            updatedMonth = {
+              ...category.monthlyBudget[monthIndex],
+              spent: (category.monthlyBudget[monthIndex].spent || 0) - transaction.amount,
+            };
+          }
+
+          category.monthlyBudget = category.monthlyBudget.map((month, index) =>
+            index === monthIndex ? { ...month, ...updatedMonth } : month
+          );
+        }
+
+
+        else {
+          console.log("hhh");
+          
+          category.monthlyBudget = [
+            ...category.monthlyBudget,
+            {
+              _id: Math.random().toString(36).substr(2, 9),
+              month: transaction.date,
+              budget: category.budget,
+              spent: transaction.amount,
+            },
+          ];
+        }
+
+      }
+
+      return category;
+    }
+    else { return undefined };
   }
 
   return (
