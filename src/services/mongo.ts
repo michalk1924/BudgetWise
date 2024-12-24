@@ -81,10 +81,12 @@ export async function patchDocument(
 ) {
     try {
         const db = client.db(process.env.DB_NAME);
+        
         const result = await db.collection(collection).updateOne(
             { _id: new ObjectId(documentId) },
             { $set: updatedDocument }
         );
+        
         return result;
     } catch (error) {
         console.error(`Error patching document: ${error}`);

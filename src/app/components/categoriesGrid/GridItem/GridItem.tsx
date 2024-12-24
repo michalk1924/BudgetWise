@@ -9,27 +9,48 @@ import { Category } from "../../../../types/types";
 
 interface GridItemProps {
   category: Category;
-  isTotal?: boolean; // Optional, defaults to false
-  onUpdateCategory?: (updatedCategory: Category) => void; // Callback for updating the category
+  isTotal?: boolean; 
+  budget?: number; 
+  spent?: number; 
+  onUpdateCategory?: (updatedCategory: Category) => void; 
 }
 
-const GridItem: React.FC<GridItemProps> = ({ category, isTotal = false, onUpdateCategory }) => {
-  const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
-  const [editedCategory, setEditedCategory] = useState<Category>(category); // State for edited category
+const GridItem: React.FC<GridItemProps> = ({
+  category,
+  isTotal = false,
+  budget,
+  spent,
+  onUpdateCategory,
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedCategory, setEditedCategory] = useState<Category>(category); 
+
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 768); 
+    };
+
+    handleResize(); 
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleEditClick = () => {
-    setIsEditing(true); // Enable edit mode
+    setIsEditing(true);
   };
 
   const handleCancelClick = () => {
-    setIsEditing(false); // Disable edit mode
-    setEditedCategory(category); // Revert changes
+    setIsEditing(false);
+    setEditedCategory(category); 
   };
 
   const handleSaveClick = () => {
-    setIsEditing(false); // Disable edit mode
+    setIsEditing(false); 
     if (onUpdateCategory) {
-      onUpdateCategory(editedCategory); // Call the update callback
+      onUpdateCategory(editedCategory); 
     }
   };
 
@@ -37,75 +58,81 @@ const GridItem: React.FC<GridItemProps> = ({ category, isTotal = false, onUpdate
     setEditedCategory((prev) => ({ ...prev, [field]: value }));
   };
 
-  const percentage = (category.spent / category.budget) * 100;
+
+  // Use overrides if provided, otherwise default to category values
+  const effectiveBudget = Number(budget ?? category.budget ?? 0);
+  const effectiveSpent = Number(spent ?? category.spent ?? 0);
+  const percentage = (effectiveSpent / effectiveBudget) * 100;
 
   return (
     <div className={isTotal ? styles.gridTotalItem : styles.gridItem}>
-      {/* Category Name */}
-      <div className={isTotal ? styles.categoryTotalName : styles.categoryName}>
-        {isEditing ? (
-          <input
-            type="text"
-            value={editedCategory.name}
-            onChange={(e) => handleInputChange("name", e.target.value)}
-            className={styles.editInput}
-          />
-        ) : (
-          category.name
-        )}
-      </div>
-
-      {/* Spending Details */}
-      <div className={styles.details}>
-        <span className={styles.spent}>
-          <h1 className={styles.numeric}>${category.spent}</h1>
-          <span className={styles.text}>spent</span>
-        </span>
-        <span className={styles.left}>
-          <h1 className={styles.numeric}>
-            ${category.budget - category.spent}
-          </h1>
-          <span className={styles.text}>left</span>
-        </span>
-      </div>
-
-      {/* Progress Bar */}
-      <ProgressBar percentage={percentage} />
-
-      {/* Budget Info */}
-      <div className={styles.details}>
-        <span className={styles.budget}>
-          Budget:{" "}
+      <div className={isTotal ? styles.categoryTotalName : styles.categoryName} >
+        <div
+          className={isTotal ? styles.categoryTotalName : styles.categoryName}
+          title={category.description}
+        >
           {isEditing ? (
             <input
-              type="number"
-              value={editedCategory.budget}
-              onChange={(e) => handleInputChange("budget", Number(e.target.value))}
+              type="text"
+              value={editedCategory.categoryName}
+              onChange={(e) => handleInputChange("categoryName", e.target.value)}
               className={styles.editInput}
             />
           ) : (
-            <h1 className={styles.numeric}>${category.budget}</h1>
+            category.categoryName
           )}
-        </span>
-        {!isEditing ? (
-          <FontAwesomeIcon
-            icon={faEdit}
-            className={styles.editButton}
-            onClick={handleEditClick}
-          />
-        ) : (
-          <div className={styles.editActions}>
-            <button className={styles.saveButton} onClick={handleSaveClick}>
-              Save
-            </button>
-            <button className={styles.cancelButton} onClick={handleCancelClick}>
-              Cancel
-            </button>
-          </div>
-        )}
+        </div>
+
+        <div className={styles.details}>
+          <span className={styles.spent}>
+            <h1 className={styles.numeric}>${effectiveSpent.toFixed(2)}</h1>
+            <span className={styles.text}>spent</span>
+          </span>
+          <span className={styles.left}>
+            <h1 className={styles.numeric}>
+              ${(effectiveBudget - effectiveSpent).toFixed(2)}
+            </h1>
+            <span className={styles.text}>left</span>
+          </span>
+        </div>
+
+        <ProgressBar percentage={percentage} />
+
+        <div className={styles.details}>
+          <span className={styles.budget}>
+            {isTotal && isSmallScreen ? "Monthly Budget: " : "Budget: "}
+            {isEditing ? (
+              <input
+                type="number"
+                value={editedCategory.budget.toFixed(2)}
+                onChange={(e) => handleInputChange("budget", Number(e.target.value))}
+                className={styles.editInput}
+              />
+            ) : (
+              <h1 className={styles.numeric}>${effectiveBudget.toFixed(2)}</h1>
+            )}
+          </span>
+          {!isEditing ? (
+            <FontAwesomeIcon
+              icon={faEdit}
+              className={styles.editButton}
+              onClick={handleEditClick}
+            />
+          ) : (
+            <div className={styles.editActions}>
+              <button className={styles.saveButton} onClick={handleSaveClick}>
+                Save
+              </button>
+              <button className={styles.cancelButton} onClick={handleCancelClick}>
+                Cancel
+              </button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  );
+      </div>
+
+      );
 };
 
-export default GridItem;
+      export default GridItem;

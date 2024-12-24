@@ -13,8 +13,8 @@ interface UserStore {
   setUser: (user: User) => void;
   clearUser: () => void;
   addCategory: (category: Category) => void;
-  initCategories: (categories:Category[]) =>void;
-  updateCategory: (updatedCategory:Category) => void;
+  initCategories: (categories: Category[]) => void;
+  updateCategory: (updatedCategory: Category) => void;
   removeCategory: (categoryId: string) => void;
   addTransaction: (transaction: Transaction) => void;
   addTransactionsFromExcel: (transactions: Transaction[]) => void;
@@ -61,13 +61,13 @@ const useUserStore = create<UserStore>()(
           },
         })),
 
-        initCategories: (categories) =>
-          set((state) => ({
-            user: {
-              ...state.user!,
-              categories: categories,
-            },
-          })),
+      initCategories: (categories) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            categories: categories,
+          },
+        })),
 
       updateCategory: (updatedCategory) =>
         set((state) => ({
@@ -128,15 +128,15 @@ const useUserStore = create<UserStore>()(
             savings: [...state.user!.savings, saving],
           },
         })),
-        updateSaving: (updatedSaving) =>
-          set((state) => ({
-            user: {
-              ...state.user!,
-              savings: state.user!.savings.map((cat) =>
-                cat._id === updatedSaving._id ? { ...cat, ...updatedSaving } : cat
-              ),
-            },
-          })),
+      updateSaving: (updatedSaving) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            savings: state.user!.savings.map((cat) =>
+              cat._id === updatedSaving._id ? { ...cat, ...updatedSaving } : cat
+            ),
+          },
+        })),
 
       setAlerts: (alerts) =>
         set((state) => ({

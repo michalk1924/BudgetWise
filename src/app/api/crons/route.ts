@@ -17,3 +17,4 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: "Error inserting document", status: 500 });
     }
 }
+

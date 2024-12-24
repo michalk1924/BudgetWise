@@ -1,52 +1,86 @@
 .page {
-    color: #536493;
-    display: flex;
-    flex-direction: row;
-    height: 80vh;
-    gap: 5%; 
-    margin: 0 3% 3% 3%;
+  color: #536493;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  gap: 7%;
+  margin: 0 3% 3% 3%;
 }
-  
-  .leftSection {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    justify-content: space-around;
-  }
-  
-  .title {
-    display: grid; 
-    place-items: center; 
-    text-align: center; 
-    align-items: center;
-    text-shadow: 10px 7px 10px #D4BDAC;
-    font-family: 'Painting_With_Chocolate', Arial, sans-serif;
-    font-size: 4rem;
-    font-weight: bold;
-    
-  }
-  
-  .totalsSection {
-    padding: 10px;
-  }
-  
-  .mainSection {
-    display: flex;
-    flex-direction: column;
-    flex: 3; 
-    position: relative;
-    overflow: hidden; 
 
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.title {
+  text-align: center;
+  text-shadow: 10px 7px 10px #D4BDAC;
+  font-family: 'Gagalin', Arial, sans-serif;
+  font-size: 2.6rem;
+}
+
+.totalsSection {
+  padding: 10px;
+}
+
+.mainSection {
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.addBudgetSection {
+  margin-top: auto;
+  padding: 20px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .page {
+    flex-direction: column;
+    height: auto;
   }
-  
+
+  .leftSection {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  .mainSection {
+    flex: 1;
+    height: 150vh;
+    overflow-y: auto;
+  }
+
   .tableSection {
-    flex-grow: 1; 
-    overflow-y: auto; 
+    flex-grow: 1;
+    height: 100%;
   }
-  
-  .addBudgetSection {
-    margin-top: auto; 
-    padding: 20px;
-    flex-shrink: 0;
+
+  .title {
+    font-size: 1.5rem;
+    text-align: center;
   }
-  
+
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .totalsSection {
+    flex-direction: column;
+    /* Stack totals vertically */
+    gap: 5px;
+    /* Smaller gap between totals */
+  }
+}

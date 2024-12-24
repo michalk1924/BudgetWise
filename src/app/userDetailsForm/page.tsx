@@ -3,10 +3,12 @@
 import React, { useState } from "react";
 import styles from "./userDetailsForm.module.css";
 import { generateBudgetWithCategories } from "@/services/budgetCalc";
-import { Category } from "@/types/types";
+import { Category, Saving } from "@/types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
+import { showSuccessAlert, showErrorAlert } from "../../services/alerts";
+
 
 interface FormData {
     fullName: string;
@@ -14,26 +16,25 @@ interface FormData {
     startBudgetMonth: string;
     estimatedIncome: number;
     incomeSources: "salary" | "business" | "investments" | "other" | "";
-    fixedExpenses: "<1000" | "1000-3000" | "3000-5000" | ">5000" | "";
-    variableExpenses: "<500" | "500-1000" | "1000-3000" | ">3000" | "";
     loans: "yes" | "no" | "";
     debts: "yes" | "no" | "";
     savings: string;
     emergencyFund: "yes" | "no" | "";
+    emergencyFundAmount: number,
     budgetPriority: "avoidOverspending" | "increaseSavings" | "investLongTerm" | "improveQualityOfLife" | "";
     transportation: string;
     housing: string;
+    housingCost: number;
     dependents: number;
+    educationCost: number;
     hasCar: "yes" | "no" | "";
     numberOfCars: number;
-    hasPets: "yes" | "no" | "";
-    numberOfPets: number;
     entertainmentPreference: "low" | "medium" | "high" | "";
     householdType: "single" | "partnered" | "";
 }
 
 const UserDetailsForm = () => {
-    const { user, initCategories } = useUserStore();
+    const { user, initCategories,addSaving } = useUserStore();
 
     const queryClient = useQueryClient();
 
@@ -61,137 +62,47 @@ const UserDetailsForm = () => {
             console.error("Error updating user:", error.message);
         },
     });
+    const updateUserAddSavingMutation = useMutation({
+        mutationFn: async ({ id, saving }: { id: string; saving: Saving }) => {
+          if (user) {
+            const response = await userService.updateUser(id, { savings: [...user?.savings, saving] });
+            addSaving(saving);
+            return response;
+          }
+          return null;
+        },
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['users'] });
+        },
+        onError: (error: Error) => {
+          console.error('Error updating user:', error.message);
+        },
+      });
+    
+
 
     const [formData, setFormData] = useState<FormData>({
-        fullName: "",
-        email: "",
+        fullName: user?.username || "",
+        email: user?.email || "",
         startBudgetMonth: "",
         estimatedIncome: 0,
         incomeSources: "",
-        fixedExpenses: "",
-        variableExpenses: "",
         loans: "",
         debts: "",
         savings: "",
         emergencyFund: "",
+        emergencyFundAmount: 0,
         budgetPriority: "",
         transportation: "",
         housing: "",
+        housingCost: 0,
         dependents: 0,
+        educationCost: 0,
         hasCar: "",
         numberOfCars: 0,
-        hasPets: "",
-        numberOfPets: 0,
         entertainmentPreference: "",
         householdType: "",
     });
-    /*   function generateBudgetWithCategories(formData: FormData) {
-          const budget = {
-              savings: 0,
-              debtRepayment: 0,
-              expenses: {
-                  housing: 0,
-                  transportation: 0,
-                  car: 0,
-                  food: 0,
-                  insurance: 0,
-                  health: 0,
-                  education: 0,
-                  entertainment: 0,
-                  communication: 0,
-                  clothing: 0,
-                  children: 0,
-                  events: 0,
-                  leisure: 0,
-                  travel: 0,
-                  pets: 0,
-                  subscriptions: 0,
-                  other: 0,
-              },
-              discretionary: 0,
-          };
-      
-          const incomeRanges: { [key: string]: number } = {
-              "<3000": 3000,
-              "3000-5000": 4000,
-              "5000-10000": 7500,
-              ">10000": 12000,
-          };
-      
-          const fixedExpenseRanges: { [key: string]: number } = {
-              "<1000": 1000,
-              "1000-3000": 2000,
-              "3000-5000": 4000,
-              ">5000": 6000,
-          };
-      
-          const variableExpenseRanges: { [key: string]: number } = {
-              "<500": 500,
-              "500-1000": 750,
-              "1000-3000": 2000,
-              ">3000": 4000,
-          };
-      
-          const income = incomeRanges[formData.estimatedIncome] || 0;
-          const fixedExpenses = fixedExpenseRanges[formData.fixedExpenses] || 0;
-          const variableExpenses = variableExpenseRanges[formData.variableExpenses] || 0;
-      
-          const savingsPriorityPercentage =
-              formData.budgetPriority === "increaseSavings" ? 0.3 : 0.1;
-          const debtPriorityPercentage = formData.debts === "yes" ? 0.2 : 0.1;
-      
-          // Calculate savings
-          budget.savings = income * savingsPriorityPercentage;
-      
-          // Calculate debt repayment
-          if (formData.loans === "yes" || formData.debts === "yes") {
-              budget.debtRepayment = income * debtPriorityPercentage;
-          }
-      
-          // Adjust percentages based on user details
-          const categoryPercentages = {
-              housing: 0.30,
-              transportation: formData.hasCar === "yes" ? 0.05 : 0.10, // More for public transport if no car
-              car: formData.hasCar === "yes" ? 0.06 * formData.numberOfCars : 0,
-              food: 0.15 + (formData.dependents > 0 ? 0.05 : 0), // More food expenses for dependents
-              insurance: 0.05,
-              health: 0.05,
-              education: formData.dependents * 0.06, // Only for users with children
-              entertainment:
-                  formData.entertainmentPreference === "high"
-                      ? 0.10
-                      : formData.entertainmentPreference === "medium"
-                      ? 0.05
-                      : 0.03,
-              communication: 0.01,
-              clothing: 0.03,
-              children: formData.dependents *0.02,
-              events: 0.02,
-              leisure: 0.02,
-              travel: formData.hasPets === "yes" ? 0.02 : 0.03, 
-              pets: formData.hasPets === "yes" ? 0.01 * formData.numberOfPets : 0,
-              subscriptions: 0.02,
-              other: 0.2,
-          };
-      
-          // Divide expenses into categories
-          const remainingForExpenses = income - (budget.savings + budget.debtRepayment);
-      
-          for (const category in budget.expenses) {
-              budget.expenses[category as keyof typeof budget.expenses] =
-                  remainingForExpenses * categoryPercentages[category as keyof typeof budget.expenses];
-          }
-      
-          // Calculate discretionary funds
-          budget.discretionary =
-              income -
-              (budget.savings +
-                  budget.debtRepayment +
-                  Object.values(budget.expenses).reduce((sum, value) => sum + value, 0));
-      
-          return budget;
-      } */
-
 
 
     const handleInputChange = (
@@ -204,10 +115,9 @@ const UserDetailsForm = () => {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log("User Details Submitted:", formData);
-        alert("Details saved successfully!");
         let budget = generateBudgetWithCategories(formData)
 
         let categories: Category[] = [];
@@ -215,70 +125,41 @@ const UserDetailsForm = () => {
         for (const category in budget.expenses) {
             const userCategory: Category = {
                 _id: Math.random().toString(36).substr(2, 8),
-                type: 'general',
-                name: category,
+                categoryName: category,
                 description: category,
                 budget: budget.expenses[category as keyof typeof budget.expenses],
                 spent: 0,
-                month: new Date,
+                monthlyBudget: [],
             }
             categories.push(userCategory)
         }
         updateUserAddCategoriesMutation.mutate({ id: user?._id ?? "", categories })
+
+        const saving: Saving = {
+            _id: Math.random().toString(36).substr(2, 8),
+            goalName: "Emergancy Fund",
+            targetAmount: 20000,
+            currentAmount: formData.emergencyFundAmount,
+            deadline: new Date,
+            createdAt: new Date,
+            updatedAt: new Date,
+           
+        }
+        updateUserAddSavingMutation.mutate({ id: user?._id ?? "", saving })
+
+        await showSuccessAlert("Welcome!", "Details saved successfully!", 1000);
+
     };
 
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Welcome to BudgetWise!</h1>
             <p className={styles.subtitle}>Please fill out the details below to get started:</p>
+
             <form onSubmit={handleSubmit} className={styles.form}>
-                {/* Full Name */}
-                <label className={styles.label}>
-                    Full Name:
-                    <input
-                        type="text"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        placeholder="Enter your full name"
-                        required
-                    />
-                </label>
-
-                {/* Email */}
-                <label className={styles.label}>
-                    Email:
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        placeholder="Enter your email"
-                        required
-                    />
-                </label>
-
-                {/* Household Type */}
-                <label className={styles.label}>
-                    Household Type:
-                    <select
-                        name="householdType"
-                        value={formData.householdType}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        required
-                    >
-                        <option value="">Select household type</option>
-                        <option value="single">Single</option>
-                        <option value="partnered">With Partner</option>
-                    </select>
-                </label>
-
                 {/* Start of Budget Month */}
                 <label className={styles.label}>
-                    Start of Budget Month:
+                    Start of Budget Month: *
                     <select
                         name="startBudgetMonth"
                         value={formData.startBudgetMonth}
@@ -294,7 +175,7 @@ const UserDetailsForm = () => {
 
                 {/* Estimated Income */}
                 <label className={styles.label}>
-                    Estimated Monthly Income:
+                    Estimated Monthly Income: *
                     <input
                         type="number"
                         name="estimatedIncome"
@@ -306,6 +187,22 @@ const UserDetailsForm = () => {
                     />
                 </label>
 
+                 {/* Household Type */}
+                 <label className={styles.label}>
+                    Household Type: *
+                    <select
+                        name="householdType"
+                        value={formData.householdType}
+                        onChange={handleInputChange}
+                        className={styles.input}
+                        required
+                    >
+                        <option value="">Select household type</option>
+                        <option value="single">Single</option>
+                        <option value="partnered">With Partner</option>
+                    </select>
+                </label>
+
                 {/* Income Sources */}
                 <label className={styles.label}>
                     Income Sources:
@@ -314,7 +211,6 @@ const UserDetailsForm = () => {
                         value={formData.incomeSources}
                         onChange={handleInputChange}
                         className={styles.input}
-                        required
                     >
                         <option value="">Select source</option>
                         <option value="salary">Salary</option>
@@ -324,45 +220,9 @@ const UserDetailsForm = () => {
                     </select>
                 </label>
 
-                {/* Fixed Expenses */}
-                <label className={styles.label}>
-                    Fixed Monthly Expenses:
-                    <select
-                        name="fixedExpenses"
-                        value={formData.fixedExpenses}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        required
-                    >
-                        <option value="">Select range</option>
-                        <option value="<1000">Less than $1,000</option>
-                        <option value="1000-3000">$1,000 - $3,000</option>
-                        <option value="3000-5000">$3,000 - $5,000</option>
-                        <option value=">5000">More than $5,000</option>
-                    </select>
-                </label>
-
-                {/* Variable Expenses */}
-                <label className={styles.label}>
-                    Variable Monthly Expenses:
-                    <select
-                        name="variableExpenses"
-                        value={formData.variableExpenses}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        required
-                    >
-                        <option value="">Select range</option>
-                        <option value="<500">Less than $500</option>
-                        <option value="500-1000">$500 - $1,000</option>
-                        <option value="1000-3000">$1,000 - $3,000</option>
-                        <option value=">3000">More than $3,000</option>
-                    </select>
-                </label>
-
                 {/* Loans */}
                 <label className={styles.label}>
-                    Do you have any loans?:
+                    Do you have any loans? *
                     <select
                         name="loans"
                         value={formData.loans}
@@ -378,7 +238,7 @@ const UserDetailsForm = () => {
 
                 {/* Debts */}
                 <label className={styles.label}>
-                    Do you have any debts?:
+                    Do you have any debts? *
                     <select
                         name="debts"
                         value={formData.debts}
@@ -400,10 +260,10 @@ const UserDetailsForm = () => {
                         value={formData.savings}
                         onChange={handleInputChange}
                         className={styles.input}
-                        required
                     >
                         <option value="">Select range</option>
-                        <option value="<1000">Less than $1,000</option>
+                        <option value="0">None</option>
+                        <option value="1000">Less than $1,000</option>
                         <option value="1000-5000">$1,000 - $5,000</option>
                         <option value="5000-10000">$5,000 - $10,000</option>
                         <option value=">10000">More than $10,000</option>
@@ -412,13 +272,12 @@ const UserDetailsForm = () => {
 
                 {/* Emergency Fund */}
                 <label className={styles.label}>
-                    Do you have an emergency fund?:
+                    Do you have an emergency fund?
                     <select
                         name="emergencyFund"
                         value={formData.emergencyFund}
                         onChange={handleInputChange}
                         className={styles.input}
-                        required
                     >
                         <option value="">Select option</option>
                         <option value="no">No</option>
@@ -426,9 +285,24 @@ const UserDetailsForm = () => {
                     </select>
                 </label>
 
+                {formData.emergencyFund === "yes" && (
+                    <label className={styles.label}>
+                        How much do you have in your emergency fund?
+                        <input
+                            type="number"
+                            name="emergencyFundAmount"
+                            value={formData.emergencyFundAmount || ""}
+                            onChange={handleInputChange}
+                            className={styles.input}
+                            placeholder="Enter amount"
+                        />
+                    </label>
+                )}
+
+
                 {/* Budget Priority */}
                 <label className={styles.label}>
-                    What is your top budgeting priority?:
+                    What is your top budgeting priority?
                     <select
                         name="budgetPriority"
                         value={formData.budgetPriority}
@@ -461,7 +335,21 @@ const UserDetailsForm = () => {
                 </label>
 
                 <label className={styles.label}>
-                    Number of Dependents:
+                    How much do you spend on housing? *
+                    <input
+                        type="number"
+                        name="housingCost"
+                        value={formData.housingCost}
+                        onChange={handleInputChange}
+                        className={styles.input}
+                        placeholder="Enter your monthly housing cost"
+                        required
+                    />
+                </label>
+
+
+                <label className={styles.label}>
+                    Number of Children: *
                     <input
                         type="number"
                         name="dependents"
@@ -473,9 +361,22 @@ const UserDetailsForm = () => {
                     />
                 </label>
 
+                <label className={styles.label}>
+                    How much do you spend on education? *
+                    <input
+                        type="number"
+                        name="educationCost"
+                        value={formData.educationCost}
+                        onChange={handleInputChange}
+                        className={styles.input}
+                        placeholder="Enter your monthly housing cost"
+                        required
+                    />
+                </label>
+
                 {/* Has Car */}
                 <label className={styles.label}>
-                    Do you own a car?:
+                    Do you own a car?: *
                     <select
                         name="hasCar"
                         value={formData.hasCar}
@@ -492,7 +393,7 @@ const UserDetailsForm = () => {
                 {/* Number of Cars */}
                 {formData.hasCar === "yes" && (
                     <label className={styles.label}>
-                        Number of Cars:
+                        Number of Cars: *
                         <input
                             type="number"
                             name="numberOfCars"
@@ -505,37 +406,7 @@ const UserDetailsForm = () => {
                     </label>
                 )}
 
-                {/* Has Pets */}
-                <label className={styles.label}>
-                    Do you have pets?:
-                    <select
-                        name="hasPets"
-                        value={formData.hasPets}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        required
-                    >
-                        <option value="">Select option</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-                </label>
 
-                {/* Number of Pets */}
-                {formData.hasPets === "yes" && (
-                    <label className={styles.label}>
-                        Number of Pets:
-                        <input
-                            type="number"
-                            name="numberOfPets"
-                            value={formData.numberOfPets}
-                            onChange={handleInputChange}
-                            className={styles.input}
-                            placeholder="Enter number of pets"
-                            required
-                        />
-                    </label>
-                )}
 
                 {/* Entertainment Preference */}
                 <label className={styles.label}>

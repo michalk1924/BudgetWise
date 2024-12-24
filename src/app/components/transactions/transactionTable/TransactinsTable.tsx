@@ -5,19 +5,20 @@ import styles from './TransactionTable.module.css';
 import { Transaction, Category } from '../../../../types/types';
 import { DateFilter } from '@/consts/enums';
 import { TransactionComp } from "../../index";
-import useUserStore from "@/store/userStore";
 import { ITEMS_PER_PAGE } from '@/consts/consts';
 
-function TransactionsList({ transactions, updateTransaction }: { transactions: Transaction[], updateTransaction: (transaction: Transaction) => void }) {
-
-    const { user } = useUserStore();
+function TransactionsList({ transactions, categories, updateTransaction }:
+    {
+        transactions: Transaction[],
+        updateTransaction: (transaction: Transaction) => void,
+        categories: Category[],
+    }) {
 
     const [currentTransactions, setCurrentTransactions] = useState<Transaction[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [categoryFilter, setCategoryFilter] = useState<string>('');
     const [dateFilter, setDateFilter] = useState<DateFilter>(DateFilter.Last30Days);
-    const categories = new Set(user?.categories?.map((cat: Category) => cat.name)); 
     const [isDropdownOpenCategory, setIsDropdownOpenCategory] = useState<boolean>(false);
     const [isDropdownOpenDate, setIsDropdownOpenDate] = useState<boolean>(false);
 
@@ -64,14 +65,10 @@ function TransactionsList({ transactions, updateTransaction }: { transactions: T
     const filterTransactions = () => {
         return transactions.filter((transaction) => {
             let isValid = true;
-            if (categoryFilter && transaction.category !== categoryFilter) {
+            if (categoryFilter && transaction?.category?.toString() != categoryFilter) {
                 isValid = false;
             }
             if (dateFilter && !filterTransactionsByDate[dateFilter](transaction)) {
-                console.log("Filter transaction" + transaction.date);
-
-                console.log(filterTransactionsByDate[dateFilter](transaction));
-
                 isValid = false;
             }
             return isValid;
@@ -85,6 +82,8 @@ function TransactionsList({ transactions, updateTransaction }: { transactions: T
         const currentTransactions = filteredTransactions.slice(
             (currentPage - 1) * ITEMS_PER_PAGE,
             currentPage * ITEMS_PER_PAGE
+        ).sort((a, b) =>
+            new Date(b.date).getTime() - new Date(a.date).getTime()
         );
         setCurrentTransactions(currentTransactions);
     }, [transactions, categoryFilter, dateFilter, currentPage]);
@@ -157,34 +156,25 @@ function TransactionsList({ transactions, updateTransaction }: { transactions: T
                                 >
                                     All Categories
                                 </div>
-                                {/* {categories.map((category, index) => (
+                                {categories.map((category: Category, index) => (
                                     <div
                                         key={index}
-                                        className={`${styles.option} ${category === categoryFilter ? styles.selectedOption : ''}`}
-                                        onClick={() => handleCategoryChange(category)}
+                                        className={`${styles.option} ${category.categoryName === categoryFilter ? styles.selectedOption : ''}`}
+                                        onClick={() => handleCategoryChange(category.categoryName)}
                                     >
-                                        {category}
-                                    </div>
-                                ))} */}
-                                {Array.from(categories).map((category: string, index: number) => (
-                                    <div
-                                        key={index}
-                                        className={`${styles.option} ${category === categoryFilter ? styles.selectedOption : ''}`}
-                                        onClick={() => handleCategoryChange(category)}
-                                    >
-                                        {category}
+                                        {category.categoryName}
                                     </div>
                                 ))}
                             </div>
                         )}
                     </div>
                 </div>
-                <div>Description</div>
-                <div>Payment Method</div> {/* הכנס את השדה Payment Method כאן */}
+                <div className={styles.hiddenOnSmall}>Description</div>
+                <div className={styles.hiddenOnSmall}>Payment Method</div>
             </div>
 
             {currentTransactions.map((transaction) => (
-                <TransactionComp key={transaction._id} transaction={transaction} updateTransaction={updateTransaction} />
+                <TransactionComp key={transaction._id} transaction={transaction} categories={categories} updateTransaction={updateTransaction} />
             ))}
 
             <div className={styles.pagination}>

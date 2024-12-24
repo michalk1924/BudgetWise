@@ -1,5 +1,4 @@
 .container {
-    color: #333;
     padding: 20px;
     color: #536493;
     text-shadow:0 10px 10px #FFF1DB;
@@ -19,22 +18,32 @@
 .stats {
     display: flex;
     justify-content: space-around;
-    margin: 20px 0;
+    margin-bottom: 6%;
+
 }
 
 .statBox {
-    padding: 20px;
     border-radius: 5px;
     width: 30%;
     text-align: center;
+    font-size: 1.4rem;
+}
+.aaa{
+    font-size: 1.8rem;
+
 }
 
 .greeting {
-    font-size:xx-large;
-    margin: 40px 0;
-    font-family: 'Malvie Trial', Arial, sans-serif;
-
+    display: flex; /* Enable flexbox */
+    flex-direction: column; /* Arrange children vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    height: 100%; /* Ensure the section takes up the necessary height */
+    text-align: center; /* Center the text within the element */
+    font-size: x-large;
+    margin-bottom: 3%;
 }
+
 
 .actions button {
     margin: 10px;
@@ -43,22 +52,27 @@
     border-radius: 5px;
     cursor: pointer;
 }
+.monthlyIncome{
+    color:#A1D6B2;
+    padding:8%;
 
-.statBoxWithImage7 {
-    background-image: url('/7-removebg-preview.png');
-    background-size: cover;
+    box-shadow: 0 10px 10px #A1D6B2;
+  border-radius: 15%;
 }
 
-.statBoxWithImage8 {
-    background-image: url('/8-removebg-preview.png');
-    background-size: cover;
+.monthlyExpenses{
+    color:#ef5a6ee0;
+    padding:8%;
+
+    box-shadow: 0 10px 10px #ef5a6ee0;
+  border-radius: 15%;
 }
 
-.statBoxWithImage9 {
-    background-image: url('/9-removebg-preview.png');
-    background-size: cover;
+.monthlySavings{
+    color:#D4BDAC;
+    padding:8%;
+
+    box-shadow: 0 12px 12px #D4BDAC;
+  border-radius: 15%;
 }
 
-.aaa {
-    font-size: x-large;
-}

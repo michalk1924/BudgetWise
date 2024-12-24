@@ -79,3 +79,57 @@
   text-align: center;
   align-items: center;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 0;
+  padding: 2%;
+}
+
+.headers {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  text-align: center;
+  padding: 0;
+}
+
+.main {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  text-align: center;
+  align-items: center;
+}
+
+/* Responsive Styling for Smaller Screens */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack sections vertically */
+  }
+
+  .headers {
+    width: 100%; /* Take full width */
+    order: -1; /* Move the headers section to the top */
+    margin-bottom: 20px; /* Add some spacing below */
+  }
+
+  .main {
+    width: 100%; /* Take full width */
+    align-items: stretch; /* Adjust alignment for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .headers {
+    font-size: 1.2rem; /* Adjust font size for smaller screens */
+  }
+
+  .main {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+  }
+}

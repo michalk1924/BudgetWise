@@ -2,9 +2,7 @@
 
 import React from "react";
 import styles from "./categories.module.css";
-import BudgetGrid from "../components/categoriesGrid/BudgetGrid/BudgetGrid";
-import AddNewBudget from "../components/categoriesGrid/AddNewBudget/AddNewBudget";
-import GridItem from "../components/categoriesGrid/GridItem/GridItem";
+import {BudgetGrid, AddNewBudget, GridItem, BudgetDoughnutChart}  from "../components/index";
 import { Category } from "../../types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -24,6 +22,7 @@ const Categories = () => {
       category: Category;
     }) => {
       if (user) {
+        console.log("category to add", category);
         const response = await userService.updateUser(id, {
           categories: [...user?.categories, category],
         });
@@ -75,24 +74,27 @@ const Categories = () => {
   };
 
   return (
+    <div>
     <div className={styles.page}>
       <section className={styles.leftSection}>
+
         <header className={styles.title}>
-          <span>BUDGET SETTING</span>
+        <span>BUDGET SETTING</span>
+
         </header>
 
         <section className={styles.totalsSection}>
+        <BudgetDoughnutChart categories={user?.categories ?? []} />
+
           {total && (
             <GridItem
               key="total"
               category={{
                 _id: "total",
-                type: "general",
-                name: "Monthly Total Budget",
+                categoryName: "Monthly Total Budget",
                 description: "Total budget for the month",
                 budget: total.budget,
                 spent: total.spent,
-                month: new Date(),
               }}
               isTotal={true}
             />
@@ -111,6 +113,7 @@ const Categories = () => {
           {user && <AddNewBudget addCategory={handleAddCategory} />} 
         </section>
       </section>
+    </div>
     </div>
   );
 };

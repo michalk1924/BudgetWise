@@ -42,7 +42,7 @@ export default function Home() {
             const user = await authService.signup(data);
             setUser(user);
             await showSuccessAlert("Welcome!", "You Signed up successfully", 1000);
-            router.push("/home");
+            router.push("/userDetailsForm");
         } catch (error: any) {
             console.error("Error creating user:", error);
             showErrorAlert("Error creating user");

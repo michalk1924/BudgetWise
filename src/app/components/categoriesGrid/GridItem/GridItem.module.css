@@ -6,23 +6,13 @@
   flex-direction: column;
   align-items: flex-start;
   background-color: #fbf6f3;
-  position: relative;
   color: #536493;
-
+justify-content: space-between;
+}
+.wrapper{
+  width:100%;
 }
 
-.gridTotalItem {
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0px 4px 6px #D4BDAC;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: relative;
-  width: 90%;
-  font-size: 1.2rem;
-  font-family: 'Malvie Trial', Arial, sans-serif;
-}
 
 .gridTotalItem .details .numeric {
   font-family: 'DynaPuff';
@@ -32,22 +22,27 @@
 }
 
 .categoryTotalName {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   margin-bottom: 10px;
 }
 
 .categoryName {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-bottom: 10px;
 }
 
 .details {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: space-between; /* Push spent to the left and left to the right */
+  align-items: center; /* Vertically center items */
+  width: 100%; /* Ensure the container takes full width */
+  gap: 20px; /* Add spacing between elements */
+  padding: 0 10px; /* Add padding to prevent sticking to the edges */
   color: #536493;
   font-weight: lighter;
+  font-size: 1rem;
 }
+
 
 .editButton {
   background: none;
@@ -80,4 +75,33 @@
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+@media (max-width: 768px) {
+  .categoryTotalName {
+    display: none; /* Hide the total title on small screens */
+  }
+  .gridTotalItem .number{
+    font-size: smaller;
+  }
+  .left{
+    display: none; /* Hide the total title on small screens */
+
+  }
+}
+
+
+.spent {
+  color: #EF5A6F;
+  text-align: left; /* Ensure text aligns to the left */
+}
+
+.left {
+  color: #A1D6B2;
+  text-align: right; /* Ensure text aligns to the right */
+}
+
+.progressBar {
+  width: calc(100% - 20px); /* Take the full width of the container with padding adjustment */
+  margin: 10px 10px; /* Add consistent spacing above and below */
 }
