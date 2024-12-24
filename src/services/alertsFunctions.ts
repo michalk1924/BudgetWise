@@ -21,7 +21,7 @@ export const createAlertsExceedingBudget = async (user: User) => {
 
         const solution1: Solution = {
           id: crypto.randomUUID(),
-          description: `Consider increasing the budget for the ${user.categories[category]?.name} category. Current budget: ${user.categories[category]?.budget}, Spent: ${user.categories[category]?.spent}.`,
+          description: `Consider increasing the budget for the ${user.categories[category]?.categoryName} category. Current budget: ${user.categories[category]?.budget}, Spent: ${user.categories[category]?.spent}.`,
           actionLink: "/categories",
           isRecommended: false
         };
@@ -29,7 +29,7 @@ export const createAlertsExceedingBudget = async (user: User) => {
 
         const solution2: Solution = {
           id: crypto.randomUUID(),
-          description: `Consider using less in the ${user.categories[category]?.name} category to stay within your budget. Current budget: ${user.categories[category]?.budget}, Spent: ${user.categories[category]?.spent}.`,
+          description: `Consider using less in the ${user.categories[category]?.categoryName} category to stay within your budget. Current budget: ${user.categories[category]?.budget}, Spent: ${user.categories[category]?.spent}.`,
           actionLink: "/categories",
           isRecommended: true
         };
@@ -37,7 +37,7 @@ export const createAlertsExceedingBudget = async (user: User) => {
 
         const solution3: Solution = {
           id: crypto.randomUUID(),
-          description: `View a detailed spending report with a graph of your spending in the "${user.categories[category]?.name}" category. This will help you visualize your spending trends.`,
+          description: `View a detailed spending report with a graph of your spending in the "${user.categories[category]?.categoryName}" category. This will help you visualize your spending trends.`,
           actionLink: "/reports",
           isRecommended: false
         };
@@ -46,7 +46,7 @@ export const createAlertsExceedingBudget = async (user: User) => {
         const alert: Alert = {
           alertId: id,
           type: AlertType.BudgetOverrun,
-          triggerCondition: `Your budget for ${user.categories[category]?.name} is almost finished. Spent: ${user.categories[category]?.spent} / Budget: ${user.categories[category]?.budget}. Consider reducing expenses.`,
+          triggerCondition: `Your budget for ${user.categories[category]?.categoryName} is almost finished. Spent: ${user.categories[category]?.spent} / Budget: ${user.categories[category]?.budget}. Consider reducing expenses.`,
           isActive: true,
           createdAt: new Date(Date.now()),
           updatedAt: new Date(Date.now()),
@@ -70,11 +70,23 @@ export const budgetExceededAlert = async (user: User) => {
 
     const alerts: Alert[] = [];
 
-    if (user?.totalSpending >= user?.totalBudget) {
+    const totalBudget = user.categories.reduce(
+      (total, category) =>
+        total + category.budget,
+      0
+    );
+
+    const totalSpending  = user.categories.reduce(
+      (total, category) =>
+        total + category.spent,
+      0
+    );
+    
+    if (totalSpending >= totalBudget) {
 
       const solution1: Solution = {
         id: crypto.randomUUID(),
-        description: `Consider reducing your expenses or saving money. Your total budget is exceeded. Spent: ${user.totalSpending} / Budget: ${user.totalBudget}.`,
+        description: `Consider reducing your expenses or saving money. Your total budget is exceeded. Spent: ${totalSpending} / Budget: ${totalBudget}.`,
         actionLink: "/transactions",
         isRecommended: false
       }
@@ -90,7 +102,7 @@ export const budgetExceededAlert = async (user: User) => {
       const alert: Alert = {
         alertId: id,
         type: AlertType.BudgetOverrun,
-        triggerCondition: `Your total budget is already exceeded. Spent: ${user.totalSpending} / Budget: ${user.totalBudget}. Consider reducing expenses.`,
+        triggerCondition: `Your total budget is already exceeded. Spent: ${totalSpending} / Budget: ${totalBudget}. Consider reducing expenses.`,
         isActive: true,
         createdAt: new Date(Date.now()),
         updatedAt: new Date(Date.now()),
@@ -110,7 +122,13 @@ export const budgetExceededAlert = async (user: User) => {
 export const validateAccountBalance = async (user: User) => {
 
   try {
-    const { balance, totalBudget } = user; // Extract balance and budget from User object
+    const { balance} = user; 
+
+    const totalBudget = user.categories.reduce(
+      (total, category) =>
+        total + category.budget,
+      0
+    );
 
     let balanceAlert: Alert | null = null;
     const alerts: Alert[] = [];
