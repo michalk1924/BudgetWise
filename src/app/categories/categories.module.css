@@ -47,57 +47,41 @@
   flex-shrink: 0;
 }
 
-/* Media Query for Small Screens */
 @media (max-width: 768px) {
   .page {
     flex-direction: column;
-    /* Stack sections vertically */
     height: auto;
-    /* Reset height for stacking */
   }
 
   .leftSection {
     flex-direction: row;
-    /* Make the left section a single row */
     justify-content: space-between;
-    /* Space out elements */
     align-items: center;
-    /* Center align items vertically */
     margin-bottom: 5px;
-    /* Add spacing from main section */
   }
 
   .mainSection {
     flex: 1;
-    /* Allow main section to expand */
     height: 150vh;
-    /* Take full viewport height */
     overflow-y: auto;
-    /* Add vertical scroll if needed */
   }
 
   .tableSection {
     flex-grow: 1;
     height: 100%;
-    /* Ensure it fills the parent height */
   }
 
   .title {
     font-size: 1.5rem;
-    /* Further reduce title size */
     text-align: center;
-    /* Center align for very small screens */
   }
 
 }
 
-/* Media Query for Very Small Screens */
 @media (max-width: 480px) {
   .title {
     font-size: 1rem;
-    /* Further reduce title size */
     text-align: center;
-    /* Center align for very small screens */
   }
 
   .totalsSection {

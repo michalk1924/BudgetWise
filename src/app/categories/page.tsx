@@ -2,14 +2,11 @@
 
 import React from "react";
 import styles from "./categories.module.css";
-import BudgetGrid from "../components/categoriesGrid/BudgetGrid/BudgetGrid";
-import AddNewBudget from "../components/categoriesGrid/AddNewBudget/AddNewBudget";
-import GridItem from "../components/categoriesGrid/GridItem/GridItem";
+import {BudgetGrid, AddNewBudget, GridItem, BudgetDoughnutChart}  from "../components/index";
 import { Category } from "../../types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
-import { BudgetDoughnutChart } from "../components/index";
 
 const Categories = () => {
   const { user, addCategory, updateCategory } = useUserStore();

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { Chart, ArcElement, Tooltip, Legend, PieController } from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels"; // ייבוא plugin datalabels
+import ChartDataLabels from "chartjs-plugin-datalabels"; 
 import { Category } from "@/types/types";
 import styles from './budgetDoughnutChart.module.css'
 
