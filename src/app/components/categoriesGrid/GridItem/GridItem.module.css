@@ -7,7 +7,10 @@
   align-items: flex-start;
   background-color: #fbf6f3;
   color: #536493;
-
+justify-content: space-between;
+}
+.wrapper{
+  width:100%;
 }
 
 
