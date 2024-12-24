@@ -9,7 +9,6 @@ import { Transaction, Category } from "../../../../types/types";
 import { FaPencilAlt } from "react-icons/fa";
 import { FiSave } from "react-icons/fi";
 
-
 const transactionSchema = z.object({
     category: z.string().optional(),
     date: z.string()
@@ -50,7 +49,6 @@ const TransactionComp = ({ transaction, updateTransaction, categories }: { trans
             paymentMethod: data.paymentMethod,
             updatedAt: new Date(),
         };
-
         updateTransaction(updatedTransaction);
         setIsEditing(false);
     };

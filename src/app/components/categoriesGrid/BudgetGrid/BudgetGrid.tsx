@@ -2,8 +2,7 @@
 
 import React, { useState } from "react";
 import styles from "./BudgetGrid.module.css";
-import GridItem from "../GridItem/GridItem";
-import YearMonthSelector from "../YearMonthSelector/YearMonthSelector";
+import {GridItem,YearMonthSelector} from "../../index"
 import { Category } from "../../../../types/types";
 
 interface BudgetGridProps {
@@ -19,12 +18,10 @@ const BudgetGrid: React.FC<BudgetGridProps> = ({ categories, onUpdateCategory })
   const currentMonth = new Date().getMonth();
 
   const filteredCategories = categories.filter((category) => {
-    // אם החודש הנבחר הוא החודש הנוכחי
     if (selectedYear === currentYear && selectedMonth === currentMonth) {
-      return true; // כל הקטגוריות יוצגו
+      return true; 
     }
 
-    // אחרת, סינון לפי התקציב החודשי
     return category.monthlyBudget?.some(
       (budget) =>
         new Date(budget.month).getFullYear() === selectedYear &&
@@ -34,7 +31,6 @@ const BudgetGrid: React.FC<BudgetGridProps> = ({ categories, onUpdateCategory })
 
   return (
     <div className={styles.wrapper}>
-      {/* Year and Month Selector */}
       <YearMonthSelector
         selectedYear={selectedYear}
         selectedMonth={selectedMonth}

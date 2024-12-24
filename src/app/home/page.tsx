@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./home.module.css";
 import useUserStore from "@/store/userStore";
-import AlertsList from "../components/AlertsList/AlertsList";
+import {AlertsList} from "../components/index";
 
 export default function Home() {
     const { user, updateAlertStatus } = useUserStore();

@@ -9,10 +9,10 @@ import { Category } from "../../../../types/types";
 
 interface GridItemProps {
   category: Category;
-  isTotal?: boolean; // Optional, defaults to false
-  budget?: number; // Optional, overrides category.budget
-  spent?: number; // Optional, overrides category.spent
-  onUpdateCategory?: (updatedCategory: Category) => void; // Callback for updating the category
+  isTotal?: boolean; 
+  budget?: number; 
+  spent?: number; 
+  onUpdateCategory?: (updatedCategory: Category) => void; 
 }
 
 const GridItem: React.FC<GridItemProps> = ({
@@ -22,42 +22,42 @@ const GridItem: React.FC<GridItemProps> = ({
   spent,
   onUpdateCategory,
 }) => {
-  const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
-  const [editedCategory, setEditedCategory] = useState<Category>(category); // State for edited category
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedCategory, setEditedCategory] = useState<Category>(category); 
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-  // Listen for screen size changes
   React.useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 768); // Adjust breakpoint as needed
+      setIsSmallScreen(window.innerWidth <= 768); 
     };
 
-    handleResize(); // Check initial size
+    handleResize(); 
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleEditClick = () => {
-    setIsEditing(true); // Enable edit mode
+    setIsEditing(true);
   };
 
   const handleCancelClick = () => {
-    setIsEditing(false); // Disable edit mode
-    setEditedCategory(category); // Revert changes
+    setIsEditing(false);
+    setEditedCategory(category); 
   };
 
   const handleSaveClick = () => {
-    setIsEditing(false); // Disable edit mode
+    setIsEditing(false); 
     if (onUpdateCategory) {
-      onUpdateCategory(editedCategory); // Call the update callback
+      onUpdateCategory(editedCategory); 
     }
   };
 
   const handleInputChange = (field: keyof Category, value: string | number) => {
     setEditedCategory((prev) => ({ ...prev, [field]: value }));
   };
+
 
   // Use overrides if provided, otherwise default to category values
   const effectiveBudget = Number(budget ?? category.budget ?? 0);
@@ -66,8 +66,7 @@ const GridItem: React.FC<GridItemProps> = ({
 
   return (
     <div className={isTotal ? styles.gridTotalItem : styles.gridItem}>
-      {/* Category Name */}
-      <div>
+      <div className={isTotal ? styles.categoryTotalName : styles.categoryName} >
         <div
           className={isTotal ? styles.categoryTotalName : styles.categoryName}
           title={category.description}
@@ -84,7 +83,6 @@ const GridItem: React.FC<GridItemProps> = ({
           )}
         </div>
 
-        {/* Spending Details */}
         <div className={styles.details}>
           <span className={styles.spent}>
             <h1 className={styles.numeric}>${effectiveSpent.toFixed(2)}</h1>
@@ -98,10 +96,8 @@ const GridItem: React.FC<GridItemProps> = ({
           </span>
         </div>
 
-        {/* Progress Bar */}
         <ProgressBar percentage={percentage} />
 
-        {/* Budget Info */}
         <div className={styles.details}>
           <span className={styles.budget}>
             {isTotal && isSmallScreen ? "Monthly Budget: " : "Budget: "}
