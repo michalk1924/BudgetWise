@@ -82,6 +82,8 @@ function TransactionsList({ transactions, categories, updateTransaction }:
         const currentTransactions = filteredTransactions.slice(
             (currentPage - 1) * ITEMS_PER_PAGE,
             currentPage * ITEMS_PER_PAGE
+        ).sort((a, b) =>
+            new Date(b.date).getTime() - new Date(a.date).getTime()
         );
         setCurrentTransactions(currentTransactions);
     }, [transactions, categoryFilter, dateFilter, currentPage]);
@@ -168,9 +170,7 @@ function TransactionsList({ transactions, categories, updateTransaction }:
                     </div>
                 </div>
                 <div className={styles.hiddenOnSmall}>Description</div>
-                <div className={styles.hiddenOnSmall}>Payment Method</div> {/* הכנס את השדה Payment Method כאן */}
-                <div>Description</div>
-                <div>Payment Method</div>
+                <div className={styles.hiddenOnSmall}>Payment Method</div>
             </div>
 
             {currentTransactions.map((transaction) => (

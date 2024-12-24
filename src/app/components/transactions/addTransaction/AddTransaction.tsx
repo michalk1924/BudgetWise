@@ -46,6 +46,7 @@ export default function AddTransaction({ transactions, addTransaction, categorie
             createdAt: new Date(),
             updatedAt: new Date(),
             type: data.type,
+            category: data.category,
         }
         addTransaction(transaction);
         reset();
