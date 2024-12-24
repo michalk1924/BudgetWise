@@ -1,51 +1,92 @@
 .page {
-    color: #536493;
-    display: flex;
-    flex-direction: row;
-    height: 80vh;
-    gap: 5%; 
-    margin: 0 3% 3% 3%;
+  color: #536493;
+  display: flex;
+  flex-direction: row;
+  height: 80vh;
+  gap: 5%; 
+  margin: 0 3% 3% 3%;
 }
-  
-  .leftSection {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    justify-content: space-around;
-  }
-  
-  .title {
-    display: grid; 
-    place-items: center; 
-    text-align: center; 
-    align-items: center;
-    text-shadow: 10px 7px 10px #D4BDAC;
-    font-family: 'Gagalin', Arial, sans-serif;
-    font-size: 4rem;
-    
-  }
-  
-  .totalsSection {
-    padding: 10px;
-  }
-  
-  .mainSection {
-    display: flex;
-    flex-direction: column;
-    flex: 3; 
-    position: relative;
-    overflow: hidden; 
 
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.title {
+  display: grid; 
+  place-items: center; 
+  text-align: center; 
+  align-items: center;
+  text-shadow: 10px 7px 10px #D4BDAC;
+  font-family: 'Gagalin', Arial, sans-serif;
+  font-size: 4rem;
+}
+
+.totalsSection {
+  padding: 10px;
+}
+
+.mainSection {
+  display: flex;
+  flex-direction: column;
+  flex: 3; 
+  position: relative;
+  overflow: hidden; 
+}
+
+.tableSection {
+  flex-grow: 1; 
+  overflow-y: auto; 
+}
+
+.addBudgetSection {
+  margin-top: auto; 
+  padding: 20px;
+  flex-shrink: 0;
+}
+
+/* Media Query for Small Screens */
+@media (max-width: 768px) {
+  .page {
+    flex-direction: column; /* Stack sections vertically */
+    height: auto; /* Reset height for stacking */
   }
-  
+
+  .leftSection {
+    flex-direction: row; /* Make the left section a single row */
+    justify-content: space-between; /* Space out elements */
+    align-items: center; /* Center align items vertically */
+    margin-bottom: 5px; /* Add spacing from main section */
+  }
+
+  .mainSection {
+    flex: 1; /* Allow main section to expand */
+    height: 150vh; /* Take full viewport height */
+    overflow-y: auto; /* Add vertical scroll if needed */
+  }
+
   .tableSection {
-    flex-grow: 1; 
-    overflow-y: auto; 
+    flex-grow: 1;
+    height: 100%; /* Ensure it fills the parent height */
   }
-  
-  .addBudgetSection {
-    margin-top: auto; 
-    padding: 20px;
-    flex-shrink: 0;
+  .title {
+    font-size: 1.5rem; /* Further reduce title size */
+    text-align: center; /* Center align for very small screens */
   }
-  
+
+}
+
+/* Media Query for Very Small Screens */
+@media (max-width: 480px) {
+  .title {
+    font-size: 1rem; /* Further reduce title size */
+    text-align: center; /* Center align for very small screens */
+  }
+
+  .totalsSection {
+    flex-direction: column; /* Stack totals vertically */
+    gap: 5px; /* Smaller gap between totals */
+  }
+}

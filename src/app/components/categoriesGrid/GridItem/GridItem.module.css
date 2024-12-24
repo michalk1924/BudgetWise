@@ -69,3 +69,16 @@
   align-items: center;
   gap: 5px;
 }
+
+@media (max-width: 768px) {
+  .categoryTotalName {
+    display: none; /* Hide the total title on small screens */
+  }
+  .gridTotalItem .number{
+    font-size: smaller;
+  }
+  .left{
+    display: none; /* Hide the total title on small screens */
+
+  }
+}

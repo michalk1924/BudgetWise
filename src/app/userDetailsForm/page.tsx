@@ -124,7 +124,7 @@ const UserDetailsForm = () => {
         <div className={styles.container}>
             <h1 className={styles.title}>Welcome to BudgetWise!</h1>
             <p className={styles.subtitle}>Please fill out the details below to get started:</p>
-            
+
             <form onSubmit={handleSubmit} className={styles.form}>
                 {/* Full Name */}
                 <label className={styles.label}>
