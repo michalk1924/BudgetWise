@@ -67,7 +67,7 @@ const GridItem: React.FC<GridItemProps> = ({
   return (
     <div className={isTotal ? styles.gridTotalItem : styles.gridItem}>
       {/* Category Name */}
-      <div className={isTotal ? styles.categoryTotalName : styles.categoryName} >
+      <div>
         <div
           className={isTotal ? styles.categoryTotalName : styles.categoryName}
           title={category.description}
@@ -103,7 +103,6 @@ const GridItem: React.FC<GridItemProps> = ({
 
         {/* Budget Info */}
         <div className={styles.details}>
-
           <span className={styles.budget}>
             {isTotal && isSmallScreen ? "Monthly Budget: " : "Budget: "}
             {isEditing ? (

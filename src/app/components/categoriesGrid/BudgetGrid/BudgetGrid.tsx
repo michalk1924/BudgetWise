@@ -60,7 +60,6 @@ const BudgetGrid: React.FC<BudgetGridProps> = ({ categories, onUpdateCategory })
           );
         })}
       </div>
-      <span className={styles.seeMore}>See More...</span>
     </div>
   );
 };

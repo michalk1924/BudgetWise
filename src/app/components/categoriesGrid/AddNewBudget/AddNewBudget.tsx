@@ -52,7 +52,6 @@ export default function AddNewBudget({ addCategory }: AddCategoryProps) {
 
   return (
     <div className={styles.addBudgetContainer}>
-      <h3 className={styles.addBudgetTitle}>Add New Budget:</h3>
       <div className={styles.form}>
         <input
           type="text"
@@ -81,7 +80,7 @@ export default function AddNewBudget({ addCategory }: AddCategoryProps) {
       
         {error && <p className={styles.error}>{error}</p>}
         <button onClick={handleSubmit} className={styles.submitButton}>
-          Add 
+          Add New Budget
         </button>
       </div>
     </div>
