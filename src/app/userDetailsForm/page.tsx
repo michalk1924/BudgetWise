@@ -7,6 +7,8 @@ import { Category } from "@/types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
+import { showSuccessAlert, showErrorAlert } from "../../services/alerts";
+
 
 interface FormData {
     fullName: string;
@@ -97,10 +99,9 @@ const UserDetailsForm = () => {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async(e: React.FormEvent) => {
         e.preventDefault();
         console.log("User Details Submitted:", formData);
-        alert("Details saved successfully!");
         let budget = generateBudgetWithCategories(formData)
 
         let categories: Category[] = [];
@@ -117,6 +118,8 @@ const UserDetailsForm = () => {
             categories.push(userCategory)
         }
         updateUserAddCategoriesMutation.mutate({ id: user?._id ?? "", categories })
+        await showSuccessAlert("Welcome!", "Details saved successfully!", 1000);
+
     };
 
     return (
@@ -353,10 +356,10 @@ const UserDetailsForm = () => {
                     <input
                         type="number"
                         name="housingCost"
-                        value={formData.estimatedIncome}
+                        value={formData.housingCost}
                         onChange={handleInputChange}
                         className={styles.input}
-                        placeholder="Enter your monthly income"
+                        placeholder="Enter your monthly housing cost"
                         required
                     />
                 </label>
@@ -380,10 +383,10 @@ const UserDetailsForm = () => {
                     <input
                         type="number"
                         name="educationCost"
-                        value={formData.estimatedIncome}
+                        value={formData.educationCost}
                         onChange={handleInputChange}
                         className={styles.input}
-                        placeholder="Enter your monthly income"
+                        placeholder="Enter your monthly housing cost"
                         required
                     />
                 </label>
