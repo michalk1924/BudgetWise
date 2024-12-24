@@ -39,10 +39,11 @@ const TransactionComp = ({ transaction, updateTransaction, categories }: { trans
         },
     });
 
-    const onSubmit: SubmitHandler<TransactionInput> = (data) => {
+    const onSubmit: SubmitHandler<TransactionInput> = async (data) => {
+
         const updatedTransaction: Transaction = {
             ...transaction,
-            category: transaction.category,
+            category: data.category,
             date: new Date(data.date),
             amount: data.amount,
             description: data.description || "",
@@ -80,35 +81,22 @@ const TransactionComp = ({ transaction, updateTransaction, categories }: { trans
                         {errors.amount && <p className={styles.error}>{errors.amount.message}</p>}
                     </div>
 
-                    <div>
-                        <select {...register("category")} className={styles.inlineSelect} title="Select a category for the transaction">
-                            <option value="Food">Food</option>
-                            <option value="Transport">Transport</option>
-                            <option value="Entertainment">Entertainment</option>
-                            <option value="Utilities">Utilities</option>
-                            <option value="Others">Others</option>
-                        </select>
-                        {errors.category && <p className={styles.error}>{errors.category.message}</p>}
-                    </div>
-
                     <div className={styles.hiddenOnSmall}>
-                        {transaction.type === "expense" ? ( // בודק אם הפעולה היא "הוצאה"
-                            <select {...register("category")} className={styles.inlineSelect}>
-                                {categories.map((category) => (
-                                    <option key={category._id} value={category.categoryName}>
-                                        {category.categoryName}
-                                    </option>
-                                ))}
-                            </select>
-                        ) : (
-                            <span>{transaction.category}</span> // מציג את הקטגוריה בתור טקסט
-                        )}
-                        {errors.category && transaction.type === "expense" && (
+                        <select
+                            {...register("category")}
+                            className={styles.inlineSelect}
+                            defaultValue={transaction.category || ""}
+                        >
+                            {categories.map((category) => (
+                                <option key={category._id} value={category.categoryName}>
+                                    {category.categoryName}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.category && (
                             <p className={styles.error}>{errors.category.message}</p>
                         )}
                     </div>
-
-
 
                     <div>
                         <input
@@ -118,6 +106,7 @@ const TransactionComp = ({ transaction, updateTransaction, categories }: { trans
                             className={styles.inlineInput}
                         />
                     </div>
+
                     <div className={styles.hiddenOnSmall}>
                         <select {...register("paymentMethod")} className={styles.inlineSelect}>
                             <option value="cash">Cash</option>
@@ -129,11 +118,13 @@ const TransactionComp = ({ transaction, updateTransaction, categories }: { trans
                         </select>
                         {errors.paymentMethod && <p className={styles.error}>{errors.paymentMethod.message}</p>}
                     </div>
+
                     <div className={styles.actions}>
                         <button type="button" onClick={handleSubmit(onSubmit)} className={styles.inlineButton}>
                             <FiSave />
                         </button>
                     </div>
+
                 </div>
             ) : (
                 <div className={`${styles.transactionItem} ${styles[transaction.type]}`}>

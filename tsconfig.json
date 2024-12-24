@@ -32,10 +32,12 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "src/test/test.js", "src/consts/colors.ts", "src/app/404.tsx"  ],
+    ".next/types/**/*.ts",
+    "src/test/test.js",
+    "src/consts/colors.ts",
+    "src/app/404.tsx"
+  ],
   "exclude": [
     "node_modules"
   ],
 }
-
