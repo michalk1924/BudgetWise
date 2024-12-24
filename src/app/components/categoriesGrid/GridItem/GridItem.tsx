@@ -68,74 +68,76 @@ const GridItem: React.FC<GridItemProps> = ({
     <div className={isTotal ? styles.gridTotalItem : styles.gridItem}>
       {/* Category Name */}
       <div className={isTotal ? styles.categoryTotalName : styles.categoryName} >
-      <div
-        className={isTotal ? styles.categoryTotalName : styles.categoryName}
-        title={category.description}
-      >
-        {isEditing ? (
-          <input
-            type="text"
-            value={editedCategory.categoryName}
-            onChange={(e) => handleInputChange("categoryName", e.target.value)}
-            className={styles.editInput}
-          />
-        ) : (
-          category.categoryName
-        )}
-      </div>
-
-      {/* Spending Details */}
-      <div className={styles.details}>
-        <span className={styles.spent}>
-          <h1 className={styles.numeric}>${effectiveSpent.toFixed(2)}</h1>
-          <span className={styles.text}>spent</span>
-        </span>
-        <span className={styles.left}>
-          <h1 className={styles.numeric}>
-            ${(effectiveBudget - effectiveSpent).toFixed(2)}
-          </h1>
-          <span className={styles.text}>left</span>
-        </span>
-      </div>
-
-      {/* Progress Bar */}
-      <ProgressBar percentage={percentage} />
-
-      {/* Budget Info */}
-      <div className={styles.details}>
-       
-        <span className={styles.budget}>
-          { isTotal && isSmallScreen ? "Monthly Budget: ": "Budget: "}
+        <div
+          className={isTotal ? styles.categoryTotalName : styles.categoryName}
+          title={category.description}
+        >
           {isEditing ? (
             <input
-              type="number"
-              value={editedCategory.budget.toFixed(2)}
-              onChange={(e) => handleInputChange("budget", Number(e.target.value))}
+              type="text"
+              value={editedCategory.categoryName}
+              onChange={(e) => handleInputChange("categoryName", e.target.value)}
               className={styles.editInput}
             />
           ) : (
-            <h1 className={styles.numeric}>${effectiveBudget.toFixed(2)}</h1>
+            category.categoryName
           )}
-        </span>
-        {!isEditing ? (
-          <FontAwesomeIcon
-            icon={faEdit}
-            className={styles.editButton}
-            onClick={handleEditClick}
-          />
-        ) : (
-          <div className={styles.editActions}>
-            <button className={styles.saveButton} onClick={handleSaveClick}>
-              Save
-            </button>
-            <button className={styles.cancelButton} onClick={handleCancelClick}>
-              Cancel
-            </button>
-          </div>
-        )}
         </div>
-    </div>
-  );
+
+        {/* Spending Details */}
+        <div className={styles.details}>
+          <span className={styles.spent}>
+            <h1 className={styles.numeric}>${effectiveSpent.toFixed(2)}</h1>
+            <span className={styles.text}>spent</span>
+          </span>
+          <span className={styles.left}>
+            <h1 className={styles.numeric}>
+              ${(effectiveBudget - effectiveSpent).toFixed(2)}
+            </h1>
+            <span className={styles.text}>left</span>
+          </span>
+        </div>
+
+        {/* Progress Bar */}
+        <ProgressBar percentage={percentage} />
+
+        {/* Budget Info */}
+        <div className={styles.details}>
+
+          <span className={styles.budget}>
+            {isTotal && isSmallScreen ? "Monthly Budget: " : "Budget: "}
+            {isEditing ? (
+              <input
+                type="number"
+                value={editedCategory.budget.toFixed(2)}
+                onChange={(e) => handleInputChange("budget", Number(e.target.value))}
+                className={styles.editInput}
+              />
+            ) : (
+              <h1 className={styles.numeric}>${effectiveBudget.toFixed(2)}</h1>
+            )}
+          </span>
+          {!isEditing ? (
+            <FontAwesomeIcon
+              icon={faEdit}
+              className={styles.editButton}
+              onClick={handleEditClick}
+            />
+          ) : (
+            <div className={styles.editActions}>
+              <button className={styles.saveButton} onClick={handleSaveClick}>
+                Save
+              </button>
+              <button className={styles.cancelButton} onClick={handleCancelClick}>
+                Cancel
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+      </div>
+
+      );
 };
 
-export default GridItem;
+      export default GridItem;
