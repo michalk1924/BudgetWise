@@ -138,11 +138,5 @@ export function generateBudgetWithCategories(formData: FormData): Budget {
     budget.expenses["housing"]= formData.housingCost || 0;
     budget.expenses["education"]= formData.educationCost || 0;
 
-    budget.expenses["other"] +=
-        income -
-        (budget.savings +
-            budget.debtRepayment +
-            Object.values(budget.expenses).reduce((sum, value) => sum + value, 0));
-
     return budget;
 }
