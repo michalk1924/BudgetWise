@@ -60,8 +60,8 @@ const GridItem: React.FC<GridItemProps> = ({
   };
 
   // Use overrides if provided, otherwise default to category values
-  const effectiveBudget = budget ?? category.budget;
-  const effectiveSpent = spent ?? category.spent;
+  const effectiveBudget = Number(budget ?? category.budget ?? 0);
+  const effectiveSpent = Number(spent ?? category.spent ?? 0);
   const percentage = (effectiveSpent / effectiveBudget) * 100;
 
   return (

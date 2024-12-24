@@ -5,20 +5,22 @@ import styles from "./ProgressCircle.module.css";
 
 interface ProgressCircleProps {
   percentage: number;
-  current: number;
-  target: number;
+  current?: number;
+  target?: number;
   isEditing?: boolean; // New prop to enable edit mode
   onTargetChange?: (value: number) => void; // Callback for target amount change
 }
 
 const ProgressCircle: React.FC<ProgressCircleProps> = ({
   percentage,
-  current,
-  target,
+  current = 0,
+  target = 0,
   isEditing = false,
   onTargetChange,
-  
 }) => {
+  const safeCurrent = Number(current); // Ensure current is a number
+  const safeTarget = Number(target);  // Ensure target is a number
+
   return (
     <div className={styles.progressCircleContainer}>
       <CircularProgressbar
@@ -32,20 +34,21 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
       />
       {/* Details in the center of the circle */}
       <div className={styles.progressCircleDetails}>
-        <div className={styles.current}>${current.toFixed(2)}</div>
+        <div className={styles.current}>${safeCurrent.toFixed(2)}</div>
         {isEditing ? (
           <input
             type="number"
-            value={target}
+            value={safeTarget}
             onChange={(e) => onTargetChange?.(Number(e.target.value))}
             className={styles.editInput}
           />
         ) : (
-          <div className={styles.target}>Target: ${target.toFixed(2)}</div>
+          <div className={styles.target}>Target: ${safeTarget.toFixed(2)}</div>
         )}
       </div>
     </div>
   );
 };
+
 
 export default ProgressCircle;

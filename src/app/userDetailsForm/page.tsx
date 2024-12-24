@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import styles from "./userDetailsForm.module.css";
 import { generateBudgetWithCategories } from "@/services/budgetCalc";
-import { Category } from "@/types/types";
+import { Category, Saving } from "@/types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
@@ -16,18 +16,17 @@ interface FormData {
     startBudgetMonth: string;
     estimatedIncome: number;
     incomeSources: "salary" | "business" | "investments" | "other" | "";
-    fixedExpenses: "<1000" | "1000-3000" | "3000-5000" | ">5000" | "";
-    variableExpenses: "<500" | "500-1000" | "1000-3000" | ">3000" | "";
     loans: "yes" | "no" | "";
     debts: "yes" | "no" | "";
     savings: string;
     emergencyFund: "yes" | "no" | "";
+    emergencyFundAmount: number,
     budgetPriority: "avoidOverspending" | "increaseSavings" | "investLongTerm" | "improveQualityOfLife" | "";
     transportation: string;
     housing: string;
-    housingCost:number;
+    housingCost: number;
     dependents: number;
-    educationCost:number;
+    educationCost: number;
     hasCar: "yes" | "no" | "";
     numberOfCars: number;
     entertainmentPreference: "low" | "medium" | "high" | "";
@@ -35,7 +34,7 @@ interface FormData {
 }
 
 const UserDetailsForm = () => {
-    const { user, initCategories } = useUserStore();
+    const { user, initCategories,addSaving } = useUserStore();
 
     const queryClient = useQueryClient();
 
@@ -63,25 +62,42 @@ const UserDetailsForm = () => {
             console.error("Error updating user:", error.message);
         },
     });
+    const updateUserAddSavingMutation = useMutation({
+        mutationFn: async ({ id, saving }: { id: string; saving: Saving }) => {
+          if (user) {
+            const response = await userService.updateUser(id, { savings: [...user?.savings, saving] });
+            addSaving(saving);
+            return response;
+          }
+          return null;
+        },
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['users'] });
+        },
+        onError: (error: Error) => {
+          console.error('Error updating user:', error.message);
+        },
+      });
+    
+
 
     const [formData, setFormData] = useState<FormData>({
         fullName: user?.username || "",
-        email: user?.email ||"",
+        email: user?.email || "",
         startBudgetMonth: "",
         estimatedIncome: 0,
         incomeSources: "",
-        fixedExpenses: "",
-        variableExpenses: "",
         loans: "",
         debts: "",
         savings: "",
         emergencyFund: "",
+        emergencyFundAmount: 0,
         budgetPriority: "",
         transportation: "",
         housing: "",
-        housingCost:0,
+        housingCost: 0,
         dependents: 0,
-        educationCost:0,
+        educationCost: 0,
         hasCar: "",
         numberOfCars: 0,
         entertainmentPreference: "",
@@ -99,7 +115,7 @@ const UserDetailsForm = () => {
         }));
     };
 
-    const handleSubmit = async(e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log("User Details Submitted:", formData);
         let budget = generateBudgetWithCategories(formData)
@@ -118,6 +134,19 @@ const UserDetailsForm = () => {
             categories.push(userCategory)
         }
         updateUserAddCategoriesMutation.mutate({ id: user?._id ?? "", categories })
+
+        const saving: Saving = {
+            _id: Math.random().toString(36).substr(2, 8),
+            goalName: "Emergancy Fund",
+            targetAmount: 20000,
+            currentAmount: formData.emergencyFundAmount,
+            deadline: new Date,
+            createdAt: new Date,
+            updatedAt: new Date,
+           
+        }
+        updateUserAddSavingMutation.mutate({ id: user?._id ?? "", saving })
+
         await showSuccessAlert("Welcome!", "Details saved successfully!", 1000);
 
     };
@@ -128,49 +157,6 @@ const UserDetailsForm = () => {
             <p className={styles.subtitle}>Please fill out the details below to get started:</p>
 
             <form onSubmit={handleSubmit} className={styles.form}>
-                {/* Full Name */}
-               {/*  <label className={styles.label}>
-                    Full Name:
-                    <input
-                        type="text"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        placeholder="Enter your full name"
-                        required
-                    />
-                </label>
-
-                <label className={styles.label}>
-                    Email:
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        placeholder="Enter your email"
-                        required
-                    />
-                </label>
- */}
-                {/* Household Type */}
-                <label className={styles.label}>
-                    Household Type: *
-                    <select
-                        name="householdType"
-                        value={formData.householdType}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        required
-                    >
-                        <option value="">Select household type</option>
-                        <option value="single">Single</option>
-                        <option value="partnered">With Partner</option>
-                    </select>
-                </label>
-
                 {/* Start of Budget Month */}
                 <label className={styles.label}>
                     Start of Budget Month: *
@@ -201,6 +187,22 @@ const UserDetailsForm = () => {
                     />
                 </label>
 
+                 {/* Household Type */}
+                 <label className={styles.label}>
+                    Household Type: *
+                    <select
+                        name="householdType"
+                        value={formData.householdType}
+                        onChange={handleInputChange}
+                        className={styles.input}
+                        required
+                    >
+                        <option value="">Select household type</option>
+                        <option value="single">Single</option>
+                        <option value="partnered">With Partner</option>
+                    </select>
+                </label>
+
                 {/* Income Sources */}
                 <label className={styles.label}>
                     Income Sources:
@@ -217,41 +219,6 @@ const UserDetailsForm = () => {
                         <option value="other">Other</option>
                     </select>
                 </label>
-
-              {/*   
-                <label className={styles.label}>
-                    Fixed Monthly Expenses:
-                    <select
-                        name="fixedExpenses"
-                        value={formData.fixedExpenses}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        required
-                    >
-                        <option value="">Select range</option>
-                        <option value="<1000">Less than $1,000</option>
-                        <option value="1000-3000">$1,000 - $3,000</option>
-                        <option value="3000-5000">$3,000 - $5,000</option>
-                        <option value=">5000">More than $5,000</option>
-                    </select>
-                </label>
-
-                <label className={styles.label}>
-                    Variable Monthly Expenses:
-                    <select
-                        name="variableExpenses"
-                        value={formData.variableExpenses}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        required
-                    >
-                        <option value="">Select range</option>
-                        <option value="<500">Less than $500</option>
-                        <option value="500-1000">$500 - $1,000</option>
-                        <option value="1000-3000">$1,000 - $3,000</option>
-                        <option value=">3000">More than $3,000</option>
-                    </select>
-                </label> */}
 
                 {/* Loans */}
                 <label className={styles.label}>
@@ -295,7 +262,8 @@ const UserDetailsForm = () => {
                         className={styles.input}
                     >
                         <option value="">Select range</option>
-                        <option value="<1000">Less than $1,000</option>
+                        <option value="0">None</option>
+                        <option value="1000">Less than $1,000</option>
                         <option value="1000-5000">$1,000 - $5,000</option>
                         <option value="5000-10000">$5,000 - $10,000</option>
                         <option value=">10000">More than $10,000</option>
@@ -316,6 +284,21 @@ const UserDetailsForm = () => {
                         <option value="yes">Yes</option>
                     </select>
                 </label>
+
+                {formData.emergencyFund === "yes" && (
+                    <label className={styles.label}>
+                        How much do you have in your emergency fund?
+                        <input
+                            type="number"
+                            name="emergencyFundAmount"
+                            value={formData.emergencyFundAmount || ""}
+                            onChange={handleInputChange}
+                            className={styles.input}
+                            placeholder="Enter amount"
+                        />
+                    </label>
+                )}
+
 
                 {/* Budget Priority */}
                 <label className={styles.label}>
@@ -363,7 +346,7 @@ const UserDetailsForm = () => {
                         required
                     />
                 </label>
-                
+
 
                 <label className={styles.label}>
                     Number of Children: *
@@ -423,7 +406,7 @@ const UserDetailsForm = () => {
                     </label>
                 )}
 
-                
+
 
                 {/* Entertainment Preference */}
                 <label className={styles.label}>
