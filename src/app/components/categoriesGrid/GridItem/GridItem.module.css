@@ -20,12 +20,12 @@
 }
 
 .categoryTotalName {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   margin-bottom: 10px;
 }
 
 .categoryName {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-bottom: 10px;
 }
 
@@ -35,6 +35,8 @@
   width: 100%;
   color: #536493;
   font-weight: lighter;
+  font-size: 1rem;
+
 }
 
 .editButton {
