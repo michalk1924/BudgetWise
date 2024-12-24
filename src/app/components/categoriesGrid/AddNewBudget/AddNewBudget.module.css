@@ -1,7 +1,6 @@
 .addBudgetSection {
   padding: 20px;
   align-items: center;
-  margin: 10px;
   text-align: center; /* Center align content */
 }
 
@@ -11,13 +10,6 @@
   align-items: center; 
   gap: 20px; 
   justify-content: center; /* Center content horizontally */
-}
-
-.addBudgetTitle {
-  font-size: 1.2rem; /* Slightly larger for better visibility */
-  color: #536493;
-  white-space: nowrap; 
-  text-align: center; /* Center align title */
 }
 
 .form {

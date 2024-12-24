@@ -18,16 +18,21 @@
 .stats {
     display: flex;
     justify-content: space-around;
-    margin: 20px 0;
+    margin-bottom: 6%;
+
 }
 
 .statBox {
-    padding: 20px;
     border-radius: 5px;
     width: 30%;
     text-align: center;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
+.aaa{
+    font-size: 1.8rem;
+
+}
+
 .greeting {
     display: flex; /* Enable flexbox */
     flex-direction: column; /* Arrange children vertically */
@@ -36,6 +41,7 @@
     height: 100%; /* Ensure the section takes up the necessary height */
     text-align: center; /* Center the text within the element */
     font-size: x-large;
+    margin-bottom: 3%;
 }
 
 
@@ -70,7 +76,3 @@
   border-radius: 15%;
 }
 
-
-.aaa {
-    font-size: x-large;
-}

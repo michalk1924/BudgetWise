@@ -58,8 +58,10 @@ const GridItem: React.FC<GridItemProps> = ({
     setEditedCategory((prev) => ({ ...prev, [field]: value }));
   };
 
-  const effectiveBudget = budget ?? category.budget;
-  const effectiveSpent = spent ?? category.spent;
+
+  // Use overrides if provided, otherwise default to category values
+  const effectiveBudget = Number(budget ?? category.budget ?? 0);
+  const effectiveSpent = Number(spent ?? category.spent ?? 0);
   const percentage = (effectiveSpent / effectiveBudget) * 100;
 
   return (
@@ -97,7 +99,6 @@ const GridItem: React.FC<GridItemProps> = ({
         <ProgressBar percentage={percentage} />
 
         <div className={styles.details}>
-
           <span className={styles.budget}>
             {isTotal && isSmallScreen ? "Monthly Budget: " : "Budget: "}
             {isEditing ? (

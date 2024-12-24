@@ -75,14 +75,17 @@ const Categories = () => {
 
   return (
     <div>
-    <span className={styles.centeredTitle}>BUDGET SETTING</span>
     <div className={styles.page}>
       <section className={styles.leftSection}>
+
         <header className={styles.title}>
-          <BudgetDoughnutChart categories={user?.categories ?? []} />
+        <span>BUDGET SETTING</span>
+
         </header>
 
         <section className={styles.totalsSection}>
+        <BudgetDoughnutChart categories={user?.categories ?? []} />
+
           {total && (
             <GridItem
               key="total"

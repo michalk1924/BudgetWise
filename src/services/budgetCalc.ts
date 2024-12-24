@@ -21,7 +21,6 @@ interface Budget {
         gifts: number;
         other: number;
     };
-    discretionary: number;
 }
 
 interface FormData {
@@ -30,8 +29,6 @@ interface FormData {
     startBudgetMonth: string;
     estimatedIncome: number;
     incomeSources: "salary" | "business" | "investments" | "other" | "";
-    fixedExpenses: "<1000" | "1000-3000" | "3000-5000" | ">5000" | "";
-    variableExpenses: "<500" | "500-1000" | "1000-3000" | ">3000" | "";
     loans: "yes" | "no" | "";
     debts: "yes" | "no" | "";
     savings: string;
@@ -39,15 +36,14 @@ interface FormData {
     budgetPriority: "avoidOverspending" | "increaseSavings" | "investLongTerm" | "improveQualityOfLife" | "";
     transportation: string;
     housing: string;
-    housingCost:number;
+    housingCost: number;
     dependents: number;
-    educationCost:number;
+    educationCost: number;
     hasCar: "yes" | "no" | "";
     numberOfCars: number;
     entertainmentPreference: "low" | "medium" | "high" | "";
     householdType: "single" | "partnered" | "";
 }
-
 export function generateBudgetWithCategories(formData: FormData): Budget {
     const budget: Budget = {
         savings: 0,
@@ -70,13 +66,11 @@ export function generateBudgetWithCategories(formData: FormData): Budget {
             gifts: 0,
             other: 0,
         },
-        discretionary: 0,
     };
 
     const income = formData.estimatedIncome || 0;
-    const fixedExpenses = formData.fixedExpenses|| 0;
-    const variableExpenses = formData.variableExpenses|| 0;
 
+    // Define priority percentages
     const savingsPriorityPercentage =
         formData.budgetPriority === "increaseSavings" ? 0.3 : 0.1;
     const debtPriorityPercentage = formData.debts === "yes" ? 0.2 : 0.1;
@@ -85,26 +79,31 @@ export function generateBudgetWithCategories(formData: FormData): Budget {
     budget.savings = income * savingsPriorityPercentage;
 
     // Calculate debt repayment
-    if (formData.loans === "yes" || formData.debts === "yes") {
-        budget.debtRepayment = income * debtPriorityPercentage;
-    }
-    else  budget.debtRepayment =0;
+    budget.debtRepayment =
+        formData.loans === "yes" || formData.debts === "yes"
+            ? income * debtPriorityPercentage
+            : 0;
 
-    // Adjust percentages based on user details
-    const categoryPercentages = {
-        housing: 0.35,
+    // Calculate remaining income for expenses
+    const remainingForExpenses =
+        income -
+        (budget.savings + budget.debtRepayment) -
+        (formData.housingCost || 0) -
+        (formData.educationCost || 0);
+
+    // Define category percentages
+    const categoryPercentages: Partial<Record<keyof Budget["expenses"], number>> = {
         transportation: formData.hasCar === "yes" ? 0.04 : 0.08,
         car: formData.hasCar === "yes" ? 0.08 * formData.numberOfCars : 0,
-        food: (formData.householdType === "single" ? 0.8 : 0.10) + (formData.dependents * 0.01),
-        insurance: 0.02,
+        food: (formData.householdType === "single" ? 0.08 : 0.10) + formData.dependents * 0.01,
+        insurance: 0.01,
         health: 0.05,
-        education: formData.dependents * 0.06,
         entertainment:
             formData.entertainmentPreference === "high"
                 ? 0.08
                 : formData.entertainmentPreference === "medium"
-                    ? 0.05
-                    : 0.01,
+                ? 0.05
+                : 0.01,
         communication: 0.01,
         clothing: 0.03,
         children: formData.dependents * 0.02,
@@ -115,30 +114,29 @@ export function generateBudgetWithCategories(formData: FormData): Budget {
         other: 0.2,
     };
 
-    const totalPercentages = Object.values(categoryPercentages).reduce(
-        (sum, value) => sum + value,
-        0
-    );
-    const normalizationFactor = 1 / totalPercentages;
+    // Normalize category percentages
+    const totalPercentages = Object.values(categoryPercentages)
+        .filter((value): value is number => value !== undefined)
+        .reduce((sum, value) => sum + value, 0);
+
+    const normalizationFactor = totalPercentages > 0 ? 1 / totalPercentages : 1;
 
     for (const category in categoryPercentages) {
-        categoryPercentages[category as keyof typeof categoryPercentages] *= normalizationFactor;
+        if (categoryPercentages[category as keyof typeof categoryPercentages] !== undefined) {
+            categoryPercentages[category as keyof typeof categoryPercentages]! *= normalizationFactor;
+        }
     }
 
     // Divide expenses into categories
-    const remainingForExpenses = income - (budget.savings + budget.debtRepayment);
-console.log(remainingForExpenses)
     for (const category in budget.expenses) {
-        budget.expenses[category as keyof typeof budget.expenses] =
-            remainingForExpenses * categoryPercentages[category as keyof typeof budget.expenses];
+        if (category in categoryPercentages) {
+            budget.expenses[category as keyof Budget["expenses"]] =
+                remainingForExpenses *
+                (categoryPercentages[category as keyof typeof categoryPercentages] || 0);
+        }
     }
-
-    // Calculate discretionary funds
-    budget.discretionary =
-        income -
-        (budget.savings +
-            budget.debtRepayment +
-            Object.values(budget.expenses).reduce((sum, value) => sum + value, 0));
+    budget.expenses["housing"]= formData.housingCost || 0;
+    budget.expenses["education"]= formData.educationCost || 0;
 
     return budget;
 }
