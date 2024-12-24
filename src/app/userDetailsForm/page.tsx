@@ -108,12 +108,11 @@ const UserDetailsForm = () => {
         for (const category in budget.expenses) {
             const userCategory: Category = {
                 _id: Math.random().toString(36).substr(2, 8),
-                type: 'general',
-                name: category,
+                categoryName: category,
                 description: category,
                 budget: budget.expenses[category as keyof typeof budget.expenses],
                 spent: 0,
-                month: new Date,
+                monthlyBudget: [],
             }
             categories.push(userCategory)
         }
