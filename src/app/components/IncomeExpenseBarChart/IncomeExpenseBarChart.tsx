@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { Transaction } from "@/types/types";
+import styles from "./IncomeExpenseBarChart.module.css"
 
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -104,7 +105,8 @@ const IncomeExpenseBarChart = ({ transactions }: BarChartProps) => {
 
     return (
         <div className="bar-chart-container">
-            <canvas ref={chartRef} className="bar-chart"></canvas>
+            
+            <canvas ref={chartRef} className={styles.barchart}></canvas>
         </div>
     );
 };

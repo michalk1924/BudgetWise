@@ -1,0 +1,63 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .header h1 {
+    font-size: 2.5rem;
+    color: #536493;
+    margin-bottom: 10px;
+  }
+  
+  .header p {
+    font-size: 1.2rem;
+    color: #6c757d;
+  }
+  
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .gridContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2x2 grid */
+    grid-gap: 20px;
+  }
+  
+  .gridItem {
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column; /* Stack title and chart vertically */
+    justify-content: center;
+    align-items: center;
+    background-color: #fbf6f3;
+    box-shadow: 0px 4px 6px #D4BDAC;
+
+  }
+  
+  .chartTitle {
+    font-size: 1.5rem;
+    color: #536493;
+    margin-bottom: 15px; /* Add spacing between title and chart */
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .gridContainer {
+      grid-template-columns: 1fr; /* Switch to single column on smaller screens */
+    }
+  
+    .chartTitle {
+      font-size: 1.3rem;
+    }
+  }
+  
