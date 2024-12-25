@@ -54,20 +54,26 @@ export default function Home() {
 
     const loginWithGoogle = async () => {
         try {
-            const user = await googleSignup();
-            if (user) {
-                setUser(user);
-                await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
-                router.push("/home");
+          const { user, isNewUser } = await googleSignup();
+          console.log("User signed up" + JSON.stringify(user) + " with Google " + isNewUser);
+          
+          if (user) {
+            setUser(user);
+            await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
+            if (isNewUser) {
+              router.push("/userDetailsForm");
             } else {
-                await showErrorAlert("Failed to login with Google.");
+              router.push("/home");
             }
+          } else {
+            await showErrorAlert("Failed to login with Google.");
+          }
         }
         catch (error: any) {
-            console.error("Error signing up with Google:", error);
-            await showErrorAlert("Failed to login with Google.");
+          console.error("Error signing up with Google:", error);
+          await showErrorAlert("Failed to login with Google.");
         }
-    };
+      };
 
     return (
         <div className={styles.body}>

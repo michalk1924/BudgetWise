@@ -343,7 +343,7 @@ function Transactions() {
         />}
 
         {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction}
-          savingsNames={user?.savings.map(s => s.goalName)} categories={user?.categories} />}
+          savingsNames={user?.savings?.map(s => s.goalName)} categories={user?.categories} />}
       </div>}
 
       {!loading && user && <div className={styles.headers}>

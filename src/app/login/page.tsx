@@ -57,20 +57,24 @@ export default function Home() {
 
   const loginWithGoogle = async () => {
     try {
-        const user = await googleSignup();
-        if (user) {
-            setUser(user);
-            await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
-            router.push("/home");
+      const { user, isNewUser } = await googleSignup();
+      if (user) {
+        setUser(user);
+        await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
+        if (isNewUser) {
+          router.push("/userDetailsForm");
         } else {
-            await showErrorAlert("Failed to login with Google.");
+          router.push("/home");
         }
+      } else {
+        await showErrorAlert("Failed to login with Google.");
+      }
     }
     catch (error: any) {
-        console.error("Error signing up with Google:", error);
-        await showErrorAlert("Failed to login with Google.");
+      console.error("Error signing up with Google:", error);
+      await showErrorAlert("Failed to login with Google.");
     }
-};
+  };
 
   const goToSignup = () => {
     router.push("/signup");
@@ -103,17 +107,17 @@ export default function Home() {
         <h1 className={styles.title}>Login</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <div className={styles.emailContainer}>
+          <div className={styles.emailContainer}>
 
-          <input
-            {...register("email")}
-            type="email"
-            placeholder="Email"
-            className={styles.input}
-          />
-          {errors.email && (
-            <div className={styles.error}>{errors.email.message}</div>
-          )}
+            <input
+              {...register("email")}
+              type="email"
+              placeholder="Email"
+              className={styles.input}
+            />
+            {errors.email && (
+              <div className={styles.error}>{errors.email.message}</div>
+            )}
           </div>
           <div className={styles.passwordContainer}>
             <div className={styles.inputWrapper}>
@@ -129,9 +133,7 @@ export default function Home() {
                 onClick={togglePasswordVisibility}
               >
                 <i
-                  className={`fa-solid ${
-                    showPassword ? "fa-eye" : "fa-eye-slash"
-                  }`}
+                  className={`fa-solid ${showPassword ? "fa-eye" : "fa-eye-slash"}`}
                 ></i>
               </button>
             </div>
