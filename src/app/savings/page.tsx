@@ -7,6 +7,7 @@ import { Saving,Transaction} from "@/types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from '@/services/user';
+import { showSuccessAlert } from "@/services/alerts";
 
 const Savings = () => {
 
@@ -87,6 +88,8 @@ const Savings = () => {
     saving.currentAmount=0;
     updateUserMutationAddTransaction.mutate({id: user?._id ?? '',transaction});
     updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving });
+    await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
+
   };
 
   return (
