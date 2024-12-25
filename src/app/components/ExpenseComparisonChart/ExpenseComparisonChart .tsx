@@ -17,7 +17,6 @@ interface ExpenseComparisonBarProps {
 const ExpenseComparisonBars: React.FC<ExpenseComparisonBarProps> = ({ comparisonResults }) => {
   return (
     <div className={styles.container}>
-      {/* Explanation Container */}
       <div className={styles.explanationContainer}>
         <p className={styles.explanationText}>
           This comparison is made relative to others to give you a broader perspective on the situation.

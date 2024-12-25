@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Footer from "./components/Footer/Footer";
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { getToken } from '../services/cookies';
+import { getToken, getTokenExpiry } from '../services/cookies';
 
 const queryClient = new QueryClient();
 
@@ -25,8 +25,9 @@ export default function RootLayout({
   useEffect(() => {
     if (pathname === '/') {
       const token = getToken();
+      const expiry = getTokenExpiry();
 
-      if (token) {
+      if (token && expiry && Date.now() < expiry) {
         router.push('/home');
       }
       else {

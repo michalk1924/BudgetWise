@@ -38,12 +38,11 @@ const useUserStore = create<UserStore>()(
       loading: false,
       setLoading: (loading) => set({ loading }),
 
-
       setUser: async (user: User) => {
         set({ loading: true });
         const userWithExpiration = {
           ...user,
-          expirationTimestamp: Date.now() + 60 * 60 * 1000,
+          expirationTimestamp: Date.now() + 60 * 60 * 1000 * 12,
         };
         set({ user: userWithExpiration, loading: false });
       },
@@ -184,7 +183,7 @@ const useUserStore = create<UserStore>()(
 
     {
       name: "user-storage",
-      storage: createJSONStorage(() => sessionStorage),
+      storage: createJSONStorage(() => localStorage),
 
       onRehydrateStorage: (state) => {
         if (state?.expirationTimestamp && Date.now() > state.expirationTimestamp) {
