@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
             isNewUser = true;
 
             const result = await insertDocument(client, 'users', {
-                name: name,
+                username: name,
                 email: email,
                 categories: [],
                 savings: [],
