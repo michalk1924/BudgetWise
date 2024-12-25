@@ -58,11 +58,15 @@ export default function Home() {
 
   const loginWithGoogle = async () => {
     try {
-      const user = await googleSignup();
+      const { user, isNewUser } = await googleSignup();
       if (user) {
         setUser(user);
         await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
-        router.push("/home");
+        if (isNewUser) {
+          router.push("/userDetailsForm");
+        } else {
+          router.push("/home");
+        }
       } else {
         await showErrorAlert("Failed to login with Google.");
       }
@@ -131,8 +135,7 @@ export default function Home() {
                 onClick={togglePasswordVisibility}
               >
                 <i
-                  className={`fa-solid ${showPassword ? "fa-eye" : "fa-eye-slash"
-                    }`}
+                  className={`fa-solid ${showPassword ? "fa-eye" : "fa-eye-slash"}`}
                 ></i>
               </button>
             </div>

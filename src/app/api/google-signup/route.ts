@@ -10,12 +10,29 @@ export async function POST(request: NextRequest) {
 
         let user = await getUserByEmail(client, email);
 
+        let isNewUser = false;
+
         if (!user) {
-            await insertDocument(client, "users", { name: name, email: email });
+
+            isNewUser = true;
+
+            const result = await insertDocument(client, 'users', {
+                username: name,
+                email: email,
+                categories: [],
+                savings: [],
+                transactions: [],
+                alerts: [],
+                recommendations: [],
+                fixedExpenses :[],
+            });
+            if (!result.acknowledged) {
+                return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
+            }
             user = await getUserByEmail(client, email);
         }
 
-        return NextResponse.json({user: user});
+        return NextResponse.json({ user: user, isNewUser: isNewUser });
 
     } catch (error: any) {
         console.error('Error during POST request:', error);

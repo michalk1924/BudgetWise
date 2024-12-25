@@ -18,7 +18,7 @@ export async function googleSignup(): Promise<any> {
 
         const response = await http.post('/google-signup', { name: userName, email: userEmail });
         if (response.data) {
-            return response.data.user;
+            return response.data;
         }
 
     } catch (error: any) {
