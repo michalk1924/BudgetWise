@@ -186,7 +186,7 @@ function TransactionsList({ transactions, categories, updateTransaction, savings
                     disabled={currentPage === 1 || currentPage === 0}
                     onClick={() => handlePageChange(currentPage - 1)}
                 >
-                    Previous
+                    {"<<"}
                 </button>
 
                 <span className={styles.pageNumber}>
@@ -198,7 +198,7 @@ function TransactionsList({ transactions, categories, updateTransaction, savings
                     disabled={currentPage === totalPages || totalPages === 0}
                     onClick={() => handlePageChange(currentPage + 1)}
                 >
-                    Next
+                    {">>"}
                 </button>
             </div>
         </div>

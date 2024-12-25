@@ -57,9 +57,9 @@ export default function UploadExcel() {
     return (
 
         <div className={styles.fileUploadWrapper}>
-            <label htmlFor="file-upload" className={styles.customFileUpload}>
+            <label htmlFor="file-upload" className={styles.customFileUpload} title="Select an Excel file to add transactions">
                 <FaFileExcel/>
-                Select an Excel file to add transactions           
+                Select an Excel file          
             </label>
             <input
                 id="file-upload"

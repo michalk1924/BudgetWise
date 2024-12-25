@@ -1,14 +1,18 @@
-
 .customFileUpload {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1rem;
+    display: inline-flex; /* Use flexbox for inline layout */
+    align-items: center; /* Vertically align the icon and text */
+    justify-content: center; /* Center content horizontally */
+    gap: 8px; /* Add spacing between the icon and text */
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    font-weight: lighter;
     color: #fff;
-    background-color: #4455a0;
+    background-color: #536493;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin-top: 18px;
 }
 
 .customFileUpload:hover {
@@ -17,7 +21,6 @@
 
 .fileUploadWrapper {
     text-align: center;
-    margin: 10px 0;
 }
 
 .hiddenInput {
