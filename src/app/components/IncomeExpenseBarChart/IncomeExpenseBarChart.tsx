@@ -20,7 +20,7 @@ const IncomeExpenseBarChart = ({ transactions }: BarChartProps) => {
             if (ctx) {
                 const monthlyData = transactions.reduce((acc, transaction) => {
                     const date = new Date(transaction.date);
-                    const month = `${date.getFullYear()}-${date.getMonth() + 1}`; // Format: "YYYY-MM"
+                    const month = `${date.getFullYear()}-${date.getMonth() + 1}`;
 
                     if (!acc[month]) {
                         acc[month] = { income: 0, expense: 0 };

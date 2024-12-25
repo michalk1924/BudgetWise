@@ -2,13 +2,11 @@
 
 import React, { useState } from 'react';
 import styles from "./transactions.module.css";
-import { AddTransaction, TransactionTable } from '../components/index';
+import { AddTransaction, TransactionTable ,UploadExcel} from '../components/index';
 import { Transaction, Saving, Category, User, MonthlyBudget } from '../../types/types';
 import useUserStore from "../../store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from '@/services/user';
-import UploadExcel from "../components/UploadExcel/UploadExcel";
-
 
 function Transactions() {
 
@@ -39,8 +37,6 @@ function Transactions() {
 
   const updateUserMutationUpdateTransaction = useMutation({
     mutationFn: async ({ id, transaction }: { id: string; transaction: Transaction }) => {
-      console.log("Transaction");
-
       if (user) {
         const prevTransaction = user.transactions.find(t => t._id === transaction._id);
         if (!prevTransaction) return;
@@ -101,8 +97,8 @@ function Transactions() {
 
     transaction._id = Math.random().toString(36).substr(2, 8);
 
-    if (transaction?.category == 'saving') {
-      let saving = user?.savings.find((s) => s.goalName === transaction.description)
+    if (transaction?.type == 'saved') {
+      let saving = user?.savings.find((s) => s.goalName === transaction.category)
       if (saving && typeof saving.currentAmount === "number") {
         saving.currentAmount += transaction.amount;
         updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving });
@@ -129,15 +125,19 @@ function Transactions() {
 
   const handleUpdateTransaction = (transaction: Transaction) => {
 
+    const prevTransaction = user?.transactions.find(
+      (t) => t._id === transaction._id
+    )
+
+    if (prevTransaction && transaction.type === 'saved') {
+      updateSavingAfterUpdateTransaction(transaction, prevTransaction);
+    }
+
     if (transaction.type == 'expense' || transaction.type == 'income') {
-      const prevTransaction = user?.transactions.find(
-        (t) => t._id === transaction._id
-      )
 
       if (user && prevTransaction) {
         updateCategoryAfterUpdateTransaction(user, prevTransaction, transaction);
       }
-
     }
 
     updateUserMutationUpdateTransaction.mutate({ id: user?._id ?? '', transaction });
@@ -145,28 +145,28 @@ function Transactions() {
 
   const updateCategoryAfterAddTransaction = (user: User, transaction: Transaction): Category | undefined => {
     const currentMonth = new Date();
-    if(!transaction.category){
+    if (!transaction.category) {
       console.error("Category not found");
       return undefined;
     }
     const categoryIndex = getCategoryIndex(user, transaction.category);
-  
+
     if (categoryIndex === -1) {
       console.error("Category not found");
       return undefined;
     }
-  
+
     let category = { ...user.categories[categoryIndex] };
-  
+
     if (isSameMonth(transaction.date, currentMonth)) {
       category = handleCurrentMonthTransaction(category, transaction, "apply");
     } else {
       category = handleDifferentMonthTransaction(category, transaction, "apply");
     }
-  
+
     return category;
   };
-  
+
 
   const updateCategoryAfterUpdateTransaction = (
     user: User,
@@ -189,7 +189,7 @@ function Transactions() {
         return;
       }
 
-      let category: Category = { ...user.categories[categoryIndex] };      
+      let category: Category = { ...user.categories[categoryIndex] };
 
       if (prevTransaction.category === updatedTransaction.category) {
 
@@ -264,9 +264,6 @@ function Transactions() {
       }
     }
 
-    console.log("category" + category + " transaction" + transaction);
-    
-
     const adjustment = action === "apply" ? 1 : -1;
     category.monthlyBudget = updateMonthlyBudget(
       category.monthlyBudget!,
@@ -274,10 +271,6 @@ function Transactions() {
       adjustment * transaction.amount,
       transaction.type === "expense"
     );
-
-    console.log("category2" + category + " transaction2" + transaction);
-    
-
     return category;
   };
 
@@ -313,6 +306,26 @@ function Transactions() {
     );
   };
 
+  const updateSavingAfterUpdateTransaction = (transaction: Transaction, prevTransaction: Transaction) => {
+    if (transaction.category !== prevTransaction.category) {
+      const prevSaving = user?.savings.find((s) => s.goalName === prevTransaction.category);
+      const newSaving = user?.savings.find((s) => s.goalName === transaction.category);
+      if (prevSaving && newSaving) {
+        prevSaving.currentAmount -= prevTransaction.amount;
+        updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving: prevSaving });
+        newSaving.currentAmount += transaction.amount;
+        updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving: newSaving });
+      }
+    }
+    else {
+      const saving = user?.savings.find((s) => s.goalName === transaction.category);
+      if (saving) {
+        saving.currentAmount += transaction.amount - prevTransaction.amount;
+        updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving });
+      }
+    }
+  }
+
 
   return (
     <div className={styles.container}>
@@ -327,6 +340,7 @@ function Transactions() {
 
         {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
           updateTransaction={handleUpdateTransaction} categories={user?.categories}
+          savingsNames={user?.savings.map(s => s.goalName)}
         />}
 
       </div>}

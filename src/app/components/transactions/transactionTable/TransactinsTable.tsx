@@ -7,11 +7,12 @@ import { DateFilter } from '@/consts/enums';
 import { TransactionComp } from "../../index";
 import { ITEMS_PER_PAGE } from '@/consts/consts';
 
-function TransactionsList({ transactions, categories, updateTransaction }:
+function TransactionsList({ transactions, categories, updateTransaction, savingsNames }:
     {
         transactions: Transaction[],
         updateTransaction: (transaction: Transaction) => void,
         categories: Category[],
+        savingsNames : string[],
     }) {
 
     const [currentTransactions, setCurrentTransactions] = useState<Transaction[]>([]);
@@ -174,7 +175,9 @@ function TransactionsList({ transactions, categories, updateTransaction }:
             </div>
 
             {currentTransactions.map((transaction) => (
-                <TransactionComp key={transaction._id} transaction={transaction} categories={categories} updateTransaction={updateTransaction} />
+                <TransactionComp key={transaction._id} transaction={transaction}
+                 categories={categories} updateTransaction={updateTransaction}
+                 savingsNames={savingsNames} />
             ))}
 
             <div className={styles.pagination}>
