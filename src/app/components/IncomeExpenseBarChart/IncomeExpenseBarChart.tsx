@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { Transaction } from "@/types/types";
+import styles from "./IncomeExpenseBarChart.module.css"
 
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -19,7 +20,7 @@ const IncomeExpenseBarChart = ({ transactions }: BarChartProps) => {
             if (ctx) {
                 const monthlyData = transactions.reduce((acc, transaction) => {
                     const date = new Date(transaction.date);
-                    const month = `${date.getFullYear()}-${date.getMonth() + 1}`; // Format: "YYYY-MM"
+                    const month = `${date.getFullYear()}-${date.getMonth() + 1}`;
 
                     if (!acc[month]) {
                         acc[month] = { income: 0, expense: 0 };
@@ -104,7 +105,8 @@ const IncomeExpenseBarChart = ({ transactions }: BarChartProps) => {
 
     return (
         <div className="bar-chart-container">
-            <canvas ref={chartRef} className="bar-chart"></canvas>
+            
+            <canvas ref={chartRef} className={styles.barchart}></canvas>
         </div>
     );
 };

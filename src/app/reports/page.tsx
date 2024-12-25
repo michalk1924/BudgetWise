@@ -4,6 +4,7 @@ import useUserStore from "@/store/userStore";
 import { ExpenseComparisonChart } from "../components/index";
 import fetchDataAndCompare from '@/services/stlouisfedApi';
 import { useState, useEffect } from 'react';
+import styles from './reports.module.css'
 
 
 export default function Home() {
@@ -26,11 +27,40 @@ export default function Home() {
     }, [user]);
 
     return (
-        <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <div className={styles.container}>
+      <section className={styles.header}>
+        <h1>Welcome to Your Financial Dashboard</h1>
+        <p>Track your spending, savings, and financial goals at a glance.</p>
+      </section>
+
+      <main className={styles.main}>
+        <div className={styles.gridContainer}>
+          {/* Chart 1 */}
+          <div className={styles.gridItem}>
+            <h2 className={styles.chartTitle}>Category Breakdown</h2>
             <DoughnutChart transactions={user?.transactions ?? []} />
+          </div>
+
+          {/* Chart 2 */}
+          <div className={styles.gridItem}>
+            <h2 className={styles.chartTitle}>Income vs Expenses</h2>
             <IncomeExpenseBarChart transactions={user?.transactions ?? []} />
-            <SavingsBarChart savings={user?.savings ?? []}/>
+          </div>
+
+          {/* Chart 3 */}
+          <div className={styles.gridItem}>
+            <h2 className={styles.chartTitle}>Savings Overview</h2>
+            <SavingsBarChart savings={user?.savings ?? []} />
+          </div>
+
+          {/* Chart 4 */}
+          <div className={styles.gridItem}>
+            <h2 className={styles.chartTitle}>Expense Comparison</h2>
             <ExpenseComparisonChart comparisonResults={comparisonResults} />
+          </div>
         </div>
+      </main>
+    </div>
+
     );
 }
