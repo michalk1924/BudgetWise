@@ -7,17 +7,21 @@
     box-shadow: 0 4px 8px  #D4BDAC;
     margin: auto;
     padding: 0.5rem;
-    margin-top: 5vh;
+    margin-top: 10vh;
     text-align: center;
     color: #536493;
 align-items: center;
+font-family: "Malvie Trial", Arial, sans-serif;
+
 }
 
+
+.body{
+    height: 100vh;
+}
 .title {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin: 0.5rem;
-    font-weight: bold;
-    
 }
 
 .form {

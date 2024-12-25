@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./home.module.css";
 import useUserStore from "@/store/userStore";
-import {AlertsList} from "../components/index";
+import { AlertsList } from "../components/index";
 
 export default function Home() {
     const { user, updateAlertStatus } = useUserStore();
@@ -60,16 +60,18 @@ export default function Home() {
                             <p className={styles.aaa}>${monthlyIncome.toFixed(2)}</p>
                         </div>
                     </div>
-                    <div className={styles.statBox}>
-                        <div className={styles.monthlyExpenses}>
-                            <h2>Your Monthly Expenses</h2>
-                            <p className={styles.aaa}>${monthlyExpenses.toFixed(2)}</p>
-                        </div>
-                    </div>
+
                     <div className={styles.statBox}>
                         <div className={styles.monthlySavings}>
                             <h2>You Saved This Month</h2>
                             <p className={styles.aaa}>${monthlySavings.toFixed(2)}</p>
+                        </div>
+                    </div>
+
+                    <div className={styles.statBox}>
+                        <div className={styles.monthlyExpenses}>
+                            <h2>Your Monthly Expenses</h2>
+                            <p className={styles.aaa}>${monthlyExpenses.toFixed(2)}</p>
                         </div>
                     </div>
                 </section>
