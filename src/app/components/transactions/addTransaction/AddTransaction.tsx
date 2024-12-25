@@ -58,7 +58,7 @@ export default function AddTransaction({ transactions, addTransaction, categorie
             <div className={styles.formGroup}>
                 <select className={styles.select} {...register("type")} defaultValue="">
                     <option value="" disabled>
-                        Select a type
+                        Type
                     </option>
                     <option value="income">Income</option>
                     <option value="expense">Expense</option>
@@ -78,7 +78,7 @@ export default function AddTransaction({ transactions, addTransaction, categorie
                     defaultValue=""
                 >
                     <option value="" disabled>
-                        Select a category
+                        Category
                     </option>
                     {categories?.map((category, index) => (
                         <option key={index} value={category.categoryName}>
@@ -114,7 +114,7 @@ export default function AddTransaction({ transactions, addTransaction, categorie
                 <input
                     className={styles.input}
                     type="text"
-                    placeholder="Description (Optional)"
+                    placeholder="Description"
                     {...register("description")}
                 />
             </div>
