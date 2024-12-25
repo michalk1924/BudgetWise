@@ -1,6 +1,6 @@
 import React from 'react';
 import useUserStore from "@/store/userStore";
-import Alerts from "../AlertComp/AlertComp";
+import {Alerts} from "../index";
 import { Alert } from "../../../types/types";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import userService from '@/services/user';

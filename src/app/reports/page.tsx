@@ -37,7 +37,7 @@ export default function Home() {
         <div className={styles.gridContainer}>
           {/* Chart 1 */}
           <div className={styles.gridItem}>
-            <h2 className={styles.chartTitle}>Category Breakdown</h2>
+            <h2 className={styles.chartTitle}>Monthly Expenses Breakdown</h2>
             <DoughnutChart transactions={user?.transactions ?? []} />
           </div>
 

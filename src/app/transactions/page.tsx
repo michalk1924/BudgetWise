@@ -2,14 +2,11 @@
 
 import React, { useState } from 'react';
 import styles from "./transactions.module.css";
-import { AddTransaction, TransactionTable } from '../components/index';
+import { AddTransaction, TransactionTable ,UploadExcel} from '../components/index';
 import { Transaction, Saving, Category, User, MonthlyBudget } from '../../types/types';
 import useUserStore from "../../store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from '@/services/user';
-import UploadExcel from "../components/UploadExcel/UploadExcel";
-import Savings from '../savings/page';
-
 
 function Transactions() {
 
