@@ -15,6 +15,7 @@ import {
 import useUserStore from "../../store/userStore";
 import { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import Image from "next/image";
 
 const schema = z.object({
   email: z.string().email(),
@@ -100,6 +101,7 @@ export default function Home() {
   return (
     <div className={styles.body}>
       <div className={styles.container}>
+      <Image src="/logo.png" alt="Logo" width={190} height={55} />
         <h1 className={styles.title}>Login</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
