@@ -22,18 +22,16 @@ export type TransactionInput = z.infer<typeof transactionSchema>;
 interface AddTransactionProps {
     transactions: Transaction[];
     categories: Category[];
-    savingsNames: string[];
     addTransaction: (transaction: Transaction) => void;
 }
 
-export default function AddTransaction({ transactions, addTransaction, categories, savingsNames }: AddTransactionProps) {
+export default function AddTransaction({ transactions, addTransaction, categories }: AddTransactionProps) {
 
     const {
         register,
         handleSubmit,
         formState: { errors },
         reset,
-        watch
     } = useForm<TransactionInput>({
         resolver: zodResolver(transactionSchema),
     });
@@ -71,6 +69,8 @@ export default function AddTransaction({ transactions, addTransaction, categorie
                 )}
             </div>
 
+
+            {/* Category Selector */}
             <div className={styles.formGroup}>
                 <select
                     className={styles.select}
@@ -88,49 +88,8 @@ export default function AddTransaction({ transactions, addTransaction, categorie
                 </select>
                 {errors.category && (
                     <p className={styles.error}>{String(errors.category.message)}</p>
-                {watch("type") === 'saved' ? (
-                    <>
-                        <select
-                            className={styles.select}
-                            {...register("category")}
-                            defaultValue=""
-                        >
-                            <option value="" disabled>
-                                Select a saving
-                            </option>
-                            {savingsNames?.map((savingName, index) => (
-                                <option key={index} value={savingName}>
-                                    {savingName}
-                                </option>
-                            ))}
-                        </select>
-                        {errors.category && (
-                            <p className={styles.error}>{String(errors.category.message)}</p>
-                        )}
-                    </>
-                ) : (
-                    <>
-                        <select
-                            className={styles.select}
-                            {...register("category")}
-                            defaultValue=""
-                        >
-                            <option value="" disabled>
-                                Select a category
-                            </option>
-                            {categories?.map((category, index) => (
-                                <option key={index} value={category.categoryName}>
-                                    {category.categoryName}
-                                </option>
-                            ))}
-                        </select>
-                        {errors.category && (
-                            <p className={styles.error}>{String(errors.category.message)}</p>
-                        )}
-                    </>
                 )}
             </div>
-
 
             <div className={styles.formGroup}>
                 <input
@@ -163,7 +122,7 @@ export default function AddTransaction({ transactions, addTransaction, categorie
             <button className={styles.addButton} type="submit">
                 Add
             </button>
-        </form >
+        </form>
     )
 
 }
