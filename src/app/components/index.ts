@@ -16,3 +16,5 @@ export {default as AddNewBudget} from './categoriesGrid/AddNewBudget/AddNewBudge
 export {default as GridItem} from "../components/categoriesGrid/GridItem/GridItem";
 export {default as YearMonthSelector} from "../components/categoriesGrid/YearMonthSelector/YearMonthSelector"
 export {default as AlertsList} from "../components/AlertsList/AlertsList";
+export {default as UploadExcel} from "./UploadExcel/UploadExcel"
+export {default as Alerts} from "./AlertComp/AlertComp"
