@@ -9,7 +9,7 @@ import { googleSignup } from "../../services/signInWithGoogle";
 import { useRouter } from "next/navigation";
 import { showSuccessAlert, showErrorAlert } from "../../services/alerts";
 import useUserStore from "../../store/userStore";
-
+import Image from "next/image";
 type FormFields = z.infer<typeof schema>;
 
 const schema = z.object({
@@ -72,6 +72,7 @@ export default function Home() {
     return (
         <div className={styles.body}>
             <div className={styles.container}>
+            <Image src="/logo.png" alt="Logo" width={190} height={55} />
                 <h1 className={styles.title}>Create Your Account</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <input
