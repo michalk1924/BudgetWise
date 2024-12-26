@@ -34,9 +34,17 @@ interface FormData {
     householdType: "single" | "partnered" | "";
 }
 
+interface FixedExpense {
+    id: string;
+    name: string;
+    amount: number;
+    date: string; // Day of the month (e.g., "15")
+}
 const UserDetailsForm = () => {
-    const { user, initCategories,addSaving } = useUserStore();
-  
+    const [fixedExpenses, setFixedExpenses] = useState<FixedExpense[]>([]);
+
+    const { user, initCategories, addSaving } = useUserStore();
+
     const queryClient = useQueryClient();
     const router = useRouter();
 
@@ -75,8 +83,8 @@ const UserDetailsForm = () => {
         },
         onSuccess: () => {
 
-          queryClient.invalidateQueries({ queryKey: ['users'] });
-          router.push('/home');
+            queryClient.invalidateQueries({ queryKey: ['users'] });
+            router.push('/home');
         },
         onError: (error: Error) => {
             console.error('Error updating user:', error.message);
@@ -118,6 +126,33 @@ const UserDetailsForm = () => {
             [name]: value,
         }));
     };
+
+    const handleFixedExpenseChange = (
+        id: string,
+        field: keyof FixedExpense,
+        value: string | number
+    ) => {
+        setFixedExpenses((prevExpenses) =>
+            prevExpenses.map((expense) =>
+                expense.id === id ? { ...expense, [field]: value } : expense
+            )
+        );
+    };
+
+    const addFixedExpense = () => {
+        const newExpense: FixedExpense = {
+            id: Math.random().toString(36).substr(2, 8),
+            name: "",
+            amount: 0,
+            date: "",
+        };
+        setFixedExpenses((prevExpenses) => [...prevExpenses, newExpense]);
+    };
+
+    const removeFixedExpense = (id: string) => {
+        setFixedExpenses((prevExpenses) => prevExpenses.filter((expense) => expense.id !== id));
+    };
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -353,19 +388,6 @@ const UserDetailsForm = () => {
 
 
                 <label className={styles.label}>
-                    Number of Children: *
-                    <input
-                        type="number"
-                        name="dependents"
-                        value={formData.dependents}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        placeholder="Enter number of dependents"
-                        required
-                    />
-                </label>
-
-                <label className={styles.label}>
                     How much do you spend on education? *
                     <input
                         type="number"
@@ -374,6 +396,70 @@ const UserDetailsForm = () => {
                         onChange={handleInputChange}
                         className={styles.input}
                         placeholder="Enter your monthly housing cost"
+                        required
+                    />
+                </label>
+
+                <label className={styles.label}>
+                     Do you have any other fixed expenses?
+                    {fixedExpenses.map((expense) => (
+                        <div key={expense.id} className={styles.fixedExpense}>
+                            <input
+                                type="text"
+                                placeholder="Expense Name"
+                                value={expense.name}
+                                onChange={(e) =>
+                                    handleFixedExpenseChange(expense.id, "name", e.target.value)
+                                }
+                                className={styles.input}
+                            />
+                            <input
+                                type="number"
+                                placeholder="Amount"
+                                value={expense.amount || ""}
+                                onChange={(e) =>
+                                    handleFixedExpenseChange(expense.id, "amount", Number(e.target.value))
+                                }
+                                className={styles.input}
+                            />
+                            <input
+                                type="number"
+                                placeholder="Date (Day of the Month)"
+                                value={expense.date || ""}
+                                onChange={(e) =>
+                                    handleFixedExpenseChange(expense.id, "date", e.target.value)
+                                }
+                                className={styles.input}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => removeFixedExpense(expense.id)}
+                                className={styles.removeButton}
+                            >
+                                Remove
+                            </button>
+                        </div>
+                    ))}
+                    <button
+                        type="button"
+                        onClick={addFixedExpense}
+                        className={styles.addButton}
+                    >
+                        + Add Fixed Expense
+                    </button>
+                </label>
+
+                
+
+                <label className={styles.label}>
+                    Number of Children: *
+                    <input
+                        type="number"
+                        name="dependents"
+                        value={formData.dependents}
+                        onChange={handleInputChange}
+                        className={styles.input}
+                        placeholder="Enter number of dependents"
                         required
                     />
                 </label>

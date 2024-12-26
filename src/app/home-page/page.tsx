@@ -19,8 +19,11 @@ const handleLogin = () => {
 
   return (
     <div className={styles.container}>
+      <Image src="/logo.png" alt="Logo" width={190} height={55} />
+
       {/* Header Section */}
       <div className={styles.section}>
+
         <section className={styles.header}>
 
           <h1>Take control of your finances with ease!</h1>
