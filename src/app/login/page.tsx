@@ -58,11 +58,15 @@ export default function Home() {
 
   const loginWithGoogle = async () => {
     try {
-      const user = await googleSignup();
+      const { user, isNewUser } = await googleSignup();
       if (user) {
         setUser(user);
         await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
-        router.push("/home");
+        if (isNewUser) {
+          router.push("/userDetailsForm");
+        } else {
+          router.push("/home");
+        }
       } else {
         await showErrorAlert("Failed to login with Google.");
       }
@@ -101,7 +105,7 @@ export default function Home() {
   return (
     <div className={styles.body}>
       <div className={styles.container}>
-      <Image src="/logo.png" alt="Logo" width={190} height={55} />
+        <Image src="/logo.png" alt="Logo" width={190} height={55} />
         <h1 className={styles.title}>Login</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
