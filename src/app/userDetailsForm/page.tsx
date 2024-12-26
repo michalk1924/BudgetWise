@@ -34,7 +34,7 @@ interface FormData {
 }
 
 const UserDetailsForm = () => {
-    const { user, initCategories,addSaving } = useUserStore();
+    const { user, initCategories, addSaving } = useUserStore();
 
     const queryClient = useQueryClient();
 
@@ -64,21 +64,21 @@ const UserDetailsForm = () => {
     });
     const updateUserAddSavingMutation = useMutation({
         mutationFn: async ({ id, saving }: { id: string; saving: Saving }) => {
-          if (user) {
-            const response = await userService.updateUser(id, { savings: [...user?.savings, saving] });
-            addSaving(saving);
-            return response;
-          }
-          return null;
+            if (user) {
+                const response = await userService.updateUser(id, { savings: [...user?.savings, saving] });
+                addSaving(saving);
+                return response;
+            }
+            return null;
         },
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['users'] });
+            queryClient.invalidateQueries({ queryKey: ['users'] });
         },
         onError: (error: Error) => {
-          console.error('Error updating user:', error.message);
+            console.error('Error updating user:', error.message);
         },
-      });
-    
+    });
+
 
 
     const [formData, setFormData] = useState<FormData>({
@@ -143,7 +143,7 @@ const UserDetailsForm = () => {
             deadline: new Date,
             createdAt: new Date,
             updatedAt: new Date,
-           
+
         }
         updateUserAddSavingMutation.mutate({ id: user?._id ?? "", saving })
 
@@ -187,8 +187,8 @@ const UserDetailsForm = () => {
                     />
                 </label>
 
-                 {/* Household Type */}
-                 <label className={styles.label}>
+                {/* Household Type */}
+                <label className={styles.label}>
                     Household Type: *
                     <select
                         name="householdType"

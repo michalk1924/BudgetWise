@@ -25,7 +25,8 @@ export async function POST(request: NextRequest, { params }: { params: any }) {
             savings: [],
             transactions: [],
             alerts: [],
-            recommendations: []
+            recommendations: [],
+            FixedExpense : []
         });
         if (!result.acknowledged) {
             return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
