@@ -36,7 +36,6 @@ interface FormData {
 
 const UserDetailsForm = () => {
     const { user, initCategories,addSaving } = useUserStore();
-    const router = useRouter();
   
     const queryClient = useQueryClient();
     const router = useRouter();
