@@ -33,24 +33,29 @@ export const showInfoAlert = (message: string) => {
     });
 }
 
-export const showAlertWithTwoOptions = () => {
+export const showAlertWithTwoOptions = (
+    title: string,
+    message: string,
+    option1: string,
+    option2: string,
+    onOption1: () => void, // Callback for Option 1
+    onOption2: () => void  // Callback for Option 2
+  ) => {
     Swal.fire({
-      title: "Choose an Option",
-      text: "Please select one of the options below:",
+      title: title,
+      text: message,
       icon: "question",
       showCancelButton: true, // Enables the cancel button
-      confirmButtonText: "Option 1", // Text for the confirm button
-      cancelButtonText: "Option 2", // Text for the cancel button
+      confirmButtonText: option1, // Text for the confirm button
+      cancelButtonText: option2, // Text for the cancel button
       reverseButtons: true, // Makes the cancel button appear on the left
     }).then((result) => {
       if (result.isConfirmed) {
-        // Handle "Option 1" logic
-        console.log("Option 1 chosen");
-        Swal.fire("You chose Option 1!", "", "success");
+        // Execute the callback for Option 1
+        onOption1();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // Handle "Option 2" logic
-        console.log("Option 2 chosen");
-        Swal.fire("You chose Option 2!", "", "info");
+        // Execute the callback for Option 2
+        onOption2();
       }
     });
   };

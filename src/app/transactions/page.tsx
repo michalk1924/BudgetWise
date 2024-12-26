@@ -334,12 +334,12 @@ function Transactions() {
 
 <div className={styles.addSection}>
         <UploadExcel />
-        {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction}
-          categories={user?.categories} />}
+        {/* {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction}
+          categories={user?.categories} />} */}
         </div>
 
         {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
-          updateTransaction={handleUpdateTransaction} categories={user?.categories}
+          updateTransaction={handleUpdateTransaction} addTransaction={handleAddTransaction} categories={user?.categories}
           savingsNames={user?.savings.map(s => s.goalName)}
         />}
 

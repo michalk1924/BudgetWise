@@ -160,4 +160,22 @@
     /* Hide additional fields */
   }
 
+}.addTransaction {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.addButton {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #536493;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.addButton:hover {
+  background-color: #3a4b8f;
 }
