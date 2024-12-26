@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from "./transactions.module.css";
-import { AddTransaction, TransactionTable } from '../components/index';
+import { AddTransaction, TransactionTable ,UploadExcel} from '../components/index';
 import { Transaction, Saving, Category, User, MonthlyBudget } from '../../types/types';
 import useUserStore from "../../store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -12,7 +12,6 @@ import Savings from '../savings/page';
 import {getCategoryIndex, isSameMonth, handleCurrentMonthTransaction, handleDifferentMonthTransaction
   ,addMonthlyBudget, getMonthIndex, updateMonthlyBudget, updateSavingAfterUpdateTransaction}
   from '@/services/helpFunctions';
-
 
 function Transactions() {
 
@@ -243,15 +242,17 @@ function Transactions() {
 
       {!loading && user && <div className={styles.main}>
 
+<div className={styles.addSection}>
         <UploadExcel />
+        {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction}
+          categories={user?.categories} />}
+        </div>
 
         {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
           updateTransaction={handleUpdateTransaction} categories={user?.categories}
           savingsNames={user?.savings.map(s => s.goalName)}
         />}
 
-        {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction}
-          savingsNames={user?.savings.map(s => s.goalName)} categories={user?.categories} />}
       </div>}
 
       {!loading && user && <div className={styles.headers}>
