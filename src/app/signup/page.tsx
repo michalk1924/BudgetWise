@@ -10,6 +10,8 @@ import { useRouter } from "next/navigation";
 import { showSuccessAlert, showErrorAlert } from "../../services/alerts";
 import useUserStore from "../../store/userStore";
 import Image from "next/image";
+import { EXAMPLE_USER } from "@/consts/consts";
+
 type FormFields = z.infer<typeof schema>;
 
 const schema = z.object({
@@ -54,7 +56,7 @@ export default function Home() {
 
     const loginWithGoogle = async () => {
         try {
-            const {user, isNewUser} = await googleSignup();
+            const { user, isNewUser } = await googleSignup();
             if (user) {
                 setUser(user);
                 await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
@@ -73,10 +75,24 @@ export default function Home() {
         }
     };
 
+    const loginWithExampleUser = async () => {
+        try {
+            const user = await authService.login(EXAMPLE_USER);
+            setUser(user);
+            await showSuccessAlert("Welcome!", "You have logged in successfully!", 1000);
+            router.push("/home");
+        } catch (error: any) {
+            console.error("Error creating user:", error);
+            showErrorAlert("Could not login");
+        } finally {
+            reset();
+        }
+    };
+
     return (
         <div className={styles.body}>
             <div className={styles.container}>
-            <Image src="/logo.png" alt="Logo" width={190} height={55} />
+                <Image src="/logo.png" alt="Logo" width={190} height={55} />
                 <h1 className={styles.title}>Create Your Account</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <input
@@ -113,10 +129,15 @@ export default function Home() {
                     >
                         {isSubmitting ? "Loading..." : "Submit"}
                     </button>
+
                 </form>
+
+                <button className={styles.exampleUserButton} onClick={loginWithExampleUser}>exmaple user</button>
+
                 <div className={styles.googleButtonContainer}>
                     <button className={styles.googleButton} onClick={loginWithGoogle}>Signup with Google </button>
                 </div>
+
                 <div className={styles.movePage}>
                     <p onClick={goToLogin}>Already have an account? <span >Login</span></p>
                 </div>
