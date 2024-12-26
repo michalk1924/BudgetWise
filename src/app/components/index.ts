@@ -20,3 +20,4 @@ export {default as UploadExcel} from "./UploadExcel/UploadExcel";
 export {default as Alerts} from "./AlertComp/AlertComp";
 export {default as FixedExpensesManager} from "./FixedExpensesManager/FixedExpensesManager"
 export {default as FixedExpenseCard} from "./FixedExpenseCard/FixedExpenseCard"
+export {default as FixedExpenseForm} from "./FixedExpenseForm/FixedExpenseForm"
