@@ -13,7 +13,15 @@ export async function POST(request: NextRequest) {
 
         if (!user) {
             isNewUser = true;
-            await insertDocument(client, "users", { name: name, email: email });
+            await insertDocument(client, "users", {
+                username: name,
+                email: email,
+                categories: [],
+                savings: [],
+                transactions: [],
+                alerts: [],
+                recommendations: []
+            });
             user = await getUserByEmail(client, email);
         }
 
