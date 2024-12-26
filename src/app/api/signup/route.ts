@@ -19,13 +19,14 @@ export async function POST(request: NextRequest, { params }: { params: any }) {
         }
 
         const result = await insertDocument(client, 'users', {
-            name: name,
+            username: name,
             email: email,
             categories: [],
             savings: [],
             transactions: [],
             alerts: [],
-            recommendations: []
+            recommendations: [],
+            FixedExpense : []
         });
         if (!result.acknowledged) {
             return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });

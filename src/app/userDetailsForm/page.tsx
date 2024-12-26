@@ -37,7 +37,9 @@ interface FormData {
 const UserDetailsForm = () => {
     const { user, initCategories,addSaving } = useUserStore();
     const router = useRouter();
+  
     const queryClient = useQueryClient();
+    const router = useRouter();
 
     const updateUserAddCategoriesMutation = useMutation({
         mutationFn: async ({
@@ -65,21 +67,23 @@ const UserDetailsForm = () => {
     });
     const updateUserAddSavingMutation = useMutation({
         mutationFn: async ({ id, saving }: { id: string; saving: Saving }) => {
-          if (user) {
-            const response = await userService.updateUser(id, { savings: [...user?.savings, saving] });
-            addSaving(saving);
-            return response;
-          }
-          return null;
+            if (user) {
+                const response = await userService.updateUser(id, { savings: [...user?.savings, saving] });
+                addSaving(saving);
+                return response;
+            }
+            return null;
         },
         onSuccess: () => {
+
           queryClient.invalidateQueries({ queryKey: ['users'] });
+          router.push('/home');
         },
         onError: (error: Error) => {
-          console.error('Error updating user:', error.message);
+            console.error('Error updating user:', error.message);
         },
-      });
-    
+    });
+
 
 
     const [formData, setFormData] = useState<FormData>({
@@ -188,8 +192,8 @@ const UserDetailsForm = () => {
                     />
                 </label>
 
-                 {/* Household Type */}
-                 <label className={styles.label}>
+                {/* Household Type */}
+                <label className={styles.label}>
                     Household Type: *
                     <select
                         name="householdType"
