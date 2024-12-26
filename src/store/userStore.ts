@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { User, Category, Saving, Transaction, Alert, Recommendation } from "../types/types";
+import { User, Category, Saving, Transaction, Alert, Recommendation, FixedExpense} from "../types/types";
 import { saveToken } from "@/services/cookies";
 
 
@@ -27,7 +27,9 @@ interface UserStore {
   setRecommendations: (recommendations: Recommendation[]) => void;
   updateAlertStatus: (alertId: string, isActive: boolean) => void;
   removeAlert: (alertId: string) => void;
+  addFixedExpense: (fixedExpense: FixedExpense) => void;
   expirationTimestamp?: number;
+
 }
 
 const useUserStore = create<UserStore>()(
@@ -170,6 +172,14 @@ const useUserStore = create<UserStore>()(
             alerts: state.user!.alerts.filter((alert) => alert.alertId !== alertId),
           },
         })),
+
+        addFixedExpense: (fixedExpense) =>
+          set((state) => ({
+            user: {
+              ...state.user!,
+              fixedExpenses: [...state.user!.fixedExpenses, fixedExpense],
+            },
+          })),
 
 
       setRecommendations: (recommendations) =>
