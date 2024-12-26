@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from "./transactions.module.css";
-import { AddTransaction, TransactionTable ,UploadExcel} from '../components/index';
+import { AddTransaction, TransactionTable ,UploadExcel, FixedExpensesManager} from '../components/index';
 import { Transaction, Saving, Category, User, MonthlyBudget } from '../../types/types';
 import useUserStore from "../../store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,6 +13,15 @@ function Transactions() {
   const { user, addTransaction, updateTransaction, updateSaving, updateCategory, removeTransaction, loading } = useUserStore();
 
   const queryClient = useQueryClient();
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(true);
+
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen);
+  };
+  const closeForm = () => setIsFormVisible(false);
+
 
   const updateUserMutationAddTransaction = useMutation({
     mutationFn: async ({ id, transaction }: { id: string; transaction: Transaction }) => {
@@ -333,6 +342,12 @@ function Transactions() {
       {!loading && user && <div className={styles.main}>
 
 <div className={styles.addSection}>
+<div>
+      <button onClick={togglePopup}>Management of fixed expenses</button>
+      {isPopupOpen && (
+          <FixedExpensesManager onClose={togglePopup} isVisible={isFormVisible}/>
+      )}
+    </div>
         <UploadExcel />
         {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction}
           categories={user?.categories} />}
@@ -358,7 +373,6 @@ function Transactions() {
           $
         </div>}
       </div>}
-
       {loading && <div className={styles.loader}>Loading...</div>}
 
       {!loading && user && user?.transactions?.length === 0 && <div>
