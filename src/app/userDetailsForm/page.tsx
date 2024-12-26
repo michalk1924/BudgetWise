@@ -8,6 +8,7 @@ import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
 import { showSuccessAlert, showErrorAlert } from "../../services/alerts";
+import { useRouter } from "next/navigation";
 
 
 interface FormData {
@@ -37,6 +38,7 @@ const UserDetailsForm = () => {
     const { user, initCategories, addSaving } = useUserStore();
 
     const queryClient = useQueryClient();
+    const router = useRouter();
 
     const updateUserAddCategoriesMutation = useMutation({
         mutationFn: async ({
@@ -72,7 +74,9 @@ const UserDetailsForm = () => {
             return null;
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['users'] });
+
+          queryClient.invalidateQueries({ queryKey: ['users'] });
+          router.push('/home');
         },
         onError: (error: Error) => {
             console.error('Error updating user:', error.message);
