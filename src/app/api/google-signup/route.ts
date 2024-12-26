@@ -9,13 +9,15 @@ export async function POST(request: NextRequest) {
         const { email, name } = await request.json();
 
         let user = await getUserByEmail(client, email);
+        let isNewUser = false;
 
         if (!user) {
+            isNewUser = true;
             await insertDocument(client, "users", { name: name, email: email });
             user = await getUserByEmail(client, email);
         }
 
-        return NextResponse.json({user: user});
+        return NextResponse.json({ user: user, isNewUser: isNewUser });
 
     } catch (error: any) {
         console.error('Error during POST request:', error);
