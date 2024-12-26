@@ -7,7 +7,7 @@ import { Saving,Transaction} from "@/types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from '@/services/user';
-import { showSuccessAlert } from "@/services/alerts";
+import { showAlertWithTwoOptions } from "@/services/alerts";
 
 const Savings = () => {
 
@@ -88,8 +88,23 @@ const Savings = () => {
     saving.currentAmount=0;
     updateUserMutationAddTransaction.mutate({id: user?._id ?? '',transaction});
     updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving });
-    await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
-
+    await showAlertWithTwoOptions(
+      "",
+      "Do you want to withdraw the money and continue saving for "+saving.goalName+"?",
+      "continue saving",
+      "delete saving",
+      handleContinueSaving,
+      handleDeleteSaving
+    );
+    
+  };
+  const handleContinueSaving = () => {
+    console.log("Option 1 selected");
+  };
+  
+  const handleDeleteSaving = () => {
+    console.log("Option 2 selected");
+    
   };
 
   return (

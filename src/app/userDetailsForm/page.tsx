@@ -35,8 +35,9 @@ interface FormData {
 }
 
 const UserDetailsForm = () => {
-    const { user, initCategories, addSaving } = useUserStore();
-
+    const { user, initCategories,addSaving } = useUserStore();
+    const router = useRouter();
+  
     const queryClient = useQueryClient();
     const router = useRouter();
 
@@ -147,11 +148,11 @@ const UserDetailsForm = () => {
             deadline: new Date,
             createdAt: new Date,
             updatedAt: new Date,
-
         }
         updateUserAddSavingMutation.mutate({ id: user?._id ?? "", saving })
 
         await showSuccessAlert("Welcome!", "Details saved successfully!", 1000);
+        router.push("/categories");
 
     };
 
