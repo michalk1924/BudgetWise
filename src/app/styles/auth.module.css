@@ -124,3 +124,19 @@ font-family: "Malvie Trial", Arial, sans-serif;
 }
 
 
+.exampleUserButton{
+    width: 70%;
+    background-color:#D4BDAC;
+    color: #fff5e6; 
+    border: none;
+    border-radius: 6px;
+    padding: 0.2rem;
+    margin: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.exampleUserButton:hover{
+    background-color:#e3b492 ;
+    transform: scale(1.02);
+}
