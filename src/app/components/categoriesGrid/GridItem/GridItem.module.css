@@ -145,11 +145,10 @@
 
 .gridItem {
   animation: fadeIn 0.5s ease-in-out;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .gridItem:hover {
-  animation: hoverEffect 0.3s ease forwards;
+  transform: translateY(-6px);
 }
 
 .editButton {

@@ -94,4 +94,32 @@
       display: none;
     }
   }
+
+  .transactionItem {
+    display: flex; /* Use flexbox to arrange elements */
+    justify-content: space-between; /* Spread the content evenly */
+    align-items: center; /* Align items vertically in the center */
+    
+    
+  }
+  
+  .transactionItem div {
+    flex: 1; /* Ensure equal spacing between elements */
+    text-align: center; /* Center-align text */
+  }
+  
+  .transactionItem div:last-child {
+    flex: 0; /* Prevent the icon from stretching */
+    text-align: right; /* Align the icon to the right */
+  }
+  
+  .transactionItem .icon {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .transactionItem .icon:hover {
+    color: #505051;
+  }
+  
   

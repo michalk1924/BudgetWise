@@ -1,8 +1,23 @@
+
+/* Keyframes for hover scaling animation */
+@keyframes scaleUp {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.05);
+    }
+}
+
 .container {
     padding: 20px;
     color: #536493;
-    text-shadow:0 10px 10px #FFF1DB;
-
+    text-shadow: 0 10px 10px #FFF1DB;
+    animation: fadeIn 1s ease-in-out;
+    display: flex;
+    flex-direction: row;
+    gap:10%;
 }
 
 .nav a {
@@ -13,13 +28,15 @@
 
 .main {
     text-align: center;
+    animation: fadeIn 1s ease-in-out;
+    flex:4;
+  
 }
 
 .stats {
     display: flex;
     justify-content: space-around;
     margin-bottom: 6%;
-
 }
 
 .statBox {
@@ -27,22 +44,39 @@
     width: 30%;
     text-align: center;
     font-size: 1.4rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 1s ease-in-out;
 }
-.aaa{
-    font-size: 1.8rem;
 
+.statBox:hover {
+    animation: scaleUp 0.3s ease forwards;
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.2);
+}
+
+.aaa {
+    font-size: 1.8rem;
+    animation: fadeIn 1s ease-in-out;
 }
 
 .greeting {
-    display: flex; /* Enable flexbox */
-    flex-direction: column; /* Arrange children vertically */
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally */
-    height: 100%; /* Ensure the section takes up the necessary height */
-    text-align: center; /* Center the text within the element */
-    font-size: x-large;
+    display: flex;
+    flex:1;
+    /* Enable flexbox */
+    flex-direction: column;
+    /* Arrange children vertically */
+    justify-content: center;
+    /* Center vertically */
+    align-items: center;
+    /* Center horizontally */
+    height: 100%;
+    /* Ensure the section takes up the necessary height */
+    text-align: center;
+    /* Center the text within the element */
     margin-bottom: 3%;
+    animation: fadeIn 1s ease-in-out;
+    font-size: large;
 }
+
 
 
 .actions button {
@@ -51,28 +85,49 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: small;
 }
-.monthlyIncome{
-    color:#A1D6B2;
-    padding:8%;
 
+.actions button:hover {
+    transform: scale(1.1);
+    background-color: #536493;
+    color: #fff;
+}
+.alerts{
+
+}
+
+.monthlyIncome {
+    color: #A1D6B2;
+    padding: 8%;
     box-shadow: 0 10px 10px #A1D6B2;
-  border-radius: 15%;
+    border-radius: 15%;
 }
 
-.monthlyExpenses{
-    color:#ef5a6ee0;
-    padding:8%;
+.monthlyIncome:hover {
+    box-shadow: 0 15px 15px #A1D6B2;
+}
 
+.monthlyExpenses {
+    color: #ef5a6ee0;
+    padding: 8%;
     box-shadow: 0 10px 10px #ef5a6ee0;
-  border-radius: 15%;
+    border-radius: 15%;
+   
 }
 
-.monthlySavings{
-    color:#D4BDAC;
-    padding:8%;
+.monthlyExpenses:hover {
+    box-shadow: 0 15px 15px #ef5a6ee0;
+}
 
+.monthlySavings {
+    color: #D4BDAC;
+    padding: 8%;
     box-shadow: 0 12px 12px #D4BDAC;
-  border-radius: 15%;
+    border-radius: 15%;
 }
 
+.monthlySavings:hover {
+    box-shadow: 0 15px 15px #D4BDAC;
+}
