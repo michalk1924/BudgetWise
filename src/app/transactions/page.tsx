@@ -345,8 +345,8 @@ function Transactions() {
               <FixedExpensesManager onClose={togglePopup} isVisible={isFormVisible} />
             )}
           </div>
-          <UploadExcel />
-        </div>
+{/*           <UploadExcel />
+ */}        </div>
         {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
           updateTransaction={handleUpdateTransaction} addTransaction={handleAddTransaction} categories={user?.categories}
           savingsNames={user?.savings.map(s => s.goalName)}
