@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAlertsExceedingBudget, budgetExceededAlert, validateAccountBalance, holidayAndVacationAlerts } from '@/services/alertsFunctions';
-import { Alert } from '@/types/types';
+import { CreateTransactionByFixedExpense } from "../../../services/fixedExpenseFunction"
 import { connectDatabase, getDocuments, patchDocument } from '@/services/mongo';
-import { User } from '@/types/types';
+import { User, Alert, Transaction } from '@/types/types';
+
 
 export const dynamic = 'force-dynamic';
 
@@ -15,7 +16,6 @@ export async function GET(req: NextRequest) {
         }
 
         const client = await connectDatabase();
-
         const data = await getDocuments(client, "users");
         const users = data as unknown as User[];
 
@@ -31,8 +31,8 @@ export async function GET(req: NextRequest) {
 
             console.log(`Processing user: ${user._id}`);
             const alerts = user?.alerts ?? [];
-
-            const existingConditions = new Set(alerts?.map((alert:Alert) => alert.triggerCondition)); // Track existing triggerConditions
+            const userTransactions = user?.transactions ?? [];
+            const existingConditions = new Set(alerts?.map((alert: Alert) => alert.triggerCondition)); // Track existing triggerConditions
 
             const alerts1 = await createAlertsExceedingBudget(user);
             if (alerts1) {
@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
                     }
                 });
             }
-            
+
             const alerts2 = await budgetExceededAlert(user);
             if (alerts2) {
                 alerts2.forEach((alert) => {
@@ -53,7 +53,7 @@ export async function GET(req: NextRequest) {
                     }
                 });
             }
-            
+
             const alerts3 = await validateAccountBalance(user);
             if (alerts3) {
                 alerts3.forEach((alert) => {
@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
                     }
                 });
             }
-            
+
             const alerts4 = await holidayAndVacationAlerts(user);
             if (alerts4) {
                 alerts4.forEach((alert) => {
@@ -74,7 +74,15 @@ export async function GET(req: NextRequest) {
                 });
             }
 
-            await patchDocument(client, "users",user._id,{alerts})
+            const transactions = await CreateTransactionByFixedExpense(user)
+            if (transactions) {
+                transactions.forEach((transaction) => {
+                    userTransactions.push(transaction);
+                })
+            }
+
+            await patchDocument(client, "users", user._id, { alerts });
+            await patchDocument(client, "users", user._id, {userTransactions});
         }
 
         console.log("Nightly tasks completed successfully.");
