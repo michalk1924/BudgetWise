@@ -1,5 +1,5 @@
 "use client"
-import { DoughnutChart, IncomeExpenseBarChart, SavingsBarChart, ExpenseComparisonChart, UserTrendChart } from '../components/index';
+import { DoughnutChart, IncomeExpenseBarChart, SavingsBarChart, ExpenseComparisonChart, UserTrendChart, PopularCategoriesComp } from '../components/index';
 import useUserStore from "@/store/userStore";
 import fetchDataAndCompare from '@/services/stlouisfedApi';
 import { useState, useEffect } from 'react';
@@ -42,7 +42,7 @@ export default function Home() {
 
           {/* Chart 2 */}
           <div className={styles.gridItem}>
-            <h2 className={styles.chartTitle}>Income vs Expenses</h2>
+            <h2 className={styles.chartTitle}>Incomes vs Expenses</h2>
             <IncomeExpenseBarChart transactions={user?.transactions ?? []} />
           </div>
 
@@ -62,6 +62,12 @@ export default function Home() {
           <div className={styles.gridItem}>
             <h2 className={styles.chartTitle}>User Trends</h2>
             <UserTrendChart transactions={user?.transactions ?? []} />
+          </div>
+
+         {/* Chart 6 */}
+         <div className={styles.gridItem}>
+            <h2 className={styles.chartTitle}>ggg</h2>
+            <PopularCategoriesComp user={user} />
           </div>
 
         </div>

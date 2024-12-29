@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './TransactionTable.module.css';
 import { Transaction, Category } from '../../../../types/types';
 import { DateFilter } from '@/consts/enums';
-import { TransactionComp,UploadExcel } from "../../index";
+import { TransactionComp, UploadExcel } from "../../index";
 import { ITEMS_PER_PAGE } from '@/consts/consts';
 function TransactionsList({
     transactions,
@@ -77,6 +77,10 @@ function TransactionsList({
     };
 
     useEffect(() => {
+        setCurrentPage(1);
+    }, [dateFilter])
+
+    useEffect(() => {
         const filteredTransactions = filterTransactions();
         const sortedTransactions = filteredTransactions.sort(
             (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -87,7 +91,7 @@ function TransactionsList({
             .slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
             .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         setCurrentTransactions(currentTransactions);
-    }, [transactions, categoryFilter, dateFilter, currentPage]);
+    }, [transactions, categoryFilter, currentPage, dateFilter]);
 
     const handleCreateNewTransaction = () => {
         setNewTransaction({
@@ -207,7 +211,7 @@ function TransactionsList({
                 />
             )}
 
-        
+
 
             <div className={styles.pagination}>
                 <button
@@ -218,7 +222,7 @@ function TransactionsList({
                     {"<<"}
                 </button>
                 <span className={styles.pageNumber}>
-                    Page {currentPage} of {totalPages}
+                    Page {totalPages > 0 ? currentPage : 0} of {totalPages}
                 </span>
                 <button
                     className={styles.pageButton}
@@ -229,11 +233,11 @@ function TransactionsList({
                 </button>
             </div>
             <div className={styles.pagination}>
-              <UploadExcel/>
+                <UploadExcel />
                 <button onClick={handleCreateNewTransaction} className={styles.addButton}>
                     + Add New Transaction
                 </button>
-                </div>
+            </div>
 
             {/* <div className={styles.addTransaction}>
                 <button onClick={handleCreateNewTransaction} className={styles.addButton}>

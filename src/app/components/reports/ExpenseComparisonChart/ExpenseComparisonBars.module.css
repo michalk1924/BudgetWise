@@ -1,65 +1,64 @@
 .container {
-    width: 90%;
-    padding: 1rem;
-    border-radius: 7px;
-    overflow-x: auto;
-    margin: 0 auto;
-    max-width: 1200px;
-    margin-bottom: 50px;
-    align-items: center;
-    padding: 0.6rem;
-  }
+  width: 90%;
+  padding: 1rem;
+  border-radius: 7px;
+  overflow-x: auto;
+  margin: 0 auto;
+  max-width: 1200px;
+  margin-bottom: 50px;
+  align-items: center;
+  padding: 0.6rem;
+}
 
-  .barHeader {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    font-size: 0.7rem;
-    padding: 0.4rem;
-  }
-  
-  .category {
-    color: var(--highlight-color, #536493);
-  }
-  
-  .year {
-    color: var(--accent-color, #D4BDAC);
-  }
-  
-  .barBackground {
-    width: 100%;
-    background-color: var(--secondary-color, #FFF1DB);
-    border-radius: 15px;
-    overflow: hidden;
-    height: 1rem;
-    position: relative;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .barFill {
-    height: 100%;
-    transition: width 0.5s ease-in-out;
-  }
-  
-  .barFooter {
-    font-size: 0.8rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .usageText {
-    color: var(--highlight-color, #536493);
-  }
-  
-  .overBudget {
-    color: var(--primary-color, #EF5A6F);
-    font-weight: bold;
-  }
-  
-  .explanationText {
-    color: var(--highlight-color, #536493);
-    font-size: 14px;
-    text-align: center;
-  }
-  
+.barHeader {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 0.7rem;
+  padding: 0.4rem;
+}
+
+.category {
+  color: var(--highlight-color, #536493);
+}
+
+.year {
+  color: var(--accent-color, #D4BDAC);
+}
+
+.barBackground {
+  width: 100%;
+  background-color: var(--secondary-color, #FFF1DB);
+  border-radius: 15px;
+  overflow: hidden;
+  height: 1rem;
+  position: relative;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.barFill {
+  height: 100%;
+  transition: width 0.5s ease-in-out;
+}
+
+.barFooter {
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.usageText {
+  color: var(--highlight-color, #536493);
+}
+
+.overBudget {
+  color: var(--primary-color, #EF5A6F);
+  font-weight: bold;
+}
+
+.explanationText {
+  color: var(--highlight-color, #536493);
+  font-size: 14px;
+  text-align: center;
+}
