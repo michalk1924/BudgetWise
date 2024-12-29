@@ -1,82 +1,97 @@
-.transactionItem {
-  display: grid;
-  grid-template-columns: 2fr 1fr 3fr 3fr 2fr 1fr;
-  grid-template-rows: auto;
-  padding: 0.3rem;
-  border-radius: 8px;
-  align-items: center;
-  /* transition: background-color 0.3s ease; */
-  text-align: center;
-  margin: 0;
-  line-height: 1.2vh;
-  /* white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-word; */
-}
-
-.transactionItem>* {
-  white-space: nowrap;
-  font-weight: normal;
-  font-size: 1.2vw;
-}
-
-.transactionItem:hover {
-  opacity: 0.8;
-}
-
-.transactionItem input,
-.transactionItem select {
-    width: 85%; 
-    text-align: center;
-}
-
-.income {
-  background-color: #A1D6B2;
-}
-
-.expense {
-  background-color: #ef5a6ec2;
-}
-
-.saved {
-  background-color: #FFF1DB;
-}
-
-.icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #2c3e50;
-  cursor: pointer;
-}
-
-.icon:hover {
-  color: #505051;
-}
-
-
-.transactionItem .hiddenOnSmall {
-  display: block;
-  /* Default: show all */
-}
-
-@media (max-width: 768px) {
+/* Add animation on appearance */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
   .transactionItem {
-    grid-template-columns: repeat(3, 1fr);
-    /* Show only 3 columns */
-    font-size: 1.5rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 3fr 3fr 2fr 1fr;
+    grid-template-rows: auto;
+    padding: 0.6rem;
+    border-radius: 8px;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    line-height: 1.2vh;
+    gap: 10px;
+    background-color: white;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-
-  .transactionItem>* {
-    grid-template-columns: repeat(3, 1fr);
-    /* Show only 3 columns */
-    font-size: 1rem;
+  
+  .transactionItem:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   }
-
-  .transactionItem .hiddenOnSmall {
-    display: none;
-    /* Hide additional fields */
-
+  
+  .transactionItem input,
+  .transactionItem select {
+    width: 85%;
+    text-align: center;
+    transition: all 0.3s ease;
   }
-}
+  
+  .transactionItem input:focus,
+  .transactionItem select:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+  }
+  
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #2c3e50;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.3s ease;
+  }
+  
+  .icon:hover {
+    color: #505051;
+    transform: scale(1.1);
+  }
+  
+  .income {
+    background-color: #a1d6b2;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .expense {
+    background-color: rgba(239, 90, 111, 0.5);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .saved {
+    background-color: #d4bdac;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .hiddenOnSmall {
+    display: block;
+  }
+  
+  @media (max-width: 768px) {
+    .transactionItem {
+      grid-template-columns: repeat(3, 1fr);
+      font-size: 1.5rem;
+      padding: 0.1rem;
+    }
+  
+    .transactionItem>* {
+      font-size: 1rem;
+    }
+  
+    .hiddenOnSmall {
+      display: none;
+    }
+  }
+  
