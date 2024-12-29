@@ -372,6 +372,8 @@ function Transactions() {
                   .toFixed(2)}
                 $)
               </div>
+              <button onClick={togglePopup} className={styles.manageFixedTransaction}>Management of fixed expenses</button>
+
             </div>
           )}
         </div>
@@ -381,7 +383,6 @@ function Transactions() {
 
         <div className={styles.addSection}>
           <div>
-            <button onClick={togglePopup}>Management of fixed expenses</button>
             {isPopupOpen && (
               <FixedExpensesManager onClose={togglePopup} isVisible={isFormVisible} />
             )}

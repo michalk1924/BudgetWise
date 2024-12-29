@@ -6,6 +6,7 @@ import { Transaction, Category } from '../../../../types/types';
 import { DateFilter } from '@/consts/enums';
 import { TransactionComp, UploadExcel } from "../../index";
 import { ITEMS_PER_PAGE } from '@/consts/consts';
+
 function TransactionsList({
     transactions,
     categories,
@@ -97,12 +98,12 @@ function TransactionsList({
         setNewTransaction({
             _id: `temp-${Date.now()}`,
             category: "",
-            type: 'expense',
+            type: 'expense', // Default type
             amount: 0,
             description: "",
-            date: new Date,
-            createdAt: new Date,
-            updatedAt: new Date,
+            date: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
             paymentMethod: "cash",
         });
         setIsCreating(true);
@@ -187,6 +188,7 @@ function TransactionsList({
                         )}
                     </div>
                 </div>
+                <div>Type</div>
                 <div className={styles.hiddenOnSmall}>Description</div>
                 <div className={styles.hiddenOnSmall}>Payment Method</div>
             </div>
@@ -210,8 +212,6 @@ function TransactionsList({
                     savingsNames={savingsNames}
                 />
             )}
-
-
 
             <div className={styles.pagination}>
                 <button
@@ -238,13 +238,7 @@ function TransactionsList({
                     + Add New Transaction
                 </button>
             </div>
-
-            {/* <div className={styles.addTransaction}>
-                <button onClick={handleCreateNewTransaction} className={styles.addButton}>
-                    + Add New Transaction
-                </button>
-            </div> */}
-        </div >
+        </div>
     );
 }
 

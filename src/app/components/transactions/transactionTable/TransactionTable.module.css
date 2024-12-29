@@ -12,7 +12,7 @@
 
 .header {
   display: grid;
-  grid-template-columns: 2fr 1fr 3fr 3fr 2fr 1fr;
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 1fr;
   font-weight: normal;
   background-color: #D4BDAC;
   border-radius: 8px;
@@ -181,3 +181,4 @@
 .addButton:hover {
   background-color: #3a4b8f;
 }
+

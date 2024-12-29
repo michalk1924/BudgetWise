@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
+import styles from "./FixedExpenseForm.module.css";
 
 const fixedExpenseSchema = z.object({
     name: z.string().nonempty("Name is required"),
@@ -14,7 +15,9 @@ const fixedExpenseSchema = z.object({
             return new Date(arg); // ממיר את המחרוזת ל-Date
         }
         return arg;
-    }, z.date().max(new Date(), "Date must be before today")), // שימוש ב-z.date
+    }, z.date().refine((date) => !isNaN(date.getTime()), {
+        message: "Invalid date",
+    })),
     totalInstallments: z.number().int().min(1, "Total installments must be at least 1"),
     category: z.string().optional(),
     paymentMethod: z
@@ -23,15 +26,21 @@ const fixedExpenseSchema = z.object({
     notes: z.string().optional(),
 });
 
-
 type FixedExpense = z.infer<typeof fixedExpenseSchema> & {
     _id: string;
     createdAt: Date;
     updatedAt: Date;
 };
 
-const FixedExpenseForm = () => {
-    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FixedExpense>({
+const FixedExpenseForm: React.FC = () => {
+    const [showForm, setShowForm] = useState(false); // מצב של הצגת הטופס
+
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors, isSubmitting },
+    } = useForm<FixedExpense>({
         resolver: zodResolver(fixedExpenseSchema),
         defaultValues: {
             name: "",
@@ -51,9 +60,9 @@ const FixedExpenseForm = () => {
         mutationFn: async ({ id, fixedExpense }: { id: string; fixedExpense: FixedExpense }) => {
             if (user) {
                 const response = await userService.updateUser(id, {
-                    fixedExpenses: [...user?.fixedExpenses || [], fixedExpense],
+                    fixedExpenses: [...(user?.fixedExpenses || []), fixedExpense],
                 });
-                
+
                 addFixedExpense(fixedExpense);
                 return response;
             }
@@ -70,78 +79,97 @@ const FixedExpenseForm = () => {
     const onSubmit = (data: FixedExpense) => {
         const newFixedExpense: FixedExpense = {
             ...data,
-            firstPaymentDate: new Date(data.firstPaymentDate), // המרה ל- Date
-            _id: Math.random().toString(36).substr(2, 8), 
-            createdAt: new Date(), 
-            updatedAt: new Date(), 
+            firstPaymentDate: new Date(data.firstPaymentDate),
+            _id: Math.random().toString(36).substr(2, 8),
+            createdAt: new Date(),
+            updatedAt: new Date(),
         };
-    
+
         console.log("Expense Details:", newFixedExpense);
-    
+
         if (user) {
             updateUserMutation.mutate({
-                id: user._id, 
+                id: user._id,
                 fixedExpense: newFixedExpense,
             });
         }
-    
-        reset(); 
+
+        reset();
     };
-    
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <div>
-                <label>Name:</label>
-                <input type="text" {...register("name")} />
-                {errors.name && <span className="error">{errors.name.message}</span>}
-            </div>
+        <div className={styles.formContainer}>
+            <h2 className={styles.formTitle} onClick={() => setShowForm(!showForm)}>
+                Add Fixed Expense +
+            </h2>
+            {showForm && (
+                <form onSubmit={handleSubmit(onSubmit)} noValidate className={styles.form}>
+                    <div>
+                        <label className={styles.label}>Name:</label>
+                        <input type="text" {...register("name")} className={styles.input} />
+                        {errors.name && <span className={styles.error}>{errors.name.message}</span>}
+                    </div>
 
-            <div>
-                <label>Amount:</label>
-                <input type="number" step="0.01" {...register("amount", { valueAsNumber: true })} />
-                {errors.amount && <span className="error">{errors.amount.message}</span>}
-            </div>
+                    <div>
+                        <label className={styles.label}>Amount:</label>
+                        <input
+                            type="number"
+                            step="0.01"
+                            {...register("amount", { valueAsNumber: true })}
+                            className={styles.input}
+                        />
+                        {errors.amount && <span className={styles.error}>{errors.amount.message}</span>}
+                    </div>
 
-            <div>
-                <label>First Payment Date:</label>
-                <input type="date" {...register("firstPaymentDate")} />
-                {errors.firstPaymentDate && <span className="error">{errors.firstPaymentDate.message}</span>}
-            </div>
+                    <div>
+                        <label className={styles.label}>First Payment Date:</label>
+                        <input type="date" {...register("firstPaymentDate")} className={styles.input} />
+                        {errors.firstPaymentDate && (
+                            <span className={styles.error}>{errors.firstPaymentDate.message}</span>
+                        )}
+                    </div>
 
-            <div>
-                <label>Total Installments:</label>
-                <input type="number" {...register("totalInstallments", { valueAsNumber: true })} />
-                {errors.totalInstallments && <span className="error">{errors.totalInstallments.message}</span>}
-            </div>
+                    <div>
+                        <label className={styles.label}>Total Installments:</label>
+                        <input
+                            type="number"
+                            {...register("totalInstallments", { valueAsNumber: true })}
+                            className={styles.input}
+                        />
+                        {errors.totalInstallments && (
+                            <span className={styles.error}>{errors.totalInstallments.message}</span>
+                        )}
+                    </div>
 
-            <div>
-                <label>Category:</label>
-                <input type="text" {...register("category")} />
-            </div>
+                    <div>
+                        <label className={styles.label}>Category:</label>
+                        <input type="text" {...register("category")} className={styles.input} />
+                    </div>
 
-            <div>
-                <label>Payment Method:</label>
-                <select {...register("paymentMethod")}>
-                    <option value="">Select a payment method</option>
-                    <option value="cash">Cash</option>
-                    <option value="credit">Credit</option>
-                    <option value="check">Check</option>
-                    <option value="bank_transfer">Bank Transfer</option>
-                    <option value="bit">Bit</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
+                    <div>
+                        <label className={styles.label}>Payment Method:</label>
+                        <select {...register("paymentMethod")} className={styles.input}>
+                            <option value="">Select a payment method</option>
+                            <option value="cash">Cash</option>
+                            <option value="credit">Credit</option>
+                            <option value="check">Check</option>
+                            <option value="bank_transfer">Bank Transfer</option>
+                            <option value="bit">Bit</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
 
-            <div>
-                <label>Notes:</label>
-                <textarea {...register("notes")} />
-            </div>
+                    <div>
+                        <label className={styles.label}>Notes:</label>
+                        <textarea {...register("notes")} className={styles.input} />
+                    </div>
 
-            <button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Submitting..." : "Submit"}
-            </button>
-        </form>
+                    <button type="submit" disabled={isSubmitting} className={styles.button}>
+                        {isSubmitting ? "Submitting..." : "Submit"}
+                    </button>
+                </form>
+            )}
+        </div>
     );
 };
 
