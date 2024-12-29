@@ -18,3 +18,18 @@ export const EXAMPLE_USER = {
     email: "smartsaver@example.com",
     password: "12345678",
 }
+
+export const MONTHS = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+];
