@@ -91,8 +91,10 @@ export default function Home() {
 
     return (
         <div className={styles.body}>
+
+            <Image className={styles.image} src="/logo.png" alt="Logo" width={190} height={55} />
+
             <div className={styles.container}>
-                <Image src="/logo.png" alt="Logo" width={190} height={55} />
                 <h1 className={styles.title}>Create Your Account</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <input

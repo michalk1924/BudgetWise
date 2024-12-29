@@ -7,10 +7,11 @@
   align-items: flex-start;
   background-color: #fbf6f3;
   color: #536493;
-justify-content: space-between;
+  justify-content: space-between;
 }
-.wrapper{
-  width:100%;
+
+.wrapper {
+  width: 100%;
 }
 
 
@@ -27,17 +28,23 @@ justify-content: space-between;
 }
 
 .categoryName {
+  width: 100%;
   font-size: 1.1rem;
   margin-bottom: 10px;
 }
 
 .details {
   display: flex;
-  justify-content: space-between; /* Push spent to the left and left to the right */
-  align-items: center; /* Vertically center items */
-  width: 100%; /* Ensure the container takes full width */
-  gap: 20px; /* Add spacing between elements */
-  padding: 0 10px; /* Add padding to prevent sticking to the edges */
+  justify-content: space-between;
+  /* Push spent to the left and left to the right */
+  align-items: center;
+  /* Vertically center items */
+  width: 100%;
+  /* Ensure the container takes full width */
+  gap: 20px;
+  /* Add spacing between elements */
+  padding: 0 10px;
+  /* Add padding to prevent sticking to the edges */
   color: #536493;
   font-weight: lighter;
   font-size: 1rem;
@@ -79,13 +86,17 @@ justify-content: space-between;
 
 @media (max-width: 768px) {
   .categoryTotalName {
-    display: none; /* Hide the total title on small screens */
+    display: none;
+    /* Hide the total title on small screens */
   }
-  .gridTotalItem .number{
+
+  .gridTotalItem .number {
     font-size: smaller;
   }
-  .left{
-    display: none; /* Hide the total title on small screens */
+
+  .left {
+    display: none;
+    /* Hide the total title on small screens */
 
   }
 }
@@ -93,15 +104,19 @@ justify-content: space-between;
 
 .spent {
   color: #EF5A6F;
-  text-align: left; /* Ensure text aligns to the left */
+  text-align: left;
+  /* Ensure text aligns to the left */
 }
 
 .left {
   color: #A1D6B2;
-  text-align: right; /* Ensure text aligns to the right */
+  text-align: right;
+  /* Ensure text aligns to the right */
 }
 
 .progressBar {
-  width: calc(100% - 20px); /* Take the full width of the container with padding adjustment */
-  margin: 10px 10px; /* Add consistent spacing above and below */
+  width: calc(100% - 20px);
+  /* Take the full width of the container with padding adjustment */
+  margin: 10px 10px;
+  /* Add consistent spacing above and below */
 }

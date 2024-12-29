@@ -2,23 +2,24 @@
     display: flex;
     flex-direction: column;
     width: 380px;
-    height: 80vh;
+    /* height: 80vh; */
     border-radius: 10px;
-    box-shadow: 0 4px 8px  #D4BDAC;
+    box-shadow: 0 4px 8px #D4BDAC;
     margin: auto;
     padding: 0.5rem;
     margin-top: 10vh;
     text-align: center;
     color: #536493;
-align-items: center;
-font-family: "Malvie Trial", Arial, sans-serif;
+    align-items: center;
+    font-family: "Malvie Trial", Arial, sans-serif;
 
 }
 
 
-.body{
+.body {
     height: 100vh;
 }
+
 .title {
     font-size: 1.8rem;
     margin: 0.5rem;
@@ -33,18 +34,19 @@ font-family: "Malvie Trial", Arial, sans-serif;
     align-items: start;
     text-align: center;
 }
-.emailContainer
-{
+
+.emailContainer {
     width: 100%;
     margin-bottom: 1rem;
-    margin: 0.5rem 0; 
-
+    margin: 0.5rem;
 }
+
 .input {
-    width: 80%; 
+    width: 80%;
     border-radius: 15px;
     box-sizing: border-box;
     padding: 0.5rem;
+    margin: 0.2rem;
 }
 
 .input:focus {
@@ -59,8 +61,8 @@ font-family: "Malvie Trial", Arial, sans-serif;
 
 .submitButton {
     width: 40%;
-    background-color:#536493;
-    color: #fff5e6; 
+    background-color: #536493;
+    color: #fff5e6;
     border: none;
     border-radius: 10px;
     padding: 0.4rem;
@@ -90,9 +92,9 @@ font-family: "Malvie Trial", Arial, sans-serif;
     border-radius: 4px;
     cursor: pointer;
     padding: 0.3rem;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.9rem;
+    margin-top: 0.7rem;
     transition: background-color 0.3s, transform 0.2s;
-    margin: 1rem;
 }
 
 .googleButton:hover {
@@ -108,35 +110,43 @@ font-family: "Malvie Trial", Arial, sans-serif;
 .show-password-btn {
     position: absolute;
     top: 50%;
-    right: 10px; 
+    right: 10px;
     transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.2rem;
-    padding: 0; 
+    padding: 0;
 }
 
 .password-container {
     position: relative;
-    width: 80%; 
+    width: 80%;
     margin: 0.5rem 0;
 }
 
 
-.exampleUserButton{
+.exampleUserButton {
     width: 70%;
-    background-color:#D4BDAC;
-    color: #fff5e6; 
+    background-color: #D4BDAC;
+    color: #fff5e6;
     border: none;
     border-radius: 6px;
     padding: 0.2rem;
-    margin: 1rem;
+    margin-top: 0.9rem;
+    margin-bottom: 0rem;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
 }
 
-.exampleUserButton:hover{
-    background-color:#e3b492 ;
+.exampleUserButton:hover {
+    background-color: #e3b492;
     transform: scale(1.02);
+}
+
+.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1rem;
 }
