@@ -66,8 +66,8 @@ export default function Home() {
 
          {/* Chart 6 */}
          <div className={styles.gridItem}>
-            <h2 className={styles.chartTitle}>ggg</h2>
-            <PopularCategoriesComp user={user} />
+            <h2 className={styles.chartTitle}>Popular Categories</h2>
+            <PopularCategoriesComp />
           </div>
 
         </div>
