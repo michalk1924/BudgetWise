@@ -1,59 +1,68 @@
+
 .slideInForm {
     position: fixed;
     top: 0;
-    right: -400px; /* מוסתר בתחילה */
-    width: 400px;
+    right: 0;
+    width: 350px;
     height: 100%;
-    background-color: #f4f4f4;
-    box-shadow: -3px 0 5px rgba(0, 0, 0, 0.2);
-    overflow-y: auto;
-    transition: right 0.3s ease-in-out;
-    z-index: 1000;
-}
-
-.open {
-    right: 0; /* פתיחה */
-}
-
-.slideInForm .close-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.slideInForm form {
+    background-color: #fbf6f3;
+    box-shadow: 0px 4px 6px rgba(212, 189, 172, 0.8);
     padding: 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 1000;
+    /* ערך גבוה כדי להבטיח שהקומפוננטה תהיה בקדמת המסך */
 }
 
-.slideInForm label {
-    display: block;
-    margin: 10px 0 5px;
+.slideInForm.open {
+    transform: translateX(0);
 }
 
-.slideInForm input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.slideInForm button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
+.fixedExpensesSection {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.closeButton {
+    background-color: #EF5A6F;
     color: white;
     border: none;
-    border-radius: 4px;
+    font-size: 1.2rem;
+    font-family: "Arial", sans-serif;
     cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 5px;
+    width: 100%; 
+    position: sticky; 
+    top: 0;
+    z-index: 1010; 
 }
 
-.slideInForm button:hover {
-    background-color: #0056b3;
+@media (max-width: 768px) {
+    .slideInForm {
+        width: 100%;
+    }
+
+    .closeButton {
+        font-size: 1rem;
+    }
 }
 
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color:#536493;
+    margin-bottom: 20px;
+    text-align: center;
+}

@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./FixedExpensesManager.module.css";
-import { FixedExpense } from "../../../types/types"
-import { FixedExpenseCard,FixedExpenseForm } from "../index"
+import { FixedExpenseCard, FixedExpenseForm } from "../index";
 import useUserStore from "@/store/userStore";
 
 interface SlideInFormProps {
@@ -10,37 +9,24 @@ interface SlideInFormProps {
 }
 
 const FixedExpensesManager: React.FC<SlideInFormProps> = ({ onClose, isVisible }) => {
-
     const { user } = useUserStore();
 
-    const exampleExpense: FixedExpense = {
-        _id: '1',
-        name: 'Entertainment',
-        amount: 660,
-        firstPaymentDate: new Date('2023-01-01'),
-        totalInstallments: 12,
-        category: 'Leisure',
-        paymentMethod: 'credit',
-        notes: 'Movies and concerts',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    };
     return (
         <div className={`${styles.slideInForm} ${isVisible ? styles.open : ""}`}>
             <button className={styles.closeButton} onClick={onClose}>
-                סגור ✖
+                ✖ סגור
             </button>
-            <section>
-                {user?.fixedExpenses?.map(exp => (
-                    <FixedExpenseCard expense={exp} />
-                ))}
-            </section>
-            <FixedExpenseCard expense={exampleExpense} />
-            <FixedExpenseForm/>
+            <div className={styles.content}>
+                <h2 className={styles.title}>Manage Your Fixed Expenses</h2> {/* הוספת כותרת באנגלית */}
+                <section className={styles.fixedExpensesSection}>
+                    {user?.fixedExpenses?.map((exp) => (
+                        <FixedExpenseCard expense={exp} key={exp._id} />
+                    ))}
+                </section>
+                <FixedExpenseForm />
+            </div>
         </div>
     );
 };
 
 export default FixedExpensesManager;
-
-
