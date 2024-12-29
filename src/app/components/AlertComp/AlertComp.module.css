@@ -162,3 +162,7 @@
     justify-content: center;
     font-size: 0.9rem;
 }
+
+.solutions p strong {
+   cursor: pointer;
+}

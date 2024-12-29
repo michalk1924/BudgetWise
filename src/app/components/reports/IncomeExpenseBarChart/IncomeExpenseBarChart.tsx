@@ -45,7 +45,7 @@ const IncomeExpenseBarChart = ({ transactions }: BarChartProps) => {
                         labels: labels,
                         datasets: [
                             {
-                                label: "Income",
+                                label: "Incomes",
                                 data: incomeData,
                                 backgroundColor: "#A1D6B2",
                                 barThickness: 20,

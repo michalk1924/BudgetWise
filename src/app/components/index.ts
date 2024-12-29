@@ -22,3 +22,4 @@ export {default as FixedExpensesManager} from "./FixedExpensesManager/FixedExpen
 export {default as FixedExpenseCard} from "./FixedExpenseCard/FixedExpenseCard"
 export {default as FixedExpenseForm} from "./FixedExpenseForm/FixedExpenseForm"
 export {default as UserTrendChart} from "./reports/UserTrendsChart/UserTendsChart"
+export {default as PopularCategoriesComp} from "./reports/PopularCategoriesComp/PopularCategoriesComp"

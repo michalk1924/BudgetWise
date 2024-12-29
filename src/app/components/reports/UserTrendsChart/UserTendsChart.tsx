@@ -29,7 +29,6 @@ const UserTrends: React.FC<LineChartProps> = ({ transactions }) => {
 
         transactions?.forEach((transaction: Transaction) => {
             const monthName: string = MONTHS[new Date(transaction.date).getMonth()];
-            console.log("monthName", monthName, "amount" + transaction.amount);
 
             if (labels.includes(monthName)) {
                 if (transaction.type == 'expense') {

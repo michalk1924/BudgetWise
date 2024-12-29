@@ -20,8 +20,8 @@ function Transactions() {
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
   };
-  const closeForm = () => setIsFormVisible(false);
 
+  const closeForm = () => setIsFormVisible(false);
 
   const updateUserMutationAddTransaction = useMutation({
     mutationFn: async ({ id, transaction }: { id: string; transaction: Transaction }) => {
@@ -176,7 +176,6 @@ function Transactions() {
     return category;
   };
 
-
   const updateCategoryAfterUpdateTransaction = (
     user: User,
     prevTransaction: Transaction,
@@ -241,7 +240,6 @@ function Transactions() {
       console.error("Error updating category:", error);
     }
   };
-
 
   const getCategoryIndex = (user: User, categoryName: string): number =>
     user.categories.findIndex((category) => category.categoryName === categoryName);
@@ -337,7 +335,7 @@ function Transactions() {
 
   return (
     <div className={styles.container}>
-        {!loading && user && (
+      {!loading && user && (
         <div className={styles.headers}>
           <h2 className={styles.title}>Manage My Transactions</h2>
           {user && (
@@ -380,15 +378,18 @@ function Transactions() {
           )}
         </div>
       )}
+
       {!loading && user && <div className={styles.main}>
+
         <div className={styles.addSection}>
           <div>
             {isPopupOpen && (
               <FixedExpensesManager onClose={togglePopup} isVisible={isFormVisible} />
             )}
           </div>
-          {/*           <UploadExcel />
- */}        </div>
+          {/*           <UploadExcel />*/}
+        </div>
+
         {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
           updateTransaction={handleUpdateTransaction} addTransaction={handleAddTransaction} categories={user?.categories}
           savingsNames={user?.savings.map(s => s.goalName)}
@@ -396,15 +397,16 @@ function Transactions() {
 
       </div>}
 
-    
-
       {loading && <div className={styles.loader}>Loading...</div>}
+
       {!loading && user && user?.transactions?.length === 0 && <div>
         No transactions found. Add some today!
       </div>}
+
       {!loading && !user && <div className={styles.loader}>
         {/* Please log in to access this feature. */}
       </div>}
+      
     </div>
   )
 }

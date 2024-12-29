@@ -78,6 +78,10 @@ function TransactionsList({
     };
 
     useEffect(() => {
+        setCurrentPage(1);
+    }, [dateFilter])
+
+    useEffect(() => {
         const filteredTransactions = filterTransactions();
         const sortedTransactions = filteredTransactions.sort(
             (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -88,7 +92,7 @@ function TransactionsList({
             .slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
             .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         setCurrentTransactions(currentTransactions);
-    }, [transactions, categoryFilter, dateFilter, currentPage]);
+    }, [transactions, categoryFilter, currentPage, dateFilter]);
 
     const handleCreateNewTransaction = () => {
         setNewTransaction({
@@ -218,7 +222,7 @@ function TransactionsList({
                     {"<<"}
                 </button>
                 <span className={styles.pageNumber}>
-                    Page {currentPage} of {totalPages}
+                    Page {totalPages > 0 ? currentPage : 0} of {totalPages}
                 </span>
                 <button
                     className={styles.pageButton}
