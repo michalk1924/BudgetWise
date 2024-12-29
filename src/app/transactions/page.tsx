@@ -337,6 +337,47 @@ function Transactions() {
 
   return (
     <div className={styles.container}>
+        {!loading && user && (
+        <div className={styles.headers}>
+          <h2 className={styles.title}>Manage My Transactions</h2>
+          {user && (
+            <div className={styles.total}>
+              <div>
+                Total:{" "}
+                {user?.transactions
+                  ?.reduce((amount, t) => {
+                    if (t.type === "expense") {
+                      return amount - Number(t.amount || 0);
+                    }
+                    return amount + Number(t.amount || 0);
+                  }, 0)
+                  .toFixed(2)}
+                $
+              </div>
+              <div className={styles.currentMonthBalance}>
+                (Current Month Balance:{" "}
+                {user?.transactions
+                  ?.filter((transaction) => {
+                    const transactionDate = new Date(transaction.date);
+                    const now = new Date();
+                    return (
+                      transactionDate.getMonth() === now.getMonth() &&
+                      transactionDate.getFullYear() === now.getFullYear()
+                    );
+                  })
+                  .reduce((amount, t) => {
+                    if (t.type === "expense") {
+                      return amount - Number(t.amount || 0);
+                    }
+                    return amount + Number(t.amount || 0);
+                  }, 0)
+                  .toFixed(2)}
+                $)
+              </div>
+            </div>
+          )}
+        </div>
+      )}
       {!loading && user && <div className={styles.main}>
         <div className={styles.addSection}>
           <div>
@@ -345,7 +386,7 @@ function Transactions() {
               <FixedExpensesManager onClose={togglePopup} isVisible={isFormVisible} />
             )}
           </div>
-{/*           <UploadExcel />
+          {/*           <UploadExcel />
  */}        </div>
         {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
           updateTransaction={handleUpdateTransaction} addTransaction={handleAddTransaction} categories={user?.categories}
@@ -354,19 +395,8 @@ function Transactions() {
 
       </div>}
 
-      {!loading && user && <div className={styles.headers}>
-        <h2 className={styles.title}>Manage My Transactions</h2>
-        {user && <div className={styles.total}>
-          Total:
-          {user?.transactions?.reduce((amount, t) => {
-            if (t.type === 'expense') {
-              return amount - Number(t.amount || 0);
-            }
-            return amount + Number(t.amount || 0);
-          }, 0).toFixed(2)}
-          $
-        </div>}
-      </div>}
+    
+
       {loading && <div className={styles.loader}>Loading...</div>}
       {!loading && user && user?.transactions?.length === 0 && <div>
         No transactions found. Add some today!
