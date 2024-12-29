@@ -8,8 +8,7 @@
   /* transition: background-color 0.3s ease; */
   text-align: center;
   margin: 0;
-  line-height: 4vh;
-
+  line-height: 1.2vh;
   /* white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -19,7 +18,7 @@
 .transactionItem>* {
   white-space: nowrap;
   font-weight: normal;
-  font-size: 1rem;
+  font-size: 1.2vw;
 }
 
 .transactionItem:hover {
@@ -48,6 +47,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #2c3e50;
   cursor: pointer;
 }
 

@@ -11,7 +11,7 @@ import { showAlertWithTwoOptions } from "@/services/alerts";
 
 const Savings = () => {
 
-  const { user, addSaving, updateSaving, addTransaction } = useUserStore();
+  const { user, addSaving, updateSaving, addTransaction ,removeSaving} = useUserStore();
 
   const queryClient = useQueryClient();
 
@@ -31,6 +31,25 @@ const Savings = () => {
       console.error('Error updating user:', error.message);
     },
   });
+  const deleteSavingMutation = useMutation({
+    mutationFn: async ({ id, savingId }: { id: string; savingId: string }) => {
+      if (user) {
+        const updatedSavings = user.savings.filter((saving) => saving._id !== savingId);
+        const response = await userService.updateUser(id, { savings: updatedSavings });
+        // Assuming you have a function to remove the saving from local state
+        removeSaving(savingId); 
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error deleting saving:', error.message);
+    },
+  });
+  
 
   
   const updateUserMutationUpdateSaving = useMutation({
@@ -89,8 +108,8 @@ const Savings = () => {
     updateUserMutationAddTransaction.mutate({id: user?._id ?? '',transaction});
     updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving });
     await showAlertWithTwoOptions(
-      "",
-      "Do you want to withdraw the money and continue saving for "+saving.goalName+"?",
+      "successfuly withdraw "+saving.goalName+"!",
+      "Would you like continue saving for "+saving.goalName+"?",
       "continue saving",
       "delete saving",
       handleContinueSaving,
@@ -104,7 +123,7 @@ const Savings = () => {
   
   const handleDeleteSaving = () => {
     console.log("Option 2 selected");
-    
+   // deleteSavingMutation.mutate({ id: user?._id ?? '', savingId:saving._id });
   };
 
   return (

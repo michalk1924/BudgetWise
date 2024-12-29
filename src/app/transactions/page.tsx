@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from "./transactions.module.css";
-import { AddTransaction, TransactionTable ,UploadExcel, FixedExpensesManager} from '../components/index';
+import { AddTransaction, TransactionTable, UploadExcel, FixedExpensesManager } from '../components/index';
 import { Transaction, Saving, Category, User, MonthlyBudget } from '../../types/types';
 import useUserStore from "../../store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -335,24 +335,18 @@ function Transactions() {
     }
   }
 
-
   return (
     <div className={styles.container}>
-
       {!loading && user && <div className={styles.main}>
-
-<div className={styles.addSection}>
-<div>
-      <button onClick={togglePopup}>Management of fixed expenses</button>
-      {isPopupOpen && (
-          <FixedExpensesManager onClose={togglePopup} isVisible={isFormVisible}/>
-      )}
-    </div>
-        <UploadExcel />
-        {/* {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction}
-          categories={user?.categories} />} */}
+        <div className={styles.addSection}>
+          <div>
+            <button onClick={togglePopup}>Management of fixed expenses</button>
+            {isPopupOpen && (
+              <FixedExpensesManager onClose={togglePopup} isVisible={isFormVisible} />
+            )}
+          </div>
+          <UploadExcel />
         </div>
-
         {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
           updateTransaction={handleUpdateTransaction} addTransaction={handleAddTransaction} categories={user?.categories}
           savingsNames={user?.savings.map(s => s.goalName)}
@@ -374,17 +368,13 @@ function Transactions() {
         </div>}
       </div>}
       {loading && <div className={styles.loader}>Loading...</div>}
-
       {!loading && user && user?.transactions?.length === 0 && <div>
         No transactions found. Add some today!
       </div>}
-
       {!loading && !user && <div className={styles.loader}>
         {/* Please log in to access this feature. */}
       </div>}
-
     </div>
   )
 }
-
 export default Transactions;
