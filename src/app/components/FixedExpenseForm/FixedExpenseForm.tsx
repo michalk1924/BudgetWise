@@ -14,7 +14,9 @@ const fixedExpenseSchema = z.object({
             return new Date(arg); // ממיר את המחרוזת ל-Date
         }
         return arg;
-    }, z.date().max(new Date(), "Date must be before today")), // שימוש ב-z.date
+    }, z.date().refine((date) => !isNaN(date.getTime()), {
+        message: "Invalid date",
+    })),
     totalInstallments: z.number().int().min(1, "Total installments must be at least 1"),
     category: z.string().optional(),
     paymentMethod: z
@@ -22,6 +24,7 @@ const fixedExpenseSchema = z.object({
         .optional(),
     notes: z.string().optional(),
 });
+
 
 
 type FixedExpense = z.infer<typeof fixedExpenseSchema> & {
