@@ -22,6 +22,7 @@ interface UserStore {
   removeTransaction: (transactionId: string) => void;
   addSaving: (saving: Saving) => void;
   updateSaving: (saving: Saving) => void;
+  removeSaving:(savingId: String) => void;
   setAlerts: (alerts: Alert[]) => void;
   addAlert: (alert: Alert) => void;
   setRecommendations: (recommendations: Recommendation[]) => void;
@@ -139,6 +140,13 @@ const useUserStore = create<UserStore>()(
           },
         })),
 
+        removeSaving: (savingId) =>
+          set((state) => ({
+            user: {
+              ...state.user!,
+              savings: state.user!.savings.filter((cat) => cat._id !== savingId),
+            },
+          })),
       setAlerts: (alerts) =>
         set((state) => ({
           user: {

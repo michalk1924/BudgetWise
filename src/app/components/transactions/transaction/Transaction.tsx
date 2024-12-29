@@ -23,14 +23,10 @@ const transactionSchema = z.object({
 
 export type TransactionInput = z.infer<typeof transactionSchema>;
 
-const TransactionComp = ({ transaction, updateTransaction, categories, savingsNames }:
-    {
-        transaction: Transaction, categories: Category[], savingsNames: string[]
-        updateTransaction: (transaction: Transaction) => void
-    }) => {
+const TransactionComp = ({ transaction, updateTransaction, categories }: { transaction: Transaction, categories: Category[], updateTransaction: (transaction: Transaction) => void }) => {
 
     const [isEditing, setIsEditing] = useState(false);
-    const { register, handleSubmit, formState: { errors }, reset, watch } = useForm<TransactionInput>({
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<TransactionInput>({
         resolver: zodResolver(transactionSchema),
         defaultValues: {
             date: transaction.date instanceof Date
@@ -83,41 +79,20 @@ const TransactionComp = ({ transaction, updateTransaction, categories, savingsNa
                         {errors.amount && <p className={styles.error}>{errors.amount.message}</p>}
                     </div>
 
-                    <div className={styles.formGroup}>
-                        {transaction.type === 'saved' ? (
-                            <>
-                                <select
-                                    className={styles.select}
-                                    {...register("category")}
-                                    defaultValue={transaction.category || ""}
-                                >
-                                    {savingsNames?.map((savingName, index) => (
-                                        <option key={index} value={savingName}>
-                                            {savingName}
-                                        </option>
-                                    ))}
-                                </select>
-                                {errors.category && (
-                                    <p className={styles.error}>{String(errors.category.message)}</p>
-                                )}
-                            </>
-                        ) : (
-                            <>
-                                <select
-                                    className={styles.select}
-                                    {...register("category")}
-                                    defaultValue={transaction.category || ""}
-                                >
-                                    {categories?.map((category, index) => (
-                                        <option key={index} value={category.categoryName}>
-                                            {category.categoryName}
-                                        </option>
-                                    ))}
-                                </select>
-                                {errors.category && (
-                                    <p className={styles.error}>{String(errors.category.message)}</p>
-                                )}
-                            </>
+                    <div className={styles.hiddenOnSmall}>
+                        <select
+                            {...register("category")}
+                            className={styles.inlineSelect}
+                            defaultValue={transaction.category || ""}
+                        >
+                            {categories.map((category) => (
+                                <option key={category._id} value={category.categoryName}>
+                                    {category.categoryName}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.category && (
+                            <p className={styles.error}>{errors.category.message}</p>
                         )}
                     </div>
 
