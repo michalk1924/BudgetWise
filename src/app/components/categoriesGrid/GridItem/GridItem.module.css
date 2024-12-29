@@ -120,3 +120,54 @@
   margin: 10px 10px;
   /* Add consistent spacing above and below */
 }
+
+/* Add animation for fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add hover effect animation */
+@keyframes hoverEffect {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.03);
+  }
+}
+
+.gridItem {
+  animation: fadeIn 0.5s ease-in-out;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gridItem:hover {
+  animation: hoverEffect 0.3s ease forwards;
+}
+
+.editButton {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.editButton:hover {
+  color: #1d3c6a;
+  transform: scale(1.1);
+}
+
+.progressBar {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.details,
+.spent,
+.left,
+.budget {
+  animation: fadeIn 0.5s ease-in-out;
+}
