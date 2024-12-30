@@ -18,9 +18,11 @@ export {default as YearMonthSelector} from "../components/categoriesGrid/YearMon
 export {default as AlertsList} from "../components/AlertsList/AlertsList";
 export {default as UploadExcel} from "./UploadExcel/UploadExcel";
 export {default as Alerts} from "./AlertComp/AlertComp";
-export {default as FixedExpensesManager} from "./FixedExpensesManager/FixedExpensesManager";
-export {default as FixedExpenseCard} from "./FixedExpenseCard/FixedExpenseCard";
-export {default as FixedExpenseForm} from "./FixedExpenseForm/FixedExpenseForm";
-export {default as UserTrendChart} from "./reports/UserTrendsChart/UserTendsChart";
-export {default as PopularCategoriesComp} from "./reports/PopularCategoriesComp/PopularCategoriesComp";
+export {default as FixedExpensesManager} from "./FixedExpensesManager/FixedExpensesManager"
+export {default as FixedExpenseCard} from "./FixedExpenseCard/FixedExpenseCard"
+export {default as FixedExpenseForm} from "./FixedExpenseForm/FixedExpenseForm"
+export {default as UserTrendChart} from "./reports/UserTrendsChart/UserTendsChart"
+export {default as PopularCategoriesComp} from "./reports/PopularCategoriesComp/PopularCategoriesComp"
+export {default as DownloadPdf} from "./DownloadPdf/DownloadPdf"
 export {default as HorizontalBarChart} from "./HorizontalBarChart/HorizontalBarChart";
+
