@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 import { FixedExpense } from "../../../types/types";
-import styles from "./HorizontalBarChart.module.css";  
+import styles from "./HorizontalBarChart.module.css";
 
 interface Props {
     expenses: FixedExpense[];
@@ -20,7 +20,17 @@ const HorizontalBarChart: React.FC<Props> = ({ expenses }) => {
 
         const dailyExpenses: { [key: number]: number } = {};
 
-        expenses.forEach((expense) => {
+        const filteredExpenses = expenses.filter(expense => {
+            if (!expense.totalInstallments || expense.totalInstallments <= 0) return true;
+
+            const firstPaymentDate = new Date(expense.firstPaymentDate);
+            const currentDate = new Date();
+            const monthsBetween = (currentDate.getFullYear() - firstPaymentDate.getFullYear()) * 12 + currentDate.getMonth() - firstPaymentDate.getMonth();
+
+            return monthsBetween < expense.totalInstallments;
+        });
+
+        filteredExpenses.forEach((expense) => {
             const day = new Date(expense.firstPaymentDate).getDate();
             dailyExpenses[day] = (dailyExpenses[day] || 0) + expense.amount;
         });
@@ -35,9 +45,9 @@ const HorizontalBarChart: React.FC<Props> = ({ expenses }) => {
                 datasets: [
                     {
                         data,
-                        backgroundColor: "rgba(239, 90, 111, 0.5)",  
+                        backgroundColor: "rgba(239, 90, 111, 0.5)",
                         borderWidth: 1,
-                        borderRadius: 10,  
+                        borderRadius: 10,
                     },
                 ],
             },
@@ -45,7 +55,7 @@ const HorizontalBarChart: React.FC<Props> = ({ expenses }) => {
                 indexAxis: "y",
                 responsive: true,
                 plugins: {
-                    legend: { display: false },  
+                    legend: { display: false },
                 },
                 scales: {
                     x: {
