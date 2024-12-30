@@ -7,11 +7,12 @@
   gap: 0.3rem;
   padding: 0.3rem;
   color:#536493;
+  margin-top: 10px;
 }
 
 .header {
   display: grid;
-  grid-template-columns: 2fr 1fr 3fr 3fr 2fr 1fr;
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 1fr;
   font-weight: normal;
   background-color: #D4BDAC;
   border-radius: 8px;
@@ -46,10 +47,10 @@
 .pagination {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-top: 0.5rem;
-  font-size: 0.1rem;
+  /* align-items: center; */
+  /* gap: 10px; */
+  /* font-size: 0.1rem; */
+
 }
 
 .pageButton {
@@ -160,4 +161,24 @@
     /* Hide additional fields */
   }
 
+}.addTransaction {
+  text-align: center;
+  margin-top: 20px;
 }
+
+.addButton {
+  padding:5px 10px;
+  font-size: 0.7rem;
+  color: #fff;
+  background-color: #536493;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.addButton:hover {
+  background-color: #3a4b8f;
+}
+

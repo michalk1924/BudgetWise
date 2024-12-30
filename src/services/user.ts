@@ -5,9 +5,9 @@ const userService = {
 
     async getAllUsers() {
         try {
-            console.log("Fetching all users...");
+            console.log("get all users");
+            
             const response = await http.get('/users');
-            console.log("Response data:", response.data);
             if (Array.isArray(response.data)) {
                 return response.data;
             } else {

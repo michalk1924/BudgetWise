@@ -21,6 +21,7 @@ font-size: 3rem;
 }
 .header h2{
   font-size: 2rem;
+  justify-items: center;
   }
 
   .trans, .save{

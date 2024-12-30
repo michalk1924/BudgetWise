@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { User, Category, Saving, Transaction, Alert, Recommendation } from "../types/types";
+import { User, Category, Saving, Transaction, Alert, Recommendation, FixedExpense} from "../types/types";
 import { saveToken } from "@/services/cookies";
 
 
@@ -22,12 +22,16 @@ interface UserStore {
   removeTransaction: (transactionId: string) => void;
   addSaving: (saving: Saving) => void;
   updateSaving: (saving: Saving) => void;
+  removeSaving:(savingId: String) => void;
   setAlerts: (alerts: Alert[]) => void;
   addAlert: (alert: Alert) => void;
   setRecommendations: (recommendations: Recommendation[]) => void;
   updateAlertStatus: (alertId: string, isActive: boolean) => void;
   removeAlert: (alertId: string) => void;
+  addFixedExpense: (fixedExpense: FixedExpense) => void;
+  removeFixedExpense: (fixedExpenseId: string) => void;
   expirationTimestamp?: number;
+
 }
 
 const useUserStore = create<UserStore>()(
@@ -137,6 +141,13 @@ const useUserStore = create<UserStore>()(
           },
         })),
 
+        removeSaving: (savingId) =>
+          set((state) => ({
+            user: {
+              ...state.user!,
+              savings: state.user!.savings.filter((cat) => cat._id !== savingId),
+            },
+          })),
       setAlerts: (alerts) =>
         set((state) => ({
           user: {
@@ -170,6 +181,22 @@ const useUserStore = create<UserStore>()(
             alerts: state.user!.alerts.filter((alert) => alert.alertId !== alertId),
           },
         })),
+
+        addFixedExpense: (fixedExpense) =>
+          set((state) => ({
+            user: {
+              ...state.user!,
+              fixedExpenses: [...state.user!.fixedExpenses, fixedExpense],
+            },
+          })),
+
+          removeFixedExpense: (fixedExpenseId) =>
+            set((state) => ({
+              user: {
+                ...state.user!,
+                fixedExpenses: state.user!.fixedExpenses.filter((fixedExpense) => fixedExpense._id !== fixedExpenseId),
+              },
+            })),
 
 
       setRecommendations: (recommendations) =>

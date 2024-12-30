@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from "./transactions.module.css";
-import { AddTransaction, TransactionTable ,UploadExcel} from '../components/index';
+import { AddTransaction, TransactionTable, UploadExcel, FixedExpensesManager, DownloadPdf, HorizontalBarChart } from '../components/index';
 import { Transaction, Saving, Category, User, MonthlyBudget } from '../../types/types';
 import useUserStore from "../../store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,6 +13,15 @@ function Transactions() {
   const { user, addTransaction, updateTransaction, updateSaving, updateCategory, removeTransaction, loading } = useUserStore();
 
   const queryClient = useQueryClient();
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(true);
+
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen);
+  };
+
+  const closeForm = () => setIsFormVisible(false);
 
   const updateUserMutationAddTransaction = useMutation({
     mutationFn: async ({ id, transaction }: { id: string; transaction: Transaction }) => {
@@ -167,7 +176,6 @@ function Transactions() {
     return category;
   };
 
-
   const updateCategoryAfterUpdateTransaction = (
     user: User,
     prevTransaction: Transaction,
@@ -232,7 +240,6 @@ function Transactions() {
       console.error("Error updating category:", error);
     }
   };
-
 
   const getCategoryIndex = (user: User, categoryName: string): number =>
     user.categories.findIndex((category) => category.categoryName === categoryName);
@@ -326,37 +333,68 @@ function Transactions() {
     }
   }
 
-
   return (
     <div className={styles.container}>
+      {!loading && user && (
+        <div className={styles.headers}>
+          <h2 className={styles.title}>Manage My Transactions</h2>
+          {user && (
+            <div className={styles.total}>
+              <div>
+                Total:{" "}
+                {user?.transactions
+                  ?.reduce((amount, t) => {
+                    if (t.type === "expense") {
+                      return amount - Number(t.amount || 0);
+                    }
+                    return amount + Number(t.amount || 0);
+                  }, 0)
+                  .toFixed(2)}
+                $
+              </div>
+              <div className={styles.currentMonthBalance}>
+                (Current Month Balance:{" "}
+                {user?.transactions
+                  ?.filter((transaction) => {
+                    const transactionDate = new Date(transaction.date);
+                    const now = new Date();
+                    return (
+                      transactionDate.getMonth() === now.getMonth() &&
+                      transactionDate.getFullYear() === now.getFullYear()
+                    );
+                  })
+                  .reduce((amount, t) => {
+                    if (t.type === "expense") {
+                      return amount - Number(t.amount || 0);
+                    }
+                    return amount + Number(t.amount || 0);
+                  }, 0)
+                  .toFixed(2)}
+                $)
+              </div>
+              <button onClick={togglePopup} className={styles.manageFixedTransaction}>Management of fixed expenses</button>
+              <HorizontalBarChart expenses={user?.fixedExpenses || []} />
+            </div>
+          )}
+        </div>
+      )}
 
       {!loading && user && <div className={styles.main}>
 
-<div className={styles.addSection}>
-        <UploadExcel />
-        {user && <AddTransaction transactions={user?.transactions} addTransaction={handleAddTransaction}
-          categories={user?.categories} />}
+        <div className={styles.addSection}>
+          <div>
+            {isPopupOpen && (
+              <FixedExpensesManager onClose={togglePopup} isVisible={isFormVisible} />
+            )}
+          </div>
+          {/*           <UploadExcel />*/}
         </div>
 
         {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
-          updateTransaction={handleUpdateTransaction} categories={user?.categories}
+          updateTransaction={handleUpdateTransaction} addTransaction={handleAddTransaction} categories={user?.categories}
           savingsNames={user?.savings.map(s => s.goalName)}
         />}
 
-      </div>}
-
-      {!loading && user && <div className={styles.headers}>
-        <h2 className={styles.title}>Manage My Transactions</h2>
-        {user && <div className={styles.total}>
-          Total:
-          {user?.transactions?.reduce((amount, t) => {
-            if (t.type === 'expense') {
-              return amount - Number(t.amount || 0);
-            }
-            return amount + Number(t.amount || 0);
-          }, 0).toFixed(2)}
-          $
-        </div>}
       </div>}
 
       {loading && <div className={styles.loader}>Loading...</div>}
@@ -372,5 +410,4 @@ function Transactions() {
     </div>
   )
 }
-
 export default Transactions;

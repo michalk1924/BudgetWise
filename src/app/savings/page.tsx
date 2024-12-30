@@ -7,11 +7,11 @@ import { Saving,Transaction} from "@/types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from '@/services/user';
-import { showSuccessAlert } from "@/services/alerts";
+import { showAlertWithTwoOptions } from "@/services/alerts";
 
 const Savings = () => {
 
-  const { user, addSaving, updateSaving, addTransaction } = useUserStore();
+  const { user, addSaving, updateSaving, addTransaction ,removeSaving} = useUserStore();
 
   const queryClient = useQueryClient();
 
@@ -31,6 +31,26 @@ const Savings = () => {
       console.error('Error updating user:', error.message);
     },
   });
+
+  const deleteSavingMutation = useMutation({
+    mutationFn: async ({ id, savingId }: { id: string; savingId: string }) => {
+      if (user) {
+        const updatedSavings = user.savings.filter((saving) => saving._id !== savingId);
+        const response = await userService.updateUser(id, { savings: updatedSavings });
+        // Assuming you have a function to remove the saving from local state
+        removeSaving(savingId); 
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error deleting saving:', error.message);
+    },
+  });
+  
 
   
   const updateUserMutationUpdateSaving = useMutation({
@@ -75,21 +95,36 @@ const Savings = () => {
     updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving });
   };
   const handleWithdrawSavings = async (saving: Saving) => {
-    let transaction: Transaction={
-      _id:Math.random().toString(36).substr(2, 8),
-      category: 'saving',
-      type: 'income',
+    const transaction: Transaction = {
+      _id: Math.random().toString(36).substr(2, 8),
+      category: "saving",
+      type: "income",
       amount: saving.currentAmount,
-      description: 'for: ' +saving.goalName,
-      date: new Date,
-      createdAt: new Date,
-      updatedAt: new Date,
+      description: `Withdrawal from: ${saving.goalName}`,
+      date: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
-    saving.currentAmount=0;
-    updateUserMutationAddTransaction.mutate({id: user?._id ?? '',transaction});
-    updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving });
-    await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
 
+    saving.currentAmount = 0;
+    updateUserMutationAddTransaction.mutate({ id: user?._id || "", transaction });
+
+    await showAlertWithTwoOptions(
+      `Successfully withdrew ${saving.goalName}!`,
+      `Would you like to continue saving for ${saving.goalName}?`,
+      "Continue Saving",
+      "Delete Saving",
+      () => handleContinueSaving(saving),
+      () => handleDeleteSaving(saving._id)
+    );
+  };
+
+  const handleContinueSaving = (saving: Saving) => {
+    console.log(`Continuing saving for ${saving.goalName}`);
+  };
+
+  const handleDeleteSaving = (savingId: string) => {
+    deleteSavingMutation.mutate({ id: user?._id || "", savingId });
   };
 
   return (

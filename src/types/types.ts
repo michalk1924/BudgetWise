@@ -12,6 +12,7 @@ export interface User {
   transactions: Transaction[];
   alerts: Alert[];
   recommendations: Recommendation[];
+  fixedExpenses: FixedExpense[];
 }
 
 export interface MonthlyBudget {
@@ -93,3 +94,22 @@ export interface SavingsCollection {
   goalName: string;
 }
 
+export interface FixedExpense {
+  _id: string;
+  name: string; 
+  amount: number; 
+  firstPaymentDate: Date; 
+  totalInstallments?: number; 
+  category?: string; 
+  paymentMethod?: "cash" | "credit" | "check" | "bank_transfer" | "bit" | "other"; 
+  notes?: string; 
+  createdAt: Date; 
+  updatedAt: Date; 
+}
+
+export interface MonthlySummary {
+  totalExpenses: number,
+  totalIncomes: number,
+  totalSaved: number,
+  monthlyTransactions: Transaction[]
+}

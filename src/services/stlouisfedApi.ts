@@ -126,63 +126,12 @@ const fetchDataAndCompare = async (user: User | null) => {
             marketTrends = await fetchMarketDataForAllCategories();
             localStorage.setItem(CACHE_KEY, JSON.stringify(marketTrends));
             localStorage.setItem(CACHE_TIMESTAMP_KEY, now.toString());
-            // marketTrends = {
-            //     2021: [
-            //         {
-            //             category: "Health",
-            //             total_price: 1000
-            //         },
-            //         {
-            //             category: "Food",
-            //             total_price: 1500
-            //         },
-            //         {
-            //             category: "Transport",
-            //             total_price: 2000
-            //         },
-            //         {
-            //             category: "Entertainment",
-            //             total_price: 1200
-            //         }
-            //     ],
-            //     2025: [
-            //         {
-            //             category: "Health",
-            //             market_price: 1200
-            //         },
-            //         {
-            //             category: "Food",
-            //             market_price: 1800
-            //         },
-            //         {
-            //             category: "Transport",
-            //             market_price: 2200
-            //         },
-            //         {
-            //             category: "Entertainment",
-            //             market_price: 1400
-            //         },
-            //         {
-            //             category: "Utilities",
-            //             market_price: 1500
-            //         },
-            //         {
-            //             category: "Others",
-            //             market_price: 1000
-            //         }
-            //     ],
-            // };
         }
 
         const userExpenses = user?.transactions.filter(t => t.type == "expense");
         const groupedExpenses = groupExpensesByCategoryAndYear(userExpenses);
 
-        console.log("user expenses", groupedExpenses);
-        console.log("data", marketTrends);
-
         const comparisonResults = compareUserWithMarket(groupedExpenses, marketTrends);
-        console.log("comparison results" + JSON.stringify(comparisonResults));
-
         const year = new Date(Date.now()).getFullYear() - 3;
 
         const comparisonResultsForThisYear = comparisonResults.filter(
@@ -190,7 +139,6 @@ const fetchDataAndCompare = async (user: User | null) => {
         )
 
         if (comparisonResultsForThisYear) {
-            console.log("Comparison results for this year", comparisonResultsForThisYear);
             return comparisonResultsForThisYear
         } else {
             console.log("No comparison results for this year");

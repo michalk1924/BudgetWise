@@ -13,3 +13,23 @@ export const CACHE_TIMESTAMP_KEY = "marketDataTimestamp";
 export const ONE_DAY = 24 * 60 * 60 * 1000;
 
 export const ITEMS_PER_PAGE = 8;
+
+export const EXAMPLE_USER = {
+    email: "smartsaver@example.com",
+    password: "12345678",
+}
+
+export const MONTHS = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+];

@@ -3,14 +3,13 @@
 import "./globals.css";
 import { Header } from "./components/index";
 import { usePathname } from 'next/navigation';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, DefaultOptions } from '@tanstack/react-query';
 import Footer from "./components/Footer/Footer";
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getToken, getTokenExpiry } from '../services/cookies';
 
 const queryClient = new QueryClient();
-
 
 export default function RootLayout({
   children,

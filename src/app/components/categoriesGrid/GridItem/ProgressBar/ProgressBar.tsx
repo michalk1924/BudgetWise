@@ -12,7 +12,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ percentage }) => {
       <div
         className={styles.progress}
         style={{
-          width: `${Math.min(percentage, 100)}%`,
+          width: `${Math.min(percentage < 100 ? percentage : 100, 100)}%`,
           backgroundColor: progressColor,
         }}
       >

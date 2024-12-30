@@ -16,6 +16,7 @@ import useUserStore from "../../store/userStore";
 import { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Image from "next/image";
+import { EXAMPLE_USER } from "@/consts/consts";
 
 const schema = z.object({
   email: z.string().email(),
@@ -102,10 +103,26 @@ export default function Home() {
     }
   };
 
+  const loginWithExampleUser = async () => {
+    try {
+      const user = await authService.login(EXAMPLE_USER);
+      setUser(user);
+      await showSuccessAlert("Welcome!", "You have logged in successfully!", 1000);
+      router.push("/home");
+    } catch (error: any) {
+      console.error("Error creating user:", error);
+      showErrorAlert("Could not login");
+    } finally {
+      reset();
+    }
+  };
+
   return (
     <div className={styles.body}>
+
+      <Image className={styles.image} src="/logo.png" alt="Logo" width={190} height={55} />
+
       <div className={styles.container}>
-        <Image src="/logo.png" alt="Logo" width={190} height={55} />
         <h1 className={styles.title}>Login</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
@@ -156,6 +173,8 @@ export default function Home() {
         <div className={styles.forgotPassword}>
           <p onClick={handleForgotPassword}>Forgot Password?</p>
         </div>
+
+        <button className={styles.exampleUserButton} onClick={loginWithExampleUser}>exmaple user</button>
 
         <div className={styles.googleButtonContainer}>
           <button className={styles.googleButton} onClick={loginWithGoogle}>

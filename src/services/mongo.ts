@@ -21,7 +21,6 @@ export async function getDocuments(client: MongoClient, collection: string, filt
     try {
         const db = client.db(process.env.DB_NAME);
         const documents = await db.collection(collection).find(filter).toArray();
-        console.log(documents);
         return documents;
     }
     catch (error) {
