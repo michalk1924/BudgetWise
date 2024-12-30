@@ -31,6 +31,7 @@ const Savings = () => {
       console.error('Error updating user:', error.message);
     },
   });
+
   const deleteSavingMutation = useMutation({
     mutationFn: async ({ id, savingId }: { id: string; savingId: string }) => {
       if (user) {
@@ -94,36 +95,36 @@ const Savings = () => {
     updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving });
   };
   const handleWithdrawSavings = async (saving: Saving) => {
-    let transaction: Transaction={
-      _id:Math.random().toString(36).substr(2, 8),
-      category: 'saving',
-      type: 'income',
+    const transaction: Transaction = {
+      _id: Math.random().toString(36).substr(2, 8),
+      category: "saving",
+      type: "income",
       amount: saving.currentAmount,
-      description: 'for: ' +saving.goalName,
-      date: new Date,
-      createdAt: new Date,
-      updatedAt: new Date,
+      description: `Withdrawal from: ${saving.goalName}`,
+      date: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
-    saving.currentAmount=0;
-    updateUserMutationAddTransaction.mutate({id: user?._id ?? '',transaction});
-    updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving });
+
+    saving.currentAmount = 0;
+    updateUserMutationAddTransaction.mutate({ id: user?._id || "", transaction });
+
     await showAlertWithTwoOptions(
-      "successfuly withdraw "+saving.goalName+"!",
-      "Would you like continue saving for "+saving.goalName+"?",
-      "continue saving",
-      "delete saving",
-      handleContinueSaving,
-      handleDeleteSaving
+      `Successfully withdrew ${saving.goalName}!`,
+      `Would you like to continue saving for ${saving.goalName}?`,
+      "Continue Saving",
+      "Delete Saving",
+      () => handleContinueSaving(saving),
+      () => handleDeleteSaving(saving._id)
     );
-    
   };
-  const handleContinueSaving = () => {
-    console.log("Option 1 selected");
+
+  const handleContinueSaving = (saving: Saving) => {
+    console.log(`Continuing saving for ${saving.goalName}`);
   };
-  
-  const handleDeleteSaving = () => {
-    console.log("Option 2 selected");
-   // deleteSavingMutation.mutate({ id: user?._id ?? '', savingId:saving._id });
+
+  const handleDeleteSaving = (savingId: string) => {
+    deleteSavingMutation.mutate({ id: user?._id || "", savingId });
   };
 
   return (
