@@ -4,18 +4,32 @@ import styles from "./FixedExpenseCard.module.css";
 
 interface FixedExpenseCardProps {
     expense: FixedExpense;
+    onDelete: (expenseId: string) => void;
 }
 
-const FixedExpenseCard: React.FC<FixedExpenseCardProps> = ({ expense }) => {
+const FixedExpenseCard: React.FC<FixedExpenseCardProps> = ({ expense, onDelete }) => {
     const [showDetails, setShowDetails] = useState(false);
 
     const toggleDetails = () => {
         setShowDetails(!showDetails);
     };
 
+    const handleDelete = () => {
+        onDelete(expense._id);
+    };
+
     return (
         <div className={styles.fixedExpenseCard}>
-            <h3 className={styles.expenseTitle}>{expense.name}</h3>
+            <div className={styles.header}>
+                <h3 className={styles.expenseTitle}>{expense.name}</h3>
+                <button
+                    className={styles.deleteButton}
+                    onClick={handleDelete}
+                    aria-label="Delete fixed expense"
+                >
+                    🗑️
+                </button>
+            </div>
             {!showDetails ? (
                 <strong
                     className={styles.toggleText}

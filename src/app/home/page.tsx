@@ -5,7 +5,7 @@ import styles from "./home.module.css";
 import useUserStore from "@/store/userStore";
 import { AlertsList } from "../components/index";
 import { FaPiggyBank, FaShoppingCart, FaDollarSign } from "react-icons/fa";
-
+import Link from "next/link";
 export default function Home() {
   const { user, updateAlertStatus } = useUserStore();
 
@@ -49,44 +49,37 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <section className={styles.greeting}>
-        <h1>Hello {user?.username || "Name"}!</h1>
+        <h1 className={styles.title}>Hello {user?.username || "Name"}!</h1>
         <h2>What would you like to do today?</h2>
         <section className={styles.actions}>
-          <button>Add Transaction</button>
-          <button>Set New Savings Goal</button>
-          <button>Plan Monthly Budget</button>
+       <button> <Link href="/footerPages/contact" className={styles.btn}>Add Transaction</Link></button>
+        <button><Link href="/footerPages/contact" className={styles.btn}>Set New Savings Goal</Link></button>
+        <button><Link href="/footerPages/contact" className={styles.btn}>Plan Monthly Budget</Link></button>
         </section>
 
-        <section className={styles.greeting}>
-        </section>
       </section>
 
       <main className={styles.main}>
         <div className={styles.statBoxes}>
         <section className={styles.stats}>
-          <div className={styles.statBox}>
             <div className={styles.monthlyIncome}>
               <FaDollarSign className={styles.icon} />
               <h2>Your Monthly Income</h2>
               <p className={styles.aaa}>${monthlyIncome.toFixed(2)}</p>
             </div>
-          </div>
 
-          <div className={styles.statBox}>
             <div className={styles.monthlySavings}>
               <FaPiggyBank className={styles.icon} />
               <h2>You Saved This Month</h2>
               <p className={styles.aaa}>${monthlySavings.toFixed(2)}</p>
             </div>
-          </div>
 
-          <div className={styles.statBox}>
             <div className={styles.monthlyExpenses}>
               <FaShoppingCart className={styles.icon} />
               <h2>Your Monthly Expenses</h2>
               <p className={styles.aaa}>${monthlyExpenses.toFixed(2)}</p>
             </div>
-          </div>
+          
         </section>
 
         

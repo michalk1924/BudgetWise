@@ -11,13 +11,13 @@
 }
 
 .container {
-    padding: 20px;
+    padding: 30px;
     color: #536493;
     text-shadow: 0 10px 10px #FFF1DB;
     animation: fadeIn 1s ease-in-out;
     display: flex;
     flex-direction: row;
-    gap:10%;
+    gap:7%;
 }
 
 .nav a {
@@ -39,16 +39,17 @@
     margin-bottom: 6%;
 }
 
-.statBox {
-    border-radius: 5px;
+.monthlyIncome, .monthlyExpenses, .monthlySavings {
+    border-radius: 15%;
     width: 30%;
-    text-align: center;
+    height: 30%;
     font-size: 1.4rem;
+    padding: 3% 1% 5% 1%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: fadeIn 1s ease-in-out;
 }
 
-.statBox:hover {
+.monthlyIncome:hover, .monthlyExpenses:hover, .monthlySavings:hover {
     animation: scaleUp 0.3s ease forwards;
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.2);
 }
@@ -64,29 +65,30 @@
     /* Enable flexbox */
     flex-direction: column;
     /* Arrange children vertically */
-    justify-content: center;
     /* Center vertically */
-    align-items: center;
     /* Center horizontally */
     height: 100%;
-    /* Ensure the section takes up the necessary height */
-    text-align: center;
-    /* Center the text within the element */
+    
     margin-bottom: 3%;
     animation: fadeIn 1s ease-in-out;
-    font-size: large;
+    font-size: 1rem;
 }
+.title{
+    font-size: 2rem;
+align-content:space-around;}
 
 
-
-.actions button {
-    margin: 10px;
+.actions button{
+    margin: 20px;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
+    width:80%;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
     font-size: small;
+    background-color: #D4BDAC;
+
 }
 
 .actions button:hover {
@@ -94,15 +96,22 @@
     background-color: #536493;
     color: #fff;
 }
-.alerts{
+
+/* .addTransaction{
+    background-color: #EF5A6F;
+}
+.newSaving{
+    background-color: #A1D6B2;
 
 }
+.planBudget{
+    background-color: #D4BDAC;
+}
 
+ */
 .monthlyIncome {
     color: #A1D6B2;
-    padding: 8%;
     box-shadow: 0 10px 10px #A1D6B2;
-    border-radius: 15%;
 }
 
 .monthlyIncome:hover {
@@ -111,9 +120,7 @@
 
 .monthlyExpenses {
     color: #ef5a6ee0;
-    padding: 8%;
     box-shadow: 0 10px 10px #ef5a6ee0;
-    border-radius: 15%;
    
 }
 
@@ -123,9 +130,7 @@
 
 .monthlySavings {
     color: #D4BDAC;
-    padding: 8%;
     box-shadow: 0 12px 12px #D4BDAC;
-    border-radius: 15%;
 }
 
 .monthlySavings:hover {
