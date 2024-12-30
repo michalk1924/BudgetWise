@@ -6,7 +6,7 @@ import { holidays } from "@/consts/consts";
 import { differenceInDays, parseISO } from "date-fns";
 import { BUDGET_MULTIPLIER, MIN_BALANCE_MULTIPLIER, BUDGET_WARNING_THRESHOLD } from "@/consts/consts";
 
-export const createAlertsExceedingBudget = async (user: User) => {
+export const createExceedingBudgetByCategoryAlerts = async (user: User) => {
 
   try {
 
@@ -65,7 +65,7 @@ export const createAlertsExceedingBudget = async (user: User) => {
   }
 }
 
-export const budgetExceededAlert = async (user: User) => {
+export const createTotalBudgetExceededAlerts = async (user: User) => {
   try {
 
     const alerts: Alert[] = [];
@@ -119,7 +119,7 @@ export const budgetExceededAlert = async (user: User) => {
   }
 }
 
-export const validateAccountBalance = async (user: User) => {
+export const createValidateAccountBalance = async (user: User) => {
 
   try {
     const { balance} = user; 
@@ -234,7 +234,7 @@ export const validateAccountBalance = async (user: User) => {
   }
 }
 
-export const holidayAndVacationAlerts = async (user: User) => {
+export const createHolidayAndVacationAlerts = async (user: User) => {
   try {
 
     const alerts: Alert[] = [];

@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createAlertsExceedingBudget, budgetExceededAlert, validateAccountBalance, holidayAndVacationAlerts } from '@/services/alertsFunctions';
+import { createExceedingBudgetByCategoryAlerts, createTotalBudgetExceededAlerts, createValidateAccountBalance, createHolidayAndVacationAlerts } from '@/services/alertsFunctions';
 import { CreateTransactionByFixedExpense } from "../../../services/fixedExpenseFunction"
 import { connectDatabase, getDocuments, patchDocument } from '@/services/mongo';
-import { User, Alert, Transaction } from '@/types/types';
-
+import { User, Alert } from '@/types/types';
 
 export const dynamic = 'force-dynamic';
 
@@ -32,44 +31,44 @@ export async function GET(req: NextRequest) {
             console.log(`Processing user: ${user._id}`);
             const alerts = user?.alerts ?? [];
             const userTransactions = user?.transactions ?? [];
-            const existingConditions = new Set(alerts?.map((alert: Alert) => alert.triggerCondition)); // Track existing triggerConditions
+            const existingConditions = new Set(alerts?.map((alert: Alert) => alert.triggerCondition));
 
-            const alerts1 = await createAlertsExceedingBudget(user);
-            if (alerts1) {
-                alerts1.forEach((alert) => {
+            const exceedingBudgetAlerts = await createExceedingBudgetByCategoryAlerts(user);
+            if (exceedingBudgetAlerts) {
+                exceedingBudgetAlerts.forEach((alert) => {
                     if (!existingConditions.has(alert.triggerCondition)) {
                         alerts.push(alert);
-                        existingConditions.add(alert.triggerCondition); // Add the new condition to the set
+                        existingConditions.add(alert.triggerCondition);
                     }
                 });
             }
 
-            const alerts2 = await budgetExceededAlert(user);
-            if (alerts2) {
-                alerts2.forEach((alert) => {
+            const totalBudgetExceededAlerts = await createTotalBudgetExceededAlerts(user);
+            if (totalBudgetExceededAlerts) {
+                totalBudgetExceededAlerts.forEach((alert) => {
                     if (!existingConditions.has(alert.triggerCondition)) {
                         alerts.push(alert);
-                        existingConditions.add(alert.triggerCondition); // Add the new condition to the set
+                        existingConditions.add(alert.triggerCondition);
                     }
                 });
             }
 
-            const alerts3 = await validateAccountBalance(user);
-            if (alerts3) {
-                alerts3.forEach((alert) => {
+            const validateAccountBalanceAlerts = await createValidateAccountBalance(user);
+            if (validateAccountBalanceAlerts) {
+                validateAccountBalanceAlerts.forEach((alert) => {
                     if (!existingConditions.has(alert.triggerCondition)) {
                         alerts.push(alert);
-                        existingConditions.add(alert.triggerCondition); // Add the new condition to the set
+                        existingConditions.add(alert.triggerCondition);
                     }
                 });
             }
 
-            const alerts4 = await holidayAndVacationAlerts(user);
-            if (alerts4) {
-                alerts4.forEach((alert) => {
+            const holidayAndVacationAlerts = await createHolidayAndVacationAlerts(user);
+            if (holidayAndVacationAlerts) {
+                holidayAndVacationAlerts.forEach((alert) => {
                     if (!existingConditions.has(alert.triggerCondition)) {
                         alerts.push(alert);
-                        existingConditions.add(alert.triggerCondition); // Add the new condition to the set
+                        existingConditions.add(alert.triggerCondition);
                     }
                 });
             }

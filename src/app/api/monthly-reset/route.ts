@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDatabase, getDocuments, patchDocument, getUserByEmail } from '@/services/mongo';
-import { User } from '@/types/types'
+import { MonthlySummary} from '@/types/types'
+import { getMonthlySummaryByUserId } from '@/services/monthly-summary';
+import { generatePDF } from '@/services/createPdf';
+import sendEmail from '@/services/sendEmail';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
-    console.log("reset month budget");
-
     try {
 
         const client = await connectDatabase();
@@ -38,6 +39,17 @@ export async function GET(req: NextRequest) {
             }
 
             await patchDocument(client, "users", user._id.toString(), { categories: userCategories });
+
+            const userId = user._id.toString();
+            const data: MonthlySummary = await getMonthlySummaryByUserId(userId);
+            if (!data) {
+                console.error("Failed to get monthly summary");
+                return;
+            }
+            const { totalExpenses, totalIncomes, totalSaved, monthlyTransactions } = data;
+
+            const pdfBuffer = generatePDF(totalExpenses, totalIncomes, totalSaved, monthlyTransactions).output("arraybuffer");
+            sendEmail(user?.email, "Monthly summary", "Here is your monthly summary.", pdfBuffer);
         }
 
         return NextResponse.json({ message: 'sucess', status: 200 });
