@@ -9,7 +9,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
 
 const Categories = () => {
-  const { user, addCategory, updateCategory } = useUserStore();
+  const { user, addCategory, updateCategory,removeCategory } = useUserStore();
 
   const queryClient = useQueryClient();
 
@@ -64,6 +64,26 @@ const Categories = () => {
       console.error('Error updating user:', error.message);
     },
   });
+
+  const deleteCategoryMutation = useMutation({
+    mutationFn: async ({ id, categoryId }: { id: string; categoryId: string }) => {
+      if (user) {
+        const updatedCategories = user.categories.filter((category) => category._id !== categoryId);
+        const response = await userService.updateUser(id, { categories: updatedCategories });
+        // Assuming you have a function to remove the saving from local state
+        removeCategory(categoryId); 
+        return response;
+      }
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error deleting saving:', error.message);
+    },
+  });
+
   const handleAddCategory = (category: Category) => {
     category._id = Math.random().toString(36).substr(2, 8);
     updateUserMutation.mutate({ id: user?._id ?? "", category });
@@ -71,6 +91,9 @@ const Categories = () => {
 
   const handleUpdateCategory = (category: Category) => {
     updateUserMutationUpdateCategory.mutate({ id: user?._id ?? "", category });
+  };
+  const handleDeleteCategory = (categoryId: string) => {
+    deleteCategoryMutation.mutate({ id: user?._id ?? "", categoryId });
   };
 
   return (
@@ -105,7 +128,7 @@ const Categories = () => {
       <section className={styles.mainSection}>
         <section className={styles.tableSection}>
           {user && user?.categories?.length > 0 && (
-            <BudgetGrid categories={user?.categories || []} onUpdateCategory={handleUpdateCategory}/>
+            <BudgetGrid categories={user?.categories || []} onUpdateCategory={handleUpdateCategory} onDeleteCategory={handleDeleteCategory}/>
           )}
         </section>
 

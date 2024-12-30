@@ -8,9 +8,11 @@ import { Category } from "../../../../types/types";
 interface BudgetGridProps {
   categories: Category[];
   onUpdateCategory?: (updatedCategory: Category) => void;
+  onDeleteCategory?: (categoryId: string) => void; // New callback for deletion
+
 }
 
-const BudgetGrid: React.FC<BudgetGridProps> = ({ categories, onUpdateCategory }) => {
+const BudgetGrid: React.FC<BudgetGridProps> = ({ categories, onUpdateCategory, onDeleteCategory}) => {
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth());
 
@@ -52,6 +54,7 @@ const BudgetGrid: React.FC<BudgetGridProps> = ({ categories, onUpdateCategory })
               budget={budget}
               spent={spent}
               onUpdateCategory={onUpdateCategory}
+              onDeleteCategory={onDeleteCategory}
             />
           );
         })}
