@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './TransactionTable.module.css';
 import { Transaction, Category } from '../../../../types/types';
 import { DateFilter } from '@/consts/enums';
-import { TransactionComp, UploadExcel } from "../../index";
+import { TransactionComp, UploadExcel, DownloadPdf } from "../../index";
 import { ITEMS_PER_PAGE } from '@/consts/consts';
 
 function TransactionsList({
@@ -237,6 +237,7 @@ function TransactionsList({
                 <button onClick={handleCreateNewTransaction} className={styles.addButton}>
                     + Add New Transaction
                 </button>
+                <DownloadPdf/>
             </div>
         </div>
     );

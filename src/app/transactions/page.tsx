@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from "./transactions.module.css";
-import { AddTransaction, TransactionTable, UploadExcel, FixedExpensesManager } from '../components/index';
+import { AddTransaction, TransactionTable, UploadExcel, FixedExpensesManager, DownloadPdf } from '../components/index';
 import { Transaction, Saving, Category, User, MonthlyBudget } from '../../types/types';
 import useUserStore from "../../store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
