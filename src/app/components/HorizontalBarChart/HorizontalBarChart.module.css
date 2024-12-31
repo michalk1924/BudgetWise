@@ -33,7 +33,7 @@
 
 .barBackground {
     width: 100%;
-    background-color: var(--secondary-color, #fbf6f3);
+    color: var(--primary-color, #EF5A6F);
     border-radius: 15px;
     overflow: hidden;
     height: 130px;

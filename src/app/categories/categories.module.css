@@ -2,7 +2,7 @@
   color: #536493;
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  height: 90vh;
   gap: 7%;
   margin: 0 3% 3% 3%;
 }
@@ -11,7 +11,6 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  justify-content: space-around;
 }
 
 .title {
@@ -23,6 +22,7 @@
 
 .totalsSection {
   padding: 10px;
+  margin:20px;
 }
 
 .mainSection {
@@ -46,12 +46,7 @@
     height: auto;
   }
 
-  .leftSection {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-  }
+ 
 
   .mainSection {
     flex: 1;

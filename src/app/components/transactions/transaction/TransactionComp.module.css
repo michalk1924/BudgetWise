@@ -50,7 +50,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #2c3e50;
+    color: #536493;
     cursor: pointer;
     transition: transform 0.2s ease, color 0.3s ease;
   }
@@ -61,17 +61,25 @@
   }
   
   .income {
-    background-color: #a1d6b2;
+    color: #a1d6b2;
+    background-color: #fbf6f3;
+border:#a1d6b2;
     animation: fadeIn 0.5s ease-in-out;
   }
   
   .expense {
-    background-color: rgba(239, 90, 111, 0.5);
+    color: #EF5A6F;
+    border-color:  rgb(239, 90, 110);
+
     animation: fadeIn 0.5s ease-in-out;
+    background-color: #fbf6f3;
+
   }
   
   .saved {
-    background-color: #d4bdac;
+    color: #d4bdac;
+    background-color: #fbf6f3;
+
     animation: fadeIn 0.5s ease-in-out;
   }
   

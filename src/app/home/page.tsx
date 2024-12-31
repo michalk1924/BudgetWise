@@ -53,7 +53,7 @@ export default function Home() {
         {user && (
             <div className={styles.totalSection}>
               <div className={styles.total}>
-                <h3 className={styles.total}>Your Available Amount is: </h3>
+                <h3>Your Available Amount is: </h3>
                 <p>
                   {user?.transactions
                     ?.reduce((amount, t) => {

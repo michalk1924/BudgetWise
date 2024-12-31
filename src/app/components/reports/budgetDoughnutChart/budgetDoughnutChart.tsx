@@ -85,8 +85,8 @@ const BudgetDoughnutChart = ({ categories }: BudgetDoughnutChartProps) => {
     }, [categories]);
 
     return (
-        <div className="budgetPieChartContainer">
-            <h3 className={styles.chartTitle}>Monthly Budget Allocation</h3>
+        <div className={styles.budgetPieChartContainer}>
+            <h3 className={styles.chartTitle}>Monthly budget allocate by categories</h3>
             <canvas ref={chartRef} className="budget-pie-chart"></canvas>
         </div>
     );
