@@ -29,6 +29,10 @@
 }
 .total{
     color:#A1D6B2;
+    border-radius: 15px;
+    padding:10px;
+    width:100%;
+    box-shadow: 0 10px 10px #A1D6B2;
 }
 
 .nav a {
@@ -58,6 +62,9 @@
     padding: 3% 1% 5% 1%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: fadeIn 1s ease-in-out;
+   
+    background-color: #fbf6f3;
+    box-shadow: 0px 4px 6px #D4BDAC;
 }
 
 .monthlyIncome:hover, .monthlyExpenses:hover, .monthlySavings:hover {
@@ -90,7 +97,7 @@ align-content:space-around;}
 
 
 .actions button{
-    margin: 20px;
+    margin: 15px 0;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -122,7 +129,6 @@ align-content:space-around;}
  */
 .monthlyIncome {
     color: #A1D6B2;
-    box-shadow: 0 10px 10px #A1D6B2;
 }
 
 .monthlyIncome:hover {
@@ -131,7 +137,6 @@ align-content:space-around;}
 
 .monthlyExpenses {
     color: #ef5a6ee0;
-    box-shadow: 0 10px 10px #ef5a6ee0;
    
 }
 
@@ -141,7 +146,6 @@ align-content:space-around;}
 
 .monthlySavings {
     color: #D4BDAC;
-    box-shadow: 0 12px 12px #D4BDAC;
 }
 
 .monthlySavings:hover {

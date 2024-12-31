@@ -78,7 +78,7 @@ const GridItem: React.FC<GridItemProps> = ({
         className={isTotal ? styles.categoryTotalName : styles.categoryName}
         title={category.description}
       >
-        {isEditing ? (
+        {!isTotal&&isEditing ? (
           <input
             type="text"
             value={editedCategory.categoryName}
@@ -86,6 +86,10 @@ const GridItem: React.FC<GridItemProps> = ({
             className={styles.editInput}
           />
         ) : (
+          isTotal?(
+            <h1 className={styles.monthlyBudget}>Monthly Budget: ${effectiveBudget.toFixed(2)}</h1>
+
+          ):
           category.categoryName
         )}
       </div>
@@ -107,8 +111,8 @@ const GridItem: React.FC<GridItemProps> = ({
 
       <div className={styles.details}>
         <span className={styles.budget}>
-          {isTotal && isSmallScreen ? "Monthly Budget: " : "Budget: "}
-          {isEditing ? (
+          {!isTotal ? "Budget: ":""}
+          {!isTotal?(isEditing ? (
             <input
               type="number"
               value={editedCategory.budget.toFixed(2)}
@@ -117,9 +121,9 @@ const GridItem: React.FC<GridItemProps> = ({
             />
           ) : (
             <h1 className={styles.numeric}>${effectiveBudget.toFixed(2)}</h1>
-          )}
+          )):""}
         </span>
-        {!isEditing ? (
+        {!isTotal?(!isEditing ?(
           <div className={styles.iconContainer}>
             <FontAwesomeIcon
               icon={faEdit}
@@ -140,7 +144,7 @@ const GridItem: React.FC<GridItemProps> = ({
             </button>
             
           </div>
-        )}
+        )):""}
       </div>
     </div>
   );

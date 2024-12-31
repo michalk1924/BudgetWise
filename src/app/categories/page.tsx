@@ -107,9 +107,7 @@ const Categories = () => {
         </header>
 
         <section className={styles.totalsSection}>
-        <BudgetDoughnutChart categories={user?.categories ?? []} />
-
-          {total && (
+        {total && (
             <GridItem
               key="total"
               category={{
@@ -122,6 +120,10 @@ const Categories = () => {
               isTotal={true}
             />
           )}
+          
+        <BudgetDoughnutChart categories={user?.categories ?? []} />
+
+         
         </section>
       </section>
 
