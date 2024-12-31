@@ -2,7 +2,10 @@
 
 const nodemailer = require('nodemailer');
 
-async function sendEmail(to: string, subject: string, text: string) {
+async function sendEmail(to: string, subject: string, text: string, file? : ArrayBuffer) {
+
+    console.log("sendEmail" + subject + " " + text);
+    
     if (!to || !subject || !text) {
         throw new Error('Missing required parameters');
     }
@@ -17,17 +20,18 @@ async function sendEmail(to: string, subject: string, text: string) {
             pass: process.env.EMAIL_PASSWORD
         },
         tls: {
-            rejectUnauthorized: false // השבתת אימות SSL
-            //לעבוד על זה!!!!!!!! אם יעשה בעיות גם במייל השני!!!!!!!
+            rejectUnauthorized: false
         }
     });
 
+    const attachmentBuffer = file ? Buffer.from(file) : undefined;
 
     let mailOptions = {
         from: 'michal21924@gmail.com',
         to: to,
         subject: subject,
-        text: text
+        text: text,
+        attachments: attachmentBuffer ? [{ filename: 'monthly-summary.pdf', content: attachmentBuffer }] : []
     };
 
     try {
@@ -35,7 +39,7 @@ async function sendEmail(to: string, subject: string, text: string) {
         console.log('Email sent: ' + info.response);
     } catch (error) {
         console.error('Error sending email: ', error);
-        throw new Error('Failed to send email');
+        throw 'Failed to send email';
     }
 }
 

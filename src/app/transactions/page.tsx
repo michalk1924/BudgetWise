@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from "./transactions.module.css";
-import { AddTransaction, TransactionTable, UploadExcel, FixedExpensesManager } from '../components/index';
+import { AddTransaction, TransactionTable, UploadExcel, FixedExpensesManager, DownloadPdf, HorizontalBarChart } from '../components/index';
 import { Transaction, Saving, Category, User, MonthlyBudget } from '../../types/types';
 import useUserStore from "../../store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -373,7 +373,7 @@ function Transactions() {
                 $)
               </div>
               <button onClick={togglePopup} className={styles.manageFixedTransaction}>Management of fixed expenses</button>
-
+              <HorizontalBarChart expenses={user?.fixedExpenses || []} />
             </div>
           )}
         </div>
@@ -406,7 +406,7 @@ function Transactions() {
       {!loading && !user && <div className={styles.loader}>
         {/* Please log in to access this feature. */}
       </div>}
-      
+
     </div>
   )
 }

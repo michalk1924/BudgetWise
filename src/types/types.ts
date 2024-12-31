@@ -12,7 +12,7 @@ export interface User {
   transactions: Transaction[];
   alerts: Alert[];
   recommendations: Recommendation[];
-  fixedExpenses : FixedExpense [];
+  fixedExpenses: FixedExpense[];
 }
 
 export interface MonthlyBudget {
@@ -105,4 +105,11 @@ export interface FixedExpense {
   notes?: string; 
   createdAt: Date; 
   updatedAt: Date; 
+}
+
+export interface MonthlySummary {
+  totalExpenses: number,
+  totalIncomes: number,
+  totalSaved: number,
+  monthlyTransactions: Transaction[]
 }

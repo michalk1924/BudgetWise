@@ -23,3 +23,6 @@ export {default as FixedExpenseCard} from "./FixedExpenseCard/FixedExpenseCard"
 export {default as FixedExpenseForm} from "./FixedExpenseForm/FixedExpenseForm"
 export {default as UserTrendChart} from "./reports/UserTrendsChart/UserTendsChart"
 export {default as PopularCategoriesComp} from "./reports/PopularCategoriesComp/PopularCategoriesComp"
+export {default as DownloadPdf} from "./DownloadPdf/DownloadPdf"
+export {default as HorizontalBarChart} from "./HorizontalBarChart/HorizontalBarChart";
+

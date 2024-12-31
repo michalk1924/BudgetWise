@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     width: 380px;
-    /* height: 80vh; */
     border-radius: 10px;
     box-shadow: 0 4px 8px #D4BDAC;
     margin: auto;
@@ -11,10 +10,8 @@
     text-align: center;
     color: #536493;
     align-items: center;
-    font-family: "Malvie Trial", Arial, sans-serif;
-
+    margin-bottom: 4vh;
 }
-
 
 .body {
     height: 100vh;

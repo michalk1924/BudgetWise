@@ -12,19 +12,20 @@ const fixedExpenseSchema = z.object({
     amount: z.number().min(0, "Amount must be a positive number"),
     firstPaymentDate: z.preprocess((arg) => {
         if (typeof arg === "string" || arg instanceof Date) {
-            return new Date(arg); // ממיר את המחרוזת ל-Date
+            return new Date(arg);
         }
         return arg;
     }, z.date().refine((date) => !isNaN(date.getTime()), {
         message: "Invalid date",
     })),
-    totalInstallments: z.number().int().min(1, "Total installments must be at least 1"),
+    totalInstallments: z.number().int().min(1, "Total installments must be at least 1").optional(),  // כאן הוספתי .optional()
     category: z.string().optional(),
     paymentMethod: z
         .enum(["cash", "credit", "check", "bank_transfer", "bit", "other"])
         .optional(),
     notes: z.string().optional(),
 });
+
 
 type FixedExpense = z.infer<typeof fixedExpenseSchema> & {
     _id: string;
@@ -46,12 +47,13 @@ const FixedExpenseForm: React.FC = () => {
             name: "",
             amount: 0,
             firstPaymentDate: new Date(),
-            totalInstallments: 1,
+            totalInstallments: undefined,  // שים לב, הוספתי undefined כדי שהשדה יהיה ריק
             category: "",
             paymentMethod: "other",
             notes: "",
         },
     });
+
 
     const queryClient = useQueryClient();
     const { user, addFixedExpense } = useUserStore();
@@ -136,10 +138,12 @@ const FixedExpenseForm: React.FC = () => {
                             {...register("totalInstallments", { valueAsNumber: true })}
                             className={styles.input}
                         />
+                        <small className={styles.optionalText}>Optional</small>
                         {errors.totalInstallments && (
                             <span className={styles.error}>{errors.totalInstallments.message}</span>
                         )}
                     </div>
+
 
                     <div>
                         <label className={styles.label}>Category:</label>
