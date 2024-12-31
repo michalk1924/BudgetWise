@@ -11,6 +11,22 @@ const HorizontalBarChart: React.FC<Props> = ({ expenses }) => {
     const chartRef = useRef<HTMLCanvasElement | null>(null);
     const chartInstanceRef = useRef<Chart | null>(null);
 
+    // חישוב ההוצאות הקבועות הרלוונטיות
+    const relevantExpenses = expenses.filter((expense) => {
+        if (!expense.totalInstallments || expense.totalInstallments <= 0) return true;
+
+        const firstPaymentDate = new Date(expense.firstPaymentDate);
+        const currentDate = new Date();
+        const monthsBetween =
+            (currentDate.getFullYear() - firstPaymentDate.getFullYear()) * 12 +
+            currentDate.getMonth() -
+            firstPaymentDate.getMonth();
+
+        return monthsBetween < expense.totalInstallments;
+    });
+
+    const totalRelevantExpenses = relevantExpenses.reduce((sum, expense) => sum + expense.amount, 0);
+
     useEffect(() => {
         if (!chartRef.current) return;
 
@@ -20,17 +36,7 @@ const HorizontalBarChart: React.FC<Props> = ({ expenses }) => {
 
         const dailyExpenses: { [key: number]: number } = {};
 
-        const filteredExpenses = expenses.filter(expense => {
-            if (!expense.totalInstallments || expense.totalInstallments <= 0) return true;
-
-            const firstPaymentDate = new Date(expense.firstPaymentDate);
-            const currentDate = new Date();
-            const monthsBetween = (currentDate.getFullYear() - firstPaymentDate.getFullYear()) * 12 + currentDate.getMonth() - firstPaymentDate.getMonth();
-
-            return monthsBetween < expense.totalInstallments;
-        });
-
-        filteredExpenses.forEach((expense) => {
+        relevantExpenses.forEach((expense) => {
             const day = new Date(expense.firstPaymentDate).getDate();
             dailyExpenses[day] = (dailyExpenses[day] || 0) + expense.amount;
         });
@@ -77,12 +83,15 @@ const HorizontalBarChart: React.FC<Props> = ({ expenses }) => {
                 },
             },
         });
-    }, [expenses]);
+    }, [expenses, relevantExpenses]);
 
     return (
         <div className={styles.container}>
             <div className={styles.barHeader}>
                 <span className={styles.category}>Your expected expenses this month</span>
+                <span className={styles.totalExpenses}>
+                    Total: ₪{totalRelevantExpenses.toFixed(2)}
+                </span>
             </div>
             <div className={styles.barBackground}>
                 <canvas ref={chartRef} />
