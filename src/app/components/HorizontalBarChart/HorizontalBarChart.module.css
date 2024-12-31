@@ -4,13 +4,11 @@
 
 .container {
     font-family: 'Super Dream', Arial, Helvetica, sans-serif;
-    width: 90%;
+    width: 85%;
     padding: 1rem;
     border-radius: 7px;
     overflow-x: auto;
-    margin: 0 auto;
     max-width: 1200px;
-    margin-bottom: 50px;
     align-items: center;
     padding: 0.6rem;
     background-color: #fbf6f3;

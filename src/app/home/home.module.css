@@ -27,6 +27,9 @@
     background: #536493; /* Adjust color to match your theme */
     margin-bottom: 2%;
 }
+.total{
+    color:#A1D6B2;
+}
 
 .nav a {
     margin: 0 10px;

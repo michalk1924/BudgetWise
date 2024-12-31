@@ -50,6 +50,23 @@ export default function Home() {
     <div className={styles.container}>
       <section className={styles.greeting}>
         <h1 className={styles.title}>Hello {user?.username || "Name"}!</h1>
+        {user && (
+            <div className={styles.totalSection}>
+              <div className={styles.total}>
+                <h3 className={styles.total}>Your Available Amount is: </h3>
+                <p>
+                  {user?.transactions
+                    ?.reduce((amount, t) => {
+                      if (t.type === "expense"||t.type === "saved") {
+                        return amount - Number(t.amount || 0);
+                      }
+                      return amount + Number(t.amount || 0);
+                    }, 0)
+                    .toFixed(2)}$
+                </p>
+                </div>
+                </div>)
+                }
         <hr className={styles.separator} />
 
         <h2>What would you like to do today?</h2>

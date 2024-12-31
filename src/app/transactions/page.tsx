@@ -337,43 +337,47 @@ function Transactions() {
     <div className={styles.container}>
       {!loading && user && (
         <div className={styles.headers}>
-          <h2 className={styles.title}>Manage My Transactions</h2>
+          <h2 className={styles.title}>Manage Transactions</h2>
           {user && (
-            <div className={styles.total}>
-              <div>
-                Total:{" "}
-                {user?.transactions
-                  ?.reduce((amount, t) => {
-                    if (t.type === "expense") {
-                      return amount - Number(t.amount || 0);
-                    }
-                    return amount + Number(t.amount || 0);
-                  }, 0)
-                  .toFixed(2)}
-                $
+            <div className={styles.totalSection}>
+              <div className={styles.card}>
+                <h3 className={styles.totaltitle}>Total</h3>
+                <p className={styles.totalValue}>
+                  {user?.transactions
+                    ?.reduce((amount, t) => {
+                      if (t.type === "expense"||t.type === "saved") {
+                        return amount - Number(t.amount || 0);
+                      }
+                      return amount + Number(t.amount || 0);
+                    }, 0)
+                    .toFixed(2)}$
+                </p>
+
+                <h3 className={styles.monthtitle}>Current Month Balance</h3>
+                <p className={styles.value}>
+                  {user?.transactions
+                    ?.filter((transaction) => {
+                      const transactionDate = new Date(transaction.date);
+                      const now = new Date();
+                      return (
+                        transactionDate.getMonth() === now.getMonth() &&
+                        transactionDate.getFullYear() === now.getFullYear()
+                      );
+                    })
+                    .reduce((amount, t) => {
+                      if (t.type === "expense") {
+                        return amount - Number(t.amount || 0);
+                      }
+                      return amount + Number(t.amount || 0);
+                    }, 0)
+                    .toFixed(2)}$
+                </p>
               </div>
-              <div className={styles.currentMonthBalance}>
-                (Current Month Balance:{" "}
-                {user?.transactions
-                  ?.filter((transaction) => {
-                    const transactionDate = new Date(transaction.date);
-                    const now = new Date();
-                    return (
-                      transactionDate.getMonth() === now.getMonth() &&
-                      transactionDate.getFullYear() === now.getFullYear()
-                    );
-                  })
-                  .reduce((amount, t) => {
-                    if (t.type === "expense") {
-                      return amount - Number(t.amount || 0);
-                    }
-                    return amount + Number(t.amount || 0);
-                  }, 0)
-                  .toFixed(2)}
-                $)
-              </div>
-              <button onClick={togglePopup} className={styles.manageFixedTransaction}>Management of fixed expenses</button>
+
+
               <HorizontalBarChart expenses={user?.fixedExpenses || []} />
+              <button onClick={togglePopup} className={styles.manageFixedTransaction}>{"Manage fixed expenses >>"}</button>
+
             </div>
           )}
         </div>
