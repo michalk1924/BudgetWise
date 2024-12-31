@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import styles from "./userDetailsForm.module.css";
 import { generateBudgetWithCategories } from "@/services/budgetCalc";
-import { Category, Saving } from "@/types/types";
+import { Category, Saving, FixedExpense } from "@/types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
@@ -34,16 +34,11 @@ interface FormData {
     householdType: "single" | "partnered" | "";
 }
 
-interface FixedExpense {
-    id: string;
-    name: string;
-    amount: number;
-    date: string; // Day of the month (e.g., "15")
-}
+
 const UserDetailsForm = () => {
     const [fixedExpenses, setFixedExpenses] = useState<FixedExpense[]>([]);
 
-    const { user, initCategories, addSaving } = useUserStore();
+    const { user, initCategories, initFixedExpenses, addSaving } = useUserStore();
 
     const queryClient = useQueryClient();
     const router = useRouter();
@@ -72,6 +67,32 @@ const UserDetailsForm = () => {
             console.error("Error updating user:", error.message);
         },
     });
+
+    const updateUserAddFixedExpensesMutation = useMutation({
+        mutationFn: async ({
+            id,
+            expenses,
+        }: {
+            id: string;
+            expenses: FixedExpense[];
+        }) => {
+            if (user) {
+                const response = await userService.updateUser(id, {
+                    fixedExpenses: expenses,
+                });
+                initFixedExpenses(expenses);
+                return response;
+            }
+            return null;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["users"] });
+        },
+        onError: (error: Error) => {
+            console.error("Error updating user:", error.message);
+        },
+    });
+
     const updateUserAddSavingMutation = useMutation({
         mutationFn: async ({ id, saving }: { id: string; saving: Saving }) => {
             if (user) {
@@ -126,7 +147,6 @@ const UserDetailsForm = () => {
             [name]: value,
         }));
     };
-
     const handleFixedExpenseChange = (
         id: string,
         field: keyof FixedExpense,
@@ -134,60 +154,86 @@ const UserDetailsForm = () => {
     ) => {
         setFixedExpenses((prevExpenses) =>
             prevExpenses.map((expense) =>
-                expense.id === id ? { ...expense, [field]: value } : expense
+                expense._id === id ? { ...expense, [field]: value } : expense
             )
         );
     };
 
     const addFixedExpense = () => {
         const newExpense: FixedExpense = {
-            id: Math.random().toString(36).substr(2, 8),
+            _id: Math.random().toString(36).substr(2, 8),
             name: "",
             amount: 0,
-            date: "",
+            firstPaymentDate: new Date(),
+            totalInstallments: 0,
+            createdAt: new Date(),
+            updatedAt: new Date(),
         };
         setFixedExpenses((prevExpenses) => [...prevExpenses, newExpense]);
     };
 
     const removeFixedExpense = (id: string) => {
-        setFixedExpenses((prevExpenses) => prevExpenses.filter((expense) => expense.id !== id));
+        setFixedExpenses((prevExpenses) =>
+            prevExpenses.filter((expense) => expense._id !== id)
+        );
     };
-
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("User Details Submitted:", formData);
-        let budget = generateBudgetWithCategories(formData)
 
-        let categories: Category[] = [];
-
-        for (const category in budget.expenses) {
-            const userCategory: Category = {
+        const budget = generateBudgetWithCategories(formData);
+        const categories: Category[] = Object.entries(budget.expenses).map(
+            ([categoryName, budgetAmount]) => ({
                 _id: Math.random().toString(36).substr(2, 8),
-                categoryName: category,
-                description: category,
-                budget: budget.expenses[category as keyof typeof budget.expenses],
+                categoryName,
+                description: categoryName,
+                budget: budgetAmount as number,
                 spent: 0,
                 monthlyBudget: [],
-            }
-            categories.push(userCategory)
-        }
-        updateUserAddCategoriesMutation.mutate({ id: user?._id ?? "", categories })
+            })
+        );
 
         const saving: Saving = {
             _id: Math.random().toString(36).substr(2, 8),
-            goalName: "Emergancy Fund",
+            goalName: "Emergency Fund",
             targetAmount: 20000,
             currentAmount: formData.emergencyFundAmount,
-            deadline: new Date,
-            createdAt: new Date,
-            updatedAt: new Date,
-        }
-        updateUserAddSavingMutation.mutate({ id: user?._id ?? "", saving })
+            deadline: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        };
+        const housingExpense: FixedExpense = {
+            _id: Math.random().toString(36).substr(2, 8),
+            name: "housing",
+            amount: formData.housingCost,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        };
+        setFixedExpenses((prevExpenses) => [...prevExpenses, housingExpense]);
+
+        const educationExpense: FixedExpense = {
+            _id: Math.random().toString(36).substr(2, 8),
+            name: "education",
+            amount: formData.educationCost,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        };
+        setFixedExpenses((prevExpenses) => [...prevExpenses, educationExpense]);
+
+        await Promise.all([
+            updateUserAddCategoriesMutation.mutateAsync({
+                id: user?._id ?? "",
+                categories,
+            }),
+            updateUserAddFixedExpensesMutation.mutateAsync({
+                id: user?._id ?? "",
+                expenses: fixedExpenses,
+            }),
+            updateUserAddSavingMutation.mutateAsync({ id: user?._id ?? "", saving }),
+        ]);
 
         await showSuccessAlert("Welcome!", "Details saved successfully!", 1000);
         router.push("/categories");
-
     };
 
     return (
@@ -401,15 +447,15 @@ const UserDetailsForm = () => {
                 </label>
 
                 <label className={styles.label}>
-                     Do you have any other fixed expenses?
+                    Do you have any other fixed expenses?
                     {fixedExpenses.map((expense) => (
-                        <div key={expense.id} className={styles.fixedExpense}>
+                        <div key={expense._id} className={styles.fixedExpense}>
                             <input
                                 type="text"
                                 placeholder="Expense Name"
                                 value={expense.name}
                                 onChange={(e) =>
-                                    handleFixedExpenseChange(expense.id, "name", e.target.value)
+                                    handleFixedExpenseChange(expense._id, "name", e.target.value)
                                 }
                                 className={styles.input}
                             />
@@ -418,28 +464,36 @@ const UserDetailsForm = () => {
                                 placeholder="Amount"
                                 value={expense.amount || ""}
                                 onChange={(e) =>
-                                    handleFixedExpenseChange(expense.id, "amount", Number(e.target.value))
+                                    handleFixedExpenseChange(expense._id, "amount", Number(e.target.value))
                                 }
                                 className={styles.input}
                             />
                             <input
-                                type="number"
-                                placeholder="Date (Day of the Month)"
-                                value={expense.date || ""}
+                                type="date"
+                                value={
+                                    expense.firstPaymentDate
+                                        ? new Date(expense.firstPaymentDate).toISOString().split("T")[0]
+                                        : ""
+                                }
                                 onChange={(e) =>
-                                    handleFixedExpenseChange(expense.id, "date", e.target.value)
+                                    handleFixedExpenseChange(
+                                        expense._id,
+                                        "firstPaymentDate",
+                                        e.target.value 
+                                    )
                                 }
                                 className={styles.input}
                             />
                             <button
                                 type="button"
-                                onClick={() => removeFixedExpense(expense.id)}
+                                onClick={() => removeFixedExpense(expense._id)}
                                 className={styles.removeButton}
                             >
                                 Remove
                             </button>
                         </div>
                     ))}
+                    <br/>
                     <button
                         type="button"
                         onClick={addFixedExpense}
@@ -448,8 +502,6 @@ const UserDetailsForm = () => {
                         + Add Fixed Expense
                     </button>
                 </label>
-
-                
 
                 <label className={styles.label}>
                     Number of Children: *

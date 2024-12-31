@@ -28,6 +28,7 @@ interface UserStore {
   setRecommendations: (recommendations: Recommendation[]) => void;
   updateAlertStatus: (alertId: string, isActive: boolean) => void;
   removeAlert: (alertId: string) => void;
+  initFixedExpenses: (expenses: FixedExpense[]) => void;
   addFixedExpense: (fixedExpense: FixedExpense) => void;
   expirationTimestamp?: number;
 
@@ -180,6 +181,14 @@ const useUserStore = create<UserStore>()(
             alerts: state.user!.alerts.filter((alert) => alert.alertId !== alertId),
           },
         })),
+
+        initFixedExpenses: (expenses) =>
+          set((state) => ({
+            user: {
+              ...state.user!,
+              fixedExpenses: expenses,
+            },
+          })),
 
         addFixedExpense: (fixedExpense) =>
           set((state) => ({

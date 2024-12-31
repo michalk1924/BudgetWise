@@ -64,3 +64,12 @@
     background-color: #0056b3;
   }
   
+  .addButton{
+    padding: 5px 10px;
+    background-color: #536493;
+    color:#FFF1DB;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
