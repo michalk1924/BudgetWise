@@ -20,6 +20,14 @@
     gap:7%;
 }
 
+.separator {
+    width: 80%; /* Adjust the width as needed */
+    border: 0;
+    height: 1px;
+    background: #536493; /* Adjust color to match your theme */
+    margin-bottom: 2%;
+}
+
 .nav a {
     margin: 0 10px;
     text-decoration: none;
