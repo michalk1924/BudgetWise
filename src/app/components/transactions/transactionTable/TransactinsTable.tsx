@@ -199,7 +199,7 @@ function TransactionsList({
                     transaction={transaction}
                     categories={categories}
                     updateTransaction={updateTransaction}
-                    savingsNames={savingsNames}
+                    savings={savingsNames}
                     isEdit={false}
                 />
             ))}
@@ -210,7 +210,7 @@ function TransactionsList({
                     transaction={newTransaction}
                     categories={categories}
                     updateTransaction={handleSaveNewTransaction}
-                    savingsNames={savingsNames}
+                    savings={savingsNames}
                     isEdit={true}
 
                 />

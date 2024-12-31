@@ -50,6 +50,8 @@ export default function Home() {
     <div className={styles.container}>
       <section className={styles.greeting}>
         <h1 className={styles.title}>Hello {user?.username || "Name"}!</h1>
+        <hr className={styles.separator} />
+
         <h2>What would you like to do today?</h2>
         <section className={styles.actions}>
        <button> <Link href="/transactions" className={styles.btn}>Add Transaction</Link></button>
