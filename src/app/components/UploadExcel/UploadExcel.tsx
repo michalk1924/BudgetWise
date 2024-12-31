@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
 import { showSuccessAlert } from "@/services/alerts";
 import styles from './UploadExcel.module.css'
-import { FaFileExcel } from "react-icons/fa";
+import { FaUpload } from "react-icons/fa";
 
 export default function UploadExcel() {
     const [isLoading, setIsLoading] = useState(false);
@@ -58,8 +58,8 @@ export default function UploadExcel() {
 
         <div className={styles.fileUploadWrapper}>
             <label htmlFor="file-upload" className={styles.customFileUpload} title="Select an Excel file to add transactions">
-                <FaFileExcel/>
-                Select an Excel file          
+                <FaUpload/>
+
             </label>
             <input
                 id="file-upload"
