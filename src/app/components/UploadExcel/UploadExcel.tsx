@@ -37,7 +37,7 @@ export default function UploadExcel() {
         setIsLoading(true);
 
         try {
-            const filteredData = await parseExcelFile(file);
+            const filteredData = await parseExcelFile(file);            
             if (user) {
                 updateUserMutationAddTransactions.mutate({
                     id: user._id,

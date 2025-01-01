@@ -17,10 +17,10 @@ const authService = {
         }
     },
 
-    async signup(data: { name: string, email: string, password: string }) {
+    async signup(data: { username: string, email: string, password: string }) {
         try {
-            const { email, password } = data;
-            const response = await http.post('/signup', { name, email, password });
+            const { username,email, password } = data;
+            const response = await http.post('/signup', { username, email, password });
             if (response.data && response.data.token) {
                 const token = response.data.token;
                 saveToken(token);

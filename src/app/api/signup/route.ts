@@ -7,7 +7,7 @@ export async function POST(request: NextRequest, { params }: { params: any }) {
     try {
         const client = await connectDatabase();
 
-        const { name, email, password } = await request.json();
+        const { username, email, password } = await request.json();
 
         if (!email || !password) {
             return NextResponse.json({ error: 'Missing email or password' }, { status: 400 });
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest, { params }: { params: any }) {
         }
 
         const result = await insertDocument(client, 'users', {
-            username: name,
+            username: username,
             email: email,
             categories: [],
             savings: [],
