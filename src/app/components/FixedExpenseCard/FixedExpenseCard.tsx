@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FixedExpense } from "../../../types/types";
 import styles from "./FixedExpenseCard.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 interface FixedExpenseCardProps {
     expense: FixedExpense;
@@ -18,7 +20,6 @@ const FixedExpenseCard: React.FC<FixedExpenseCardProps> = ({ expense, onDelete }
         onDelete(expense._id);
     };
 
-    // חישוב מספר התשלומים שנשארו
     const calculateRemainingInstallments = () => {
         if (!expense.totalInstallments || !expense.firstPaymentDate) return 0;
 
@@ -34,13 +35,12 @@ const FixedExpenseCard: React.FC<FixedExpenseCardProps> = ({ expense, onDelete }
     };
 
     const remainingInstallments = calculateRemainingInstallments();
-
     const isInvalidExpense = remainingInstallments < 0;
 
     return (
         <div
             className={styles.fixedExpenseCard}
-            style={isInvalidExpense ? { backgroundColor: '#D3D3D3' } : {}}
+            style={isInvalidExpense ? { backgroundColor: "#D3D3D3" } : {}}
         >
             {isInvalidExpense && (
                 <div className={styles.invalidExpenseHeader}>
@@ -55,15 +55,12 @@ const FixedExpenseCard: React.FC<FixedExpenseCardProps> = ({ expense, onDelete }
                     onClick={handleDelete}
                     aria-label="Delete fixed expense"
                 >
-                    🗑️
+                    <FontAwesomeIcon icon={faTrash} />
                 </button>
             </div>
             {!showDetails ? (
-                <strong
-                    className={styles.toggleText}
-                    onClick={toggleDetails}
-                >
-                    See More{' >>'}
+                <strong className={styles.toggleText} onClick={toggleDetails}>
+                    See More{" >>"}
                 </strong>
             ) : (
                 <>
@@ -101,11 +98,8 @@ const FixedExpenseCard: React.FC<FixedExpenseCardProps> = ({ expense, onDelete }
                             {new Date(expense.updatedAt).toLocaleDateString()}
                         </p>
                     </div>
-                    <strong
-                        className={styles.toggleText}
-                        onClick={toggleDetails}
-                    >
-                        {'<< '}See Less
+                    <strong className={styles.toggleText} onClick={toggleDetails}>
+                        {"<< "}See Less
                     </strong>
                 </>
             )}
