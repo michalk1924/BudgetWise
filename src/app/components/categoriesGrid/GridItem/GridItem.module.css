@@ -162,6 +162,7 @@
 .iconContainer{
   display: flex;
   flex-direction: row;
+  gap:10px;
 }
 .monthlyBudget{
   justify-content: space-between;
