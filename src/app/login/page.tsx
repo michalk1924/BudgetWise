@@ -64,7 +64,7 @@ export default function Home() {
         setUser(user);
         await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
         if (isNewUser) {
-          router.push("/userDetailsForm");
+          router.push("/user-details-form");
         } else {
           router.push("/home");
         }

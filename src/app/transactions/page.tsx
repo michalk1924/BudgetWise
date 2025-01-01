@@ -379,10 +379,6 @@ function Transactions() {
                 </p>
               </div>
 
-
-
-
-
               <HorizontalBarChart expenses={user?.fixedExpenses || []} />
               <button onClick={togglePopup} className={styles.manageFixedTransaction}>{"Manage fixed expenses >>"}</button>
 
@@ -402,17 +398,11 @@ function Transactions() {
           {/*           <UploadExcel />*/}
         </div>
 
-        {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
+        {user && <TransactionTable transactions={user?.transactions}
           updateTransaction={handleUpdateTransaction} addTransaction={handleAddTransaction} categories={user?.categories}
           savingsNames={user?.savings.map(s => s.goalName)}
         />}
 
-      </div>}
-
-      {loading && <div className={styles.loader}>Loading...</div>}
-
-      {!loading && user && user?.transactions?.length === 0 && <div>
-        No transactions found. Add some today!
       </div>}
 
       {!loading && !user && <div className={styles.loader}>

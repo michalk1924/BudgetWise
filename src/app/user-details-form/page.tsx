@@ -34,7 +34,6 @@ interface FormData {
     householdType: "single" | "partnered" | "";
 }
 
-
 const UserDetailsForm = () => {
     const [fixedExpenses, setFixedExpenses] = useState<FixedExpense[]>([]);
 
@@ -113,7 +112,6 @@ const UserDetailsForm = () => {
     });
 
 
-
     const [formData, setFormData] = useState<FormData>({
         fullName: user?.username || "",
         email: user?.email || "",
@@ -147,6 +145,7 @@ const UserDetailsForm = () => {
             [name]: value,
         }));
     };
+
     const handleFixedExpenseChange = (
         id: string,
         field: keyof FixedExpense,
@@ -182,16 +181,18 @@ const UserDetailsForm = () => {
         e.preventDefault();
 
         const budget = generateBudgetWithCategories(formData);
+        console.log("budget: " + budget);
+        
         const categories: Category[] = Object.entries(budget.expenses).map(
             ([categoryName, budgetAmount]) => ({
                 _id: Math.random().toString(36).substr(2, 8),
                 categoryName,
                 description: categoryName,
-                budget: budgetAmount as number,
+                budget: Number(budgetAmount),
                 spent: 0,
                 monthlyBudget: [],
             })
-        );
+        );        
 
         const saving: Saving = {
             _id: Math.random().toString(36).substr(2, 8),
