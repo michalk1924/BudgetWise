@@ -2,19 +2,35 @@
 import React from 'react';
 import styles from './ExpenseComparisonBars.module.css';
 import { Colors } from '@/consts/enums'
+import useUserStore from "@/store/userStore";
+import fetchDataAndCompare from '@/services/stlouisfedApi';
+import { useState, useEffect } from 'react';
 
-interface ComparisonResult {
-  category: string;
-  year: number;
-  userAmount: number;
-  marketPrice: number;
-}
+const ExpenseComparisonBars: React.FC = () => {
 
-interface ExpenseComparisonBarProps {
-  comparisonResults: ComparisonResult[];
-}
+  const { user } = useUserStore();
 
-const ExpenseComparisonBars: React.FC<ExpenseComparisonBarProps> = ({ comparisonResults }) => {
+  const [comparisonResults, setComparisonResults] = useState<any[] | null>(null);
+
+  useEffect(() => {
+    const fetchComparisonData = async () => {
+      try {
+        const data = await fetchDataAndCompare(user);
+        if (data) {
+          setComparisonResults(data);
+        }
+        else {
+          setComparisonResults(null);
+        }
+
+      } catch (error) {
+        console.error("Failed to fetch comparison results:", error);
+      }
+    };
+
+    fetchComparisonData();
+  }, [user]);
+
   return (
     <div className={styles.container}>
       <div className={styles.explanationContainer}>
@@ -23,8 +39,10 @@ const ExpenseComparisonBars: React.FC<ExpenseComparisonBarProps> = ({ comparison
         </p>
       </div>
 
-      {comparisonResults.map((result, index) => {
-        const relativeUsage = Math.min((result.userAmount / result.marketPrice) * 100, 200); // Limit to 200% for better visualization
+      {!comparisonResults && <div className={styles.loader} />}
+
+      {comparisonResults && comparisonResults.map((result, index) => {
+        const relativeUsage = Math.min((result.userAmount / result.marketPrice) * 100, 200);
         const isOverBudget = result.userAmount > result.marketPrice;
 
         return (

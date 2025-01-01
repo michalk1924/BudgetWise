@@ -19,29 +19,30 @@ export async function GET(req: NextRequest) {
 
         for (let user of users) {
             const userCategories = user?.categories;
+            
             if (!userCategories) {
                 console.error(`No categories found for user ${user.username}`);
                 continue;
             }
             for (let category of userCategories) {
-                let monthlyBudget = category.monthlyBudget;
-                if (!monthlyBudget) {
-                    monthlyBudget = [];
+                if (!category.monthlyBudget) {
+                    category.monthlyBudget = []; 
                 }
-                monthlyBudget.push({
+        
+                category.monthlyBudget.push({
                     _id: Math.random().toString(36).substring(2, 15),
                     month: new Date(new Date().setMonth(new Date().getMonth() - 1)),
                     budget: category.budget,
                     spent: category.spent
                 })
-                category.monthlyBudget = monthlyBudget;
                 category.spent = 0;
             }
-
+            
             await patchDocument(client, "users", user._id.toString(), { categories: userCategories });
 
             const userId = user._id.toString();
             const data: MonthlySummary = await getMonthlySummaryByUserId(userId);
+            
             if (!data) {
                 console.error("Failed to get monthly summary");
                 return;

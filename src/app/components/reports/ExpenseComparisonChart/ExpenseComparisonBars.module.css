@@ -62,3 +62,34 @@
   font-size: 14px;
   text-align: center;
 }
+
+.loader {
+  width: 4%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+  margin: auto;
+  padding: 2%;
+}
+
+@keyframes l5 {
+  0% {
+    box-shadow: 20px 0 #EF5A6F, -20px 0 #EF5A6F;
+    background: #EF5A6F
+  }
+
+  33% {
+    box-shadow: 20px 0 #EF5A6F, -20px 0 #EF5A6F;
+    background: #FFF1DB
+  }
+
+  66% {
+    box-shadow: 20px 0 #FFF1DB, -20px 0 #D4BDAC;
+    background: #D4BDAC
+  }
+
+  100% {
+    box-shadow: 20px 0 #D4BDAC, -20px 0 #FFF1DB;
+    background: #536493
+  }
+}
