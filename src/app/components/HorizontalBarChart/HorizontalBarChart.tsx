@@ -11,11 +11,10 @@ const HorizontalBarChart: React.FC<Props> = ({ expenses }) => {
     const chartRef = useRef<HTMLCanvasElement | null>(null);
     const chartInstanceRef = useRef<Chart | null>(null);
 
-    // חישוב ההוצאות הקבועות הרלוונטיות
     const relevantExpenses = expenses.filter((expense) => {
         if (!expense.totalInstallments || expense.totalInstallments <= 0) return true;
 
-        const firstPaymentDate = new Date(expense.firstPaymentDate);
+        const firstPaymentDate = expense.firstPaymentDate ? new Date(expense.firstPaymentDate) : new Date(); // או כל תאריך ברירת מחדל אחר
         const currentDate = new Date();
         const monthsBetween =
             (currentDate.getFullYear() - firstPaymentDate.getFullYear()) * 12 +
@@ -37,9 +36,10 @@ const HorizontalBarChart: React.FC<Props> = ({ expenses }) => {
         const dailyExpenses: { [key: number]: number } = {};
 
         relevantExpenses.forEach((expense) => {
-            const day = new Date(expense.firstPaymentDate).getDate();
+            const day = expense.firstPaymentDate ? new Date(expense.firstPaymentDate).getDate() : 0; // במקום null, מחזיר 0
             dailyExpenses[day] = (dailyExpenses[day] || 0) + expense.amount;
         });
+        
 
         const labels = Object.keys(dailyExpenses).map((day) => ` ${day}`);
         const data = Object.values(dailyExpenses);
@@ -51,7 +51,7 @@ const HorizontalBarChart: React.FC<Props> = ({ expenses }) => {
                 datasets: [
                     {
                         data,
-                        backgroundColor: "rgba(239, 90, 111, 0.5)",
+                        backgroundColor: "#EF5A6F",
                         borderWidth: 1,
                         borderRadius: 10,
                     },
