@@ -56,7 +56,6 @@ const UserTrends: React.FC<LineChartProps> = ({ transactions }) => {
                             const value = context.raw;
                             return value < 0 ? "#EF5A6F" : "#A1D6B2";
                         },
-                        fill: true,
                         tension: 0.4,
                     },
                 ],
