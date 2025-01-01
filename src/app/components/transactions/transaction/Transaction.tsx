@@ -17,7 +17,7 @@ const transactionSchema = z.object({
     date: z.string()
         .min(1, "Date is required")
         .refine((dateString) => new Date(dateString) < new Date(), { message: "Date must be before today" }),
-    amount: z.number({ invalid_type_error: "Amount must be a number" }).min(1, "Amount must be greater than zero"),
+    amount: z.number({ invalid_type_error: "Amount must be a number" }),
     description: z.string().optional(),
     paymentMethod: z.enum(["cash", "credit", "check", "bank_transfer", "bit", "other"], {
         invalid_type_error: "Payment method is required",

@@ -70,8 +70,8 @@ const FixedExpenseCard: React.FC<FixedExpenseCardProps> = ({ expense, onDelete }
                         </p>
                         <p>
                             <strong>First Payment Date:</strong>{" "}
-                            {new Date(expense.firstPaymentDate).toLocaleDateString()}
-                        </p>
+                            {expense.firstPaymentDate ? new Date(expense.firstPaymentDate).toLocaleDateString() : ''}
+                            </p>
                         <p>
                             <strong>Total Installments:</strong> {expense.totalInstallments}
                         </p>
