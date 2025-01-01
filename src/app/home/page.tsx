@@ -4,7 +4,8 @@ import React from "react";
 import styles from "./home.module.css";
 import useUserStore from "@/store/userStore";
 import { AlertsList } from "../components/index";
-import { FaPiggyBank, FaShoppingCart, FaDollarSign } from "react-icons/fa";
+import {FaWallet , FaShoppingCart, FaDollarSign } from "react-icons/fa";
+import {MdOutlineSavings} from "react-icons/md";
 import Link from "next/link";
 export default function Home() {
   const { user, updateAlertStatus } = useUserStore();
@@ -69,11 +70,11 @@ export default function Home() {
                 }
         <hr className={styles.separator} />
 
-        <h2>What would you like to do today?</h2>
-        <section className={styles.actions}>
-       <button> <Link href="/transactions" className={styles.btn}>Add Transaction</Link></button>
-        <button><Link href="/savings" className={styles.btn}>Set New Savings Goal</Link></button>
-        <button><Link href="/categories" className={styles.btn}>Plan Monthly Budget</Link></button>
+{/*         <h2>What would you like to do today?</h2>
+ */}        <section className={styles.actions}>
+       <button> <Link href="/transactions" className={styles.btn}>{"Add Transaction >>"}</Link></button>
+        <button><Link href="/savings" className={styles.btn}>{"Set New Savings Goal >>"}</Link></button>
+        <button><Link href="/categories" className={styles.btn}>{"Plan Monthly Budget >>"}</Link></button>
         </section>
 
       </section>
@@ -88,7 +89,7 @@ export default function Home() {
             </div>
 
             <div className={styles.monthlySavings}>
-              <FaPiggyBank className={styles.icon} />
+              <FaWallet className={styles.icon} />
               <h2>You Saved This Month</h2>
               <p className={styles.aaa}>${monthlySavings.toFixed(2)}</p>
             </div>

@@ -11,7 +11,7 @@
   background-position: center;
   background-repeat: no-repeat;
   height: 30vh;
-  text-shadow: 10px 7px 10px #D4BDAC;
+  text-shadow: 10px 7px 10px #b49a8c;
   display: flex; 
   align-items: center; 
   justify-content: center; 
@@ -69,6 +69,6 @@
 }
 
 .button:hover {
-  background-color:#D4BDAC;
+  background-color:#b49a8c;
 }
 

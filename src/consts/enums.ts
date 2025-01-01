@@ -1,9 +1,9 @@
 export enum Colors {
     Primary = "#EF5A6F", // red
     Secondary = "#FFF1DB",
-    Accent = "#D4BDAC",
+    Accent = "#b49a8c",
     Highlight = "#536493", // blue
-    Success = "#A1D6B2" // green
+    Success = "#53d19d" // green
 }
 
 export enum DateFilter {

@@ -77,9 +77,11 @@
 
 .formTitle {
     color: #536493; 
-    font-size: 24px;
+    font-size: 18px;
     margin-bottom: 10px;
     text-decoration: underline;
+    cursor: pointer;
+
 }
 
 .toggleText {

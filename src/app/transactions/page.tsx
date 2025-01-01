@@ -338,21 +338,25 @@ function Transactions() {
       {!loading && user && (
         <div className={styles.headers}>
           <h2 className={styles.title}>Manage Transactions</h2>
+
           {user && (
             <div className={styles.totalSection}>
-              <div className={styles.card}>
-                <h3 className={styles.totaltitle}>Total</h3>
+              {/* Available Amount */}
+              <div className={styles.circleCard}>
+                <h3 className={styles.totaltitle}>Available Amount</h3>
                 <p className={styles.totalValue}>
                   {user?.transactions
                     ?.reduce((amount, t) => {
-                      if (t.type === "expense"||t.type === "saved") {
+                      if (t.type === "expense" || t.type === "saved") {
                         return amount - Number(t.amount || 0);
                       }
                       return amount + Number(t.amount || 0);
                     }, 0)
-                    .toFixed(2)}$
+                    .toFixed(2)}
+                  $
                 </p>
 
+                {/* Current Month Balance */}
                 <h3 className={styles.monthtitle}>Current Month Balance</h3>
                 <p className={styles.value}>
                   {user?.transactions
@@ -370,9 +374,13 @@ function Transactions() {
                       }
                       return amount + Number(t.amount || 0);
                     }, 0)
-                    .toFixed(2)}$
+                    .toFixed(2)}
+                  $
                 </p>
               </div>
+
+
+
 
 
               <HorizontalBarChart expenses={user?.fixedExpenses || []} />

@@ -11,7 +11,7 @@
   
 .header  {
   height: 30vh;
-  text-shadow: 10px 7px 10px #D4BDAC;
+  text-shadow: 10px 7px 10px #b49a8c;
   align-items: center; 
   text-align: center; 
 }
@@ -161,7 +161,7 @@ font-size: 3rem;
   
 .categoryItem{
   border-radius: 15%;
-  box-shadow: 0 10px 10px #D4BDAC;
+  box-shadow: 0 10px 10px #b49a8c;
 margin-top: 5%;
 }
   .testimonials {

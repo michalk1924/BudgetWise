@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Saving,Transaction } from "../../../../types/types";
 import ProgressCircle from "./ProgressCircle/ProgressCircle";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { FiSave } from "react-icons/fi";
 
 
 interface SavingGridItemProps {
@@ -111,10 +111,8 @@ const SavingsGridItem: React.FC<SavingGridItemProps> = ({
       ) : (
         <div className={styles.editActions}>
           <button className={styles.saveButton} onClick={handleSaveClick}>
-            Save
-          </button>
-          <button className={styles.cancelButton} onClick={handleCancelClick}>
-            Cancel
+          <FiSave />
+
           </button>
         </div>
       )}

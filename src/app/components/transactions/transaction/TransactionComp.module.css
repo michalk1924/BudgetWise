@@ -61,9 +61,9 @@
   }
   
   .income {
-    color: #a1d6b2;
+    color: #53d19d;
     background-color: #fbf6f3;
-border:#a1d6b2;
+border:#53d19d;
     animation: fadeIn 0.5s ease-in-out;
   }
   
@@ -77,7 +77,7 @@ border:#a1d6b2;
   }
   
   .saved {
-    color: #d4bdac;
+    color: #b49a8c;
     background-color: #fbf6f3;
 
     animation: fadeIn 0.5s ease-in-out;
