@@ -45,7 +45,7 @@ const IncomeExpenseBarChart = ({ transactions }: BarChartProps) => {
                         labels: labels,
                         datasets: [
                             {
-                                label: "Incomes",
+                                label: "Income",
                                 data: incomeData,
                                 backgroundColor: "#53d19d",
                                 barThickness: 20,
@@ -105,6 +105,7 @@ const IncomeExpenseBarChart = ({ transactions }: BarChartProps) => {
 
     return (
         <div className="bar-chart-container">
+            
             <canvas ref={chartRef} className={styles.barchart}></canvas>
         </div>
     );
