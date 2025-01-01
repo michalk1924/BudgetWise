@@ -191,7 +191,15 @@ function TransactionsList({
                 <div>Type</div>
                 <div className={styles.hiddenOnSmall}>Description</div>
                 <div className={styles.hiddenOnSmall}>Payment Method</div>
+
+            {/* Action Icons */}
+            <div className={styles.actionIcons}>
+                <UploadExcel />
+                <DownloadPdf />
+
             </div>
+            </div>
+
 
             {currentTransactions.map((transaction) => (
                 <TransactionComp
@@ -199,6 +207,7 @@ function TransactionsList({
                     transaction={transaction}
                     categories={categories}
                     updateTransaction={updateTransaction}
+                    savings={savingsNames}
                     isEdit={false}
                 />
             ))}
@@ -209,10 +218,14 @@ function TransactionsList({
                     transaction={newTransaction}
                     categories={categories}
                     updateTransaction={handleSaveNewTransaction}
+                    savings={savingsNames}
                     isEdit={true}
 
                 />
             )}
+            <button onClick={handleCreateNewTransaction} className={styles.addButton}>
+                    + 
+            </button>
 
             <div className={styles.pagination}>
                 <button
@@ -233,13 +246,7 @@ function TransactionsList({
                     {">>"}
                 </button>
             </div>
-            <div className={styles.pagination}>
-                <UploadExcel />
-                <button onClick={handleCreateNewTransaction} className={styles.addButton}>
-                    + Add New Transaction
-                </button>
-                <DownloadPdf/>
-            </div>
+            
         </div>
     );
 }

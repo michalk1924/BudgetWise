@@ -4,13 +4,11 @@
 
 .container {
     font-family: 'Super Dream', Arial, Helvetica, sans-serif;
-    width: 90%;
+    width: 85%;
     padding: 1rem;
-    border-radius: 7px;
+    border-radius: 10px;
     overflow-x: auto;
-    margin: 0 auto;
     max-width: 1200px;
-    margin-bottom: 50px;
     align-items: center;
     padding: 0.6rem;
     background-color: #fbf6f3;
@@ -30,12 +28,12 @@
 }
 
 .year {
-    color: var(--accent-color, #D4BDAC);
+    color: var(--accent-color, #b49a8c);
 }
 
 .barBackground {
     width: 100%;
-    background-color: var(--secondary-color, #fbf6f3);
+    color: var(--primary-color, #EF5A6F);
     border-radius: 15px;
     overflow: hidden;
     height: 130px;

@@ -15,7 +15,7 @@ import { EXAMPLE_USER } from "@/consts/consts";
 type FormFields = z.infer<typeof schema>;
 
 const schema = z.object({
-    name: z.string().min(2),
+    username: z.string().min(2),
     email: z.string().email(),
     password: z.string().min(8),
 });
@@ -44,7 +44,7 @@ export default function Home() {
             const user = await authService.signup(data);
             setUser(user);
             await showSuccessAlert("Welcome!", "You Signed up successfully", 1000);
-            router.push("/userDetailsForm");
+            router.push("/user-details-form");
         } catch (error: any) {
             console.error("Error creating user:", error);
             showErrorAlert("Error creating user");
@@ -61,7 +61,7 @@ export default function Home() {
                 setUser(user);
                 await showSuccessAlert("Welcome", "You have logged in successfully!", 1000);
                 if (isNewUser) {
-                    router.push("/userDetailsForm");
+                    router.push("/user-details-form");
                 } else {
                     router.push("/home");
                 }
@@ -98,13 +98,13 @@ export default function Home() {
                 <h1 className={styles.title}>Create Your Account</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <input
-                        {...register("name")}
+                        {...register("username")}
                         type="text"
                         placeholder="Name"
                         className={styles.input}
                     />
-                    {errors.name && (
-                        <div className={styles.error}>{errors.name.message}</div>
+                    {errors.username && (
+                        <div className={styles.error}>{errors.username.message}</div>
                     )}
                     <input
                         {...register("email")}

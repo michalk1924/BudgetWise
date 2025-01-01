@@ -337,43 +337,51 @@ function Transactions() {
     <div className={styles.container}>
       {!loading && user && (
         <div className={styles.headers}>
-          <h2 className={styles.title}>Manage My Transactions</h2>
+          <h2 className={styles.title}>Manage Transactions</h2>
+
           {user && (
-            <div className={styles.total}>
-              <div>
-                Total:{" "}
-                {user?.transactions
-                  ?.reduce((amount, t) => {
-                    if (t.type === "expense") {
-                      return amount - Number(t.amount || 0);
-                    }
-                    return amount + Number(t.amount || 0);
-                  }, 0)
-                  .toFixed(2)}
-                $
+            <div className={styles.totalSection}>
+              {/* Available Amount */}
+              <div className={styles.circleCard}>
+                <h3 className={styles.totaltitle}>Available Amount</h3>
+                <p className={styles.totalValue}>
+                  {user?.transactions
+                    ?.reduce((amount, t) => {
+                      if (t.type === "expense" || t.type === "saved") {
+                        return amount - Number(t.amount || 0);
+                      }
+                      return amount + Number(t.amount || 0);
+                    }, 0)
+                    .toFixed(2)}
+                  $
+                </p>
+
+                {/* Current Month Balance */}
+                <h3 className={styles.monthtitle}>Current Month Balance</h3>
+                <p className={styles.value}>
+                  {user?.transactions
+                    ?.filter((transaction) => {
+                      const transactionDate = new Date(transaction.date);
+                      const now = new Date();
+                      return (
+                        transactionDate.getMonth() === now.getMonth() &&
+                        transactionDate.getFullYear() === now.getFullYear()
+                      );
+                    })
+                    .reduce((amount, t) => {
+                      if (t.type === "expense") {
+                        return amount - Number(t.amount || 0);
+                      }
+                      return amount + Number(t.amount || 0);
+                    }, 0)
+                    .toFixed(2)}
+                  $
+                </p>
               </div>
-              <div className={styles.currentMonthBalance}>
-                (Current Month Balance:{" "}
-                {user?.transactions
-                  ?.filter((transaction) => {
-                    const transactionDate = new Date(transaction.date);
-                    const now = new Date();
-                    return (
-                      transactionDate.getMonth() === now.getMonth() &&
-                      transactionDate.getFullYear() === now.getFullYear()
-                    );
-                  })
-                  .reduce((amount, t) => {
-                    if (t.type === "expense") {
-                      return amount - Number(t.amount || 0);
-                    }
-                    return amount + Number(t.amount || 0);
-                  }, 0)
-                  .toFixed(2)}
-                $)
-              </div>
-              <button onClick={togglePopup} className={styles.manageFixedTransaction}>Management of fixed expenses</button>
+
               <HorizontalBarChart expenses={user?.fixedExpenses || []} />
+              <button onClick={togglePopup} className={styles.manageFixedTransaction}>{"Manage fixed expenses >>"}</button>
+
             </div>
           )}
         </div>
@@ -390,17 +398,11 @@ function Transactions() {
           {/*           <UploadExcel />*/}
         </div>
 
-        {user && user?.transactions?.length > 0 && <TransactionTable transactions={user?.transactions}
+        {user && <TransactionTable transactions={user?.transactions}
           updateTransaction={handleUpdateTransaction} addTransaction={handleAddTransaction} categories={user?.categories}
           savingsNames={user?.savings.map(s => s.goalName)}
         />}
 
-      </div>}
-
-      {loading && <div className={styles.loader}>Loading...</div>}
-
-      {!loading && user && user?.transactions?.length === 0 && <div>
-        No transactions found. Add some today!
       </div>}
 
       {!loading && !user && <div className={styles.loader}>

@@ -48,7 +48,7 @@ const FixedExpensesManager: React.FC<SlideInFormProps> = ({ onClose, isVisible }
     return (
         <div className={`${styles.slideInForm} ${isVisible ? styles.open : ""}`}>
             <button className={styles.closeButton} onClick={onClose}>
-                close X
+                X
             </button>
             <div className={styles.content}>
                 <h2 className={styles.title}>Manage Your Fixed Expenses</h2>

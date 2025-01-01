@@ -7,6 +7,8 @@ import useUserStore from "../../../store/userStore";
 import { MonthlySummary, Transaction } from "@/types/types";
 import { getMonthlySummaryByUserId } from "@/services/monthly-summary";
 import { generatePDF } from "@/services/createPdf";
+import { FaDownload } from "react-icons/fa";
+
 
 const PdfGenerator = () => {
   const { user } = useUserStore();
@@ -34,8 +36,8 @@ const PdfGenerator = () => {
   };
 
   return (
-      <button onClick={handleDownload} style={{ marginRight: "10px" }}>
-        Download PDF
+      <button onClick={handleDownload} title="Download pdf of your transactions" >
+        <FaDownload/>
       </button>
   );
 };

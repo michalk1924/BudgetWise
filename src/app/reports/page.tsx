@@ -1,29 +1,12 @@
 "use client"
+import useUserStore from '@/store/userStore';
 import { DoughnutChart, IncomeExpenseBarChart, SavingsBarChart, ExpenseComparisonChart, UserTrendChart, PopularCategoriesComp } from '../components/index';
-import useUserStore from "@/store/userStore";
-import fetchDataAndCompare from '@/services/stlouisfedApi';
-import { useState, useEffect } from 'react';
 import styles from './reports.module.css'
 
 
 export default function Home() {
 
   const { user } = useUserStore();
-
-  const [comparisonResults, setComparisonResults] = useState<any[]>([]);
-
-  useEffect(() => {
-    const fetchComparisonData = async () => {
-      try {
-        const data = await fetchDataAndCompare(user);
-        setComparisonResults(data ?? []);
-      } catch (error) {
-        console.error("Failed to fetch comparison results:", error);
-      }
-    };
-
-    fetchComparisonData();
-  }, [user]);
 
   return (
     <div className={styles.container}>
@@ -55,7 +38,7 @@ export default function Home() {
           {/* Chart 4 */}
           <div className={styles.gridItem}>
             <h2 className={styles.chartTitle}>Expense Comparison</h2>
-            <ExpenseComparisonChart comparisonResults={comparisonResults} />
+            <ExpenseComparisonChart />
           </div>
 
           {/* Chart 5 */}
@@ -64,8 +47,8 @@ export default function Home() {
             <UserTrendChart transactions={user?.transactions ?? []} />
           </div>
 
-         {/* Chart 6 */}
-         <div className={styles.gridItem}>
+          {/* Chart 6 */}
+          <div className={styles.gridItem}>
             <h2 className={styles.chartTitle}>Popular Categories</h2>
             <PopularCategoriesComp />
           </div>

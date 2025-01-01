@@ -12,7 +12,7 @@
   
   .transactionItem {
     display: grid;
-    grid-template-columns: 2fr 1fr 3fr 3fr 2fr 1fr;
+    grid-template-columns: 2fr 1fr 2fr 1fr 2fr 1fr 2fr;
     grid-template-rows: auto;
     padding: 0.6rem;
     border-radius: 8px;
@@ -50,7 +50,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #2c3e50;
+    color: #536493;
     cursor: pointer;
     transition: transform 0.2s ease, color 0.3s ease;
   }
@@ -61,17 +61,25 @@
   }
   
   .income {
-    background-color: #a1d6b2;
+    color: #53d19d;
+    background-color: #fbf6f3;
+border:#53d19d;
     animation: fadeIn 0.5s ease-in-out;
   }
   
   .expense {
-    background-color: rgba(239, 90, 111, 0.5);
+    color: #EF5A6F;
+    border-color:  rgb(239, 90, 110);
+
     animation: fadeIn 0.5s ease-in-out;
+    background-color: #fbf6f3;
+
   }
   
   .saved {
-    background-color: #d4bdac;
+    color: #b49a8c;
+    background-color: #fbf6f3;
+
     animation: fadeIn 0.5s ease-in-out;
   }
   

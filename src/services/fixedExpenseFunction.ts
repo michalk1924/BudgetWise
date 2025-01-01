@@ -9,7 +9,7 @@ export const CreateTransactionByFixedExpense = async (user: User) => {
 
         for (const fixedExpense in user?.fixedExpenses) {
             const expense = user.fixedExpenses[fixedExpense];
-            if (expense.firstPaymentDate.getDate() === today.getDate()) {
+            if (expense.firstPaymentDate?.getDate() === today.getDate()) {
 
                 const firstPayment = expense.firstPaymentDate;
                 const yearsDifference = today.getFullYear() - firstPayment.getFullYear();

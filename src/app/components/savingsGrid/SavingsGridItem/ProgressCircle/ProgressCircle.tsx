@@ -27,7 +27,7 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
         value={percentage}
         strokeWidth={5}
         styles={buildStyles({
-          pathColor: percentage >= 100 ? "#A1D6B2" : "#EF5A6F",
+          pathColor: percentage >= 100 ? "#53d19d" : "#EF5A6F",
           trailColor: "#ddd",
           strokeLinecap: "round",
         })}

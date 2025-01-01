@@ -20,10 +20,12 @@ const getMarketDataForCategory = async (category: string) => {
 
 //fetches user's expenses for a specific year.
 const fetchMarketDataForAllCategories = async (): Promise<any> => {
+    
     const marketDataByYear: { [year: number]: any[] } = {};
 
     for (const category of Object.values(Categories)) {
         try {
+    
             const data = await getMarketDataForCategory(category);
 
             if (data && data.observations && Array.isArray(data.observations)) {
@@ -55,11 +57,12 @@ const compareUserWithMarket = (userExpenses: any, marketTrends: any) => {
 
     Object.keys(userExpenses).forEach((year: string) => {
         const yearExpenses = userExpenses[year];
-
+        
         Object.keys(yearExpenses).forEach((category: string) => {
-            const userAmount = yearExpenses[category];
+            
+            const userAmount = yearExpenses[category];         
 
-            const marketData = marketTrends[parseInt(year)]?.find((data: any) => data.category === category);
+            const marketData = marketTrends[parseInt(year)]?.find((data: any) => data.category == category);
 
             if (marketData) {
 
@@ -87,7 +90,6 @@ const compareUserWithMarket = (userExpenses: any, marketTrends: any) => {
 const groupExpensesByCategoryAndYear = (userExpenses: any) => {
     const groupedExpenses = userExpenses.reduce((acc: any, transaction: Transaction) => {
         let year = new Date(transaction.date).getFullYear();
-        year = year - 3;
         const category = Categories[transaction.category as keyof typeof Categories] || transaction.category;
 
         if (!acc[year]) {
@@ -122,21 +124,22 @@ const fetchDataAndCompare = async (user: User | null) => {
         if (cachedData && cachedData.length > 0 && cachedTimestamp && now - parseInt(cachedTimestamp) < ONE_DAY) {
             marketTrends = JSON.parse(cachedData);
         }
+
         else {
-            marketTrends = await fetchMarketDataForAllCategories();
+            marketTrends = await fetchMarketDataForAllCategories();            
             localStorage.setItem(CACHE_KEY, JSON.stringify(marketTrends));
             localStorage.setItem(CACHE_TIMESTAMP_KEY, now.toString());
         }
 
         const userExpenses = user?.transactions.filter(t => t.type == "expense");
         const groupedExpenses = groupExpensesByCategoryAndYear(userExpenses);
-
+        
         const comparisonResults = compareUserWithMarket(groupedExpenses, marketTrends);
-        const year = new Date(Date.now()).getFullYear() - 3;
+        const year = new Date(Date.now()).getFullYear() - 1;
 
         const comparisonResultsForThisYear = comparisonResults.filter(
             (result) => result.year === year
-        )
+        )        
 
         if (comparisonResultsForThisYear) {
             return comparisonResultsForThisYear

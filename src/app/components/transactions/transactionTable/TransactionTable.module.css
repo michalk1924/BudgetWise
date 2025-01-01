@@ -6,27 +6,64 @@
   flex-direction: column;
   gap: 0.3rem;
   padding: 0.3rem;
-  color:#536493;
-  margin-top: 10px;
+  color: #536493;
+  position: relative; /* Ensure proper alignment with floating elements */
 }
 
 .header {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 1fr;
+  grid-template-columns: 1.7fr 1fr 2fr 1fr 2fr 1fr 0.7fr;
   font-weight: normal;
-  background-color: #D4BDAC;
+  color: #fbf6f3;
+  background-color:#536493 ;
   border-radius: 8px;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
   align-items: center;
+}
+
+.actionIcons {
+  display: flex;
+  gap: 15px;
+  font-weight: lighter;
+  justify-content: flex-end;
 }
 
 .transactionItem:hover {
   background-color: #FFF1DB;
 }
 
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.headerWithActions {
+  display: flex;
+  justify-content: space-between; /* Space between table filters and action icons */
+  align-items: center;
+  padding: 0 10px;
+}
+
+.actionIcons {
+  display: flex;
+  gap: 10px; /* Add spacing between the icons */
+  justify-content: flex-end;
+}
+
+.actionIcons > * {
+  cursor: pointer;
+  font-size: 1.2rem; /* Adjust icon size */
+}
+
+
+.transactionItem:hover {
+  background-color: #FFF1DB;
+}
+
 .income {
-  background-color: #A1D6B2;
+  background-color: #53d19d;
 }
 
 .expense {
@@ -44,17 +81,10 @@
   color: #505051;
 }
 
-.pagination {
-  display: flex;
-  justify-content: space-between;
-  /* align-items: center; */
-  /* gap: 10px; */
-  /* font-size: 0.1rem; */
 
-}
 
 .pageButton {
-  background-color: #D4BDAC;
+  background-color: #b49a8c;
   color: white;
   border: none;
   padding: 0.1rem 0.3rem;
@@ -161,24 +191,20 @@
     /* Hide additional fields */
   }
 
-}.addTransaction {
-  text-align: center;
-  margin-top: 20px;
 }
 
 .addButton {
-  padding:5px 10px;
-  font-size: 0.7rem;
-  color: #fff;
-  background-color: #536493;
-  border: none;
-  border-radius: 8px;
+  font-size: 2rem;
+  color: #536493;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 0.5rem;
+  display: flex;
+  justify-content: flex-end;  
+  height: 30px;
+  top:-20px;
+  align-content: flex-start;
 }
 
 .addButton:hover {
-  background-color: #3a4b8f;
+  color: #3a4b8f;
 }
 

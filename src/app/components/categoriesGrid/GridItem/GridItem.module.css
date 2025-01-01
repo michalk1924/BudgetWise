@@ -1,7 +1,7 @@
 .gridItem {
   border-radius: 10px;
   padding: 15px;
-  box-shadow: 0px 4px 6px #D4BDAC;
+  box-shadow: 0px 4px 6px #b49a8c;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -69,7 +69,7 @@
 }
 
 .left {
-  color: #A1D6B2;
+  color: #53d19d;
 }
 
 .editButton:hover {
@@ -109,7 +109,7 @@
 }
 
 .left {
-  color: #A1D6B2;
+  color: #53d19d;
   text-align: right;
   /* Ensure text aligns to the right */
 }
@@ -162,6 +162,10 @@
 .iconContainer{
   display: flex;
   flex-direction: row;
+  gap:10px;
+}
+.monthlyBudget{
+  justify-content: space-between;
 }
 
 .progressBar {

@@ -98,7 +98,7 @@ export interface FixedExpense {
   _id: string;
   name: string; 
   amount: number; 
-  firstPaymentDate: Date; 
+  firstPaymentDate?: Date; 
   totalInstallments?: number; 
   category?: string; 
   paymentMethod?: "cash" | "credit" | "check" | "bank_transfer" | "bit" | "other"; 

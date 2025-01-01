@@ -26,10 +26,10 @@ const transactionSchema = z.object({
 
 export type TransactionInput = z.infer<typeof transactionSchema>;
 
-const TransactionComp = ({ transaction, updateTransaction, categories, isEdit}: { transaction: Transaction, categories: Category[], updateTransaction: (transaction: Transaction) => void, isEdit:boolean}) => {
+const TransactionComp = ({ transaction, updateTransaction, categories, savings, isEdit }: { transaction: Transaction, categories: Category[], savings: string[], updateTransaction: (transaction: Transaction) => void, isEdit: boolean }) => {
 
     const [isEditing, setIsEditing] = useState(isEdit);
-    const { register, handleSubmit, formState: { errors } } = useForm<TransactionInput>({
+    const { register, handleSubmit, formState: { errors } ,watch} = useForm<TransactionInput>({
         resolver: zodResolver(transactionSchema),
         defaultValues: {
             type: transaction.type,
@@ -65,7 +65,7 @@ const TransactionComp = ({ transaction, updateTransaction, categories, isEdit}: 
         <div key={transaction._id}>
             {isEditing ? (
                 <div className={`${styles.transactionItem} ${styles[transaction.type]}`}>
-                    
+
                     <div>
                         <input
                             type="date"
@@ -90,16 +90,23 @@ const TransactionComp = ({ transaction, updateTransaction, categories, isEdit}: 
                             className={styles.inlineSelect}
                             defaultValue={transaction.category || ""}
                         >
-                            {categories.map((category) => (
-                                <option key={category._id} value={category.categoryName}>
-                                    {category.categoryName}
-                                </option>
-                            ))}
+                            {watch("type") === "saved"
+                                ? savings.map((savingName, index) => (
+                                    <option key={index} value={savingName}>
+                                        {savingName}
+                                    </option>
+                                ))
+                                : categories.map((category) => (
+                                    <option key={category._id} value={category.categoryName}>
+                                        {category.categoryName}
+                                    </option>
+                                ))}
                         </select>
                         {errors.category && (
                             <p className={styles.error}>{errors.category.message}</p>
                         )}
                     </div>
+
                     <div>
                         <select {...register("type")} className={styles.inlineSelect}>
                             <option value="income">Income</option>
@@ -139,17 +146,17 @@ const TransactionComp = ({ transaction, updateTransaction, categories, isEdit}: 
                 </div>
             ) : (
                 <div className={`${styles.transactionItem} ${styles[transaction.type]}`}>
-                <div>{new Date(transaction.date).toLocaleDateString()}</div>
-                <div>{transaction.amount}</div>
-                <div>{transaction.category}</div>
-                <div>{transaction.type}</div>
-                <div className={styles.hiddenOnSmall}>{transaction.description || 'N/A'}</div>
-                <div className={styles.hiddenOnSmall}>{transaction.paymentMethod}</div>
-                <div className={styles.icon} onClick={handleEdit}>
-                  <FaPencilAlt />
+                    <div>{new Date(transaction.date).toLocaleDateString()}</div>
+                    <div>{transaction.amount}</div>
+                    <div>{transaction.category}</div>
+                    <div>{transaction.type}</div>
+                    <div className={styles.hiddenOnSmall}>{transaction.description || 'N/A'}</div>
+                    <div className={styles.hiddenOnSmall}>{transaction.paymentMethod}</div>
+                    <div className={styles.icon} onClick={handleEdit}>
+                        <FaPencilAlt />
+                    </div>
                 </div>
-              </div>
-              
+
             )}
         </div>
     );

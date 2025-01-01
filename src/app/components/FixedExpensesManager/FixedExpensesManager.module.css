@@ -5,7 +5,7 @@
     right: 0;
     width: 350px;
     height: 100%;
-    background-color: #fbf6f3;
+    background-color: #fff8ee;
     box-shadow: 0px 4px 6px rgba(212, 189, 172, 0.8);
     padding: 20px;
     transform: translateX(100%);
@@ -36,17 +36,15 @@
 
 .closeButton {
     background-color: #EF5A6F;
-    color: white;
+    color: #fff8ee;
     border: none;
     font-size: 1.2rem;
-    font-family: "Arial", sans-serif;
     cursor: pointer;
-    padding: 10px 15px;
     border-radius: 5px;
-    width: 100%; 
     position: sticky; 
     top: 0;
     z-index: 1010; 
+    width:30px;
 }
 
 @media (max-width: 768px) {
@@ -65,4 +63,5 @@
     color:#536493;
     margin-bottom: 20px;
     text-align: center;
+    
 }
