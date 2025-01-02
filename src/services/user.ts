@@ -38,6 +38,7 @@ const userService = {
         try {
             console.log(`Updating user with ID: ${id}`);
             const response = await http.patch(`/users/${id}`, body);
+            console.log(response)
             return response.data;
         } catch (error) {
             throw error;
