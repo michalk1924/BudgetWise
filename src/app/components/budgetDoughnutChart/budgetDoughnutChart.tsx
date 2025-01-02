@@ -32,7 +32,7 @@ const BudgetDoughnutChart = ({ categories }: BudgetDoughnutChartProps) => {
                 const colors = [
                     "#EF5A6F",
                     "#FFF1DB",
-                    "#b49a8c",
+                    "#6c757d",
                     "#536493",
                     "#53d19d",
                     "#FF7A89",

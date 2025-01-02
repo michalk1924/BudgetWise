@@ -1,7 +1,7 @@
 export enum Colors {
     Primary = "#EF5A6F", // red
     Secondary = "#FFF1DB",
-    Accent = "#b49a8c",
+    Accent = "#6c757d",
     Highlight = "#536493", // blue
     Success = "#53d19d" // green
 }
