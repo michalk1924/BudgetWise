@@ -315,7 +315,7 @@ const UserDetailsForm = () => {
                                 <option value="10">10th of the Month</option>
                             </select>
                         </label>
-                        
+
                         {/* Estimated Income */}
                         <label className={styles.label}>
                             Estimated Monthly Income: *
@@ -483,14 +483,7 @@ const UserDetailsForm = () => {
 
                         <label className={styles.label}>
                             Do you have any other fixed expenses?
-                            <button
-                                type="button"
-                                onClick={() => addFixedExpense}
-                                className={styles.removeButton}
-                            >
-                                +Add
-                            </button>
-                            {(fixedExpenses || []).map((expense) => (
+                            {fixedExpenses.map((expense) => (
                                 <div key={expense._id} className={styles.fixedExpense}>
                                     <input
                                         type="text"
@@ -510,23 +503,7 @@ const UserDetailsForm = () => {
                                         }
                                         className={styles.input}
                                     />
-                                    <input
-                                        type="date"
-                                        value={
-                                            expense.firstPaymentDate
-                                                ? new Date(expense.firstPaymentDate).toISOString().split("T")[0]
-                                                : ""
-                                        }
-                                        onChange={(e) =>
-                                            handleFixedExpenseChange(
-                                                expense._id,
-                                                "firstPaymentDate",
-                                                e.target.value
-                                            )
-                                        }
-                                        className={styles.input}
-                                    />
-
+                                   
                                     <button
                                         type="button"
                                         onClick={() => removeFixedExpense(expense._id)}
@@ -536,11 +513,17 @@ const UserDetailsForm = () => {
                                     </button>
                                 </div>
                             ))}
+                            <button
+                                type="button"
+                                onClick={addFixedExpense}
+                                className={styles.addButton}
+                            >
+                                + Add Fixed Expense
+                            </button>
                         </label>
-
                     </div>
                     <div className={styles.gridItem}>
-<h1>Lifestyle</h1>
+                        <h1>Lifestyle</h1>
                         {/* Has Car */}
                         <label className={styles.label}>
                             Do you own a car?: *
