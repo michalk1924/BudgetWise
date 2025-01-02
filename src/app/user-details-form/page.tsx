@@ -86,7 +86,7 @@ const UserDetailsForm = () => {
         },
     });
 
-    
+
     const updateUserAddSavingMutation = useMutation({
         mutationFn: async ({ id, saving }: { id: string; saving: Saving }) => {
             if (user) {
@@ -177,7 +177,7 @@ const UserDetailsForm = () => {
 
         const budget = generateBudgetWithCategories(formData);
         console.log("budget: " + budget);
-        
+
         const categories: Category[] = Object.entries(budget.expenses).map(
             ([categoryName, budgetAmount]) => ({
                 _id: Math.random().toString(36).substr(2, 8),
@@ -187,7 +187,7 @@ const UserDetailsForm = () => {
                 spent: 0,
                 monthlyBudget: [],
             })
-        );        
+        );
 
         const saving: Saving = {
             _id: Math.random().toString(36).substr(2, 8),
@@ -252,8 +252,55 @@ const UserDetailsForm = () => {
             <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.gridContainer}>
                     <div className={styles.gridItem}>
-                        General Information
-                        {/* Start of Budget Month */}
+                        <h1 >Personal Information</h1>
+
+                        {/* Household Type */}
+                        <label className={styles.label}>
+                            Household Type: *
+                            <select
+                                name="householdType"
+                                value={formData.householdType}
+                                onChange={handleInputChange}
+                                className={styles.input}
+                                required
+                            >
+                                <option value="">Select household type</option>
+                                <option value="single">Single</option>
+                                <option value="partnered">With Partner</option>
+                            </select>
+                        </label>
+                        <label className={styles.label}>
+                            Number of Children: *
+                            <input
+                                type="number"
+                                name="dependents"
+                                value={formData.dependents}
+                                onChange={handleInputChange}
+                                className={styles.input}
+                                placeholder="Enter number of dependents"
+                                required
+                            />
+                        </label>
+
+                        {/* Housing */}
+                        <label className={styles.label}>
+                            What is your housing situation?:
+                            <select
+                                name="housing"
+                                value={formData.housing}
+                                onChange={handleInputChange}
+                                className={styles.input}
+                            >
+                                <option value="">Select housing type</option>
+                                <option value="rent">Rent</option>
+                                <option value="own">Own</option>
+                                <option value="livingWithFamily">Living with Family</option>
+                            </select>
+                        </label>
+
+                    </div>
+                    <div className={styles.gridItem}>
+
                         <label className={styles.label}>
                             Start of Budget Month: *
                             <select
@@ -268,7 +315,7 @@ const UserDetailsForm = () => {
                                 <option value="10">10th of the Month</option>
                             </select>
                         </label>
-
+                        
                         {/* Estimated Income */}
                         <label className={styles.label}>
                             Estimated Monthly Income: *
@@ -301,37 +348,9 @@ const UserDetailsForm = () => {
                                 <option value="other">Other</option>
                             </select>
                         </label>
-                        {/* Household Type */}
-                        <label className={styles.label}>
-                            Household Type: *
-                            <select
-                                name="householdType"
-                                value={formData.householdType}
-                                onChange={handleInputChange}
-                                className={styles.input}
-                                required
-                            >
-                                <option value="">Select household type</option>
-                                <option value="single">Single</option>
-                                <option value="partnered">With Partner</option>
-                            </select>
-                        </label>
 
-                        {/* Housing */}
-                        <label className={styles.label}>
-                            What is your housing situation?:
-                            <select
-                                name="housing"
-                                value={formData.housing}
-                                onChange={handleInputChange}
-                                className={styles.input}
-                            >
-                                <option value="">Select housing type</option>
-                                <option value="rent">Rent</option>
-                                <option value="own">Own</option>
-                                <option value="livingWithFamily">Living with Family</option>
-                            </select>
-                        </label>
+
+
                         {/* Budget Priority */}
                         <label className={styles.label}>
                             What is your top budgeting priority?
@@ -352,7 +371,7 @@ const UserDetailsForm = () => {
                     </div>
                     <div className={styles.gridItem}>
 
-                        Loans, Debts and Savings
+                        <h1 >Loans, Debts and Savings</h1>
                         {/* Loans */}
                         <label className={styles.label}>
                             Do you have any loans? *
@@ -434,7 +453,7 @@ const UserDetailsForm = () => {
                     </div>
 
                     <div className={styles.gridItem}>
-                        Expenses
+                        <h1 >Expenses</h1>
                         <label className={styles.label}>
                             How much do you spend on housing? *
                             <input
@@ -521,20 +540,7 @@ const UserDetailsForm = () => {
 
                     </div>
                     <div className={styles.gridItem}>
-
-                        <label className={styles.label}>
-                            Number of Children: *
-                            <input
-                                type="number"
-                                name="dependents"
-                                value={formData.dependents}
-                                onChange={handleInputChange}
-                                className={styles.input}
-                                placeholder="Enter number of dependents"
-                                required
-                            />
-                        </label>
-
+<h1>Lifestyle</h1>
                         {/* Has Car */}
                         <label className={styles.label}>
                             Do you own a car?: *

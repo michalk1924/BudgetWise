@@ -7,7 +7,7 @@ import { Saving,Transaction} from "@/types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from '@/services/user';
-import { showAlertWithTwoOptions } from "@/services/alerts";
+import { showAlertWithTwoOptions,showErrorAlert } from "@/services/alerts";
 
 const Savings = () => {
 
@@ -88,8 +88,15 @@ const Savings = () => {
     },
   });
   const handleAddSaving = async (saving: Saving) => {
-    saving._id = Math.random().toString(36).substr(2, 8);
-    updateUserMutation.mutate({ id: user?._id ?? '', saving });
+    const savingsNames = user?.savings?.map((saving) => saving.goalName) || [];
+    if (!savingsNames.includes(saving.goalName)) {
+      saving._id = Math.random().toString(36).substr(2, 8);
+      updateUserMutation.mutate({ id: user?._id ?? '', saving });
+    }
+    else {
+      showErrorAlert("Category name already exists, please choose a different one.");
+    }
+   
   };
   const handleUpdateSaving = async (saving: Saving) => {
     updateUserMutationUpdateSaving.mutate({ id: user?._id ?? '', saving });
