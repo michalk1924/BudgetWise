@@ -63,7 +63,7 @@ gap:5%;
   margin: 0;
   font-size: 2rem;
   font-weight: bold;
-  text-shadow: 10px 7px 10px #b49a8c;
+  text-shadow: 10px 7px 10px #6c757d;
   /* z-index: 10; */
 }
 
@@ -102,12 +102,12 @@ gap:5%;
   }
 
   66% {
-    box-shadow: 20px 0 #FFF1DB, -20px 0 #b49a8c;
-    background: #b49a8c
+    box-shadow: 20px 0 #FFF1DB, -20px 0 #6c757d;
+    background: #6c757d
   }
 
   100% {
-    box-shadow: 20px 0 #b49a8c, -20px 0 #FFF1DB;
+    box-shadow: 20px 0 #6c757d, -20px 0 #FFF1DB;
     background: #536493
   }
 }
@@ -201,7 +201,7 @@ gap:5%;
 .totalValue {
   font-size: 2rem;
   font-weight: bold;
-  color: #2a9d8f; /* Green for positive values */
+  color: #6c757d; /* Green for positive values */
 }
 
 
@@ -209,7 +209,7 @@ gap:5%;
 
 .totaltitle {
   font-size: 1.1rem;
-  color:#2a9d8f;
+  color:#6c757d;
 
 }
 

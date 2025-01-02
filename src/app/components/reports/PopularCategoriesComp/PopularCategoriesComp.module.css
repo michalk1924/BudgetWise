@@ -19,12 +19,12 @@
   }
 
   66% {
-    box-shadow: 20px 0 #FFF1DB, -20px 0 #b49a8c;
-    background: #b49a8c
+    box-shadow: 20px 0 #FFF1DB, -20px 0 #6c757d;
+    background: #6c757d
   }
 
   100% {
-    box-shadow: 20px 0 #b49a8c, -20px 0 #FFF1DB;
+    box-shadow: 20px 0 #6c757d, -20px 0 #FFF1DB;
     background: #536493
   }
 }
