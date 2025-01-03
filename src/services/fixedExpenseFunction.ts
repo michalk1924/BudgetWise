@@ -23,7 +23,7 @@ export const CreateTransactionByFixedExpense = async (user: User) => {
                         _id: id,
                         category: expense.category,
                         type: 'expense',
-                        amount: expense.amount,
+                        amount: expense.amount ?? 0,
                         description: expense.notes || "No Description",
                         date: today,
                         createdAt: today,
