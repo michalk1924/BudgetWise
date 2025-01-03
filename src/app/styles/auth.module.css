@@ -3,7 +3,7 @@
     flex-direction: column;
     width: 380px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px #b49a8c;
+    box-shadow: 0 4px 8px #6c757d;
     margin: auto;
     padding: 0.5rem;
     margin-top: 10vh;
@@ -125,7 +125,7 @@
 
 .exampleUserButton {
     width: 70%;
-    background-color: #b49a8c;
+    background-color: #6c757d;
     color: #fff5e6;
     border: none;
     border-radius: 6px;

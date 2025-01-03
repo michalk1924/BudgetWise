@@ -4,9 +4,7 @@ import { User } from '../types/types'
 const userService = {
 
     async getAllUsers() {
-        try {
-            console.log("get all users");
-            
+        try {            
             const response = await http.get('/users');
             if (Array.isArray(response.data)) {
                 return response.data;
@@ -36,7 +34,6 @@ const userService = {
     },
     async updateUser(id: string, body: Partial<User>) {
         try {
-            console.log(`Updating user with ID: ${id}`);
             const response = await http.patch(`/users/${id}`, body);
             return response.data;
         } catch (error) {

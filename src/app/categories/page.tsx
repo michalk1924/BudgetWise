@@ -2,14 +2,15 @@
 
 import React from "react";
 import styles from "./categories.module.css";
-import {BudgetGrid, AddNewBudget, GridItem, BudgetDoughnutChart}  from "../components/index";
+import { BudgetGrid, AddNewBudget, GridItem, BudgetDoughnutChart } from "../components/index";
 import { Category } from "../../types/types";
 import useUserStore from "@/store/userStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user";
+import { showErrorAlert } from "@/services/alerts";
 
 const Categories = () => {
-  const { user, addCategory, updateCategory,removeCategory } = useUserStore();
+  const { user, addCategory, updateCategory, removeCategory } = useUserStore();
 
   const queryClient = useQueryClient();
 
@@ -71,7 +72,7 @@ const Categories = () => {
         const updatedCategories = user.categories.filter((category) => category._id !== categoryId);
         const response = await userService.updateUser(id, { categories: updatedCategories });
         // Assuming you have a function to remove the saving from local state
-        removeCategory(categoryId); 
+        removeCategory(categoryId);
         return response;
       }
       return null;
@@ -85,8 +86,14 @@ const Categories = () => {
   });
 
   const handleAddCategory = (category: Category) => {
-    category._id = Math.random().toString(36).substr(2, 8);
-    updateUserMutation.mutate({ id: user?._id ?? "", category });
+    const categoryNames = user?.categories?.map((category) => category.categoryName) || [];
+    if (!categoryNames.includes(category.categoryName)) {
+      category._id = Math.random().toString(36).substr(2, 8);
+      updateUserMutation.mutate({ id: user?._id ?? "", category });
+    }
+    else {
+      showErrorAlert("Category name already exists, please choose a different one.");
+    }
   };
 
   const handleUpdateCategory = (category: Category) => {
@@ -98,47 +105,47 @@ const Categories = () => {
 
   return (
     <div>
-    <div className={styles.page}>
-      <section className={styles.leftSection}>
+      <div className={styles.page}>
+        <section className={styles.leftSection}>
 
-        <header className={styles.title}>
-        <span>BUDGET SETTING</span>
+          <header className={styles.title}>
+            <span>BUDGET SETTING</span>
 
-        </header>
+          </header>
 
-        <section className={styles.totalsSection}>
-        {total && (
-            <GridItem
-              key="total"
-              category={{
-                _id: "total",
-                categoryName: "Monthly Total Budget",
-                description: "Total budget for the month",
-                budget: total.budget,
-                spent: total.spent,
-              }}
-              isTotal={true}
-            />
-          )}
-          
-        <BudgetDoughnutChart categories={user?.categories ?? []} />
+          <section className={styles.totalsSection}>
+            {total && (
+              <GridItem
+                key="total"
+                category={{
+                  _id: "total",
+                  categoryName: "Monthly Total Budget",
+                  description: "Total budget for the month",
+                  budget: total.budget,
+                  spent: total.spent,
+                }}
+                isTotal={true}
+              />
+            )}
 
-         
-        </section>
-      </section>
+            <BudgetDoughnutChart categories={user?.categories ?? []} />
 
-      <section className={styles.mainSection}>
-        <section className={styles.tableSection}>
-          {user && user?.categories?.length > 0 && (
-            <BudgetGrid categories={user?.categories || []} onUpdateCategory={handleUpdateCategory} onDeleteCategory={handleDeleteCategory}/>
-          )}
+
+          </section>
         </section>
 
-        <section className={styles.addBudgetSection}>
-          {user && <AddNewBudget addCategory={handleAddCategory} />} 
+        <section className={styles.mainSection}>
+          <section className={styles.tableSection}>
+            {user && user?.categories?.length > 0 && (
+              <BudgetGrid categories={user?.categories || []} onUpdateCategory={handleUpdateCategory} onDeleteCategory={handleDeleteCategory} />
+            )}
+          </section>
+
+          <section className={styles.addBudgetSection}>
+            {user && <AddNewBudget addCategory={handleAddCategory} />}
+          </section>
         </section>
-      </section>
-    </div>
+      </div>
     </div>
   );
 };

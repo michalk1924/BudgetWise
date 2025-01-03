@@ -85,19 +85,19 @@ export default function Home() {
             <div className={styles.monthlyIncome}>
               <FaDollarSign className={styles.icon} />
               <h2>Your Monthly Income</h2>
-              <p className={styles.aaa}>${monthlyIncome.toFixed(2)}</p>
+              <p className={styles.text}>${monthlyIncome.toFixed(2)}</p>
             </div>
 
             <div className={styles.monthlySavings}>
               <FaWallet className={styles.icon} />
               <h2>You Saved This Month</h2>
-              <p className={styles.aaa}>${monthlySavings.toFixed(2)}</p>
+              <p className={styles.text}>${monthlySavings.toFixed(2)}</p>
             </div>
 
             <div className={styles.monthlyExpenses}>
               <FaShoppingCart className={styles.icon} />
               <h2>Your Monthly Expenses</h2>
-              <p className={styles.aaa}>${monthlyExpenses.toFixed(2)}</p>
+              <p className={styles.text}>${monthlyExpenses.toFixed(2)}</p>
             </div>
           
         </section>
