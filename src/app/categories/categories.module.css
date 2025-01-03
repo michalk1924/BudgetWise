@@ -2,7 +2,7 @@
   color: #536493;
   display: flex;
   flex-direction: row;
-  height: 90vh;
+  /* height: 90vh; */
   gap: 7%;
   margin: 0 3% 3% 3%;
 }

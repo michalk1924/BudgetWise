@@ -66,11 +66,11 @@ const FixedExpenseCard: React.FC<FixedExpenseCardProps> = ({ expense, onDelete }
                 <>
                     <div className={styles.details}>
                         <p>
-                            <strong>Amount:</strong> ${expense.amount.toFixed(2)}
+                            <strong>Amount:</strong> ${expense?.amount?.toFixed(2)}
                         </p>
                         <p>
                             <strong>First Payment Date:</strong>{" "}
-                            {expense.firstPaymentDate?.toLocaleDateString()}
+                            {expense.firstPaymentDate && new Date(expense.firstPaymentDate)?.toLocaleDateString()}
                         </p>
                         <p>
                             <strong>Total Installments:</strong> {expense.totalInstallments}
@@ -91,11 +91,11 @@ const FixedExpenseCard: React.FC<FixedExpenseCardProps> = ({ expense, onDelete }
                         )}
                         <p>
                             <strong>Created At:</strong>{" "}
-                            {new Date(expense.createdAt).toLocaleDateString()}
+                            {expense.createdAt && new Date(expense.createdAt).toLocaleDateString()}
                         </p>
                         <p>
                             <strong>Updated At:</strong>{" "}
-                            {new Date(expense.updatedAt).toLocaleDateString()}
+                            {expense.updatedAt && new Date(expense.updatedAt).toLocaleDateString()}
                         </p>
                     </div>
                     <strong className={styles.toggleText} onClick={toggleDetails}>
