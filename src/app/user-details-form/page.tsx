@@ -66,6 +66,7 @@ const UserDetailsForm = () => {
             console.error("Error updating user:", error.message);
         },
     });
+
     const updateUserAddFixedExpensesMutation = useMutation({
         mutationFn: async ({ id, fixedExpenses }: { id: string; fixedExpenses: FixedExpense[] }) => {
             if (user) {
@@ -86,7 +87,6 @@ const UserDetailsForm = () => {
         },
     });
 
-
     const updateUserAddSavingMutation = useMutation({
         mutationFn: async ({ id, saving }: { id: string; saving: Saving }) => {
             if (user) {
@@ -105,7 +105,6 @@ const UserDetailsForm = () => {
             console.error('Error updating user:', error.message);
         },
     });
-
 
     const [formData, setFormData] = useState<FormData>({
         fullName: user?.username || "",
@@ -129,7 +128,6 @@ const UserDetailsForm = () => {
         entertainmentPreference: "",
         householdType: "",
     });
-
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -176,7 +174,6 @@ const UserDetailsForm = () => {
         e.preventDefault();
 
         const budget = generateBudgetWithCategories(formData);
-        console.log("budget: " + budget);
 
         const categories: Category[] = Object.entries(budget.expenses).map(
             ([categoryName, budgetAmount]) => ({
@@ -198,45 +195,41 @@ const UserDetailsForm = () => {
             createdAt: new Date(),
             updatedAt: new Date(),
         };
-        setFixedExpenses((prevExpenses) => {
-            const updatedExpenses = [
-                ...(prevExpenses || []), // Ensure prevExpenses is an array
-                {
-                    _id: Math.random().toString(36).substr(2, 8),
-                    name: "housing",
-                    amount: formData.housingCost || 0, // Ensure a valid value
-                    firstPaymentDate: new Date(), // Add this if applicable
-                    totalInstallments: 0, // Add this if applicable
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                },
-                {
-                    _id: Math.random().toString(36).substr(2, 8),
-                    name: "education",
-                    amount: formData.educationCost || 0, // Ensure a valid value
-                    firstPaymentDate: new Date(), // Add this if applicable
-                    totalInstallments: 0, // Add this if applicable
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                },
-            ];
 
-            console.log("Updated Expenses:", updatedExpenses); // Debugging log
-
-            return updatedExpenses; // Return the updated array
-        });
-
-
+        const updatedExpenses: FixedExpense[] = [
+            ...(fixedExpenses || []), // Ensure prevExpenses is an array
+            {
+                _id: Math.random().toString(36).substr(2, 8),
+                name: "housing",
+                amount: Number(formData.housingCost) || 0, // Ensure a valid value
+                firstPaymentDate: new Date(), // Add this if applicable
+                totalInstallments: 0, // Add this if applicable
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+            {
+                _id: Math.random().toString(36).substr(2, 8),
+                name: "education",
+                amount: Number(formData.educationCost) || 0, // Ensure a valid value
+                firstPaymentDate: new Date(), // Add this if applicable
+                totalInstallments: 0, // Add this if applicable
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+        ];
 
         await Promise.all([
+
             updateUserAddCategoriesMutation.mutateAsync({
                 id: user?._id ?? "",
                 categories,
             }),
+
             updateUserAddFixedExpensesMutation.mutateAsync({
                 id: user?._id ?? "",
-                fixedExpenses,
+                fixedExpenses: updatedExpenses,
             }),
+
             updateUserAddSavingMutation.mutateAsync({ id: user?._id ?? "", saving }),
         ]);
 
@@ -503,7 +496,7 @@ const UserDetailsForm = () => {
                                         }
                                         className={styles.input}
                                     />
-                                   
+
                                     <button
                                         type="button"
                                         onClick={() => removeFixedExpense(expense._id)}
