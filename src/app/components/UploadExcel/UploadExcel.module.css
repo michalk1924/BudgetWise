@@ -1,4 +1,6 @@
-
+.fileUploadWrapper label {
+    cursor: pointer;
+}
 
 .customFileUpload:hover {
     background-color: #3a4b8f;
