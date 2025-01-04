@@ -46,7 +46,7 @@ export default function UploadExcel() {
 
                 showSuccessAlert("Succses!", "The file has been loaded successfully!", 4000);
             }
-            addTransactionsFromExcel(filteredData); // עדכון ב-store אם צריך
+            addTransactionsFromExcel(filteredData);
         } catch (error) {
             console.error("Error parsing file:", error);
         } finally {
