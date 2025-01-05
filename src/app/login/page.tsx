@@ -146,7 +146,7 @@ export default function Home() {
                 placeholder="Password"
                 className={styles.input}
               />
-              <button
+             {/*  <button
                 type="button"
                 className={styles.showPasswordBtn}
                 onClick={togglePasswordVisibility}
@@ -155,7 +155,7 @@ export default function Home() {
                   className={`fa-solid ${showPassword ? "fa-eye" : "fa-eye-slash"
                     }`}
                 ></i>
-              </button>
+              </button> */}
             </div>
           </div>
           {errors.password && (
@@ -174,21 +174,20 @@ export default function Home() {
           <p onClick={handleForgotPassword}>Forgot Password?</p>
         </div>
 
-        <button className={styles.exampleUserButton} onClick={loginWithExampleUser}>exmaple user</button>
 
         <div className={styles.googleButtonContainer}>
           <button className={styles.googleButton} onClick={loginWithGoogle}>
-            {" "}
             Login with Google
           </button>
         </div>
 
         <div className={styles.movePage}>
           <p onClick={goToSignup}>
-            Don't have an account? Sign up{" "}
-            <span className={styles.link}>here</span>.
-          </p>
+            Don't have an account? Sign up{" "} <span className={styles.link}>here</span>.
+            </p>
         </div>
+            <button className={styles.exampleUserButton} onClick={loginWithExampleUser}>{"login with exmaple user>>"}</button>
+          
       </div>
     </div>
   );

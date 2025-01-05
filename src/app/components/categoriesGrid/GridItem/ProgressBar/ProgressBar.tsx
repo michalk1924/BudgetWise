@@ -6,7 +6,7 @@ interface ProgressBarProps {
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ percentage }) => {
-  const progressColor = percentage > 100 ? "#EF5A6F" : "#53d19d";
+  const progressColor = percentage > 100 ? "#EF5A6F" : "#6ac488";
   return (
     <div className={styles.progressBar}>
       <div

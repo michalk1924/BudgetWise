@@ -16,7 +16,7 @@
     animation: fadeIn 1s ease-in-out;
     display: flex;
     flex-direction: row;
-    gap: 7%;
+    gap: 7%;    
 }
 
 .separator {
@@ -69,6 +69,8 @@
 
     background-color: #fbf6f3;
     box-shadow: 0px 4px 6px #6c757d;
+    background: linear-gradient(145deg, #ffffff, #fbf6f3);
+
 }
 
 .monthlyIncome:hover,
@@ -131,7 +133,7 @@
     background-color: #EF5A6F;
 }
 .newSaving{
-    background-color: #53d19d;
+    background-color: #6ac488;
 
 }
 .planBudget{
@@ -140,15 +142,15 @@
 
  */
 .monthlyIncome {
-    color: #53d19d;
+    color: #6ac488;
 }
 
 .monthlyIncome:hover {
-    box-shadow: 0 15px 15px #53d19d;
+    box-shadow: 0 15px 15px #6ac488;
 }
 
 .monthlyExpenses {
-    color: #ef5a6ee0;
+    color: #EF5A6F;
 
 }
 
