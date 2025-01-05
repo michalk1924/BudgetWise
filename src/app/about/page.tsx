@@ -11,7 +11,7 @@ export default function AboutUs() {
   };
 
   const handleSignUp = () => {
-    router.push('/sign-up'); // Redirect to the sign-up page
+    router.push('/signup'); // Redirect to the sign-up page
   };
 
   return (
