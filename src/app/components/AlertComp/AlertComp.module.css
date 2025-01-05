@@ -1,5 +1,5 @@
 .alertItem {
-    padding: 15px;
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -42,7 +42,7 @@
 
 .alertSeverity {
     font-size: 1.1rem;
-    color: #666;
+    color: #6c757d;
     font-weight: bold;
     flex: 1;
     text-align: left;
@@ -111,7 +111,7 @@
     top: 15px;
     right: 70px;
     font-size: 0.85rem;
-    color: #666;
+    color: #6c757d;
 }
 
 
@@ -130,8 +130,8 @@
 
 /* Warning */
 .warningActive {
-    border: 5px solid rgba(57, 72, 110, 0.6); 
-    background-color: rgba(83, 100, 147, 0.2); 
+    border: 5px solid #536493; 
+    background-color: #53649394; 
     animation: pulse 2s infinite;
 
 }
@@ -142,14 +142,14 @@
 }
 
 .payAttentionActive {
-    border: 5px solid rgba(109, 167, 133, 0.6); 
-    background-color: rgba(161, 214, 178, 0.2); 
+    border: 5px solid #6ac488; 
+    background-color: #08cf4a2f; 
     animation: pulse 2s infinite;
 }
 
 .payAttentionInactive {
-    border-left: 5px solid rgba(109, 167, 133, 0.6); 
-    background-color: rgba(161, 214, 178, 0.2);
+    border-left: 5px solid #6ac488; 
+    background-color: #08cf4a2f; 
 }
 
 .solution{

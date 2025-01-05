@@ -20,7 +20,6 @@
     margin: 0;
     line-height: 1.2vh;
     gap: 7px;
-    background-color: white;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.5s ease-in-out;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -60,9 +59,9 @@
   }
   
   .income {
-    color: #53d19d;
+    color: #6ac488;
     background-color: #fbf6f3;
-border:#53d19d;
+border:#6ac488;
     animation: fadeIn 0.5s ease-in-out;
   }
   

@@ -120,9 +120,9 @@ export default function LoginComp() {
                             placeholder="Password"
                             className={styles.input}
                         />
-                        <button className="show-password-btn" onClick={togglePasswordVisibility}>
+                        {/* <button className="show-password-btn" onClick={togglePasswordVisibility}>
                             <i className={`fa-solid ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
-                        </button>
+                        </button> */}
                     </div>
                     {errors.password && (
                         <div className={styles.error}>{errors.password.message}</div>
