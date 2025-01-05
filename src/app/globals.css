@@ -4,14 +4,14 @@
 
 /* Theme Variables */
 :root {
-  --background:  #fff1db83;
+  --background:  #fff1db5e;
   
   --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background:  #fff1db83;
+    --background:  #fff1db5e;
     
     --foreground: #171717;
   }

@@ -1,7 +1,6 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
     padding: 20px;
     text-align: center;
     color:#536493;
@@ -12,8 +11,6 @@
 .header  {
   height: 30vh;
   text-shadow: 10px 7px 10px #6c757d;
-  align-items: center; 
-  text-align: center; 
 }
   
 .header h1{

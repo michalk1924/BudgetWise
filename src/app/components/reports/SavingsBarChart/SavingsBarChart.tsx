@@ -5,7 +5,7 @@ import { Chart, BarController, Tooltip, Legend, BarElement, CategoryScale, Linea
 import { Saving } from '@/types/types';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-const COLORS = ['#EF5A6F', '#FFF1DB', '#6c757d', '#536493', '#53d19d', '#FF7A89', '#B8A394', '#4C829F'];
+const COLORS = ['#EF5A6F', '#FFF1DB', '#6c757d', '#536493', '#6ac488', '#FF7A89', '#B8A394', '#4C829F'];
 
 Chart.register(BarController, BarElement, Tooltip, Legend, CategoryScale, LinearScale, ChartDataLabels);
 

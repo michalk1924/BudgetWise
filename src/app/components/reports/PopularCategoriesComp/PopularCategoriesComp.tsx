@@ -76,7 +76,7 @@ const popularCategoriesComp = () => {
                 datasets: [{
                     label: 'Number of Users',
                     data: categoryCounts,
-                    backgroundColor: '#53d19d',
+                    backgroundColor: '#6ac488',
                 }],
             },
             options: {

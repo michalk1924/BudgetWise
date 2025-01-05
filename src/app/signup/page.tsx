@@ -134,7 +134,6 @@ export default function Home() {
 
                 </form>
 
-                <button className={styles.exampleUserButton} onClick={loginWithExampleUser}>exmaple user</button>
 
                 <div className={styles.googleButtonContainer}>
                     <button className={styles.googleButton} onClick={loginWithGoogle}>Signup with Google </button>
@@ -143,6 +142,8 @@ export default function Home() {
                 <div className={styles.movePage}>
                     <p onClick={goToLogin}>Already have an account? <span >Login</span></p>
                 </div>
+                <button className={styles.exampleUserButton} onClick={loginWithExampleUser}>{"login with exmaple user>>"}</button>
+
             </div>
         </div>
     );
