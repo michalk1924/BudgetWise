@@ -186,6 +186,17 @@ const UserDetailsForm = () => {
             })
         );
 
+        categories.push(
+            {
+                _id: Math.random().toString(36).substr(2, 8),
+                categoryName: "General",
+                description: "General category for general transactions",
+                budget: 10000,
+                spent: 0,
+                monthlyBudget: [],
+            }
+        )
+
         const saving: Saving = {
             _id: Math.random().toString(36).substr(2, 8),
             goalName: "Emergency Fund",

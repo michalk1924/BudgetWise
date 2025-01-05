@@ -214,6 +214,7 @@ function Transactions() {
           updateUserMutationUpdateCategory.mutate({ id: user?._id ?? "", category });
         }
       } else {
+
         const prevCategoryIndex = getCategoryIndex(user, prevTransaction.category);
         const updatedCategoryIndex = getCategoryIndex(user, updatedTransaction.category);
 
