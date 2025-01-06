@@ -4,7 +4,7 @@
 
 /* Theme Variables */
 :root {
-  --background:  #fff1db5e;
+  --background: linear-gradient(145deg, #ffffff, #fff1db);
   
   --foreground: #171717;
 }
@@ -25,8 +25,10 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Super Dream', Arial, Helvetica, sans-serif; /* Apply the font */
-}
+/*   font-family: 'Super Dream', Arial, Helvetica, sans-serif; /* Apply the font */
+font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+ }
 
 /* Custom Font */
 @font-face {
