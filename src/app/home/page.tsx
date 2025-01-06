@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./home.module.css";
 import useUserStore from "@/store/userStore";
-import { AlertsList } from "../components/index";
+import { AlertsList, HomeCard } from "../components/index";
 import { FaDollarSign, FaShoppingCart } from "react-icons/fa";
 import { BiWallet } from "react-icons/bi";
 import Link from "next/link";
@@ -87,28 +87,26 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.statBoxes}>
           <section className={styles.stats}>
-            <div className={styles.monthlyIncome}>
-              <FaDollarSign className={styles.icon} />
-              <h2>Your Monthly Income</h2>
-              <p className={styles.text}>${monthlyIncome.toFixed(2)}</p>
-            </div>
-
-            <div className={styles.monthlySavings}>
-              <BiWallet className={styles.icon} />
-              <h2>You Saved This Month</h2>
-              <p className={styles.text}>${monthlySavings.toFixed(2)}</p>
-            </div>
-
-            <div className={styles.monthlyExpenses}>
-              <FaShoppingCart className={styles.icon} />
-              <h2>Your Monthly Expenses</h2>
-              <p className={styles.text}>${monthlyExpenses.toFixed(2)}</p>
-            </div>
-
+            <HomeCard
+              icon={FaDollarSign}
+              title="Your Monthly Income"
+              amount={monthlyIncome}
+              hoverColor="#6ac488"
+            />
+            <HomeCard
+              icon={BiWallet}
+              title="You Saved This Month"
+              amount={monthlySavings}
+              hoverColor="#6c757d"
+            />
+            <HomeCard
+              icon={FaShoppingCart}
+              title="Your Monthly Expenses"
+              amount={monthlyExpenses}
+              hoverColor="#EF5A6F"
+            />
           </section>
-
-
-        </div>
+        </div>;
         <AlertsList alerts={user?.alerts ?? []} />
       </main>
 
