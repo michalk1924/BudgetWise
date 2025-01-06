@@ -1,11 +1,11 @@
 .gridItem {
   border-radius: 10px;
   padding: 15px;
-  box-shadow: 0px 4px 6px #6c757d;
+  box-shadow: 0px 2px 2px #6c757d;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: #fbf6f3;
+  background-color: #fff;
   color: #536493;
   justify-content: space-between;
 }

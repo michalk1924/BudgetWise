@@ -25,4 +25,5 @@ export {default as UserTrendChart} from "./reports/UserTrendsChart/UserTendsChar
 export {default as PopularCategoriesComp} from "./reports/PopularCategoriesComp/PopularCategoriesComp"
 export {default as DownloadPdf} from "./DownloadPdf/DownloadPdf"
 export {default as HorizontalBarChart} from "./HorizontalBarChart/HorizontalBarChart";
+export {default as HomeCard} from "./HomeCard/HomeCard"
 

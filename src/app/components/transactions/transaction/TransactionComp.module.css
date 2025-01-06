@@ -1,154 +1,164 @@
 /* Add animation on appearance */
 @keyframes fadeIn {
     from {
-      opacity: 0;
-      transform: translateY(-20px);
+        opacity: 0;
+        transform: translateY(-20px);
     }
+
     to {
-      opacity: 1;
-      transform: translateY(0);
+        opacity: 1;
+        transform: translateY(0);
     }
-  }
-  
-  .transactionItem {
+}
+
+.transactionItem {
     display: grid;
-        grid-template-columns: 1.7fr 0.7fr 2fr 1fr 2.5fr 1fr auto; /* Allocate space for the icon */
-          grid-template-rows: auto;
+    grid-template-columns: 1.7fr 0.7fr 2fr 1fr 2.5fr 1fr auto;
+    /* Allocate space for the icon */
+    grid-template-rows: auto;
     padding: 0.3rem;
     border-radius: 8px;
-    
+    background-color: #fff;
     margin: 0;
     line-height: 1.2vh;
     gap: 7px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.5s ease-in-out;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .transactionItem:hover {
+}
+
+.transactionItem:hover {
     transform: scale(1.02);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .transactionItem input,
-  .transactionItem select {
+}
+
+.transactionItem input,
+.transactionItem select {
     width: 85%;
     text-align: center;
     transition: all 0.3s ease;
-  }
-  
-  .transactionItem input:focus,
-  .transactionItem select:focus {
+}
+
+.transactionItem input:focus,
+.transactionItem select:focus {
     outline: none;
     box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
     border: 1px solid rgba(81, 203, 238, 1);
-  }
-  
-  .icon {
+}
+
+.icon {
     display: flex;
     justify-content: center;
     align-items: center;
     color: #536493;
     cursor: pointer;
     transition: transform 0.2s ease, color 0.3s ease;
-  }
-  
-  .icon:hover {
+}
+
+.icon:hover {
     color: #505051;
     transform: scale(1.1);
-  }
-  
-  .income {
+}
+
+.income {
     color: #6ac488;
-    background-color: #fbf6f3;
-border:#6ac488;
+    border: #6ac488;
     animation: fadeIn 0.5s ease-in-out;
-  }
-  
-  .expense {
+}
+
+.expense {
     color: #EF5A6F;
-    border-color:  rgb(239, 90, 110);
+    border-color: rgb(239, 90, 110);
 
     animation: fadeIn 0.5s ease-in-out;
-    background-color: #fbf6f3;
 
-  }
-  
-  .saved {
+}
+
+.saved {
     color: #6c757d;
-    background-color: #fbf6f3;
 
     animation: fadeIn 0.5s ease-in-out;
-  }
-  
-  .hiddenOnSmall {
-    display: block;
-  }
-  
-  @media (max-width: 768px) {
-    .transactionItem {
-      grid-template-columns: repeat(3, 1fr);
-      font-size: 1.5rem;
-      padding: 0.1rem;
-    }
-  
-    .transactionItem>* {
-      font-size: 1rem;
-    }
-  
-    .hiddenOnSmall {
-      display: none;
-    }
-  }
+}
 
-  .transactionItem {
-    display: flex; /* Use flexbox to arrange elements */
-    justify-content: space-between; /* Spread the content evenly */
-    align-items: center; /* Align items vertically in the center */
-    
+.hiddenOnSmall {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .transactionItem {
+        grid-template-columns: repeat(3, 1fr);
+        font-size: 1.5rem;
+        padding: 0.1rem;
+    }
+
+    .transactionItem>* {
+        font-size: 1rem;
+    }
+
+    .hiddenOnSmall {
+        display: none;
+    }
+}
+
+.transactionItem {
+    display: flex;
+    /* Use flexbox to arrange elements */
+    justify-content: space-between;
+    /* Spread the content evenly */
+    align-items: center;
+    /* Align items vertically in the center */
+
     font-size: 1rem;
-  }
-  
-  .transactionItem div {
-    flex: 1; /* Ensure equal spacing between elements */
-    text-align: center; /* Center-align text */
-  }
-  
-  .transactionItem div:last-child {
-    flex: 0; /* Prevent the icon from stretching */
-    text-align: right; /* Align the icon to the right */
-  }
-  
-  .transactionItem .icon {
+}
+
+.transactionItem div {
+    flex: 1;
+    /* Ensure equal spacing between elements */
+    text-align: center;
+    /* Center-align text */
+}
+
+.transactionItem div:last-child {
+    flex: 0;
+    /* Prevent the icon from stretching */
+    text-align: right;
+    /* Align the icon to the right */
+}
+
+.transactionItem .icon {
     margin-left: 10px;
     cursor: pointer;
-  }
-  
-  .transactionItem .icon:hover {
+}
+
+.transactionItem .icon:hover {
     color: #505051;
-  }
-  
-  .transactionItem div {
-    flex: 1; /* Equal spacing */
+}
+
+.transactionItem div {
+    flex: 1;
+    /* Equal spacing */
     text-align: center;
-   ; /* Required for line clamping */
-    line-height: 1.2rem; /* Spacing between lines */
-  }
-  
-  .transactionItem input,
-  .transactionItem select {
+    ;
+    /* Required for line clamping */
+    line-height: 1.2rem;
+    /* Spacing between lines */
+}
+
+.transactionItem input,
+.transactionItem select {
     width: 85%;
     text-align: center;
     transition: all 0.3s ease;
-  }
-  
-  .transactionItem input:focus,
-  .transactionItem select:focus {
+}
+
+.transactionItem input:focus,
+.transactionItem select:focus {
     outline: none;
     box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
     border: 1px solid rgba(81, 203, 238, 1);
-  }
-  .transactionItem .icon {
+}
+
+.transactionItem .icon {
     flex: 0;
     margin-left: auto;
     display: flex;
@@ -156,16 +166,15 @@ border:#6ac488;
     align-items: center;
     cursor: pointer;
     color: #536493;
-    font-size: 1rem; /* Ensure visibility */
-    position: relative; /* Avoid being clipped */
-    z-index: 2; /* Ensure it's above other elements */
-  }
-  
-  .transactionItem .icon:hover {
+    font-size: 1rem;
+    /* Ensure visibility */
+    position: relative;
+    /* Avoid being clipped */
+    z-index: 2;
+    /* Ensure it's above other elements */
+}
+
+.transactionItem .icon:hover {
     color: #3a4b8f;
     transform: scale(1.1);
-  }
-  
-  
-  
-  
+}
