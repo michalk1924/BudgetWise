@@ -3,15 +3,15 @@
     width: 30%;
     height: 30%;
     font-size: 1.4rem;
-    padding: 3% 1% 5% 1%;
+    padding: 3% 2.5%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     background-color: #fff;
     animation: fadeIn 1s ease-in-out;
 }
 
 .card:hover {
-    animation: scaleUp 0.3s ease forwards;
-    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05); /* Scale the card slightly */
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
 }
 
 .icon {
@@ -22,3 +22,9 @@
 .text {
     font-size: 1.8rem;
 }
+
+@media (max-width: 768px) {
+    .card{
+        padding: 3% 4%;
+    }
+  }
