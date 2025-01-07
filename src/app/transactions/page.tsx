@@ -336,9 +336,12 @@ function Transactions() {
 
   return (
     <div className={styles.container}>
+                      <h2 className={styles.title}>Manage Transactions</h2>
+
+                <div className={styles.body}>
+
       {!loading && user && (
         <div className={styles.headers}>
-          <h2 className={styles.title}>Manage Transactions</h2>
 
           {user && (
             <div className={styles.totalSection}>
@@ -410,6 +413,7 @@ function Transactions() {
         {/* Please log in to access this feature. */}
       </div>}
 
+    </div>
     </div>
   )
 }

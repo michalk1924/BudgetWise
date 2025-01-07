@@ -1,7 +1,7 @@
 .gridItem {
   border-radius: 10px;
   padding: 15px;
-  box-shadow: 0px 2px 2px #6c757d;
+  box-shadow: 0px 0px 4px #536493;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

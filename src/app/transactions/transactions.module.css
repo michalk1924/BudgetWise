@@ -1,22 +1,26 @@
-.container {
+.body {
   display: flex;
   flex-direction: row;
   width: 100%;
   margin: 0;
   color: #536493;
-gap:5%;
+  gap: 5%;
 }
+
 .totalSection {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  align-items: center; /* Center align all child elements, including the chart */
+  align-items: center;
+  /* Center align all child elements, including the chart */
 }
 
 
 .manageFixedTransaction {
-  display: inline-flex; /* Use flexbox for inline layout */
-  justify-content: center; /* Center content horizontally */
+  display: inline-flex;
+  /* Use flexbox for inline layout */
+  justify-content: center;
+  /* Center content horizontally */
   font-size: 1rem;
   font-weight: lighter;
   border: none;
@@ -26,10 +30,13 @@ gap:5%;
 }
 
 .HorizontalBarChart {
-  width: 100%; /* Make the chart take up full width */
-  max-width: 600px; /* Limit the maximum width for better centering */
+  width: 100%;
+  /* Make the chart take up full width */
+  max-width: 600px;
+  /* Limit the maximum width for better centering */
   height: auto;
-  margin: 0 auto; /* Center the chart horizontally */
+  margin: 0 auto;
+  /* Center the chart horizontally */
 }
 
 .headers {
@@ -60,24 +67,28 @@ gap:5%;
   background-size: contain; */
   color: #536493;
   padding: 0;
-  margin: 0;
   font-size: 2rem;
   font-weight: bold;
   text-shadow: 0px 5px 8px #6c757d;
   font-family: "Malvie Trial", Arial, sans-serif;
+  gap: 20px;
+  margin-top: 10px;
+  margin-left:20px;
+
 
   /* z-index: 10; */
 }
 
-.currentMonthBalance{
+.currentMonthBalance {
   font-size: 1rem;
 
 }
+
 .transactionsSection {
-  margin-bottom: 3vh;
   text-align: center;
 }
-.addSection{
+
+.addSection {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -115,7 +126,7 @@ gap:5%;
 }
 
 
-.main{
+.main {
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -123,47 +134,50 @@ gap:5%;
   align-items: center;
 }
 
-.container {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  margin: 0;
-  padding: 2%;
-}
 
 
 
 /* Responsive Styling for Smaller Screens */
 @media (max-width: 768px) {
   .container {
-    flex-direction: column; /* Stack sections vertically */
+    flex-direction: column;
+    /* Stack sections vertically */
   }
 
   .headers {
-    width: 100%; /* Take full width */
-    order: -1; /* Move the headers section to the top */
-    margin-bottom: 20px; /* Add some spacing below */
+    width: 100%;
+    /* Take full width */
+    order: -1;
+    /* Move the headers section to the top */
+    margin-bottom: 20px;
+    /* Add some spacing below */
   }
 
   .main {
-    width: 100%; /* Take full width */
-    align-items: stretch; /* Adjust alignment for smaller screens */
+    width: 100%;
+    /* Take full width */
+    align-items: stretch;
+    /* Adjust alignment for smaller screens */
   }
 }
 
 @media (max-width: 480px) {
   .headers {
-    font-size: 1.2rem; /* Adjust font size for smaller screens */
+    font-size: 1.2rem;
+    /* Adjust font size for smaller screens */
   }
 
   .main {
-    font-size: 1rem; /* Adjust font size for smaller screens */
+    font-size: 1rem;
+    /* Adjust font size for smaller screens */
   }
 }
 
 .manageFixedTransaction {
-  display: inline-flex; /* Use flexbox for inline layout */
-  justify-content: center; /* Center content horizontally */
+  display: inline-flex;
+  /* Use flexbox for inline layout */
+  justify-content: center;
+  /* Center content horizontally */
   font-size: 1rem;
   font-weight: lighter;
   border: none;
@@ -171,11 +185,11 @@ gap:5%;
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
 .totalSection {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
+  margin: 20px 0px;
 }
 
 .circleCard {
@@ -188,7 +202,7 @@ gap:5%;
   border-radius: 50%;
   background-color: #fff;
 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 4px #536493;
   text-align: center;
   font-size: 5rem;
 }
@@ -203,7 +217,8 @@ gap:5%;
 .totalValue {
   font-size: 2rem;
   font-weight: bold;
-  color: #6c757d; /* Green for positive values */
+  color: #6c757d;
+  /* Green for positive values */
 }
 
 
@@ -211,13 +226,12 @@ gap:5%;
 
 .totaltitle {
   font-size: 1.1rem;
-  color:#6c757d;
+  color: #6c757d;
 
 }
 
-.monthtitle , .value{
+.monthtitle,
+.value {
   font-size: 0.8rem;
 
 }
-
-

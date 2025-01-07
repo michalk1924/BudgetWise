@@ -1,9 +1,7 @@
 .body {
-    font-family: 'Super Dream', Arial, Helvetica, sans-serif;
 }
 
 .container {
-    font-family: 'Super Dream', Arial, Helvetica, sans-serif;
     width: 85%;
     padding: 1rem;
     border-radius: 10px;
@@ -11,8 +9,9 @@
     max-width: 1200px;
     align-items: center;
     padding: 0.6rem;
-    background-color: #fbf6f3;
+    background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .barHeader {

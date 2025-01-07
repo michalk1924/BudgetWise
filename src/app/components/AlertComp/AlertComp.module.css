@@ -8,6 +8,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    background-color: #fff;
 }
 
 .active {
@@ -52,7 +53,6 @@
 
 
 .alertDate {
-    font-family: 'Super Dream', Arial, Helvetica, sans-serif;
     font-size: 0.9rem;
     margin-left: 8px;
     text-align: right;
@@ -62,7 +62,6 @@
 .alertBody {
     flex: 1;
     font-size: 1.1rem;
-    font-family: 'Super Dream', Arial, Helvetica, sans-serif;
     text-align: center;
     display: flex;
     align-items: center;
@@ -74,7 +73,6 @@
 }
 
 .alertBody strong {
-    font-family: 'Malvie Trial', Arial, sans-serif;
 }
 
 .completeButton {
@@ -125,32 +123,32 @@
 
 .criticalInactive {
     border-left: 5px solid #EF5A6F;
-    background-color: rgba(239, 90, 111, 0.2);
-}
+/*     background-color: rgba(239, 90, 111, 0.2);
+ */}
 
 /* Warning */
 .warningActive {
     border: 5px solid #536493; 
-    background-color: #53649394; 
-    animation: pulse 2s infinite;
+/*     background-color: #53649394; 
+ */    animation: pulse 2s infinite;
 
 }
 
 .warningInactive {
     border-left: 5px solid rgba(57, 72, 110, 0.3);
-    background-color: rgba(83, 100, 147, 0.2); 
-}
+/*     background-color: rgba(83, 100, 147, 0.2); 
+ */}
 
 .payAttentionActive {
     border: 5px solid #6ac488; 
-    background-color: #08cf4a2f; 
-    animation: pulse 2s infinite;
+/*     background-color: #08cf4a2f; 
+ */    animation: pulse 2s infinite;
 }
 
 .payAttentionInactive {
     border-left: 5px solid #6ac488; 
-    background-color: #08cf4a2f; 
-}
+/*     background-color: #08cf4a2f; 
+ */}
 
 .solution{
     display:flex;

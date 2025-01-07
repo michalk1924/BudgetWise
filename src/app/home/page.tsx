@@ -30,6 +30,19 @@ export default function Home() {
       )
       .reduce((sum, transaction) => sum + (transaction.amount || 0), 0);
   }
+  function calculateAvailableAmount(): number {
+    if (!user || !user.transactions) {
+      return 0; // Default to 0 if user or transactions are undefined
+    }
+  
+    return user.transactions.reduce((amount, t) => {
+      if (t.type === "expense" || t.type === "saved") {
+        return amount - Number(t.amount || 0);
+      }
+      return amount + Number(t.amount || 0);
+    }, 0);
+  }
+  
 
   const monthlyExpenses = calculateMonthlyAmount(
     user?.transactions || [],
@@ -52,6 +65,8 @@ export default function Home() {
     currentYear
   );
 
+  const availableAmount = calculateAvailableAmount();
+
 
   return (
     <div className={styles.container}>
@@ -60,17 +75,6 @@ export default function Home() {
         {user && (
           <div className={styles.totalSection}>
             <div className={styles.total}>
-              <h3>Your Available Amount is: </h3>
-              <p>
-                {user?.transactions
-                  ?.reduce((amount, t) => {
-                    if (t.type === "expense" || t.type === "saved") {
-                      return amount - Number(t.amount || 0);
-                    }
-                    return amount + Number(t.amount || 0);
-                  }, 0)
-                  .toFixed(2)}$
-              </p>
             </div>
           </div>)
         }
@@ -87,21 +91,25 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.statBoxes}>
           <section className={styles.stats}>
+          <div className={styles.totalAmount}>
+              <h2>Your Available Amount</h2>
+              <p className={styles.text}>${availableAmount.toFixed(2)}</p>
+            </div>
             <div className={styles.monthlyIncome}>
-              <FaDollarSign className={styles.icon} />
-              <h2>Your Monthly Income</h2>
+{/*               <FaDollarSign className={styles.icon} />
+ */}              <h2>Your Monthly Incomes</h2>
               <p className={styles.text}>${monthlyIncome.toFixed(2)}</p>
             </div>
 
             <div className={styles.monthlySavings}>
-              <BiWallet className={styles.icon} />
-              <h2>You Saved This Month</h2>
+{/*               <BiWallet className={styles.icon} />
+ */}              <h2>You Saved This Month</h2>
               <p className={styles.text}>${monthlySavings.toFixed(2)}</p>
             </div>
 
             <div className={styles.monthlyExpenses}>
-              <FaShoppingCart className={styles.icon} />
-              <h2>Your Monthly Expenses</h2>
+{/*               <FaShoppingCart className={styles.icon} />
+ */}              <h2>Your Monthly Expenses</h2>
               <p className={styles.text}>${monthlyExpenses.toFixed(2)}</p>
             </div>
 

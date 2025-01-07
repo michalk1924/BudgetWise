@@ -39,7 +39,7 @@
     flex-direction: column; /* Stack title and chart vertically */
     justify-content: center;
     align-items: center;
-    background-color: #fbf6f3;
+    background-color: #fff;
     box-shadow: 0px 4px 6px #6c757d;
 
   }
