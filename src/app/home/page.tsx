@@ -34,7 +34,7 @@ export default function Home() {
     if (!user || !user.transactions) {
       return 0; // Default to 0 if user or transactions are undefined
     }
-  
+
     return user.transactions.reduce((amount, t) => {
       if (t.type === "expense" || t.type === "saved") {
         return amount - Number(t.amount || 0);
@@ -42,7 +42,7 @@ export default function Home() {
       return amount + Number(t.amount || 0);
     }, 0);
   }
-  
+
 
   const monthlyExpenses = calculateMonthlyAmount(
     user?.transactions || [],
@@ -91,23 +91,26 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.statBoxes}>
           <section className={styles.stats}>
-              <HomeCard
+            <HomeCard
               icon={FaDollarSign}
               title="Your Available Amount"
               amount={availableAmount}
               hoverColor="#6ac488"
             />
             <HomeCard
+              icon={FaShoppingCart}
               title="Your Monthly Income"
               amount={monthlyIncome}
               hoverColor="#6ac488"
             />
             <HomeCard
+              icon={BiWallet}
               title="You Saved This Month"
               amount={monthlySavings}
               hoverColor="#6c757d"
             />
             <HomeCard
+              icon={FaShoppingCart}
               title="Your Monthly Expenses"
               amount={monthlyExpenses}
               hoverColor="#EF5A6F"
