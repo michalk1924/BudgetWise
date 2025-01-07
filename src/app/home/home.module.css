@@ -16,8 +16,9 @@
     animation: fadeIn 1s ease-in-out;
     display: flex;
     flex-direction: row;
-    gap: 5%;    
-    
+
+    gap: 7%;
+
 }
 
 .separator {
@@ -164,4 +165,13 @@
 
 .monthlySavings:hover {
     box-shadow: 0 15px 15px #6c757d;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 0;
+        padding: 20px;
+        margin-bottom: 0;
+    }
 }
