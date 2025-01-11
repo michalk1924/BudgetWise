@@ -92,10 +92,9 @@ export default function Home() {
         <div className={styles.statBoxes}>
           <section className={styles.stats}>
               <HomeCard
-              icon={FaDollarSign}
               title="Your Available Amount"
               amount={availableAmount}
-              hoverColor="#6ac488"
+              hoverColor="#536493"
             />
             <HomeCard
               title="Your Monthly Income"
