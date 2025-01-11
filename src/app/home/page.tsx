@@ -105,7 +105,7 @@ export default function Home() {
               hoverColor="#EF5A6F"
             />
           </section>
-        </div>;
+        </div>
         <AlertsList alerts={user?.alerts ?? []} />
       </main>
 
