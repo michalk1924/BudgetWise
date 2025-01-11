@@ -71,7 +71,6 @@ const Categories = () => {
       if (user) {
         const updatedCategories = user.categories.filter((category) => category._id !== categoryId);
         const response = await userService.updateUser(id, { categories: updatedCategories });
-        // Assuming you have a function to remove the saving from local state
         removeCategory(categoryId);
         return response;
       }
@@ -99,6 +98,7 @@ const Categories = () => {
   const handleUpdateCategory = (category: Category) => {
     updateUserMutationUpdateCategory.mutate({ id: user?._id ?? "", category });
   };
+  
   const handleDeleteCategory = (categoryId: string) => {
     deleteCategoryMutation.mutate({ id: user?._id ?? "", categoryId });
   };

@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
 
         const client = await connectDatabase();
 
-        const { userId, newPassword } = await request.json();        
+        const { userId, newPassword } = await request.json();
 
         const user = await getDocumentById(client, "users", userId);
         if (!user) {
@@ -18,10 +18,10 @@ export async function POST(request: NextRequest) {
 
         const passwordobj = await getPassword(client, userId);
 
-        if(!passwordobj){
+        if (!passwordobj) {
             return NextResponse.json({ error: 'Password not found' }, { status: 404 });
         }
-        
+
         const password_id = passwordobj._id.toString();
 
         const { hashedPassword, token } = await hash(newPassword, userId);
@@ -31,14 +31,14 @@ export async function POST(request: NextRequest) {
                 user_id: userId,
                 password: hashedPassword
             })
-            if(!result){
+            if (!result) {
                 return NextResponse.json({ error: 'Failed to update password' }, { status: 500 });
             }
         }
-        if (token){
+        if (token) {
             return NextResponse.json({ user: user, token: token });
         }
-        else{
+        else {
             return NextResponse.json({ error: 'Failed to update password' }, { status: 500 });
         }
 
@@ -50,5 +50,4 @@ export async function POST(request: NextRequest) {
             error
         });
     }
-
 }

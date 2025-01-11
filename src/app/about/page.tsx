@@ -1,17 +1,17 @@
 "use client"
 import Image from 'next/image';
 import styles from './AboutUs.module.css';
-import { useRouter } from 'next/navigation'; // Import from next/navigation instead of next/router
+import { useRouter } from 'next/navigation';
 
 export default function AboutUs() {
-  const router = useRouter(); // Use the router for navigation
+  const router = useRouter();
 
   const handleLogin = () => {
-    router.push('/login'); // Redirect to the login page
+    router.push('/login'); 
   };
 
   const handleSignUp = () => {
-    router.push('/signup'); // Redirect to the sign-up page
+    router.push('/signup');
   };
 
   return (
@@ -32,7 +32,6 @@ export default function AboutUs() {
           </p>
         </section>
 
-        {/* Buttons for Login and Sign Up */}
         <section className={styles.authButtons}>
           <button onClick={handleLogin} className={styles.button}>Login</button>
           <button onClick={handleSignUp} className={styles.button}>Sign Up</button>

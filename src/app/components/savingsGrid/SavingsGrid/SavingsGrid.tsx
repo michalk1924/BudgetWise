@@ -1,4 +1,3 @@
-// src/components/SavingsGrid/SavingsGrid.tsx
 import React from "react";
 import styles from "./SavingsGrid.module.css";
 import SavingsGridItem from "../SavingsGridItem/SavingsGridItem";

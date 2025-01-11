@@ -76,12 +76,12 @@ export const createTotalBudgetExceededAlerts = async (user: User) => {
       0
     );
 
-    const totalSpending  = user.categories.reduce(
+    const totalSpending = user.categories.reduce(
       (total, category) =>
         total + category.spent,
       0
     );
-    
+
     if (totalSpending >= totalBudget) {
 
       const solution1: Solution = {
@@ -122,7 +122,7 @@ export const createTotalBudgetExceededAlerts = async (user: User) => {
 export const createValidateAccountBalance = async (user: User) => {
 
   try {
-    const { balance} = user; 
+    const { balance } = user;
 
     const totalBudget = user.categories.reduce(
       (total, category) =>

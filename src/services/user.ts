@@ -24,6 +24,7 @@ const userService = {
             throw error;
         }
     },
+
     async createUser(user: User) {
         try {
             const response = await http.post('/users', user);
@@ -32,6 +33,7 @@ const userService = {
             throw error;
         }
     },
+    
     async updateUser(id: string, body: Partial<User>) {
         try {
             const response = await http.patch(`/users/${id}`, body);

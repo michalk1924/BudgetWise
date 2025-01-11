@@ -26,7 +26,6 @@ const fixedExpenseSchema = z.object({
     notes: z.string().optional(),
 });
 
-
 type FixedExpense = z.infer<typeof fixedExpenseSchema> & {
     _id: string;
     createdAt: Date;
@@ -34,7 +33,7 @@ type FixedExpense = z.infer<typeof fixedExpenseSchema> & {
 };
 
 const FixedExpenseForm: React.FC = () => {
-    const [showForm, setShowForm] = useState(false); // מצב של הצגת הטופס
+    const [showForm, setShowForm] = useState(false);
 
     const {
         register,
@@ -47,7 +46,7 @@ const FixedExpenseForm: React.FC = () => {
             name: "",
             amount: 0,
             firstPaymentDate: new Date(),
-            totalInstallments: undefined,  // שים לב, הוספתי undefined כדי שהשדה יהיה ריק
+            totalInstallments: undefined,
             category: "",
             paymentMethod: "other",
             notes: "",

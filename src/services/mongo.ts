@@ -80,12 +80,12 @@ export async function patchDocument(
 ) {
     try {
         const db = client.db(process.env.DB_NAME);
-        
+
         const result = await db.collection(collection).updateOne(
             { _id: new ObjectId(documentId) },
             { $set: updatedDocument }
         );
-        
+
         return result;
     } catch (error) {
         console.error(`Error patching document: ${error}`);
@@ -129,7 +129,7 @@ export async function getPassword(client: any, user_id: string) {
     }
 }
 
-export async function getCodeByUserID(client: any, user_id: string){
+export async function getCodeByUserID(client: any, user_id: string) {
     try {
         const db = client.db(process.env.DB_NAME);
         const codeObj = await db.collection('codes').findOne({ user_id: user_id });

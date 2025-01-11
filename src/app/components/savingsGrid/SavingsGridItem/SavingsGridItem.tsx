@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import styles from "./SavingsGridItem.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { Saving,Transaction } from "../../../../types/types";
+import { Saving, Transaction } from "../../../../types/types";
 import ProgressCircle from "./ProgressCircle/ProgressCircle";
 import { FiSave } from "react-icons/fi";
 
@@ -20,17 +20,12 @@ const SavingsGridItem: React.FC<SavingGridItemProps> = ({
   onUpdateSaving,
   onWithdrawSaving
 }) => {
-  const [isEditing, setIsEditing] = useState(false); // מצב עריכה
-  const [editedSaving, setEditedSaving] = useState<Saving>(saving); // עדכון החיסכון
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedSaving, setEditedSaving] = useState<Saving>(saving);
 
 
   const handleEditClick = () => {
     setIsEditing(true);
-  };
-
-  const handleCancelClick = () => {
-    setIsEditing(false);
-    setEditedSaving(saving);
   };
 
   const handleSaveClick = () => {
@@ -58,7 +53,6 @@ const SavingsGridItem: React.FC<SavingGridItemProps> = ({
 
   return (
     <div key={saving._id} className={styles.gridItem}>
-      {/* שם המטרה */}
       {isEditing ? (
         <input
           type="text"
@@ -70,7 +64,6 @@ const SavingsGridItem: React.FC<SavingGridItemProps> = ({
         <h2 className={styles.goalName}>{saving.goalName}</h2>
       )}
 
-      {/* עיגול הפרוגרס */}
       <ProgressCircle
         percentage={percentage}
         current={editedSaving.currentAmount}
@@ -78,7 +71,6 @@ const SavingsGridItem: React.FC<SavingGridItemProps> = ({
         isEditing={isEditing}
         onTargetChange={(value) => handleInputChange("targetAmount", value)}
       />
-      {/* תאריך היעד */}
       {isEditing ? (
         <input
           type="date"
@@ -92,7 +84,6 @@ const SavingsGridItem: React.FC<SavingGridItemProps> = ({
         </span>
       )}
 
-      {/* כפתור עריכה ושמירה */}
       {!isEditing ? (
         <>
           <FontAwesomeIcon
@@ -100,7 +91,6 @@ const SavingsGridItem: React.FC<SavingGridItemProps> = ({
             className={styles.editButton}
             onClick={handleEditClick}
           />
-          {/* כפתור משיכת חיסכון */}
           <button
             className={styles.withdrawButton}
             onClick={() => onWithdrawSaving?.(saving)}
@@ -111,8 +101,7 @@ const SavingsGridItem: React.FC<SavingGridItemProps> = ({
       ) : (
         <div className={styles.editActions}>
           <button className={styles.saveButton} onClick={handleSaveClick}>
-          <FiSave />
-
+            <FiSave />
           </button>
         </div>
       )}

@@ -13,11 +13,12 @@ interface AlertProps {
 
 const AlertComp: React.FC<AlertProps> = ({ alert, onMarkAsDone, onDeleteAlert }) => {
 
-    const [showSolutions, setShowSolutions] = useState(false); // State to toggle solutions visibility
+    const [showSolutions, setShowSolutions] = useState(false); 
 
     const handleToggleSolutions = () => {
-        setShowSolutions((prev) => !prev); // Toggle the visibility
+        setShowSolutions((prev) => !prev);
     };
+
     const handleMarkAsDone = () => {
         onMarkAsDone(alert);
     };
@@ -28,15 +29,12 @@ const AlertComp: React.FC<AlertProps> = ({ alert, onMarkAsDone, onDeleteAlert })
         }
     };
 
-  
     const severityClass = 
         alert.severityLevel === 'critical' 
             ? (alert.isActive ? styles.criticalActive : styles.criticalInactive) :
         alert.severityLevel === 'warning' 
             ? (alert.isActive ? styles.warningActive : styles.warningInactive) :
         (alert.isActive ? styles.payAttentionActive : styles.payAttentionInactive);
-
-        
 
       return (
         <div className={`${styles.alertItem} ${severityClass}`} onMouseEnter={handleMouseEnter}>
@@ -56,7 +54,7 @@ const AlertComp: React.FC<AlertProps> = ({ alert, onMarkAsDone, onDeleteAlert })
                         src="/complete.png"
                         alt="Mark as done"
                         className={styles.completeImage}
-                        onClick={onDeleteAlert} // Delete alert on click
+                        onClick={onDeleteAlert}
                         style={{ cursor: 'pointer' }}
                     />
                 </button>

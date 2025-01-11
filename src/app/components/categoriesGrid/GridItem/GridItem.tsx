@@ -14,7 +14,7 @@ interface GridItemProps {
   budget?: number;
   spent?: number;
   onUpdateCategory?: (updatedCategory: Category) => void;
-  onDeleteCategory?: (categoryId: string) => void; // New callback for deletion
+  onDeleteCategory?: (categoryId: string) => void;
 }
 
 const GridItem: React.FC<GridItemProps> = ({
@@ -23,7 +23,7 @@ const GridItem: React.FC<GridItemProps> = ({
   budget,
   spent,
   onUpdateCategory,
-  onDeleteCategory, // Destructure the new callback
+  onDeleteCategory,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedCategory, setEditedCategory] = useState<Category>(category);
@@ -67,7 +67,6 @@ const GridItem: React.FC<GridItemProps> = ({
     setEditedCategory((prev) => ({ ...prev, [field]: value }));
   };
 
-  // Use overrides if provided, otherwise default to category values
   const effectiveBudget = Number(budget ?? category.budget ?? 0);
   const effectiveSpent = Number(spent ?? category.spent ?? 0);
   const percentage = (effectiveSpent / effectiveBudget) * 100;

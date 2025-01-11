@@ -1,6 +1,6 @@
 "use server"
 
-import { User, Transaction, FixedExpense } from "../types/types"
+import { User, Transaction } from "../types/types"
 
 export const CreateTransactionByFixedExpense = async (user: User) => {
     try {

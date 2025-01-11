@@ -52,7 +52,6 @@ export default function Home() {
     currentYear
   );
 
-
   return (
     <div className={styles.container}>
       <section className={styles.greeting}>

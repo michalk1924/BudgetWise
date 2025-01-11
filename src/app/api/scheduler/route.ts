@@ -81,7 +81,7 @@ export async function GET(req: NextRequest) {
             }
 
             await patchDocument(client, "users", user._id, { alerts });
-            await patchDocument(client, "users", user._id, {userTransactions});
+            await patchDocument(client, "users", user._id, { userTransactions });
         }
 
         console.log("Nightly tasks completed successfully.");

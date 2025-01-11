@@ -18,14 +18,14 @@ const popularCategoriesComp = () => {
     const { data } = useQuery({
         queryKey: ['test'],
         queryFn: () => userService.getUserById('67693c7994db639cbeefbf42'),
-        staleTime:  24 * 60 * 60 * 1000,
+        staleTime: 24 * 60 * 60 * 1000,
     });
 
     const { data: users, isLoading, error } = useQuery({
         queryKey: ['users_data'],
         queryFn: userService.getAllUsers,
-        staleTime:  24 * 60 * 60 * 1000,
-        gcTime :  24 * 60 * 60 * 1000,
+        staleTime: 24 * 60 * 60 * 1000,
+        gcTime: 24 * 60 * 60 * 1000,
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
     });

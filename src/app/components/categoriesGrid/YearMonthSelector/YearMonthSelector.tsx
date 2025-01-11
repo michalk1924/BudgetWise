@@ -18,7 +18,6 @@ const YearMonthSelector: React.FC<YearMonthSelectorProps> = ({
 }) => {
   return (
     <div className={styles.filterContainer}>
-      {/* Year Group */}
       <div className={styles.filterGroup}>
         <label htmlFor="yearFilter">Year:</label>
         <select

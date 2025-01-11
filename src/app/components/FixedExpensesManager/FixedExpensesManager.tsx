@@ -62,7 +62,6 @@ const FixedExpensesManager: React.FC<SlideInFormProps> = ({ onClose, isVisible }
                     ))}
                 </section>
                 <FixedExpenseForm />
-                {/* <HorizontalBarChart expenses={user?.fixedExpenses || []} /> */}
                 </div>
         </div>
     );

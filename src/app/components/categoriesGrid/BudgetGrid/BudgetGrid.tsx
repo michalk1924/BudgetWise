@@ -8,7 +8,7 @@ import { Category } from "../../../../types/types";
 interface BudgetGridProps {
   categories: Category[];
   onUpdateCategory?: (updatedCategory: Category) => void;
-  onDeleteCategory?: (categoryId: string) => void; // New callback for deletion
+  onDeleteCategory?: (categoryId: string) => void;
 
 }
 
@@ -42,7 +42,6 @@ const BudgetGrid: React.FC<BudgetGridProps> = ({ categories, onUpdateCategory, o
 
       <div className={styles.gridContainer}>
         {filteredCategories.map((category, index) => {
-          // אם החודש הנבחר הוא הנוכחי, נשתמש בערכים הראשיים
           const isCurrentMonth = selectedYear === currentYear && selectedMonth === currentMonth;
           const budget = isCurrentMonth ? category.budget : undefined;
           const spent = isCurrentMonth ? category.spent : undefined;

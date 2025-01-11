@@ -31,6 +31,7 @@ interface AddSavingProps {
 }
 
 export default function AddSaving({ addSaving }: AddSavingProps) {
+  
   const {
     register,
     handleSubmit,
@@ -52,7 +53,7 @@ export default function AddSaving({ addSaving }: AddSavingProps) {
     };
 
     addSaving(saving);
-    reset(); // Clear the form after successful submission
+    reset();
   };
 
   return (
@@ -66,25 +67,25 @@ export default function AddSaving({ addSaving }: AddSavingProps) {
       />
       {errors.goalName && <p className={styles.error}>{errors.goalName.message}</p>}
 
-        <input
-          className={styles.input}
-          type="number"
-          placeholder="Target Amount"
-          {...register("targetAmount", { valueAsNumber: true })}
-        />
-        {errors.targetAmount && (
-          <p className={styles.error}>{errors.targetAmount.message}</p>
-        )}
+      <input
+        className={styles.input}
+        type="number"
+        placeholder="Target Amount"
+        {...register("targetAmount", { valueAsNumber: true })}
+      />
+      {errors.targetAmount && (
+        <p className={styles.error}>{errors.targetAmount.message}</p>
+      )}
 
-        <input
-          className={styles.input}
-          type="number"
-          placeholder="Current Amount (Optional)"
-          {...register("currentAmount", { valueAsNumber: true })}
-        />
-        {errors.currentAmount && (
-          <p className={styles.error}>{errors.currentAmount.message}</p>
-        )}
+      <input
+        className={styles.input}
+        type="number"
+        placeholder="Current Amount (Optional)"
+        {...register("currentAmount", { valueAsNumber: true })}
+      />
+      {errors.currentAmount && (
+        <p className={styles.error}>{errors.currentAmount.message}</p>
+      )}
 
       <input
         className={styles.input}

@@ -17,18 +17,15 @@ export enum DateFilter {
     CustomDateRange = "CustomDateRange"
 }
 
-
 export enum AlertType {
     BudgetOverrun = "BudgetOverrun",
     Occasion = "Occasion"
 }
 
-
 export enum Categories {
-    Health = "HLTHSCPCHCSA",
-    Food = "PCU311311",
-    Transport = "PCU484484",
-    Entertainment = "CXUENTRTAINLB0101M",
-    Utilities = "AWHAEUTIL",
-  }
-  
+    health = "HLTHSCPCHCSA",
+    food = "PCU311311",
+    transport = "PCU484484",
+    entertainment = "CXUENTRTAINLB0101M",
+    utilities = "AWHAEUTIL",
+}

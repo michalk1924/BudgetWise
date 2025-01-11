@@ -15,10 +15,6 @@ const Profile: React.FC = () => {
         return null;
     }
 
-    const handleSave = () => {
-        setIsEditing(false);
-    };
-
     const handleLogout = () => {
         clearUser();
         router.push('/home-page');

@@ -7,7 +7,6 @@ interface AddCategoryProps {
 }
 
 export default function AddNewBudget({ addCategory }: AddCategoryProps) {
-  // State to manage the form inputs
   const [formData, setFormData] = useState({
     category: "",
     budget: "",
@@ -24,7 +23,6 @@ export default function AddNewBudget({ addCategory }: AddCategoryProps) {
     }));
   };
 
-  // Handle form submission
   const handleSubmit = () => {
     const { category, budget, description } = formData;
 

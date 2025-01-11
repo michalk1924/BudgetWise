@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ user: user, token: token });
 
     } catch (error: any) {
-        console.error('Error during POST request:', error);  // Log the error for debugging
+        console.error('Error during POST request:', error);
         return NextResponse.json({ message: 'Error processing login', error: error.message || error }, { status: 500 });
     }
 }

@@ -7,8 +7,8 @@ interface ProgressCircleProps {
   percentage: number;
   current?: number;
   target?: number;
-  isEditing?: boolean; // New prop to enable edit mode
-  onTargetChange?: (value: number) => void; // Callback for target amount change
+  isEditing?: boolean;
+  onTargetChange?: (value: number) => void;
 }
 
 const ProgressCircle: React.FC<ProgressCircleProps> = ({
@@ -18,8 +18,8 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
   isEditing = false,
   onTargetChange,
 }) => {
-  const safeCurrent = Number(current); // Ensure current is a number
-  const safeTarget = Number(target);  // Ensure target is a number
+  const safeCurrent = Number(current); 
+  const safeTarget = Number(target);
 
   return (
     <div className={styles.progressCircleContainer}>
@@ -32,7 +32,6 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
           strokeLinecap: "round",
         })}
       />
-      {/* Details in the center of the circle */}
       <div className={styles.progressCircleDetails}>
         <div className={styles.current}>${safeCurrent.toFixed(2)}</div>
         {isEditing ? (

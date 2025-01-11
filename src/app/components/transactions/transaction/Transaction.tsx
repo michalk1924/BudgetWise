@@ -29,7 +29,7 @@ export type TransactionInput = z.infer<typeof transactionSchema>;
 const TransactionComp = ({ transaction, updateTransaction, categories, savings, isEdit }: { transaction: Transaction, categories: Category[], savings: string[], updateTransaction: (transaction: Transaction) => void, isEdit: boolean }) => {
 
     const [isEditing, setIsEditing] = useState(isEdit);
-    const { register, handleSubmit, formState: { errors } ,watch} = useForm<TransactionInput>({
+    const { register, handleSubmit, formState: { errors }, watch } = useForm<TransactionInput>({
         resolver: zodResolver(transactionSchema),
         defaultValues: {
             type: transaction.type,

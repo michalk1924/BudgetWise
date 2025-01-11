@@ -60,7 +60,6 @@ const CreateNewPassword = () => {
         }
     };
 
-
     const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
         setNewPassword(value);

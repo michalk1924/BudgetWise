@@ -98,7 +98,7 @@ function TransactionsList({
         setNewTransaction({
             _id: `temp-${Date.now()}`,
             category: "",
-            type: 'expense', // Default type
+            type: 'expense',
             amount: 0,
             description: "",
             date: new Date(),

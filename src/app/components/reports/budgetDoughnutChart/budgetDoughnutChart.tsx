@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { Chart, ArcElement, Tooltip, Legend, PieController } from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels"; 
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Category } from "@/types/types";
 import styles from './budgetDoughnutChart.module.css'
 
@@ -28,7 +28,7 @@ const BudgetDoughnutChart = ({ categories }: BudgetDoughnutChartProps) => {
                     labels.push("Others");
                     budgetData.push(othersBudget);
                 }
-                
+
                 const colors = [
                     "#EF5A6F",
                     "#FFF1DB",
@@ -41,14 +41,14 @@ const BudgetDoughnutChart = ({ categories }: BudgetDoughnutChartProps) => {
                 ];
 
                 const myChart = new Chart(ctx, {
-                    type: "pie", 
+                    type: "pie",
                     data: {
                         labels: labels,
                         datasets: [
                             {
                                 label: "Budget",
                                 data: budgetData,
-                                backgroundColor: colors.slice(0, budgetData.length), 
+                                backgroundColor: colors.slice(0, budgetData.length),
                                 hoverOffset: 10,
                             },
                         ],
@@ -58,7 +58,7 @@ const BudgetDoughnutChart = ({ categories }: BudgetDoughnutChartProps) => {
                         maintainAspectRatio: false,
                         plugins: {
                             legend: {
-                                display: false, 
+                                display: false,
                             },
                             tooltip: {
                                 callbacks: {

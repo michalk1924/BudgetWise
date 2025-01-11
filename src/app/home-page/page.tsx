@@ -12,10 +12,11 @@ const HomePage = () => {
 
   const handleSignUp = () => {
     router.push('/signup');
-};
-const handleLogin = () => {
-  router.push('/login');
-};
+  };
+
+  const handleLogin = () => {
+    router.push('/login');
+  };
 
   return (
     <div className={styles.container}>
@@ -35,8 +36,8 @@ const handleLogin = () => {
         </section>
         <div className={styles.headerBtns}>
 
-          <button className={styles.signUpBtn} onClick={()=>handleSignUp()}>Join Us <FontAwesomeIcon icon={faArrowRight} className={styles.iconStyles} /></button>
-          <button className={styles.loginBtn} onClick={()=>handleLogin()}>Member Login <FontAwesomeIcon icon={faArrowRight} className={styles.iconStyles} /></button>
+          <button className={styles.signUpBtn} onClick={() => handleSignUp()}>Join Us <FontAwesomeIcon icon={faArrowRight} className={styles.iconStyles} /></button>
+          <button className={styles.loginBtn} onClick={() => handleLogin()}>Member Login <FontAwesomeIcon icon={faArrowRight} className={styles.iconStyles} /></button>
         </div>
       </div>
 

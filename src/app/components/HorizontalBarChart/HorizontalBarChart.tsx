@@ -24,7 +24,7 @@ const HorizontalBarChart: React.FC<Props> = ({ expenses }) => {
         return monthsBetween < expense.totalInstallments;
     });
 
-    const totalRelevantExpenses = relevantExpenses.reduce((sum, expense) => sum + (expense?.amount||0), 0);
+    const totalRelevantExpenses = relevantExpenses.reduce((sum, expense) => sum + (expense?.amount || 0), 0);
 
     useEffect(() => {
         if (!chartRef.current) return;
@@ -37,9 +37,9 @@ const HorizontalBarChart: React.FC<Props> = ({ expenses }) => {
 
         relevantExpenses.forEach((expense) => {
             const day = expense.firstPaymentDate ? new Date(expense.firstPaymentDate).getDate() : 0; // במקום null, מחזיר 0
-            dailyExpenses[day] = (dailyExpenses[day] || 0) + (expense.amount||0);
+            dailyExpenses[day] = (dailyExpenses[day] || 0) + (expense.amount || 0);
         });
-        
+
 
         const labels = Object.keys(dailyExpenses).map((day) => ` ${day}`);
         const data = Object.values(dailyExpenses);

@@ -197,7 +197,7 @@ const SavingsBarChart = ({ savings }: DoughnutChartProps) => {
 
 
     return (
-        <div className="doughnut-chart-container" style={{width:'90%'}}>
+        <div className="doughnut-chart-container" style={{ width: '90%' }}>
             <canvas ref={chartRef} className="doughnut-chart"></canvas>
         </div>
     );

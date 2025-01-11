@@ -396,7 +396,6 @@ function Transactions() {
               <FixedExpensesManager onClose={togglePopup} isVisible={isFormVisible} />
             )}
           </div>
-          {/*           <UploadExcel />*/}
         </div>
 
         {user && <TransactionTable transactions={user?.transactions}
@@ -407,10 +406,10 @@ function Transactions() {
       </div>}
 
       {!loading && !user && <div className={styles.loader}>
-        {/* Please log in to access this feature. */}
       </div>}
 
     </div>
   )
 }
+
 export default Transactions;

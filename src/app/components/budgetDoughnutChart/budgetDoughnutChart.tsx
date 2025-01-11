@@ -5,7 +5,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Category } from "@/types/types";
 import styles from './budgetDoughnutChart.module.css'
 
-Chart.register(ArcElement, Tooltip, Legend, PieController, ChartDataLabels); // רישום ה-plugin
+Chart.register(ArcElement, Tooltip, Legend, PieController, ChartDataLabels);
 
 interface BudgetDoughnutChartProps {
     categories: Category[];

@@ -10,7 +10,6 @@ import userService from "@/services/user";
 import { showSuccessAlert, showErrorAlert } from "../../services/alerts";
 import { useRouter } from "next/navigation";
 
-
 interface FormData {
     fullName: string;
     email: string;
@@ -189,7 +188,7 @@ const UserDetailsForm = () => {
         categories.push(
             {
                 _id: Math.random().toString(36).substr(2, 8),
-                categoryName: "General",
+                categoryName: "general",
                 description: "General category for general transactions",
                 budget: 10000,
                 spent: 0,
@@ -334,8 +333,6 @@ const UserDetailsForm = () => {
                             />
                         </label>
 
-
-
                         {/* Income Sources */}
                         <label className={styles.label}>
                             Income Sources:
@@ -352,8 +349,6 @@ const UserDetailsForm = () => {
                                 <option value="other">Other</option>
                             </select>
                         </label>
-
-
 
                         {/* Budget Priority */}
                         <label className={styles.label}>
@@ -373,6 +368,7 @@ const UserDetailsForm = () => {
                             </select>
                         </label>
                     </div>
+                    
                     <div className={styles.gridItem}>
 
                         <h1 >Loans, Debts and Savings</h1>

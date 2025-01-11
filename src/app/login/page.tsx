@@ -146,7 +146,7 @@ export default function Home() {
                 placeholder="Password"
                 className={styles.input}
               />
-             {/*  <button
+              {/*  <button
                 type="button"
                 className={styles.showPasswordBtn}
                 onClick={togglePasswordVisibility}
@@ -184,10 +184,10 @@ export default function Home() {
         <div className={styles.movePage}>
           <p onClick={goToSignup}>
             Don't have an account? Sign up{" "} <span className={styles.link}>here</span>.
-            </p>
+          </p>
         </div>
-            <button className={styles.exampleUserButton} onClick={loginWithExampleUser}>{"login with exmaple user>>"}</button>
-          
+        <button className={styles.exampleUserButton} onClick={loginWithExampleUser}>{"login with exmaple user>>"}</button>
+
       </div>
     </div>
   );

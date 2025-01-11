@@ -105,7 +105,7 @@ const IncomeExpenseBarChart = ({ transactions }: BarChartProps) => {
 
     return (
         <div className="bar-chart-container">
-            
+
             <canvas ref={chartRef} className={styles.barchart}></canvas>
         </div>
     );

@@ -1,4 +1,3 @@
-// budgetUtils.ts
 
 interface Budget {
     savings: number;
@@ -102,8 +101,8 @@ export function generateBudgetWithCategories(formData: FormData): Budget {
             formData.entertainmentPreference === "high"
                 ? 0.08
                 : formData.entertainmentPreference === "medium"
-                ? 0.05
-                : 0.01,
+                    ? 0.05
+                    : 0.01,
         communication: 0.01,
         clothing: 0.03,
         children: formData.dependents * 0.02,
@@ -135,8 +134,8 @@ export function generateBudgetWithCategories(formData: FormData): Budget {
                 (categoryPercentages[category as keyof typeof categoryPercentages] || 0);
         }
     }
-    budget.expenses["housing"]= formData.housingCost || 0;
-    budget.expenses["education"]= formData.educationCost || 0;
+    budget.expenses["housing"] = formData.housingCost || 0;
+    budget.expenses["education"] = formData.educationCost || 0;
 
     return budget;
 }
