@@ -26,8 +26,21 @@ export const parseExcelFile = (file: File): Promise<Transaction[]> => {
             const worksheet = workbook.Sheets[sheetName];
             const rawData = XLSX.utils.sheet_to_json(worksheet);
 
+            console.log("row data");
+
+            rawData.forEach(row => {
+                console.log(row);
+                // Add validation here if needed
+            });
+            
+
             const filteredData: Transaction[] = rawData.map((row: any) => {
+                console.log("row: " + JSON.stringify(row));
+                console.log(row["זכות"] ? row["זכות"] : row["חובה"] ? row["חובה"] : "nnn");
+                
                 const amount = row["זכות"] ? row["זכות"] : row["חובה"] ? row["חובה"] : 0;
+                console.log("amount: " + amount);
+                
                 const excelDate = row["תאריך ערך"];
 
                 return {
@@ -41,6 +54,8 @@ export const parseExcelFile = (file: File): Promise<Transaction[]> => {
                     updatedAt: new Date(),
                 };
             });
+
+            console.log("parsed data" + filteredData);
 
             resolve(filteredData);
         };
